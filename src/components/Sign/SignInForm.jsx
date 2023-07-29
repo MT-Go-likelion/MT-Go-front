@@ -10,7 +10,7 @@ const SignForm = styled.form``;
 const SignSubmitBtn = styled.button``;
 
 const SignInForm = () => {
-  const [id, onChangeId] = useInput('');
+  const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
   const onSubmitLogin = (e) => {
@@ -24,10 +24,10 @@ const SignInForm = () => {
       <SignForm onSubmit={onSubmitLogin}>
         <InputWithLabel
           label="ID"
-          value={id}
+          value={email}
           name="id"
-          placeholder="ID를 입력하세요"
-          onChange={onChangeId}
+          placeholder="E-mail을 입력하세요"
+          onChange={onChangeEmail}
         />
         <InputWithLabel
           label="Password"

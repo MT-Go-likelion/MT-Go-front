@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App';
 
-import { ErrorPage, Main, SignIn } from './pages/index';
+import { ErrorPage, Main, SignIn, SignUp } from './pages/index';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Main /> },
       { path: '/login', element: <SignIn /> },
+      { path: '/signup', element: <SignUp /> },
     ],
   },
 ]);

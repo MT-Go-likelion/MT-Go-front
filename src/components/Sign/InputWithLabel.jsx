@@ -5,7 +5,7 @@ import COLOR from '../../constants/color';
 // 두개가 함께 있을땐 상단 (그 사이) 에 여백을 준다
 const Wrapper = styled.div`
   & + & {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 `;
 
