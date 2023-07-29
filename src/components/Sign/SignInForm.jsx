@@ -4,10 +4,34 @@ import styled from 'styled-components';
 import SignWrapper from './SignWrapper';
 import InputWithLabel from './InputWithLabel';
 import useInput from '../../hooks/useInput';
+import Checkbox from '../CheckBox/CheckBox';
+import COLOR from '../../constants/color';
 
-const SignForm = styled.form``;
+const LoginForm = styled.form`
+  width: 80%;
+`;
 
-const SignSubmitBtn = styled.button``;
+const LoginSubmitBtn = styled.button`
+  width: 100%;
+  height: 3rem;
+  background: ${COLOR.primary.gradient};
+  border: none;
+  font-size: 1rem;
+  color: ${COLOR.white};
+  font-weight: 900;
+`;
+
+const LoginBottomContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+`;
+
+const PasswordSearchText = styled.span`
+  color: ${COLOR.primary.blue};
+  cursor: pointer;
+`;
 
 const SignInForm = () => {
   const [email, onChangeEmail] = useInput('');
@@ -21,23 +45,22 @@ const SignInForm = () => {
 
   return (
     <SignWrapper title="로그인">
-      <SignForm onSubmit={onSubmitLogin}>
+      <LoginForm onSubmit={onSubmitLogin}>
+        <InputWithLabel label="E-mail" value={email} name="id" onChange={onChangeEmail} />
         <InputWithLabel
-          label="ID"
-          value={email}
-          name="id"
-          placeholder="E-mail을 입력하세요"
-          onChange={onChangeEmail}
-        />
-        <InputWithLabel
+          type="password"
           label="Password"
           value={password}
           name="password"
-          placeholder="비밀번호를 입력하세요"
           onChange={onChangePassword}
         />
-        <SignSubmitBtn type="submit">로그인</SignSubmitBtn>
-      </SignForm>
+        <LoginBottomContainer>
+          <Checkbox text="로그인 기억하기" />
+          <PasswordSearchText>패스워드 찾기</PasswordSearchText>
+        </LoginBottomContainer>
+
+        <LoginSubmitBtn type="submit">로그인</LoginSubmitBtn>
+      </LoginForm>
     </SignWrapper>
   );
 };

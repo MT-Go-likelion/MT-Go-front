@@ -15,12 +15,14 @@ const Label = styled.div`
   margin-bottom: 0.25rem;
 `;
 
-const Input = styled.input`
+const Input = styled.input.attrs({
+  placeholderTextColor: 'blue',
+})`
   width: 100%;
-  border: 1px solid ${COLOR.black};
+  border: 2px solid ${COLOR.primary.blue};
   outline: none;
   border-radius: 0px;
-  line-height: 2.5rem;
+  line-height: 3rem;
   font-size: 1.2rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;

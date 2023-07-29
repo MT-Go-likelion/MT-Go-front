@@ -9,14 +9,13 @@ const SignForm = styled.form``;
 
 const SignSubmitBtn = styled.button``;
 
-const PasswordRuleText = styled.span`
+const PasswordText = styled.span`
   font-size: 0.7rem;
 `;
 
 const SignUpForm = () => {
-  const [nickname, onChangeNickName] = useInput('');
+  const [name, onChangeName] = useInput('');
   const [email, onChangeEmail] = useInput('');
-  const [emialAuthNumber, onChangeEmailAuthNumber] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [confirmPassword, onChangeConfirmPassword] = useInput('');
 
@@ -29,11 +28,11 @@ const SignUpForm = () => {
     <SignWrapper title="회원가입">
       <SignForm onSubmit={onSubmitLogin}>
         <InputWithLabel
-          label="닉네임"
-          value={nickname}
-          name="nickname"
+          label="Name"
+          value={name}
+          name="name"
           placeholder="닉네임을 입력하세요"
-          onChange={onChangeNickName}
+          onChange={onChangeName}
         />
         <InputWithLabel
           label="E-mail"
@@ -43,23 +42,16 @@ const SignUpForm = () => {
           onChange={onChangeEmail}
         />
         <InputWithLabel
-          label="인증번호"
-          value={emialAuthNumber}
-          name="emialAuthNumber"
-          placeholder="인증번호를 입력하세요"
-          onChange={onChangeEmailAuthNumber}
-        />
-        <InputWithLabel
-          label="비밀번호"
+          label="Password"
           value={password}
           name="password"
           placeholder="비밀번호를 입력하세요"
           onChange={onChangePassword}
         />
-        <PasswordRuleText>영어, 문자를 포함하여 8자 이상</PasswordRuleText>
+        <PasswordText>영어, 문자를 포함하여 8자 이상</PasswordText>
 
         <InputWithLabel
-          label="비밀번호 확인"
+          label="Re-type Password"
           value={confirmPassword}
           name="password"
           placeholder="비밀번호를 재입력하세요"
