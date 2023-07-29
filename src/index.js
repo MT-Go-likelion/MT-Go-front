@@ -5,14 +5,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App';
 
-import { ErrorPage, Main } from './pages/index';
+import { ErrorPage, Main, SignIn } from './pages/index';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
-    children: [{ index: true, element: <Main /> }],
+    children: [
+      { index: true, element: <Main /> },
+      { path: '/login', element: <SignIn /> },
+    ],
   },
 ]);
 
