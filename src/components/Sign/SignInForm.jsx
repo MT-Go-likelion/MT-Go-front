@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import SignWrapper from './SignWrapper';
 import InputWithLabel from './InputWithLabel';
+import useInput from '../../hooks/useInput';
 
 const SignForm = styled.form``;
 
 const SignSubmitBtn = styled.button``;
 
 const SignInForm = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onChangeId = (e) => {
-    setId(e.target.value);
-  };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  const [id, onChangeId] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   const onSubmitLogin = (e) => {
     e.preventDefault();
-    console.log(id, password);
+
+    // 추후에 API 연동 작업 추가
   };
 
   return (
