@@ -14,5 +14,3 @@ const COLOR = {
 };
 
 export default COLOR;
-
-/* login box */

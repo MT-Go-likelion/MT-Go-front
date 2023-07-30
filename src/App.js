@@ -21,7 +21,6 @@ const AppContent = styled.div`
   width: 100%;
   margin: auto;
   padding: 2rem;
-  /* flex: 1; */
 `;
 
 function App() {
