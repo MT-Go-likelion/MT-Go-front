@@ -15,17 +15,15 @@ const Label = styled.div`
   margin-bottom: 0.25rem;
 `;
 
-const Input = styled.input.attrs({
-  placeholderTextColor: 'blue',
-})`
+const Input = styled.input`
   width: 100%;
   border: 2px solid ${COLOR.primary.blue};
   outline: none;
   border-radius: 0px;
   line-height: 3rem;
-  font-size: 1.2rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  font-size: 1rem;
+  padding-left: 1rem;
+  color: ${COLOR.gray};
 `;
 
 // rest 쪽에는 onChange, type, name, value, placeholder 등의 input 에서 사용 하는 값들을 넣어줄수 있다.

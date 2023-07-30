@@ -5,7 +5,7 @@ import COLOR from '../../constants/color';
 const LoginLayout = styled.div`
   position: absolute;
   width: 40rem;
-  height: 30rem;
+  height: 34rem;
   left: calc(50% - 40rem / 2);
   top: calc(50% - 30rem / 2 + 9px);
   display: flex;

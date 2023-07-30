@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 
@@ -8,6 +8,7 @@ const StyledInput = styled.input`
   border-radius: 0.35rem;
   width: 1.5rem;
   height: 1.5rem;
+  cursor: pointer;
 
   &:checked {
     border-color: transparent;
@@ -23,19 +24,25 @@ const StyledLabel = styled.label`
   display: flex;
   align-items: center;
   user-select: none;
-  cursor: pointer;
   color: ${COLOR.lightGray};
+  cursor: pointer;
 `;
 
 const StyledP = styled.p`
-  margin-left: 0.25rem;
+  margin-left: 0.6rem;
+  color: ${(props) => (props.isChecked ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
 `;
 
 function Checkbox({ text }) {
+  const [isChecked, setIsChecked] = useState(false);
+  const onClickCheckBox = (e) => {
+    console.log(e.target);
+    setIsChecked(!isChecked);
+  };
   return (
     <StyledLabel htmlFor={text}>
-      <StyledInput type="checkbox" id={text} name={text} />
-      <StyledP>{text}</StyledP>
+      <StyledInput type="checkbox" id={text} name={text} onClick={onClickCheckBox} />
+      <StyledP isChecked={isChecked}>{text}</StyledP>
     </StyledLabel>
   );
 }

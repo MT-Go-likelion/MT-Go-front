@@ -6,10 +6,7 @@ const COLOR = {
   white: '#ffffff',
   black: '#000000',
   lightGray: '#D4D4D4',
-  font: {},
-  btn: {},
-  bg: {},
-  border: {},
+  gray: '#888888',
 };
 
 export default COLOR;
