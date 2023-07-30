@@ -148,7 +148,7 @@ const SignUpForm = () => {
           {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
         </TermsContainer>
 
-        <SignSubmitBtn type="submit">로그인</SignSubmitBtn>
+        <SignSubmitBtn type="submit">회원가입</SignSubmitBtn>
       </SignForm>
     </SignWrapper>
   );

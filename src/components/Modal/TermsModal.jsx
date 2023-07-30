@@ -5,7 +5,6 @@ import COLOR from '../../constants/color';
 import close from '../../assets/images/close.png';
 
 const ModalBackdrop = styled.div`
-  /* z-index: 1; */
   position: fixed;
   display: flex;
   justify-content: center;
