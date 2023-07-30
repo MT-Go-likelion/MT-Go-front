@@ -11,6 +11,8 @@ const COLOR = {
   red: '#FC0000',
   grayWithOpacity: 'rgba(0, 0, 0, 0.4)',
   blue: '#BCE7FF',
+  deepblue: '#4987FF',
+  moredeepblue: '#4987FF',
 };
 
 export default COLOR;

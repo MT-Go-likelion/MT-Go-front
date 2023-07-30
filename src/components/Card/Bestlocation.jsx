@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import COLOR from '../../constants/color';
 import Heart from '../../assets/images/Heart.png';
-// import Select_Heart from '../../assets/images/Select_Heart.png';
+import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 
 const BestLoContainer = styled.div`
@@ -75,13 +75,18 @@ const Flex = styled.div`
 //   </BestLoContainer>
 // }
 
-// 추천 단체숙소 카드 사이즈 240 x 400
 // {{만약 하트 눌렀다면 }} => 이미지 변경 (Sellectheart로)
 const Bestlocation = () => {
+  const [liked, setLiked] = useState(false);
+
+  const handlelikeClick = () => {
+    setLiked((prevState) => !prevState);
+  };
+
   return (
     <BestLoContainer>
       <BackImg>
-        <LikeButton src={Heart} alt="Like" />
+        <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
       </BackImg>
       <Title>Title</Title>
       <Flexdirection>
