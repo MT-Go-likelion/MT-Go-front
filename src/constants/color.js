@@ -7,6 +7,8 @@ const COLOR = {
   black: '#000000',
   lightGray: '#D4D4D4',
   gray: '#888888',
+  darkGray: '#444444',
+  red: '#FC0000',
 };
 
 export default COLOR;

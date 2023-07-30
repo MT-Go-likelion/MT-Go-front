@@ -30,10 +30,11 @@ const StyledLabel = styled.label`
 
 const StyledP = styled.p`
   margin-left: 0.6rem;
-  color: ${(props) => (props.isChecked ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
+  color: ${(props) => (props.isChecked ? `${COLOR.primary.blue}` : `${COLOR.darkGray}`)};
+  text-decoration: ${(props) => props.underline && 'underline'};
 `;
 
-function Checkbox({ text }) {
+function Checkbox({ text, underline }) {
   const [isChecked, setIsChecked] = useState(false);
 
   const onClickCheckBox = () => {
@@ -42,7 +43,9 @@ function Checkbox({ text }) {
   return (
     <StyledLabel htmlFor={text}>
       <StyledInput type="checkbox" id={text} name={text} onClick={onClickCheckBox} />
-      <StyledP isChecked={isChecked}>{text}</StyledP>
+      <StyledP isChecked={isChecked} underline={underline}>
+        {text}
+      </StyledP>
     </StyledLabel>
   );
 }
