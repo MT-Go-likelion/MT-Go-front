@@ -64,7 +64,7 @@ const SignInForm = () => {
     setShowPassword(!showPassWord);
   };
 
-  const onSubmitLogin = (e) => {
+  const handleSubmitLogin = (e) => {
     e.preventDefault();
 
     // 추후에 API 연동 작업 추가
@@ -72,7 +72,7 @@ const SignInForm = () => {
 
   return (
     <SignWrapper title="로그인">
-      <LoginForm onSubmit={onSubmitLogin}>
+      <LoginForm onSubmit={handleSubmitLogin}>
         <InputWithLabel label="E-mail" value={email} name="id" onChange={onChangeEmail} />
         <PassWordContainer>
           <InputWithLabel

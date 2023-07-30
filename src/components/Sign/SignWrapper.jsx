@@ -3,16 +3,15 @@ import styled from 'styled-components';
 import COLOR from '../../constants/color';
 
 const LoginLayout = styled.div`
-  position: absolute;
   width: 40rem;
-  height: 34rem;
-  left: calc(50% - 40rem / 2);
-  top: calc(50% - 30rem / 2 + 9px);
+  height: auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   padding-top: 3rem;
+  padding-bottom: 6rem;
 `;
 
 const Title = styled.div`
