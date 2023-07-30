@@ -30,7 +30,7 @@ const StyledLabel = styled.label`
 
 const StyledP = styled.p`
   margin-left: 0.6rem;
-  color: ${(props) => (props.isChecked ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
+  color: ${(props) => (props.isChecked ? `${COLOR.primary.blue}` : `${COLOR.darkGray}`)};
 `;
 
 function Checkbox({ text }) {
