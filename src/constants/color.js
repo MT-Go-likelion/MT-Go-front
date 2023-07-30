@@ -10,6 +10,7 @@ const COLOR = {
   darkGray: '#444444',
   red: '#FC0000',
   grayWithOpacity: 'rgba(0, 0, 0, 0.4)',
+  blue: '#BCE7FF',
 };
 
 export default COLOR;

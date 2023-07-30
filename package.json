@@ -5,17 +5,17 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.22.9",
     "@ndelangen/eslint-config-airbnb": "^14.1.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "styled-components": "^6.0.5",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,6 +47,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
