@@ -35,8 +35,8 @@ const StyledP = styled.p`
 
 function Checkbox({ text }) {
   const [isChecked, setIsChecked] = useState(false);
-  const onClickCheckBox = (e) => {
-    console.log(e.target);
+
+  const onClickCheckBox = () => {
     setIsChecked(!isChecked);
   };
   return (
