@@ -9,6 +9,7 @@ import COLOR from '../../constants/color';
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
 import Checkbox from '../CheckBox/CheckBox';
+import TermsModal from '../Modal/TermsModal';
 
 const SignForm = styled.form`
   width: 80%;
@@ -38,6 +39,19 @@ const EyeImg = styled.img`
   color: ${(props) => (props.showPassWord ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
 `;
 
+const TermsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+`;
+
+const TermsText = styled.span`
+  text-decoration: underline;
+  color: ${COLOR.lightGray};
+  cursor: pointer;
+`;
+
 const SignSubmitBtn = styled.button`
   width: 100%;
   height: 3rem;
@@ -58,6 +72,7 @@ const SignUpForm = () => {
 
   const [showPassWord, setShowPassword] = useState(false);
   const [showRetypePassWord, setShowRetypePassword] = useState(false);
+  const [termsModalOpen, setTermsModalOpen] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassWord);
@@ -65,6 +80,10 @@ const SignUpForm = () => {
 
   const toggleShowRetypePassword = () => {
     setShowRetypePassword(!showRetypePassWord);
+  };
+
+  const showModal = () => {
+    setTermsModalOpen(true);
   };
 
   const onSubmitLogin = (e) => {
@@ -123,7 +142,11 @@ const SignUpForm = () => {
           )}
         </PassWordContainer>
         <HorizonLine mb="2" mt="4" />
-        <Checkbox text="이용약관 동의" underline />
+        <TermsContainer>
+          <Checkbox text="이용약관 동의" />
+          <TermsText onClick={showModal}>더보기</TermsText>
+          {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
+        </TermsContainer>
 
         <SignSubmitBtn type="submit">로그인</SignSubmitBtn>
       </SignForm>

@@ -9,6 +9,7 @@ const COLOR = {
   gray: '#888888',
   darkGray: '#444444',
   red: '#FC0000',
+  grayWithOpacity: 'rgba(0, 0, 0, 0.4)',
 };
 
 export default COLOR;
