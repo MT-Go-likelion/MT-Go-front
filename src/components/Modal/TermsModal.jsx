@@ -10,6 +10,8 @@ const ModalBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${COLOR.grayWithOpacity};
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   right: 0;
@@ -17,13 +19,17 @@ const ModalBackdrop = styled.div`
 `;
 
 const ModalContainter = styled.div`
+  width: 37rem;
+  height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CloseBtn = styled.img`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  margin-left: auto;
   width: 1.2rem;
   height: 1.2rem;
   color: black;
@@ -31,18 +37,15 @@ const CloseBtn = styled.img`
 `;
 
 const ModalLayout = styled.div`
-  width: 37rem;
-  height: 80%;
+  width: 100%;
+  height: 70%;
   z-index: 999;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: ${COLOR.white};
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   padding: 2rem 1rem;
   font-size: 0.9rem;
   overflow-y: scroll;
+  margin-top: 1rem;
 `;
 
 const TermsTitle = styled.div`
@@ -77,8 +80,8 @@ const TermsModal = ({ setTermsModalOpen }) => {
   return (
     <ModalBackdrop onClick={closeModal}>
       <ModalContainter onClick={(e) => e.stopPropagation()}>
+        <CloseBtn src={close} onClick={closeModal} />
         <ModalLayout>
-          <CloseBtn src={close} onClick={closeModal} />
           <TermsTitle>제 1 장 총 칙</TermsTitle>
           <TermsSubTitle>제 1 조 (목적)</TermsSubTitle>
           <TermsContent>
