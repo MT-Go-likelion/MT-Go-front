@@ -11,20 +11,31 @@ const BestLoContainer = styled.div`
 `;
 
 const BackImg = styled.div`
-  position: relative;
   width: 240px;
   height: 320px;
   background-color: ${COLOR.blue};
   border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 10px;
 `;
 
 const RecreatButton = styled.img`
   width: 36px;
   height: 36px;
   cursor: pointer;
-  position: absolute;
+  // position: absolute;
   top: 10px;
   right: 10px;
+`;
+
+const SaveCount = styled.span`
+  font-size: 16px;
+  color: ${COLOR.gray};
+  margin-top: 4px;
+  padding: 0 7px;
 `;
 
 const Title = styled.div`
@@ -82,6 +93,7 @@ const Recreation = () => {
           alt="save"
           onClick={handleSaveClick}
         />
+        <SaveCount>NN</SaveCount>
       </BackImg>
       <Flex>
         <Title>Title</Title>
