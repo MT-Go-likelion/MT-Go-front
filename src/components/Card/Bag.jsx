@@ -12,8 +12,8 @@ const BestLoContainer = styled.div`
 
 const BackImg = styled.div`
   position: relative;
-  width: 240px;
-  height: 320px;
+  width: 160px;
+  height: 240px;
   background-color: ${COLOR.blue};
   border-radius: 20px;
 `;

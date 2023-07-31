@@ -61,8 +61,8 @@ const Teamspace = styled.button`
   ${(props) =>
     props.teamspace &&
     css`
-      background-color: ${COLOR.deepblue};
-      border-color: ${COLOR.moredeepblue};
+      background-color: ${COLOR.primary.blue};
+      border-color: ${COLOR.primary.blue};
       color: ${COLOR.white};
     `}
 `;
