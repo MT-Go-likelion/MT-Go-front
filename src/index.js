@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
 import { ErrorPage, Main, SignIn, SignUp } from './pages/index';
+import LodgingDetail from './pages/LodgingDetail';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { index: true, element: <Main /> },
       { path: '/login', element: <SignIn /> },
       { path: '/signup', element: <SignUp /> },
+      { path: '/detail/:lodingId', element: <LodgingDetail /> },
     ],
   },
 ]);
