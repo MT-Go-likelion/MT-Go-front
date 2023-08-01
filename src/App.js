@@ -17,10 +17,8 @@ const AppContainer = styled.div`
 `;
 
 const AppContent = styled.div`
-  max-width: 1280px;
   width: 100%;
   margin: auto;
-  padding: 2rem;
 `;
 
 function App() {
