@@ -9,7 +9,6 @@ const NavLayout = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
   padding: 0 8rem 0 1rem;
 `;
 

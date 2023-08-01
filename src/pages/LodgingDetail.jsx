@@ -136,7 +136,9 @@ const LodgingDetail = () => {
 
 export default LodgingDetail;
 
-const LodgingLayout = styled.div``;
+const LodgingLayout = styled.div`
+  margin-top: 4rem;
+`;
 
 const HeaderContainer = styled.div`
   margin-bottom: 3rem;

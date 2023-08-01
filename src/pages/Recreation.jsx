@@ -7,7 +7,7 @@ const RecreationLayout = styled.div``;
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 4rem;
+  margin: 4rem 0;
 `;
 
 const RecreationList = styled.ul`
