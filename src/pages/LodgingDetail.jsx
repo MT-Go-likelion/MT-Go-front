@@ -6,6 +6,7 @@ import booking from '../assets/images/booking.png';
 import COLOR from '../constants/color';
 import RatingContainer from '../components/Common/Review/RatingContainer';
 import HorizonLine from '../components/Common/Line/HorizonLine';
+import ImageSwiper from '../components/ImageSwiper/ImageSwiper';
 
 const LodgingLayout = styled.div``;
 
@@ -59,11 +60,11 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-const ImageContainer = styled.div`
-  width: 100%;
-  background-color: ${COLOR.primary.blue};
-  height: 25rem;
-`;
+// const ImageContainer = styled.div`
+//   width: 100%;
+//   background-color: ${COLOR.primary.blue};
+//   height: 25rem;
+// `;
 
 // Content
 
@@ -268,7 +269,8 @@ const LodgingDetail = () => {
             <ReservationBtn>예약하기</ReservationBtn>
           </HeaderRight>
         </Header>
-        <ImageContainer>챱!</ImageContainer>
+        <ImageSwiper />
+        {/* <ImageContainer>챱!</ImageContainer> */}
       </HeaderContainer>
 
       {/* Content */}
