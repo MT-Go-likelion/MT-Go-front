@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import COLOR from '../../constants/color';
-import bag from '../../assets/images/Bag.png';
+import bag from '../../assets/images/bag-fill.png';
 import Selectbag from '../../assets/images/Select_Bag.png';
 
 const BestLoContainer = styled.div`
