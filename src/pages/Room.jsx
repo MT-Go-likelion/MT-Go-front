@@ -63,20 +63,13 @@ const SearchBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-const PriceOPTION = [
-  { value: '', name: '가격' },
-  { value: '10', name: '10만원 이하' },
-  { value: '20', name: '20만원 이하' },
-  { value: '30', name: '30만원 이하' },
-];
-
 const Room = () => {
   return (
     <div>
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>
         <BoxFlex>
-          <Location options={PriceOPTION} />
+          <Location />
           <Headcount />
           <Price />
         </BoxFlex>
