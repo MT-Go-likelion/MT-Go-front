@@ -60,12 +60,6 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-// const ImageContainer = styled.div`
-//   width: 100%;
-//   background-color: ${COLOR.primary.blue};
-//   height: 25rem;
-// `;
-
 // Content
 
 const ContentContainer = styled.div`
@@ -270,7 +264,6 @@ const LodgingDetail = () => {
           </HeaderRight>
         </Header>
         <ImageSwiper />
-        {/* <ImageContainer>챱!</ImageContainer> */}
       </HeaderContainer>
 
       {/* Content */}
