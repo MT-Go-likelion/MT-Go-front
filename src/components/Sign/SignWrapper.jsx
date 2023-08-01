@@ -12,6 +12,7 @@ const LoginLayout = styled.div`
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   padding-top: 3rem;
   padding-bottom: 3rem;
+  margin-top: 4rem;
 `;
 
 const Title = styled.div`

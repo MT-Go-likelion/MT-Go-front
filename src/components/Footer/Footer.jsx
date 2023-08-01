@@ -10,6 +10,7 @@ const FooterLayout = styled.footer`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 10rem;
 `;
 
 const FooterMenuList = styled.ul`

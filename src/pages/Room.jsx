@@ -28,12 +28,14 @@ const SearchBack = styled.div`
 `;
 
 const ContentsDiv = styled.div`
-  padding: 5rem 10rem;
+  padding: 5rem 0;
   display: flex;
   gap: 2rem;
   width: 100%;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 1280px;
+  margin: auto;
 `;
 
 // 검색바 타이틀

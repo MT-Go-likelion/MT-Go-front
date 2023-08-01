@@ -127,6 +127,25 @@ const LodgingDetail = () => {
                 <TmpBox />
               </ReviewItemRight>
             </ReviewItem>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
           </ReviewList>
         </ReviewContentContainer>
       </ReviewContainer>
@@ -137,11 +156,13 @@ const LodgingDetail = () => {
 export default LodgingDetail;
 
 const LodgingLayout = styled.div`
-  margin-top: 4rem;
+  max-width: 1280px;
+  margin: auto;
 `;
 
 const HeaderContainer = styled.div`
   margin-bottom: 3rem;
+  margin-top: 4rem;
 `;
 
 const Header = styled.div`
