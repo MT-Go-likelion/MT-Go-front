@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
+import useInput from '../../hooks/useInput';
 
 const OPTION = [
   { value: '', name: '인원' },
@@ -18,18 +19,14 @@ const StyledSelect = styled.select`
   width: 110px;
   height: 33px;
   padding-left: 10px;
-  color: ${(props) => (props.selectedCount === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
+  color: ${(props) => (props.count === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
 `;
 
 const SelectBox = ({ options }) => {
-  const [selectedCount, setSelectedCount] = useState('');
-
-  const handleChange = (event) => {
-    setSelectedCount(event.target.value);
-  };
+  const [count, onChangeCount] = useInput('');
 
   return (
-    <StyledSelect onChange={handleChange} selectedCount={selectedCount}>
+    <StyledSelect onChange={onChangeCount} count={count}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}
