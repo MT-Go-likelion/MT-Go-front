@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import heart from '../assets/images/heart.png';
+import heart from '../assets/images/heart-gradient.png';
 import booking from '../assets/images/booking.png';
 import COLOR from '../constants/color';
 import RatingContainer from '../components/Common/Review/RatingContainer';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import COLOR from '../../constants/color';
-import Heart from '../../assets/images/Heart.png';
+import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 
