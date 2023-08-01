@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import SignWrapper from './SignWrapper';
 import InputWithLabel from './InputWithLabel';
 import useInput from '../../hooks/useInput';
-import Checkbox from '../CheckBox/CheckBox';
 import COLOR from '../../constants/color';
 
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
+import Checkbox from '../Common/CheckBox/CheckBox';
 
 const LoginForm = styled.form`
   width: 80%;

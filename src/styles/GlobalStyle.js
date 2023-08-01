@@ -23,6 +23,8 @@ body {
 
   button {
     cursor: pointer;
+    background: inherit;
+    border: none;
   }
     `;
 

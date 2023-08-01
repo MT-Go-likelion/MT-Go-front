@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import COLOR from '../../constants/color';
 
-import close from '../../assets/images/close.png';
+import COLOR from '../../../constants/color';
+import close from '../../../assets/images/close.png';
 
 const ModalBackdrop = styled.div`
   position: fixed;

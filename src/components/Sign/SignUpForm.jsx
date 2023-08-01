@@ -8,21 +8,13 @@ import COLOR from '../../constants/color';
 
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
-import Checkbox from '../CheckBox/CheckBox';
-import TermsModal from '../Modal/TermsModal';
+import TermsModal from '../Common/Modal/TermsModal';
+import Checkbox from '../Common/CheckBox/CheckBox';
+import HorizonLine from '../Common/Line/HorizonLine';
 
 const SignForm = styled.form`
   width: 80%;
 `;
-
-const HorizonLine = styled.div`
-  width: 100%;
-  border-bottom: 2px solid ${COLOR.darkGray};
-  line-height: 0.1rem;
-  margin-bottom: ${(props) => `${props.mb}rem`};
-  margin-top: ${(props) => `${props.mt}rem`};
-`;
-
 const PassWordContainer = styled.div`
   position: relative;
   width: 100%;
