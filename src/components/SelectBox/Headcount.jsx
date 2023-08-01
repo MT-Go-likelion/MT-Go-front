@@ -18,18 +18,18 @@ const StyledSelect = styled.select`
   width: 110px;
   height: 33px;
   padding-left: 10px;
-  color: ${(props) => (props.isSelected ? COLOR.black : COLOR.lightGray)};
+  color: ${(props) => (props.selectedCount === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
 `;
 
 const SelectBox = ({ options }) => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedCount, setSelectedCount] = useState('');
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+    setSelectedCount(event.target.value);
   };
 
   return (
-    <StyledSelect inSelected={selectedOption !== ''} onChange={handleChange} value={selectedOption}>
+    <StyledSelect onChange={handleChange} selectedCount={selectedCount}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 
@@ -16,14 +16,21 @@ const StyledSelect = styled.select`
   height: 33px;
   padding-left: 10px;
   color: ${COLOR.lightGray};
+  color: ${(props) => (props.selectedPrice === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
   ::selection {
     color: ${COLOR.black};
   }
 `;
 
 const SelectBox = ({ options }) => {
+  const [selectedPrice, setSelectedPrice] = useState('');
+
+  const handleChange = (e) => {
+    setSelectedPrice(e.target.value);
+  };
+
   return (
-    <StyledSelect>
+    <StyledSelect onChange={handleChange} selectedPrice={selectedPrice}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}

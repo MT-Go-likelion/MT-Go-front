@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 
@@ -15,15 +15,21 @@ const StyledSelect = styled.select`
   width: 150px;
   height: 33px;
   padding-left: 10px;
-  color: ${COLOR.lightGray};
+  color: ${(props) => (props.selectedPlace === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
   ::selection {
     color: ${COLOR.black};
   }
 `;
 
 const SelectBox = ({ options }) => {
+  const [selectedPlace, setSelectedPlace] = useState('');
+
+  const handleChange = (e) => {
+    setSelectedPlace(e.target.value);
+  };
+
   return (
-    <StyledSelect>
+    <StyledSelect onChange={handleChange} selectedPlace={selectedPlace}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}
