@@ -11,6 +11,9 @@ const SignUpLayout = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 4rem;
+  max-width: 1280px;
+  margin: auto;
 `;
 
 const SignInContainer = styled.span`

@@ -75,7 +75,6 @@ const Flex = styled.div`
 //   </BestLoContainer>
 // }
 
-// {{만약 하트 눌렀다면 }} => 이미지 변경 (Sellectheart로)
 const BestlocationCard = () => {
   const [liked, setLiked] = useState(false);
 

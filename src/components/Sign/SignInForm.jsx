@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import SignWrapper from './SignWrapper';
 import InputWithLabel from './InputWithLabel';
@@ -68,6 +69,19 @@ const SignInForm = () => {
     e.preventDefault();
 
     // 추후에 API 연동 작업 추가
+    axios
+      .post('http://110.11.183.148:8000/accounts/user/signin/', {
+        email,
+        password,
+      })
+      .then((response) => {
+        // 요청 성공 시 처리
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // 요청 실패 시 처리
+        console.error(error);
+      });
   };
 
   return (

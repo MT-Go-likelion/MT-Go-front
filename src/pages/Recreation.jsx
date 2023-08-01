@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import RecreationCard from '../components/Card/RecreationCard';
 
-const RecreationLayout = styled.div``;
+const RecreationLayout = styled.div`
+  max-width: 1280px;
+  margin: auto;
+`;
 
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 4rem;
+  margin: 4rem 0;
 `;
 
 const RecreationList = styled.ul`

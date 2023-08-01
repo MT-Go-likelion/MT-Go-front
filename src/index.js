@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+
 import {
   ErrorPage,
   Main,
@@ -10,6 +11,7 @@ import {
   SignUp,
   LodgingDetail,
   Recreation,
+  Room,
   Shopping,
 } from './pages/index';
 
@@ -20,8 +22,9 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Main /> },
-      { path: '/login', element: <SignIn /> },
+      { path: '/signin', element: <SignIn /> },
       { path: '/signup', element: <SignUp /> },
+      { path: '/room', element: <Room /> },
       { path: '/detail/:lodingId', element: <LodgingDetail /> },
       { path: '/recreation', element: <Recreation /> },
       { path: '/shopping', element: <Shopping /> },
