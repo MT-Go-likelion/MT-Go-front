@@ -76,7 +76,7 @@ const Flex = styled.div`
 
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
-const Recreation = () => {
+const RecreationCard = () => {
   const [teamspace, setTeamspace] = useState(false);
   const [save, setSave] = useState(false);
 
@@ -105,4 +105,4 @@ const Recreation = () => {
     </BestLoContainer>
   );
 };
-export default Recreation;
+export default RecreationCard;

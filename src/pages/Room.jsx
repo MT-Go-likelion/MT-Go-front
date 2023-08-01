@@ -1,14 +1,14 @@
 import React from 'react';
-import Bestlocation from '../components/Card/Bestlocation';
-import Recreation from '../components/Card/recreation';
-import Bag from '../components/Card/Bag';
+import BestlocationCard from '../components/Card/BestlocationCard';
+import RecreationCard from '../components/Card/RecreationCard';
+import BagCard from '../components/Card/BagCard';
 
 const Room = () => {
   return (
     <div>
-      <Bestlocation />
-      <Recreation />
-      <Bag />
+      <BestlocationCard />
+      <RecreationCard />
+      <BagCard />
     </div>
   );
 };

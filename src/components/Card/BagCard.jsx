@@ -28,7 +28,7 @@ const Bagbtn = styled.img`
 `;
 
 // Bag 장바구니
-const Bag = () => {
+const BagCard = () => {
   const [save, setSave] = useState(false);
 
   const handleSaveClick = () => {
@@ -43,4 +43,4 @@ const Bag = () => {
     </BestLoContainer>
   );
 };
-export default Bag;
+export default BagCard;

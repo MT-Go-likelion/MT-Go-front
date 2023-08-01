@@ -76,7 +76,7 @@ const Flex = styled.div`
 // }
 
 // {{만약 하트 눌렀다면 }} => 이미지 변경 (Sellectheart로)
-const Bestlocation = () => {
+const BestlocationCard = () => {
   const [liked, setLiked] = useState(false);
 
   const handlelikeClick = () => {
@@ -99,4 +99,4 @@ const Bestlocation = () => {
     </BestLoContainer>
   );
 };
-export default Bestlocation;
+export default BestlocationCard;
