@@ -15,8 +15,8 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.0.5",
-    "web-vitals": "^3.4.0",
-    "swiper": "^10.0.4"
+    "swiper": "^10.0.4",
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,12 +43,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "eslint": "^8.45.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^3.0.0",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "prettier": "^3.0.0"
   }
 }

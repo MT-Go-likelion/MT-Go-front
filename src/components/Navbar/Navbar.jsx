@@ -40,6 +40,7 @@ const NavMenu = styled.li`
 `;
 
 const NavMenuIcon = styled.img`
+  width: 1.5rem;
   margin-right: 0.3rem;
 `;
 
