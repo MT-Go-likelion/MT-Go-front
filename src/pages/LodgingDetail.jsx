@@ -8,6 +8,134 @@ import RatingContainer from '../components/Common/Review/RatingContainer';
 import HorizonLine from '../components/Common/Line/HorizonLine';
 import ImageSwiper from '../components/ImageSwiper/ImageSwiper';
 
+const LodgingDetail = () => {
+  return (
+    <LodgingLayout>
+      {/* Header */}
+      <HeaderContainer>
+        <Header>
+          <TitleText>TitleText</TitleText>
+          <HeaderRight>
+            <LodingDealingContainer>
+              <RatingContainer score="4.9" />
+              <Heart src={heart} />
+              <Booking src={booking} />
+            </LodingDealingContainer>
+            <ReservationBtn>예약하기</ReservationBtn>
+          </HeaderRight>
+        </Header>
+        <ImageSwiper />
+      </HeaderContainer>
+
+      {/* Content */}
+      <ContentContainer>
+        <ContentLeftContainer>
+          <Header>
+            <ContentHeaderLeft>
+              <AddressText>Address</AddressText>
+              <PriceText>1박 000,000,00원</PriceText>
+              <UrlText>https://homepage.com//example</UrlText>
+            </ContentHeaderLeft>
+            <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
+          </Header>
+          <FacilitiesContainer>
+            {/* 추후에 API 연결하면 map 함수로 처리 */}
+            <FacilitiesList>
+              <FacilitiesItem>
+                <FacilitiesImg />
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+              <FacilitiesItem>
+                <FacilitiesImg />
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+              <FacilitiesItem>
+                <FacilitiesImg />
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+              <FacilitiesItem>
+                <FacilitiesImg />
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+            </FacilitiesList>
+          </FacilitiesContainer>
+          <InformationText>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros dolore eu feugiat
+            nulla facilisis at vero eros
+          </InformationText>
+          <CautionContainer>
+            <ContentSubTitleText>주의사항</ContentSubTitleText>
+            <InformationText>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+              euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
+              veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
+              commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
+              esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros
+              dolore eu feugiat nulla facilisis at vero eros
+            </InformationText>
+          </CautionContainer>
+          <>
+            <ContentSubTitleText>체크인 / 체크아웃</ContentSubTitleText>
+            <CheckBox>
+              <CheckText>체크인: nnn</CheckText>
+              <CheckText>체크아웃: nnn</CheckText>
+            </CheckBox>
+          </>
+        </ContentLeftContainer>
+        {/* 달력 컴포넌트 생성 후 연결 */}
+        <Calender />
+      </ContentContainer>
+
+      {/* Review */}
+      <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
+      <ReviewContainer>
+        <ReviewHeader>
+          <RatingContainer score="5.0" />
+          <ReviewCntText>후기 3433개</ReviewCntText>
+        </ReviewHeader>
+        <ReviewContentContainer>
+          <ReviewWritingContainer>
+            <ReviewTextarea placeholder="후기를 입력하세요" />
+            <ReviewWritingRight>
+              <RatingContainer score="5.0" />
+              <TmpBox />
+            </ReviewWritingRight>
+          </ReviewWritingContainer>
+
+          {/* 추후에 API 연결하면 map 함수로 처리 */}
+          <ReviewList>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+          </ReviewList>
+        </ReviewContentContainer>
+      </ReviewContainer>
+    </LodgingLayout>
+  );
+};
+
+export default LodgingDetail;
+
 const LodgingLayout = styled.div``;
 
 const HeaderContainer = styled.div`
@@ -246,184 +374,3 @@ const ReviewItemRight = styled.div`
   justify-content: flex-end;
   gap: 1.5rem;
 `;
-
-const LodgingDetail = () => {
-  return (
-    <LodgingLayout>
-      {/* Header */}
-      <HeaderContainer>
-        <Header>
-          <TitleText>TitleText</TitleText>
-          <HeaderRight>
-            <LodingDealingContainer>
-              <RatingContainer score="4.9" />
-              <Heart src={heart} />
-              <Booking src={booking} />
-            </LodingDealingContainer>
-            <ReservationBtn>예약하기</ReservationBtn>
-          </HeaderRight>
-        </Header>
-        <ImageSwiper />
-      </HeaderContainer>
-
-      {/* Content */}
-      <ContentContainer>
-        <ContentLeftContainer>
-          <Header>
-            <ContentHeaderLeft>
-              <AddressText>Address</AddressText>
-              <PriceText>1박 000,000,00원</PriceText>
-              <UrlText>https://homepage.com//example</UrlText>
-            </ContentHeaderLeft>
-            <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
-          </Header>
-          <FacilitiesContainer>
-            <FacilitiesList>
-              <FacilitiesItem>
-                <FacilitiesImg />
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesImg />
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesImg />
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesImg />
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-            </FacilitiesList>
-          </FacilitiesContainer>
-          <InformationText>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros dolore eu feugiat
-            nulla facilisis at vero eros
-          </InformationText>
-          <CautionContainer>
-            <ContentSubTitleText>주의사항</ContentSubTitleText>
-            <InformationText>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-              euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-              veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-              commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
-              esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros
-              dolore eu feugiat nulla facilisis at vero eros
-            </InformationText>
-          </CautionContainer>
-          <>
-            <ContentSubTitleText>체크인 / 체크아웃</ContentSubTitleText>
-            <CheckBox>
-              <CheckText>체크인: nnn</CheckText>
-              <CheckText>체크아웃: nnn</CheckText>
-            </CheckBox>
-          </>
-        </ContentLeftContainer>
-        <Calender />
-      </ContentContainer>
-
-      {/* Review */}
-      <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
-      <ReviewContainer>
-        <ReviewHeader>
-          <RatingContainer score="5.0" />
-          <ReviewCntText>후기 3433개</ReviewCntText>
-        </ReviewHeader>
-        <ReviewContentContainer>
-          <ReviewWritingContainer>
-            <ReviewTextarea placeholder="후기를 입력하세요" />
-            <ReviewWritingRight>
-              <RatingContainer score="5.0" />
-              <TmpBox />
-            </ReviewWritingRight>
-          </ReviewWritingContainer>
-          <ReviewList>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-          </ReviewList>
-        </ReviewContentContainer>
-      </ReviewContainer>
-    </LodgingLayout>
-  );
-};
-
-export default LodgingDetail;
