@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import SignWrapper from './SignWrapper';
 import useInput from '../../hooks/useInput';
@@ -80,9 +81,26 @@ const SignUpForm = () => {
 
   const onSubmitLogin = (e) => {
     e.preventDefault();
+    console.log(email, password, name);
 
     // 추후에 API 연동 작업 추가
+
+    axios
+      .post('http://110.11.183.148:8000/accounts/user/signup/', {
+        email,
+        password,
+        name,
+      })
+      .then((response) => {
+        // 요청 성공 시 처리
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // 요청 실패 시 처리
+        console.error(error);
+      });
   };
+
   return (
     <SignWrapper title="회원가입">
       <SignForm onSubmit={onSubmitLogin}>
