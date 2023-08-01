@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import menu from '../../assets/images/bag-outline.png';
 
 const NavLayout = styled.header`
@@ -53,27 +54,29 @@ const LoginBtn = styled.div`
 `;
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <NavLayout>
       <NavLeft>
-        <NavLogo>MTLOGO</NavLogo>
+        <NavLogo onClick={() => navigate('/')}>MTLOGO</NavLogo>
         <NavMenuList>
-          <NavMenu>
+          <NavMenu onClick={() => navigate('/room')}>
             <NavMenuIcon src={menu} />
             <NavMenuText>숙소예약</NavMenuText>
           </NavMenu>
-          <NavMenu>
+          <NavMenu onClick={() => navigate('/shopping')}>
             <NavMenuIcon src={menu} />
             <NavMenuText>장보기</NavMenuText>
           </NavMenu>
-          <NavMenu>
+          <NavMenu onClick={() => navigate('/recreation')}>
             <NavMenuIcon src={menu} />
             <NavMenuText>레크레이션</NavMenuText>
           </NavMenu>
         </NavMenuList>
       </NavLeft>
       <NavRight>
-        <LoginBtn>로그인</LoginBtn>
+        <LoginBtn onClick={() => navigate('/signin')}>로그인</LoginBtn>
       </NavRight>
     </NavLayout>
   );

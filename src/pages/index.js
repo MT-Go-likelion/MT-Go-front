@@ -5,3 +5,4 @@ export { default as SignUp } from './SignUp';
 export { default as LodgingDetail } from './LodgingDetail';
 export { default as Room } from './Room';
 export { default as Recreation } from './Recreation';
+export { default as Shopping } from './Shopping';
