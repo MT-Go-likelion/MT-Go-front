@@ -169,6 +169,89 @@ const CheckBox = styled.div`
 
 const CheckText = styled.span``;
 
+// Review
+
+const ReviewContainer = styled.div``;
+
+const ReviewHeader = styled.header`
+  display: flex;
+  align-items: center;
+  gap: 2.3rem;
+  margin-bottom: 2rem;
+`;
+
+const ReviewCntText = styled.span`
+  font-size: 1.5rem;
+`;
+
+const ReviewContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ReviewWritingContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+`;
+
+const ReviewTextarea = styled.textarea`
+  width: 36.5rem;
+  height: 15rem;
+`;
+
+const ReviewWritingRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.5rem;
+`;
+
+const TmpBox = styled.div`
+  width: 10rem;
+  height: 10rem;
+  background-color: ${COLOR.primary.lightBlue};
+`;
+
+const ReviewList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+const ReviewItem = styled.li`
+  display: flex;
+  gap: 2rem;
+`;
+
+const ReviewItemLeft = styled.div`
+  flex-basis: 10%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const UserText = styled.span``;
+
+const DateText = styled.span`
+  font-size: 0.75rem;
+  color: ${COLOR.lightGray};
+`;
+
+const ReviewText = styled.span`
+  flex-basis: 70%;
+  line-height: 1.7;
+`;
+
+const ReviewItemRight = styled.div`
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.5rem;
+`;
+
 const LodgingDetail = () => {
   return (
     <LodgingLayout>
@@ -258,12 +341,90 @@ const LodgingDetail = () => {
         </ReviewHeader>
         <ReviewContentContainer>
           <ReviewWritingContainer>
-            <ReviewTextarea />
+            <ReviewTextarea placeholder="후기를 입력하세요" />
             <ReviewWritingRight>
               <RatingContainer score="5.0" />
               <TmpBox />
             </ReviewWritingRight>
           </ReviewWritingContainer>
+          <ReviewList>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+          </ReviewList>
         </ReviewContentContainer>
       </ReviewContainer>
     </LodgingLayout>
@@ -271,47 +432,3 @@ const LodgingDetail = () => {
 };
 
 export default LodgingDetail;
-
-const ReviewContainer = styled.div``;
-
-const ReviewHeader = styled.header`
-  display: flex;
-  align-items: center;
-  gap: 2.3rem;
-  margin-bottom: 2rem;
-`;
-
-const ReviewCntText = styled.span`
-  font-size: 1.5rem;
-`;
-
-const ReviewContentContainer = styled.div``;
-
-const ReviewWritingContainer = styled.div`
-  display: flex;
-  gap: 2rem;
-`;
-
-const ReviewTextarea = styled.textarea`
-  width: 36.5rem;
-  height: 15rem;
-`;
-
-const ReviewWritingRight = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const TmpBox = styled.div`
-  width: 10rem;
-  height: 10rem;
-  background-color: ${COLOR.primary.lightBlue};
-`;
-
-// const ReviewBox = styled.div``;
-
-// const UserText = styled.span``;
-
-// const DateText = styled.span``;
-
-// const ReviewText = styled.span``;
