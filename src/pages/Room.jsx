@@ -7,7 +7,7 @@ import Headcount from '../components/SelectBox/Headcount';
 import Price from '../components/SelectBox/Price';
 import Date from '../components/SelectBox/Date';
 
-import Bestlocation from '../components/Card/Bestlocation';
+import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
 
 // 검색 바 백그라운드 이미지
@@ -79,14 +79,14 @@ const Room = () => {
         <SearchBtn>검색하기</SearchBtn>
       </SearchBack>
       <ContentsDiv>
-        <Bestlocation />
-        <Bestlocation />
-        <Bestlocation />
-        <Bestlocation />
-        <Bestlocation />
-        <Bestlocation />
-        <Bestlocation />
-        <Bestlocation />
+        <BestlocationCard />
+        <BestlocationCard />
+        <BestlocationCard />
+        <BestlocationCard />
+        <BestlocationCard />
+        <BestlocationCard />
+        <BestlocationCard />
+        <BestlocationCard />
       </ContentsDiv>
     </div>
   );
