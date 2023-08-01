@@ -8,10 +8,11 @@ const Line = styled.div`
   line-height: 0.1rem;
   margin-bottom: ${(props) => `${props.mb}rem`};
   margin-top: ${(props) => `${props.mt}rem`};
+  border-color: ${(props) => props.color};
 `;
 
-const HorizonLine = ({ mb, mt }) => {
-  return <Line mb={mb} mt={mt} />;
+const HorizonLine = ({ mb, mt, color }) => {
+  return <Line mb={mb} mt={mt} color={color} />;
 };
 
 export default HorizonLine;

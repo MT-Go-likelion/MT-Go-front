@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import star from '../assets/images/star.png';
 import heart from '../assets/images/heart.png';
 import booking from '../assets/images/booking.png';
 import COLOR from '../constants/color';
+import RatingContainer from '../components/Common/Review/RatingContainer';
+import HorizonLine from '../components/Common/Line/HorizonLine';
 
 const LodgingLayout = styled.div``;
 
@@ -31,11 +32,6 @@ const TitleText = styled.span`
   font-weight: 900;
 `;
 
-const Star = styled.img`
-  width: 2.3rem;
-  height: 2.3rem;
-`;
-
 const Heart = styled.img`
   width: 3.75rem;
   height: 3.75rem;
@@ -44,19 +40,6 @@ const Heart = styled.img`
 const Booking = styled.img`
   width: 3.75rem;
   height: 3.75rem;
-`;
-
-const ReviewContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
-`;
-
-const ReviewText = styled.span`
-  font-size: 1.5rem;
-  color: ${COLOR.gray};
-  padding-top: 1rem;
 `;
 
 const LodingDealingContainer = styled.div`
@@ -189,15 +172,13 @@ const CheckText = styled.span``;
 const LodgingDetail = () => {
   return (
     <LodgingLayout>
+      {/* Header */}
       <HeaderContainer>
         <Header>
           <TitleText>TitleText</TitleText>
           <HeaderRight>
             <LodingDealingContainer>
-              <ReviewContainer>
-                <Star src={star} />
-                <ReviewText>5.0</ReviewText>
-              </ReviewContainer>
+              <RatingContainer score="4.9" />
               <Heart src={heart} />
               <Booking src={booking} />
             </LodingDealingContainer>
@@ -206,6 +187,8 @@ const LodgingDetail = () => {
         </Header>
         <ImageContainer>챱!</ImageContainer>
       </HeaderContainer>
+
+      {/* Content */}
       <ContentContainer>
         <ContentLeftContainer>
           <Header>
@@ -265,8 +248,70 @@ const LodgingDetail = () => {
         </ContentLeftContainer>
         <Calender />
       </ContentContainer>
+
+      {/* Review */}
+      <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
+      <ReviewContainer>
+        <ReviewHeader>
+          <RatingContainer score="5.0" />
+          <ReviewCntText>후기 3433개</ReviewCntText>
+        </ReviewHeader>
+        <ReviewContentContainer>
+          <ReviewWritingContainer>
+            <ReviewTextarea />
+            <ReviewWritingRight>
+              <RatingContainer score="5.0" />
+              <TmpBox />
+            </ReviewWritingRight>
+          </ReviewWritingContainer>
+        </ReviewContentContainer>
+      </ReviewContainer>
     </LodgingLayout>
   );
 };
 
 export default LodgingDetail;
+
+const ReviewContainer = styled.div``;
+
+const ReviewHeader = styled.header`
+  display: flex;
+  align-items: center;
+  gap: 2.3rem;
+  margin-bottom: 2rem;
+`;
+
+const ReviewCntText = styled.span`
+  font-size: 1.5rem;
+`;
+
+const ReviewContentContainer = styled.div``;
+
+const ReviewWritingContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const ReviewTextarea = styled.textarea`
+  width: 36.5rem;
+  height: 15rem;
+`;
+
+const ReviewWritingRight = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TmpBox = styled.div`
+  width: 10rem;
+  height: 10rem;
+  background-color: ${COLOR.primary.lightBlue};
+`;
+
+// const ReviewBox = styled.div``;
+
+// const UserText = styled.span``;
+
+// const DateText = styled.span``;
+
+// const ReviewText = styled.span``;
