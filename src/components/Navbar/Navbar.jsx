@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import menu from '../../assets/images/bag.png';
+import menu from '../../assets/images/bag-outline.png';
 
 const NavLayout = styled.header`
   width: 100%;
