@@ -2733,6 +2733,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/eslint-plugin-query@npm:^4.32.1":
+  version: 4.32.1
+  resolution: "@tanstack/eslint-plugin-query@npm:4.32.1"
+  checksum: a03a7f046b991793d45a76a9e985dcaf9f9b5900ccc6656a2d1c60e8ffd871ef395b914a3d4d6ee37a7eedfe5095508da9f0118a842af598316870b982510149
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:4.32.1":
+  version: 4.32.1
+  resolution: "@tanstack/query-core@npm:4.32.1"
+  checksum: 7676e367219bfddb3e153ac3771c40b47a5bd2609699351a3342c03e5c17dd5d39dc24c4a27e64a0b2628d5fff99b22d9f29ef19b0eb693ee8f1f86ddfb28b0b
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^4.32.1":
+  version: 4.32.1
+  resolution: "@tanstack/react-query@npm:4.32.1"
+  dependencies:
+    "@tanstack/query-core": 4.32.1
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-native: "*"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 31cdf93896ea0a5903c62e60fee937495cd3db1a1e3220b36012337e026c967034b5cfdd5b522339a5cc982fbb0000dad700991690e992e13f67cae41a72a589
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:^9.0.0":
   version: 9.3.1
   resolution: "@testing-library/dom@npm:9.3.1"
@@ -9517,6 +9550,8 @@ __metadata:
     "@babel/eslint-parser": ^7.22.9
     "@babel/plugin-proposal-private-property-in-object": ^7.21.11
     "@ndelangen/eslint-config-airbnb": ^14.1.0
+    "@tanstack/eslint-plugin-query": ^4.32.1
+    "@tanstack/react-query": ^4.32.1
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.3
@@ -13378,6 +13413,15 @@ __metadata:
     querystringify: ^2.1.1
     requires-port: ^1.0.0
   checksum: fbdba6b1d83336aca2216bbdc38ba658d9cfb8fc7f665eb8b17852de638ff7d1a162c198a8e4ed66001ddbf6c9888d41e4798912c62b4fd777a31657989f7bdf
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
   languageName: node
   linkType: hard
 
