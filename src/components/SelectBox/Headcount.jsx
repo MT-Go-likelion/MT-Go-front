@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
-import useInput from '../../hooks/useInput';
+import useSelect from '../../hooks/useSelect';
 
 const OPTION = [
   { value: '', name: '인원' },
@@ -23,7 +23,7 @@ const StyledSelect = styled.select`
 `;
 
 const SelectBox = ({ options }) => {
-  const [count, onChangeCount] = useInput('');
+  const [count, onChangeCount] = useSelect('');
 
   return (
     <StyledSelect onChange={onChangeCount} count={count}>
