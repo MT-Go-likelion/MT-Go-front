@@ -6,8 +6,8 @@ import bag from '../../assets/images/bag-fill.png';
 import Selectbag from '../../assets/images/Select_Bag.png';
 
 const BestLoContainer = styled.div`
-  width: 240px;
-  height: 450px;
+  width: 100%;
+  height: 100%;
 `;
 
 const BackImg = styled.div`
