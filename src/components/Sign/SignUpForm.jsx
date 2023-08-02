@@ -146,12 +146,7 @@ const SignUpForm = () => {
 
   const onSubmitLogin = (e) => {
     e.preventDefault();
-
-    console.log(email, password, name);
-
     const formValid = checkAllValidation(name, email, password);
-
-    // 추후에 API 연동 작업 추가
 
     return formValid && signUpMutation({ email, password, name });
   };

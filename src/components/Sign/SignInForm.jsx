@@ -10,7 +10,7 @@ import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
 import Checkbox from '../Common/CheckBox/CheckBox';
 
-import useSignInMutation from '../../hooks/queries/useSignIn';
+import useSignIn from '../../hooks/queries/useSignIn';
 
 const LoginForm = styled.form`
   width: 80%;
@@ -62,7 +62,7 @@ const SignInForm = () => {
 
   const [showPassWord, setShowPassword] = useState(false);
 
-  const { signInMutation } = useSignInMutation();
+  const { signInMutation } = useSignIn();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassWord);
@@ -71,7 +71,6 @@ const SignInForm = () => {
   const handleSubmitLogin = (e) => {
     e.preventDefault();
 
-    // 추후에 API 연동 작업 추가
     signInMutation({ email, password });
   };
 

@@ -1,25 +1,31 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const useSignInMutation = () => {
-  const { mutate: signInMutation } = useMutation(
-    (payLoad) => {
-      //   axios.post('http://110.11.183.148:8000/accounts/user/signin/');
-      axios.post('https://reqres.in/api/loign', payLoad).then((res) => console.log(res));
+async function signIn(payload) {
+  const response = await axios
+    .post('http://110.11.183.148:8000/accounts/user/signin/', payload)
+    .then((res) => res.data);
+
+  return response;
+}
+
+const useSignIn = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { mutate: signInMutation } = useMutation((payload) => signIn(payload), {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['user'], data);
+      //
+      navigate('/');
     },
-    {
-      onSuccess: () => {
-        //
-        // navigate('/signin');
-      },
-      onError: (error) => {
-        //
-        console.error(error);
-      },
+    onError: (error) => {
+      //
+      throw new Error(error);
     },
-  );
+  });
 
   return { signInMutation };
 };
 
-export default useSignInMutation;
+export default useSignIn;
