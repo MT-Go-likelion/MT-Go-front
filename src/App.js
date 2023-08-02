@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import GlobalStyles from './styles/GlobalStyle';
 import Navbar from './components/Navbar/Navbar';
+import { useUser } from './hooks/queries/useUser';
 
 const AppLayout = styled.div`
   display: flex;
@@ -22,12 +23,13 @@ const AppContent = styled.div`
 `;
 
 function App() {
+  const { user } = useUser();
   return (
     <>
       <GlobalStyles />
       <AppLayout>
         <AppContainer>
-          <Navbar />
+          <Navbar auth={!!user} />
           <AppContent>
             <Outlet />
           </AppContent>
