@@ -34,7 +34,7 @@ const SignInBtn = styled.span`
 const SignUp = () => {
   const navigate = useNavigate();
   const goToSignIn = () => {
-    navigate('/login');
+    navigate('/signin');
   };
   return (
     <SignUpLayout>

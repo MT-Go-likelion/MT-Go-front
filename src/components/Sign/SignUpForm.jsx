@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
 
 import SignWrapper from './SignWrapper';
 import useInput from '../../hooks/useInput';
@@ -12,6 +11,7 @@ import blueEye from '../../assets/images/eye_blue.png';
 import TermsModal from '../Common/Modal/TermsModal';
 import Checkbox from '../Common/CheckBox/CheckBox';
 import HorizonLine from '../Common/Line/HorizonLine';
+import useSignUpMutation from '../../hooks/queries/useSignUp';
 
 const SignForm = styled.form`
   width: 80%;
@@ -79,6 +79,8 @@ const SignUpForm = () => {
   const [showRetypePassWord, setShowRetypePassword] = useState(false);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
 
+  const { signUpMutation } = useSignUpMutation();
+
   const checkNameValidation = () => {
     if (name.length < 2) setNameError('최소 2글자 이상 작성해주세요');
     else setNameError('');
@@ -128,21 +130,7 @@ const SignUpForm = () => {
     console.log(email, password, name);
 
     // 추후에 API 연동 작업 추가
-
-    // axios
-    //   .post('http://110.11.183.148:8000/accounts/user/signup/', {
-    //     email,
-    //     password,
-    //     name,
-    //   })
-    //   .then((response) => {
-    //     // 요청 성공 시 처리
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     // 요청 실패 시 처리
-    //     console.error(error);
-    //   });
+    signUpMutation({ email, password, name });
   };
 
   return (
