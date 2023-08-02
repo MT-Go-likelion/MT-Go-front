@@ -82,32 +82,54 @@ const SignUpForm = () => {
   const { signUpMutation } = useSignUpMutation();
 
   const checkNameValidation = () => {
+    let isChekced = false;
+
     if (name.length < 2) setNameError('최소 2글자 이상 작성해주세요');
-    else setNameError('');
+    else {
+      setNameError('');
+      isChekced = true;
+    }
+
+    return isChekced;
   };
 
   const checkEmailValidation = () => {
+    let isChekced = false;
     const emailRegEx =
       /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
     if (!emailRegEx.test(email)) setEmailError('올바른 이메일 형식을 작성해주세요');
-    else setEmailError('');
+    else {
+      setEmailError('');
+      isChekced = true;
+    }
+
+    return isChekced;
   };
 
   const checkPasswordValidation = () => {
     // test 끝나면 나중에 추가 (회원가입 쉽게 하기 위해)
+    return true;
   };
 
   const checkConfirmedPasswordValidation = () => {
+    let isChecked = false;
     if (password !== confirmedPassword) setConfirmedPasswordError('비밀번호가 일치하지 않습니다');
-    else setConfirmedPasswordError('');
+    else {
+      setConfirmedPasswordError('');
+      isChecked = true;
+    }
+
+    return isChecked;
   };
 
   const checkAllValidation = (name, email, password) => {
-    checkNameValidation(name);
-    checkEmailValidation(email);
-    checkPasswordValidation(password);
-    checkConfirmedPasswordValidation();
+    const checkedName = checkNameValidation(name);
+    const checkedEmail = checkEmailValidation(email);
+    const checkedPassWord = checkPasswordValidation(password);
+    const checkedConfirmedPassword = checkConfirmedPasswordValidation();
+
+    return checkedName && checkedEmail && checkedPassWord && checkedConfirmedPassword;
   };
 
   const toggleShowPassword = () => {
@@ -125,12 +147,13 @@ const SignUpForm = () => {
   const onSubmitLogin = (e) => {
     e.preventDefault();
 
-    checkAllValidation(name, email, password);
-
     console.log(email, password, name);
 
+    const formValid = checkAllValidation(name, email, password);
+
     // 추후에 API 연동 작업 추가
-    signUpMutation({ email, password, name });
+
+    return formValid && signUpMutation({ email, password, name });
   };
 
   return (
