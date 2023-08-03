@@ -61,6 +61,7 @@ const Minibox = styled.input`
   margin-bottom: 10px;
 `;
 
+// 이메일 부분
 const EmailDiv = styled.div`
   width: 100%;
   border: 1px solid ${COLOR.primary.blue};
@@ -108,9 +109,14 @@ const Submitbutton = styled.button`
   width: 120px;
   height: 36px;
   border-radius: 16px;
-  background-color: ${COLOR.primary.blue};
+  background-color: ${COLOR.primary.lightBlue};
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.05));
   color: ${COLOR.white};
+  transition: 0.1s;
+
+  &:hover {
+    background-color: ${COLOR.primary.blue};
+  }
 `;
 
 const TeamSpacePopup = ({ handlePopupClose }) => {
