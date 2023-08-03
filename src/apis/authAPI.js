@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { baseURL } from '../constants/url';
+import { API } from '../config/api';
 
 const authAPI = {
   signUp: async (payload) => {
-    const res = await axios.post(`${baseURL}/accounts/user/signup/`, payload);
+    const res = await axios.post(API.SIGNUP, payload);
     return res.data;
   },
   signIn: async (payload) => {
-    const res = await axios.post(`${baseURL}/accounts/user/signin/`, payload);
+    const res = await axios.post(API.SIGNIN, payload);
     return res.data;
   },
 };

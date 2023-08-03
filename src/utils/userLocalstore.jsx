@@ -1,4 +1,4 @@
-const USER_LOCAL_STORAGE_KEY = 'TODO_LIST-USER';
+const USER_LOCAL_STORAGE_KEY = 'USER';
 
 export function saveUser(user) {
   localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(user));
