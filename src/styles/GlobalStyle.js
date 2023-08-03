@@ -26,6 +26,14 @@ body {
     background: inherit;
     border: none;
   }
+
+  textarea {
+    resize: none;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
     `;
 
 export default GlobalStyles;
