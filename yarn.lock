@@ -8989,6 +8989,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kakao.maps.d.ts@npm:^0.1.38":
+  version: 0.1.38
+  resolution: "kakao.maps.d.ts@npm:0.1.38"
+  checksum: 4033de2f1aa23d0d10c2585b4297aab0a0203b76bac63584f3833bdcdb8baf79ea23d77eeaaefa570128a2fd947f5f29ea7e66038b1bc8609c34c8887296951b
+  languageName: node
+  linkType: hard
+
 "kind-of@npm:^6.0.2":
   version: 6.0.3
   resolution: "kind-of@npm:6.0.3"
@@ -9608,10 +9615,11 @@ __metadata:
     react: ^18.2.0
     react-datepicker: ^4.16.0
     react-dom: ^18.2.0
+    react-kakao-maps-sdk: ^1.1.11
     react-router-dom: ^6.14.2
     react-scripts: ^5.0.1
     styled-components: ^6.0.5
-    swiper: ^10.0.4
+    swiper: ^10.1.0
     web-vitals: ^3.4.0
   languageName: unknown
   linkType: soft
@@ -11451,6 +11459,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-kakao-maps-sdk@npm:^1.1.11":
+  version: 1.1.11
+  resolution: "react-kakao-maps-sdk@npm:1.1.11"
+  dependencies:
+    kakao.maps.d.ts: ^0.1.38
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 564847d02316b314d8d87772111944d0be31936edc880cf7a10680d2b46593459c318228f48472cc6c222ccb2703410bebde913fe604721e9ceef2fc694b8a0d
+  languageName: node
+  linkType: hard
+
 "react-onclickoutside@npm:^6.12.2":
   version: 6.13.0
   resolution: "react-onclickoutside@npm:6.13.0"
@@ -12907,10 +12927,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^10.0.4":
-  version: 10.0.4
-  resolution: "swiper@npm:10.0.4"
-  checksum: a21f0fc2a870c6b1d595d78cba51d1b558f04753a2a8a8f366d1c53e5b58b69ec2d92f1f06883ffb2bf044dc33b8654cf37cc17039296416e164c184fe0bcb9f
+"swiper@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "swiper@npm:10.1.0"
+  checksum: cb825a513e029cb4daf5ddce4c4fa2df425a348f05e78529f574e8a0e74c6016ae567efabac3d219828cd81ceeaff1563c832633ae014100d8a0610b3e4b3790
   languageName: node
   linkType: hard
 

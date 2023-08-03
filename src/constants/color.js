@@ -12,6 +12,7 @@ const COLOR = {
   red: '#FC0000',
   grayWithOpacity: 'rgba(0, 0, 0, 0.4)',
   blue: '#BCE7FF',
+  gradient: 'linear-gradient(143.02deg, #53FFFF -19.13%, #377BFF 128.71%);',
 };
 
 export default COLOR;

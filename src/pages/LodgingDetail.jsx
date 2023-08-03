@@ -7,6 +7,7 @@ import COLOR from '../constants/color';
 import RatingContainer from '../components/Common/Review/RatingContainer';
 import HorizonLine from '../components/Common/Line/HorizonLine';
 import ImageSwiper from '../components/ImageSwiper/ImageSwiper';
+import LodgingMap from '../components/Map/LodgingMap';
 
 const LodgingDetail = () => {
   return (
@@ -21,7 +22,9 @@ const LodgingDetail = () => {
               <Heart src={heart} />
               <Booking src={booking} />
             </LodingDealingContainer>
-            <ReservationBtn>예약하기</ReservationBtn>
+            <ReservationBtn width={11.25} height={3.75}>
+              예약하기
+            </ReservationBtn>
           </HeaderRight>
         </Header>
         <ImageSwiper />
@@ -36,25 +39,24 @@ const LodgingDetail = () => {
               <PriceText>1박 000,000,00원</PriceText>
               <UrlText>https://homepage.com//example</UrlText>
             </ContentHeaderLeft>
-            <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
+            <ContentHeaderRight>
+              <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
+              <CapacityText>수용인원: NN</CapacityText>
+            </ContentHeaderRight>
           </Header>
           <FacilitiesContainer>
             {/* 추후에 API 연결하면 map 함수로 처리 */}
             <FacilitiesList>
               <FacilitiesItem>
-                <FacilitiesImg />
                 <FacilitiesText>침실 4</FacilitiesText>
               </FacilitiesItem>
               <FacilitiesItem>
-                <FacilitiesImg />
                 <FacilitiesText>침실 4</FacilitiesText>
               </FacilitiesItem>
               <FacilitiesItem>
-                <FacilitiesImg />
                 <FacilitiesText>침실 4</FacilitiesText>
               </FacilitiesItem>
               <FacilitiesItem>
-                <FacilitiesImg />
                 <FacilitiesText>침실 4</FacilitiesText>
               </FacilitiesItem>
             </FacilitiesList>
@@ -86,9 +88,14 @@ const LodgingDetail = () => {
             </CheckBox>
           </>
         </ContentLeftContainer>
-        {/* 달력 컴포넌트 생성 후 연결 */}
         <Calender />
       </ContentContainer>
+      <ContentBottomContainer>
+        <LodgingMap />
+        <ReservationBtn width={15} height={5.6}>
+          예약하기
+        </ReservationBtn>
+      </ContentBottomContainer>
 
       {/* Review */}
       <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
@@ -202,10 +209,10 @@ const LodingDealingContainer = styled.div`
 `;
 
 const ReservationBtn = styled.button`
-  width: 11.25rem;
+  width: ${(props) => `${props.width}rem`};
   height: 3.75rem;
-  border-radius: 1rem;
-  background: ${COLOR.primary.gradient};
+  border-radius: 1.5rem;
+  background: ${COLOR.gradient};
   font-size: 1.5rem;
   font-weight: bold;
   color: ${COLOR.white};
@@ -244,7 +251,19 @@ const UrlText = styled.span`
   color: ${COLOR.gray};
 `;
 
+const ContentHeaderRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
 const PhoneNumText = styled.span`
+  color: ${COLOR.gray};
+`;
+
+const CapacityText = styled.span`
   color: ${COLOR.gray};
 `;
 
@@ -272,6 +291,7 @@ const FacilitiesList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2rem;
+  padding: 1rem 2rem;
 `;
 
 const FacilitiesItem = styled.li`
@@ -279,13 +299,6 @@ const FacilitiesItem = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const FacilitiesImg = styled.div`
-  width: 3rem;
-  height: 3rem;
-  background-color: ${COLOR.primary.lightBlue};
-  margin-bottom: 1rem;
 `;
 
 const FacilitiesText = styled.span``;
@@ -314,6 +327,13 @@ const CheckBox = styled.div`
 `;
 
 const CheckText = styled.span``;
+
+const ContentBottomContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 5rem;
+`;
 
 // Review
 
