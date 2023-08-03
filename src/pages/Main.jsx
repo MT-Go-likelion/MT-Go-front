@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../constants/color';
 
-import MainBanner from '../assets/images/banner-main.png';
+import MainBanner from '../assets/images/banner.png';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
