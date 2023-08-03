@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { FaStar } from 'react-icons/fa';
@@ -9,191 +9,7 @@ import RatingContainer from '../components/Common/Review/RatingContainer';
 import HorizonLine from '../components/Common/Line/HorizonLine';
 import ImageSwiper from '../components/ImageSwiper/ImageSwiper';
 import LodgingMap from '../components/Map/LodgingMap';
-
-const ARRAY = [0, 1, 2, 3, 4];
-
-const LodgingDetail = () => {
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-
-  const handleStarClick = (index) => {
-    const clickStates = [...clicked];
-
-    ARRAY.forEach((idx) => {
-      clickStates[idx] = idx <= index;
-      setClicked(clickStates);
-    });
-  };
-
-  // 추후 후기 작성 API 연결 시 보낼 후기 평점
-  useEffect(() => {
-    const reviewRating = clicked.filter(Boolean).length;
-    console.log(reviewRating);
-  }, [clicked]);
-
-  return (
-    <LodgingLayout>
-      {/* Header */}
-      <HeaderContainer>
-        <Header>
-          <TitleText>TitleText</TitleText>
-          <HeaderRight>
-            <LodingDealingContainer>
-              <RatingContainer score="4.9" />
-              <Heart src={heart} />
-              <Booking src={booking} />
-            </LodingDealingContainer>
-            <ReservationBtn width={11.25} height={3.75}>
-              예약하기
-            </ReservationBtn>
-          </HeaderRight>
-        </Header>
-        <ImageSwiper />
-      </HeaderContainer>
-
-      {/* Content */}
-      <ContentContainer>
-        <ContentLeftContainer>
-          <Header>
-            <ContentHeaderLeft>
-              <AddressText>Address</AddressText>
-              <PriceText>1박 000,000,00원</PriceText>
-              <UrlText>https://homepage.com//example</UrlText>
-            </ContentHeaderLeft>
-            <ContentHeaderRight>
-              <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
-              <CapacityText>수용인원: NN</CapacityText>
-            </ContentHeaderRight>
-          </Header>
-          <FacilitiesContainer>
-            {/* 추후에 API 연결하면 map 함수로 처리 */}
-            <FacilitiesList>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-            </FacilitiesList>
-          </FacilitiesContainer>
-          <InformationText>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros dolore eu feugiat
-            nulla facilisis at vero eros
-          </InformationText>
-          <CautionContainer>
-            <ContentSubTitleText>주의사항</ContentSubTitleText>
-            <InformationText>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-              euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-              veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-              commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
-              esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros
-              dolore eu feugiat nulla facilisis at vero eros
-            </InformationText>
-          </CautionContainer>
-          <>
-            <ContentSubTitleText>체크인 / 체크아웃</ContentSubTitleText>
-            <CheckBox>
-              <CheckText>체크인: nnn</CheckText>
-              <CheckText>체크아웃: nnn</CheckText>
-            </CheckBox>
-          </>
-        </ContentLeftContainer>
-        <Calender />
-      </ContentContainer>
-      <ContentBottomContainer>
-        <LodgingMap />
-        <ReservationBtn width={15} height={5.6}>
-          예약하기
-        </ReservationBtn>
-      </ContentBottomContainer>
-
-      {/* Review */}
-      <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
-      <ReviewContainer>
-        <ReviewHeader>
-          <RatingContainer score="5.0" />
-          <ReviewCntText>후기 3433개</ReviewCntText>
-        </ReviewHeader>
-        <ReviewContentContainer>
-          <ReviewWritingContainer>
-            <ReviewTextarea placeholder="후기를 입력하세요" />
-            <ReviewWritingRight>
-              <ReviewStarContainer>
-                <ReviewStarTitle>숙소에 만족하셨나요?</ReviewStarTitle>
-                <ReviewStarList>
-                  {ARRAY.map((el) => {
-                    return (
-                      <FaStar
-                        size="40"
-                        onClick={() => handleStarClick(el)}
-                        className={clicked[el] && 'blueStar'}
-                      />
-                    );
-                  })}
-                </ReviewStarList>
-              </ReviewStarContainer>
-              <ReviewWritingBtn>후기 등록하기</ReviewWritingBtn>
-            </ReviewWritingRight>
-          </ReviewWritingContainer>
-
-          {/* 추후에 API 연결하면 map 함수로 처리 */}
-          <ReviewList>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-          </ReviewList>
-        </ReviewContentContainer>
-      </ReviewContainer>
-    </LodgingLayout>
-  );
-};
-
-export default LodgingDetail;
+import camera from '../assets/images/camera.png';
 
 const LodgingLayout = styled.div`
   max-width: 1280px;
@@ -368,6 +184,216 @@ const ContentBottomContainer = styled.div`
   margin-top: 5rem;
 `;
 
+const ARRAY = [0, 1, 2, 3, 4];
+
+const LodgingDetail = () => {
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const [reviewImg, setReviewImg] = useState('');
+
+  const reviewImgInputRef = useRef();
+
+  const onClickReviewInput = (e) => {
+    e.preventDefault();
+    reviewImgInputRef.current.click();
+  };
+
+  const onChangeReviewImg = (e) => {
+    const file = e.target.files[0];
+    setReviewImg(file.name);
+  };
+
+  const handleStarClick = (index) => {
+    const clickStates = [...clicked];
+
+    ARRAY.forEach((idx) => {
+      clickStates[idx] = idx <= index;
+      setClicked(clickStates);
+    });
+  };
+
+  // 추후 후기 작성 API 연결 시 보낼 후기 평점
+  useEffect(() => {
+    const reviewRating = clicked.filter(Boolean).length;
+    console.log(reviewRating);
+  }, [clicked]);
+
+  return (
+    <LodgingLayout>
+      {/* Header */}
+      <HeaderContainer>
+        <Header>
+          <TitleText>TitleText</TitleText>
+          <HeaderRight>
+            <LodingDealingContainer>
+              <RatingContainer score="4.9" />
+              <Heart src={heart} />
+              <Booking src={booking} />
+            </LodingDealingContainer>
+            <ReservationBtn width={11.25} height={3.75}>
+              예약하기
+            </ReservationBtn>
+          </HeaderRight>
+        </Header>
+        <ImageSwiper />
+      </HeaderContainer>
+
+      {/* Content */}
+      <ContentContainer>
+        <ContentLeftContainer>
+          <Header>
+            <ContentHeaderLeft>
+              <AddressText>Address</AddressText>
+              <PriceText>1박 000,000,00원</PriceText>
+              <UrlText>https://homepage.com//example</UrlText>
+            </ContentHeaderLeft>
+            <ContentHeaderRight>
+              <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
+              <CapacityText>수용인원: NN</CapacityText>
+            </ContentHeaderRight>
+          </Header>
+          <FacilitiesContainer>
+            {/* 추후에 API 연결하면 map 함수로 처리 */}
+            <FacilitiesList>
+              <FacilitiesItem>
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+              <FacilitiesItem>
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+              <FacilitiesItem>
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+              <FacilitiesItem>
+                <FacilitiesText>침실 4</FacilitiesText>
+              </FacilitiesItem>
+            </FacilitiesList>
+          </FacilitiesContainer>
+          <InformationText>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros dolore eu feugiat
+            nulla facilisis at vero eros
+          </InformationText>
+          <CautionContainer>
+            <ContentSubTitleText>주의사항</ContentSubTitleText>
+            <InformationText>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+              euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
+              veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
+              commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
+              esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros
+              dolore eu feugiat nulla facilisis at vero eros
+            </InformationText>
+          </CautionContainer>
+          <>
+            <ContentSubTitleText>체크인 / 체크아웃</ContentSubTitleText>
+            <CheckBox>
+              <CheckText>체크인: nnn</CheckText>
+              <CheckText>체크아웃: nnn</CheckText>
+            </CheckBox>
+          </>
+        </ContentLeftContainer>
+        <Calender />
+      </ContentContainer>
+      <ContentBottomContainer>
+        <LodgingMap />
+        <ReservationBtn width={15} height={5.6}>
+          예약하기
+        </ReservationBtn>
+      </ContentBottomContainer>
+
+      {/* Review */}
+      <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
+      <ReviewContainer>
+        <ReviewHeader>
+          <RatingContainer score="5.0" />
+          <ReviewCntText>후기 3433개</ReviewCntText>
+        </ReviewHeader>
+        <ReviewContentContainer>
+          <ReviewWritingContainer>
+            <ReviewTextareBox>
+              <ReviewTextarea placeholder="후기를 입력하세요" />
+              <ReviewImgBox>
+                <ReviewImgInput
+                  type="file"
+                  accept="image/*"
+                  ref={reviewImgInputRef}
+                  onChange={onChangeReviewImg}
+                />
+                <ReviewImgText>{reviewImg}</ReviewImgText>
+                <ReviewImgBtn src={camera} onClick={onClickReviewInput} />
+              </ReviewImgBox>
+            </ReviewTextareBox>
+            <ReviewWritingRight>
+              <ReviewStarContainer>
+                <ReviewStarTitle>숙소에 만족하셨나요?</ReviewStarTitle>
+                <ReviewStarList>
+                  {ARRAY.map((el) => {
+                    return (
+                      <FaStar
+                        size="40"
+                        onClick={() => handleStarClick(el)}
+                        className={clicked[el] && 'blueStar'}
+                      />
+                    );
+                  })}
+                </ReviewStarList>
+              </ReviewStarContainer>
+              <ReviewWritingBtn>후기 등록하기</ReviewWritingBtn>
+            </ReviewWritingRight>
+          </ReviewWritingContainer>
+
+          {/* 추후에 API 연결하면 map 함수로 처리 */}
+          <ReviewList>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+            <ReviewItem>
+              <ReviewItemLeft>
+                <UserText>Name</UserText>
+                <DateText>yyyy년 mm월 dd일</DateText>
+              </ReviewItemLeft>
+              <ReviewText>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
+              </ReviewText>
+              <ReviewItemRight>
+                <RatingContainer score="5.0" />
+                <TmpBox />
+              </ReviewItemRight>
+            </ReviewItem>
+          </ReviewList>
+        </ReviewContentContainer>
+      </ReviewContainer>
+    </LodgingLayout>
+  );
+};
+
+export default LodgingDetail;
+
 // Review
 
 const ReviewContainer = styled.div``;
@@ -396,9 +422,34 @@ const ReviewWritingContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-const ReviewTextarea = styled.textarea`
+const ReviewTextareBox = styled.div`
   width: 36.5rem;
   height: 15rem;
+  position: relative;
+`;
+
+const ReviewTextarea = styled.textarea`
+  width: 100%;
+  height: 100%;
+`;
+
+const ReviewImgBox = styled.div`
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+`;
+
+const ReviewImgText = styled.div``;
+
+const ReviewImgInput = styled.input`
+  display: none;
+`;
+
+const ReviewImgBtn = styled.img`
+  cursor: pointer;
+  margin-left: 1rem;
 `;
 
 const ReviewWritingRight = styled.div`
