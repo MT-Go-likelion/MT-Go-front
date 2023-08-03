@@ -2,11 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 
-// 두개가 함께 있을땐 상단 (그 사이) 에 여백을 준다
 const Wrapper = styled.div`
-  & + & {
-    margin-top: 1rem;
-  }
+  margin-top: 1rem;
 `;
 
 const LabelContainer = styled.div`
@@ -20,7 +17,7 @@ const Label = styled.div`
   margin-right: 0.2rem;
 `;
 
-const RequiredText = styled.span`
+const Required = styled.span`
   font-size: 1.75rem;
   color: ${COLOR.red};
 `;
@@ -42,7 +39,7 @@ function InputWithLabel({ label, required, ...rest }) {
     <Wrapper>
       <LabelContainer>
         <Label>{label}</Label>
-        {required && <RequiredText>*</RequiredText>}
+        {required && <Required>*</Required>}
       </LabelContainer>
       <Input {...rest} />
     </Wrapper>

@@ -5,6 +5,8 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.22.9",
     "@ndelangen/eslint-config-airbnb": "^14.1.0",
+    "@tanstack/react-query": "^4.32.1",
+    "@tanstack/react-query-devtools": "^4.32.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -46,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@tanstack/eslint-plugin-query": "^4.32.1",
     "eslint": "^8.45.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^5.0.0",

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 import SignWrapper from './SignWrapper';
 import useInput from '../../hooks/useInput';
@@ -12,6 +11,7 @@ import blueEye from '../../assets/images/eye_blue.png';
 import TermsModal from '../Common/Modal/TermsModal';
 import Checkbox from '../Common/CheckBox/CheckBox';
 import HorizonLine from '../Common/Line/HorizonLine';
+import useSignUpMutation from '../../hooks/queries/useSignUp';
 
 const SignForm = styled.form`
   width: 80%;
@@ -57,15 +57,80 @@ const SignSubmitBtn = styled.button`
   margin: 2rem 0;
 `;
 
+const ErrorText = styled.div`
+  font-size: 0.7rem;
+  color: ${COLOR.red};
+  float: right;
+  margin-top: 0.5rem;
+`;
+
 const SignUpForm = () => {
   const [name, onChangeName] = useInput('');
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
-  const [confirmPassword, onChangeConfirmPassword] = useInput('');
+  const [confirmedPassword, onChangeConfirmedPassword] = useInput('');
+
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  // const [passwordError, setPasswordError] = useState('');
+  const [confirmedPasswordError, setConfirmedPasswordError] = useState('');
 
   const [showPassWord, setShowPassword] = useState(false);
   const [showRetypePassWord, setShowRetypePassword] = useState(false);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
+
+  const { signUpMutation } = useSignUpMutation();
+
+  const checkNameValidation = () => {
+    let isChekced = false;
+
+    if (name.length < 2) setNameError('최소 2글자 이상 작성해주세요');
+    else {
+      setNameError('');
+      isChekced = true;
+    }
+
+    return isChekced;
+  };
+
+  const checkEmailValidation = () => {
+    let isChekced = false;
+    const emailRegEx =
+      /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+
+    if (!emailRegEx.test(email)) setEmailError('올바른 이메일 형식을 작성해주세요');
+    else {
+      setEmailError('');
+      isChekced = true;
+    }
+
+    return isChekced;
+  };
+
+  const checkPasswordValidation = () => {
+    // test 끝나면 나중에 추가 (회원가입 쉽게 하기 위해)
+    return true;
+  };
+
+  const checkConfirmedPasswordValidation = () => {
+    let isChecked = false;
+    if (password !== confirmedPassword) setConfirmedPasswordError('비밀번호가 일치하지 않습니다');
+    else {
+      setConfirmedPasswordError('');
+      isChecked = true;
+    }
+
+    return isChecked;
+  };
+
+  const checkAllValidation = (name, email, password) => {
+    const checkedName = checkNameValidation(name);
+    const checkedEmail = checkEmailValidation(email);
+    const checkedPassWord = checkPasswordValidation(password);
+    const checkedConfirmedPassword = checkConfirmedPasswordValidation();
+
+    return checkedName && checkedEmail && checkedPassWord && checkedConfirmedPassword;
+  };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassWord);
@@ -81,24 +146,9 @@ const SignUpForm = () => {
 
   const onSubmitLogin = (e) => {
     e.preventDefault();
-    console.log(email, password, name);
+    const formValid = checkAllValidation(name, email, password);
 
-    // 추후에 API 연동 작업 추가
-
-    axios
-      .post('http://110.11.183.148:8000/accounts/user/signup/', {
-        email,
-        password,
-        name,
-      })
-      .then((response) => {
-        // 요청 성공 시 처리
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // 요청 실패 시 처리
-        console.error(error);
-      });
+    return formValid && signUpMutation({ email, password, name });
   };
 
   return (
@@ -106,6 +156,7 @@ const SignUpForm = () => {
       <SignForm onSubmit={onSubmitLogin}>
         <HorizonLine mb="2" />
         <InputWithLabel label="Name" required value={name} name="name" onChange={onChangeName} />
+        <ErrorText>{nameError}</ErrorText>
         <InputWithLabel
           label="E-mail"
           required
@@ -113,6 +164,7 @@ const SignUpForm = () => {
           name="E-mail"
           onChange={onChangeEmail}
         />
+        <ErrorText>{emailError}</ErrorText>
         <PassWordContainer>
           <InputWithLabel
             required
@@ -133,10 +185,11 @@ const SignUpForm = () => {
             required
             type={showRetypePassWord ? 'text' : 'password'}
             label="Re-type Password"
-            value={confirmPassword}
+            value={confirmedPassword}
             name="Re-type password"
-            onChange={onChangeConfirmPassword}
+            onChange={onChangeConfirmedPassword}
           />
+          <ErrorText>{confirmedPasswordError}</ErrorText>
           {showRetypePassWord ? (
             <EyeImg
               src={blueEye}
@@ -157,7 +210,6 @@ const SignUpForm = () => {
           <TermsText onClick={showModal}>더보기</TermsText>
           {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
         </TermsContainer>
-
         <SignSubmitBtn type="submit">회원가입</SignSubmitBtn>
       </SignForm>
     </SignWrapper>

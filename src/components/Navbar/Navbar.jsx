@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import menu from '../../assets/images/bag-outline.png';
+import { useSignOut } from '../../hooks/queries/useSignOut';
 
 const NavLayout = styled.header`
   width: 100%;
@@ -53,7 +54,8 @@ const LoginBtn = styled.div`
   cursor: pointer;
 `;
 
-const Navbar = () => {
+const Navbar = ({ auth }) => {
+  const signOut = useSignOut();
   const navigate = useNavigate();
 
   return (
@@ -76,7 +78,8 @@ const Navbar = () => {
         </NavMenuList>
       </NavLeft>
       <NavRight>
-        <LoginBtn onClick={() => navigate('/signin')}>로그인</LoginBtn>
+        {!auth && <LoginBtn onClick={() => navigate('/signin')}>로그인</LoginBtn>}
+        {auth && <LoginBtn onClick={signOut}>로그아웃</LoginBtn>}
       </NavRight>
     </NavLayout>
   );

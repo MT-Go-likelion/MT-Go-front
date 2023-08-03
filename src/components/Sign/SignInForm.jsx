@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 import SignWrapper from './SignWrapper';
 import InputWithLabel from './InputWithLabel';
@@ -10,6 +9,8 @@ import COLOR from '../../constants/color';
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
 import Checkbox from '../Common/CheckBox/CheckBox';
+
+import useSignIn from '../../hooks/queries/useSignIn';
 
 const LoginForm = styled.form`
   width: 80%;
@@ -61,6 +62,8 @@ const SignInForm = () => {
 
   const [showPassWord, setShowPassword] = useState(false);
 
+  const { signInMutation } = useSignIn();
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassWord);
   };
@@ -68,20 +71,7 @@ const SignInForm = () => {
   const handleSubmitLogin = (e) => {
     e.preventDefault();
 
-    // 추후에 API 연동 작업 추가
-    axios
-      .post('http://110.11.183.148:8000/accounts/user/signin/', {
-        email,
-        password,
-      })
-      .then((response) => {
-        // 요청 성공 시 처리
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // 요청 실패 시 처리
-        console.error(error);
-      });
+    signInMutation({ email, password });
   };
 
   return (
