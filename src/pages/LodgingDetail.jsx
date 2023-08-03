@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { FaStar } from 'react-icons/fa';
 import heart from '../assets/images/heart-gradient.png';
 import booking from '../assets/images/booking.png';
 import COLOR from '../constants/color';
@@ -9,7 +10,26 @@ import HorizonLine from '../components/Common/Line/HorizonLine';
 import ImageSwiper from '../components/ImageSwiper/ImageSwiper';
 import LodgingMap from '../components/Map/LodgingMap';
 
+const ARRAY = [0, 1, 2, 3, 4];
+
 const LodgingDetail = () => {
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
+
+  const handleStarClick = (index) => {
+    const clickStates = [...clicked];
+
+    ARRAY.forEach((idx) => {
+      clickStates[idx] = idx <= index;
+      setClicked(clickStates);
+    });
+  };
+
+  // 추후 후기 작성 API 연결 시 보낼 후기 평점
+  useEffect(() => {
+    const reviewRating = clicked.filter(Boolean).length;
+    console.log(reviewRating);
+  }, [clicked]);
+
   return (
     <LodgingLayout>
       {/* Header */}
@@ -108,8 +128,21 @@ const LodgingDetail = () => {
           <ReviewWritingContainer>
             <ReviewTextarea placeholder="후기를 입력하세요" />
             <ReviewWritingRight>
-              <RatingContainer score="5.0" />
-              <TmpBox />
+              <ReviewStarContainer>
+                <ReviewStarTitle>숙소에 만족하셨나요?</ReviewStarTitle>
+                <ReviewStarList>
+                  {ARRAY.map((el) => {
+                    return (
+                      <FaStar
+                        size="40"
+                        onClick={() => handleStarClick(el)}
+                        className={clicked[el] && 'blueStar'}
+                      />
+                    );
+                  })}
+                </ReviewStarList>
+              </ReviewStarContainer>
+              <ReviewWritingBtn>후기 등록하기</ReviewWritingBtn>
             </ReviewWritingRight>
           </ReviewWritingContainer>
 
@@ -371,8 +404,45 @@ const ReviewTextarea = styled.textarea`
 const ReviewWritingRight = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 1.5rem;
+`;
+
+const ReviewStarContainer = styled.div``;
+
+const ReviewStarList = styled.ul`
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 5px;
+
+  & svg {
+    color: ${COLOR.lightGray};
+    cursor: pointer;
+  }
+
+  :hover svg {
+    color: ${COLOR.primary.blue};
+  }
+
+  & svg:hover ~ svg {
+    color: ${COLOR.lightGray};
+  }
+
+  .blueStar {
+    color: ${COLOR.primary.blue};
+  }
+`;
+
+const ReviewStarTitle = styled.span`
+  font-weight: bold;
+`;
+
+const ReviewWritingBtn = styled.button`
+  width: 11rem;
+  height: 2.25rem;
+  background-color: ${COLOR.primary.blue};
+  color: ${COLOR.white};
+  border-radius: 1.5rem;
 `;
 
 const TmpBox = styled.div`

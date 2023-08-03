@@ -9615,6 +9615,7 @@ __metadata:
     react: ^18.2.0
     react-datepicker: ^4.16.0
     react-dom: ^18.2.0
+    react-icons: ^4.10.1
     react-kakao-maps-sdk: ^1.1.11
     react-router-dom: ^6.14.2
     react-scripts: ^5.0.1
@@ -11435,6 +11436,15 @@ __metadata:
   version: 3.2.2
   resolution: "react-fast-compare@npm:3.2.2"
   checksum: 2071415b4f76a3e6b55c84611c4d24dcb12ffc85811a2840b5a3f1ff2d1a99be1020d9437ee7c6e024c9f4cbb84ceb35e48cf84f28fcb00265ad2dfdd3947704
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^4.10.1":
+  version: 4.10.1
+  resolution: "react-icons@npm:4.10.1"
+  peerDependencies:
+    react: "*"
+  checksum: b6c8d4fe482b112e1041515d93ef7670a0af128855c926052a076b64d0b991cdd4391394b26467100f8da3859db1ebd8f9c6b7614fa5969fde83de45c71031a3
   languageName: node
   linkType: hard
 
