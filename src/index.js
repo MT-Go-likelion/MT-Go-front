@@ -13,6 +13,7 @@ import {
   Recreation,
   Room,
   Shopping,
+  Mypage,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: '/detail/:lodingId', element: <LodgingDetail /> },
       { path: '/recreation', element: <Recreation /> },
       { path: '/shopping', element: <Shopping /> },
+      { path: '/Mypage', element: <Mypage /> },
     ],
   },
 ]);
