@@ -64,7 +64,7 @@ const DetailCalendar = () => {
     const selected = DATES.find((dateObj) => dateObj.date === moment(date).format('YYYY-MM-DD'));
 
     if (selected === undefined) setSelectedDatePrice('가격 정보 없음');
-    else setSelectedDatePrice(selected.price);
+    else setSelectedDatePrice(formatPrice(selected.price));
   };
 
   const addContent = ({ date }) => {
@@ -98,7 +98,7 @@ const DetailCalendar = () => {
       />
       <SelectedDateContainer>
         <SelectedDateText>{moment(selectedDate).format('YYYY-MM-DD')}</SelectedDateText>
-        <SelectedDatePriceText>{formatPrice(selectedDatePrice)}</SelectedDatePriceText>
+        <SelectedDatePriceText>{selectedDatePrice}</SelectedDatePriceText>
       </SelectedDateContainer>
     </CalendarLayout>
   );
