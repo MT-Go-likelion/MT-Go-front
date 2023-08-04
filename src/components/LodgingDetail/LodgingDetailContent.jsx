@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
+import CalendarComponent from '../Calendar/Calendar';
 
 const LodgingDetailContent = () => {
   return (
@@ -63,7 +64,9 @@ const LodgingDetailContent = () => {
             </CheckBox>
           </>
         </ContentLeftContainer>
-        <Calender />
+        <CalenderBox>
+          <CalendarComponent />
+        </CalenderBox>
       </ContentContainer>
       <ContentBottomContainer>
         <LodgingMap />
@@ -131,10 +134,10 @@ const CapacityText = styled.span`
   color: ${COLOR.gray};
 `;
 
-const Calender = styled.div`
+const CalenderBox = styled.div`
   width: 26.25rem;
+  max-width: 100%;
   height: 25rem;
-  background-color: ${COLOR.lightGray};
   flex-basis: 30%;
 `;
 
