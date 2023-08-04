@@ -4,9 +4,10 @@ import Calendar from 'react-calendar';
 import '../../styles/Calendar.css';
 import moment from 'moment';
 import COLOR from '../../constants/color';
+import { formatPrice } from '../../utils/formatPrice';
 
 const DATES = [
-  { date: '2023-08-04', price: 2000000 },
+  { date: '2023-08-04', price: 200000 },
   { date: '2023-08-10', price: 1000000 },
   { date: '2023-08-23', price: 3000000 },
   { date: '2023-09-04', price: 4000000 },
@@ -97,7 +98,7 @@ const DetailCalendar = () => {
       />
       <SelectedDateContainer>
         <SelectedDateText>{moment(selectedDate).format('YYYY-MM-DD')}</SelectedDateText>
-        <SelectedDatePriceText>{selectedDatePrice}</SelectedDatePriceText>
+        <SelectedDatePriceText>{formatPrice(selectedDatePrice)}</SelectedDatePriceText>
       </SelectedDateContainer>
     </CalendarLayout>
   );

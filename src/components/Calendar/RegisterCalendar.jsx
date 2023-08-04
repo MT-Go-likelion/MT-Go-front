@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import '../../styles/Calendar.css';
@@ -56,6 +56,10 @@ const RegisterCalendar = () => {
   const [price, onChangePrice, setPrice] = useInput(0);
 
   const onChangeDate = (date) => {
+    updateDateAndPrice(date);
+  };
+
+  const updateDateAndPrice = (date) => {
     setSelectedDate(moment(date).format('YYYY-MM-DD'));
 
     const selected = dates.find((dateObj) => dateObj.date === moment(date).format('YYYY-MM-DD'));
@@ -67,7 +71,6 @@ const RegisterCalendar = () => {
     e.preventDefault();
 
     setDates((state) => {
-      console.log(selectedDate, price);
       return [...state, { date: selectedDate, price: Number(price) }];
     });
   };
@@ -86,6 +89,11 @@ const RegisterCalendar = () => {
 
     return <div>{contents}</div>;
   };
+
+  useEffect(() => {
+    const curDate = new Date();
+    updateDateAndPrice(curDate);
+  }, []);
 
   return (
     <CalendarLayout>
