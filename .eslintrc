@@ -31,6 +31,7 @@
     ],
     "react/no-unknown-property": ["error", { "ignore": ["css"] }],
     "react/jsx-props-no-spreading": 0,
-    "no-console": "off"
+    "no-console": "off",
+    "camelcase": [2, {"properties": "never"}]
   }
 }

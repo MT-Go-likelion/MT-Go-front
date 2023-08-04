@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import COLOR from '../constants/color';
 
@@ -65,7 +66,42 @@ const SearchBtn = styled.button`
   color: ${COLOR.white};
 `;
 
+/*
+  {
+      "pk": 1,
+      "name": "Cozy Inn",
+      "place": "Cityville",
+      "price": 100,
+      "headCount": 2,
+      "mainPhoto": null
+  }, 
+  */
+
 const Room = () => {
+  const [data, setData] = useState([]);
+
+  // 로딩 중 처리
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get('http://54.180.98.209:8000/lodging/main/');
+      setData(response.data);
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+
+    // 컴포넌트 사라질 떄
+    return () => {};
+  }, []);
+
   return (
     <div>
       <SearchBack>
@@ -81,14 +117,19 @@ const Room = () => {
         <SearchBtn>검색하기</SearchBtn>
       </SearchBack>
       <ContentsDiv>
-        <BestlocationCard />
-        <BestlocationCard />
-        <BestlocationCard />
-        <BestlocationCard />
-        <BestlocationCard />
-        <BestlocationCard />
-        <BestlocationCard />
-        <BestlocationCard />
+        {isLoading ? (
+          <p>로딩 중...</p>
+        ) : (
+          data.map((obj) => (
+            <BestlocationCard
+              pk={obj?.pk}
+              name={obj?.name}
+              price={obj?.price}
+              mainPhoto={obj?.mainPhoto}
+              avg_score={obj?.avg_score}
+            />
+          ))
+        )}
       </ContentsDiv>
     </div>
   );
