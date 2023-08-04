@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import '../../styles/Calendar.css';
@@ -67,6 +67,10 @@ const CalendarComponent = () => {
 
   const onChangeDate = (date) => {
     setSelectedDate(moment(date).format('YYYY-MM-DD'));
+    onChangePrice(date);
+  };
+
+  const onChangePrice = (date) => {
     const selected = DATES.find((dateObj) => dateObj.date === moment(date).format('YYYY-MM-DD'));
 
     if (selected === undefined) setSelectedDatePrice('가격 정보 없음');
@@ -98,6 +102,11 @@ const CalendarComponent = () => {
 
     return <div>{contents}</div>; // 각 날짜마다 해당 요소가 들어감
   };
+
+  useEffect(() => {
+    const curDate = new Date();
+    onChangePrice(curDate);
+  }, []);
 
   return (
     <CalendarLayout>
