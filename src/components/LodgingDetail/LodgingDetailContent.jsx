@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
-import CalendarComponent from '../Calendar/Calendar';
+import DetailCalendar from '../Calendar/DetailCalendar';
 
 const LodgingDetailContent = () => {
   return (
@@ -65,7 +65,7 @@ const LodgingDetailContent = () => {
           </>
         </ContentLeftContainer>
         <CalenderBox>
-          <CalendarComponent />
+          <DetailCalendar />
         </CalenderBox>
       </ContentContainer>
       <ContentBottomContainer>
