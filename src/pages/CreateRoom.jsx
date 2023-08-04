@@ -33,20 +33,81 @@ const SubmitButton = styled.button`
 const CreateRoom = () => {
   // const [pk, setPK] = useState('');
   const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
   const [place, setPlace] = useState('');
   const [price, setPrice] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [homePageURL, setHomePageURL] = useState('');
   const [headCount, setHeadCount] = useState('');
-  // const [avg_score, setAvgScore] = useState('');
+  const [content, setContent] = useState('');
+  const [precaution, setPrecaution] = useState('');
+  const [checkInTime, setCheckInTime] = useState('');
+  const [checkOutTime, setCheckOutTime] = useState('');
+  const [mainPhoto, setMainPhoto] = useState('');
+
+  const handleImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setMainPhoto(selectedFile);
+  };
+
+  // const handlesubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       'http://110.11.183.148:8000/lodging/create/',
+  //       {
+  //         name,
+  //         address,
+  //         place,
+  //         price,
+  //         phoneNumber,
+  //         homePageURL,
+  //         headCount,
+  //         content,
+  //         precaution,
+  //         checkInTime,
+  //         checkOutTime,
+  //         mainPhoto,
+  //       },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json', // Set the Content-Type header
+  //         },
+  //       },
+  //     );
+  //     /*
+  //      axios.post(URL,{data:{ username:"Name"}, headers:{
+  //       'Content-Type': 'application/json;' } })
+  //     */
+  //     console.log('데이터 전송 성공', response.data);
+  //   } catch (error) {
+  //     console.error('에러 전송 실패', error);
+  //   }
+  // };
 
   const handlesubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get('http://54.180.98.209:8000/lodging/main/', {
-        name,
-        place,
-        price,
-        headCount,
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('address', address);
+      formData.append('place', place);
+      formData.append('price', price);
+      formData.append('phoneNumber', phoneNumber);
+      formData.append('homePageURL', homePageURL);
+      formData.append('headCount', headCount);
+      formData.append('content', content);
+      formData.append('precaution', precaution);
+      formData.append('checkInTime', checkInTime);
+      formData.append('checkOutTime', checkOutTime);
+      formData.append('mainPhoto', mainPhoto);
+
+      const response = await axios.post('http://110.11.183.148:8000/lodging/create/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Content-Type 헤더를 multipart/form-data로 설정합니다.
+        },
       });
+
       console.log('데이터 전송 성공', response.data);
     } catch (error) {
       console.error('에러 전송 실패', error);
@@ -57,9 +118,15 @@ const CreateRoom = () => {
       <form onSubmit={handlesubmit} method="POST">
         <FormInput
           type="text"
-          placeholder="Name"
+          placeholder="숙소이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
+        />
+        <FormInput
+          type="text"
+          placeholder="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
         />
         <FormInput
           type="text"
@@ -79,12 +146,44 @@ const CreateRoom = () => {
           value={headCount}
           onChange={(e) => setHeadCount(e.target.value)}
         />
-        {/* <FormInput
+        <FormInput
           type="text"
-          placeholder="score"
-          value={avg_score}
-          onChange={(e) => setAvgScore(e.target.value)}
-        /> */}
+          placeholder="phoneNumber"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        <FormInput
+          type="text"
+          placeholder="homePageURL"
+          value={homePageURL}
+          onChange={(e) => setHomePageURL(e.target.value)}
+        />
+        <FormInput
+          type="text"
+          placeholder="content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <FormInput
+          type="text"
+          placeholder="precaution"
+          value={precaution}
+          onChange={(e) => setPrecaution(e.target.value)}
+        />
+        <FormInput
+          type="text"
+          placeholder="checkintime"
+          value={checkInTime}
+          onChange={(e) => setCheckInTime(e.target.value)}
+        />
+        <FormInput
+          type="text"
+          placeholder="checkouttime"
+          value={checkOutTime}
+          onChange={(e) => setCheckOutTime(e.target.value)}
+        />
+        <input type="file" onChange={handleImageChange} />
+
         <SubmitButton type="submit">제출하기</SubmitButton>
       </form>
     </FormContainer>

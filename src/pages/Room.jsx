@@ -86,7 +86,7 @@ const Room = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('http://54.180.98.209:8000/lodging/main/');
+      const response = await axios.get('http://110.11.183.148:8000/lodging/main/');
       setData(response.data);
       setIsLoading(false);
     } catch (err) {
@@ -126,7 +126,7 @@ const Room = () => {
               name={obj?.name}
               price={obj?.price}
               mainPhoto={obj?.mainPhoto}
-              avg_score={obj?.avg_score}
+              avg_score={obj?.avgScore}
             />
           ))
         )}
