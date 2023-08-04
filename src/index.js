@@ -16,6 +16,7 @@ import {
   Room,
   Shopping,
   Mypage,
+  CreateRoom,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: '/recreation', element: <Recreation /> },
       { path: '/shopping', element: <Shopping /> },
       { path: '/Mypage', element: <Mypage /> },
+      { path: '/CreateRoom', element: <CreateRoom /> },
     ],
   },
 ]);
