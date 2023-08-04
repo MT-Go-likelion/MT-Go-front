@@ -7,8 +7,6 @@ import BestlocationCard from '../components/Card/BestlocationCard';
 import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
 
-// import COLOR from '../constants/color';
-
 const MainLayout = styled.div`
   width: 100%;
   height: 80%;

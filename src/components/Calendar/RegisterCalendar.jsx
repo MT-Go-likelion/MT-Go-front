@@ -15,6 +15,12 @@ const DATES = [
   { date: '2023-09-23', price: 2000000 },
 ];
 
+const CalenderBox = styled.div`
+  width: 26.25rem;
+  max-width: 100%;
+  height: 25rem;
+`;
+
 const CalendarLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -96,20 +102,22 @@ const RegisterCalendar = () => {
   }, []);
 
   return (
-    <CalendarLayout>
-      <Calendar
-        onChange={onChangeDate}
-        value={selectedDate}
-        formatDay={(locale, date) => moment(date).format('D')}
-        tileContent={addContent}
-        showNeighboringMonth={false}
-      />
-      <SelectedDateForm onSubmit={onSubmitPrice}>
-        <SelectedDateText>{moment(selectedDate).format('YYYY-MM-DD')}</SelectedDateText>
-        <PriceInput name="price" value={price} onChange={onChangePrice} />
-        <SubmitBtn type="submit">입력</SubmitBtn>
-      </SelectedDateForm>
-    </CalendarLayout>
+    <CalenderBox>
+      <CalendarLayout>
+        <Calendar
+          onChange={onChangeDate}
+          value={selectedDate}
+          formatDay={(locale, date) => moment(date).format('D')}
+          tileContent={addContent}
+          showNeighboringMonth={false}
+        />
+        <SelectedDateForm onSubmit={onSubmitPrice}>
+          <SelectedDateText>{moment(selectedDate).format('YYYY-MM-DD')}</SelectedDateText>
+          <PriceInput name="price" value={price} onChange={onChangePrice} />
+          <SubmitBtn type="submit">입력</SubmitBtn>
+        </SelectedDateForm>
+      </CalendarLayout>
+    </CalenderBox>
   );
 };
 
