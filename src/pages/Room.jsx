@@ -126,7 +126,7 @@ const Room = () => {
               name={obj?.name}
               price={obj?.price}
               mainPhoto={obj?.mainPhoto}
-              avg_score={obj?.avgScore}
+              avgScore={obj?.avgScore}
             />
           ))
         )}
