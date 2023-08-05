@@ -16,6 +16,9 @@ import {
   Room,
   Shopping,
   Mypage,
+  RecreationDetail,
+  RecreationRegistration,
+  // RecreationRegistration,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -28,8 +31,10 @@ const router = createBrowserRouter([
       { path: '/signin', element: <SignIn /> },
       { path: '/signup', element: <SignUp /> },
       { path: '/room', element: <Room /> },
-      { path: '/detail/:lodingId', element: <LodgingDetail /> },
+      { path: '/room/detail/:lodingId', element: <LodgingDetail /> },
       { path: '/recreation', element: <Recreation /> },
+      { path: '/recreation/detail/:recreationId', element: <RecreationDetail /> },
+      { path: '/recreation/register', element: <RecreationRegistration /> },
       { path: '/shopping', element: <Shopping /> },
       { path: '/Mypage', element: <Mypage /> },
     ],
