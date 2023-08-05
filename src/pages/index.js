@@ -4,6 +4,7 @@ export { default as SignIn } from './SignIn';
 export { default as SignUp } from './SignUp';
 export { default as Room } from './Room';
 export { default as LodgingDetail } from './LodgingDetail';
+export { default as CreateRoom } from './CreateRoom';
 export { default as Recreation } from './Recreation';
 export { default as RecreationDetail } from './RecreationDetail';
 export { default as RecreationRegistration } from './RecreationRegistration';

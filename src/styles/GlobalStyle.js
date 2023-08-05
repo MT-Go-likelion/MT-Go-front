@@ -34,6 +34,6 @@ body {
   textarea:focus {
     outline: none;
   }
-    `;
+  `;
 
 export default GlobalStyles;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../styles/DatePicker.css';
 
 import COLOR from '../../constants/color';
 
@@ -43,6 +45,7 @@ const DateRangePicker = () => {
         <div>
           <StyledDatePickerstart
             id="departureDate"
+            locale={ko}
             selected={departureDate}
             onChange={(date) => setDepartureDate(date)}
             selectsStart
@@ -57,6 +60,7 @@ const DateRangePicker = () => {
         <div>
           <StyledDatePickerend
             id="arrivalDate"
+            locale={ko}
             selected={arrivalDate}
             onChange={(date) => setArrivalDate(date)}
             selectsEnd

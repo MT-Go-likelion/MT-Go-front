@@ -18,7 +18,7 @@ import {
   Mypage,
   RecreationDetail,
   RecreationRegistration,
-  // RecreationRegistration,
+  CreateRoom,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -37,6 +37,7 @@ const router = createBrowserRouter([
       { path: '/recreation/register', element: <RecreationRegistration /> },
       { path: '/shopping', element: <Shopping /> },
       { path: '/Mypage', element: <Mypage /> },
+      { path: '/CreateRoom', element: <CreateRoom /> },
     ],
   },
 ]);
