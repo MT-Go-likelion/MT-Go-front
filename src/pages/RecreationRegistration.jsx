@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
+import RecreationEditor from '../components/Editor/RecreationEditor';
 
 const RegisterForm = styled.form``;
 
@@ -60,16 +61,32 @@ const RecreationRegistration = () => {
   const [title, onChangeTitle] = useInput('');
   const [recommendedNum, onChangeRecommendedNum] = useInput(0);
   const [img, setImg] = useState('');
-
   const imgInputRef = useRef();
+  const editorRef = useRef();
+
   const onChangeImg = (e) => {
     const file = e.target.files[0];
     setImg(file.name);
   };
 
+  // 에디터 등록 시 에디터 내용 HTML or Markdown 형식으로 변환
+  const onhandleRegisterButton = () => {
+    // 입력창에 입력한 내용을 HTML 태그 형태로 취득
+    console.log(editorRef.current?.getInstance().getHTML());
+    // 입력창에 입력한 내용을 MarkDown 형태로 취득
+    console.log(editorRef.current?.getInstance().getMarkdown());
+  };
+
   const onSubmitRecreation = (e) => {
     e.preventDefault();
-    const form = { title, recommendedNum, img };
+
+    // API 연동 시 추가 작업 예정
+    const form = {
+      title,
+      recommendedNum,
+      img,
+      content: editorRef.current?.getInstance().getHTML(),
+    };
     console.log(form);
   };
 
@@ -85,7 +102,14 @@ const RecreationRegistration = () => {
       </RecommenedNumContainer>
       <ImgInput type="file" accept="image/*" ref={imgInputRef} onChange={onChangeImg} />
       <SelectedImg>{img}</SelectedImg>
-      <SubmitBtn type="submit">제출</SubmitBtn>
+      <RecreationEditor
+        content=""
+        editorRef={editorRef}
+        onhandleRegisterButton={onhandleRegisterButton}
+      />
+      <SubmitBtn type="submit" onClick={onhandleRegisterButton}>
+        제출
+      </SubmitBtn>
     </RegisterForm>
   );
 };
