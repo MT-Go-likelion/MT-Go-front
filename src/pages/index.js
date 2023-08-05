@@ -6,5 +6,6 @@ export { default as Room } from './Room';
 export { default as LodgingDetail } from './LodgingDetail';
 export { default as Recreation } from './Recreation';
 export { default as RecreationDetail } from './RecreationDetail';
+export { default as RecreationRegistration } from './RecreationRegistration';
 export { default as Shopping } from './Shopping';
 export { default as Mypage } from './Mypage';
