@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { RoomAPI } from '../config/api';
 import COLOR from '../constants/color';
 
 const FormContainer = styled.div`
@@ -50,41 +51,6 @@ const CreateRoom = () => {
     setMainPhoto(selectedFile);
   };
 
-  // const handlesubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await axios.post(
-  //       'http://110.11.183.148:8000/lodging/create/',
-  //       {
-  //         name,
-  //         address,
-  //         place,
-  //         price,
-  //         phoneNumber,
-  //         homePageURL,
-  //         headCount,
-  //         content,
-  //         precaution,
-  //         checkInTime,
-  //         checkOutTime,
-  //         mainPhoto,
-  //       },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json', // Set the Content-Type header
-  //         },
-  //       },
-  //     );
-  //     /*
-  //      axios.post(URL,{data:{ username:"Name"}, headers:{
-  //       'Content-Type': 'application/json;' } })
-  //     */
-  //     console.log('데이터 전송 성공', response.data);
-  //   } catch (error) {
-  //     console.error('에러 전송 실패', error);
-  //   }
-  // };
-
   const handlesubmit = async (event) => {
     event.preventDefault();
     try {
@@ -102,9 +68,9 @@ const CreateRoom = () => {
       formData.append('checkOutTime', checkOutTime);
       formData.append('mainPhoto', mainPhoto);
 
-      const response = await axios.post('http://110.11.183.148:8000/lodging/create/', formData, {
+      const response = await axios.post(RoomAPI.CREATEROOM, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Content-Type 헤더를 multipart/form-data로 설정합니다.
+          'Content-Type': 'multipart/form-data',
         },
       });
 

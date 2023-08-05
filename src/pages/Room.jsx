@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import COLOR from '../constants/color';
+import { RoomAPI } from '../config/api';
 
 import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
@@ -66,29 +67,30 @@ const SearchBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-/*
-  {
-      "pk": 1,
-      "name": "Cozy Inn",
-      "place": "Cityville",
-      "price": 100,
-      "headCount": 2,
-      "mainPhoto": null
-  }, 
-  */
-
 const Room = () => {
   const [data, setData] = useState([]);
 
   // 로딩 중 처리
   const [isLoading, setIsLoading] = useState(false);
 
+  // 토큰
+  const tokenData = localStorage.getItem('USER');
+  let token = '';
+  if (tokenData) {
+    const parsedData = JSON.parse(tokenData);
+    token = parsedData.token;
+  }
+
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('http://110.11.183.148:8000/lodging/main/');
-      setData(response.data);
+      // 로그인 된 상태 -> 좋아요 누를 수 있게 토큰 보내주고
+      // 로그아웃 된 상태 -> 리스트만 보이게
+      const headers = token ? { Authorization: `Token ${token}` } : {};
+      const response = await axios.get(RoomAPI.MAINLIST, { headers });
+
       setIsLoading(false);
+      setData(response.data);
     } catch (err) {
       console.error(err);
       setIsLoading(false);
@@ -97,8 +99,6 @@ const Room = () => {
 
   useEffect(() => {
     fetchData();
-
-    // 컴포넌트 사라질 떄
     return () => {};
   }, []);
 
@@ -127,6 +127,7 @@ const Room = () => {
               price={obj?.price}
               mainPhoto={obj?.mainPhoto}
               avgScore={obj?.avgScore}
+              isScrap={obj?.isScrap}
             />
           ))
         )}

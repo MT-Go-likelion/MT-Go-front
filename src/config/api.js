@@ -7,11 +7,9 @@ export const API = {
   SIGNIN: `${BASE_URL}/accounts/user/signin/`,
 };
 
-// export const TESTAPI = axios.create({
-//   baseURL: BASE_URL,
-//   headers: {
-//     Authorization: `Bearer ${localStorage.getItem('USER')?.token}`,
-//   },
-//   withCredentials: true,
-// });
-// 85555b4b230deb08f3eda89b5d773d902e9f488c
+export const RoomAPI = {
+  MAINLIST: `${BASE_URL}/lodging/main/`,
+  SCRAP: `${BASE_URL}/lodging/scrap/`,
+  CREATEROOM: `${BASE_URL}/lodging/create/`,
+  BASE_URL: `${BASE_URL}`,
+};

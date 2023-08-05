@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { RoomAPI } from '../../config/api';
 
 import COLOR from '../../constants/color';
 import Heart from '../../assets/images/heart-gray.png';
@@ -73,14 +75,43 @@ const Flex = styled.div`
  * @param {number} price 가격
  * @param {any} mainPhoto 사진 url
  * @param {number} avgScore  별점
+ * @param {boolean} isScrap 스크랩 여부
  */
 // const BestlocationCard = ({pk, name, place, price, headCount, mainPhoto}) => {
-const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore }) => {
-  const [liked, setLiked] = useState(false);
+const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
+  const [liked, setLiked] = useState(isScrap);
   const navigate = useNavigate();
-  const link = 'http://110.11.183.148:8000/';
-  const handlelikeClick = () => {
-    setLiked((prevState) => !prevState);
+  // 토큰
+  const tokenData = localStorage.getItem('USER');
+  let token = '';
+  if (tokenData) {
+    const parsedData = JSON.parse(tokenData);
+    token = parsedData.token;
+  }
+
+  const handlelikeClick = async () => {
+    if (token) {
+      setLiked((prevState) => !prevState);
+      try {
+        const response = await axios.post(
+          RoomAPI.SCRAP,
+          {
+            isScrap: !liked,
+            lodging: pk,
+          },
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          },
+        );
+        console.log('데이터 전송 성공', response.data);
+      } catch (err) {
+        console.error('데이터 전송 실패', err.message);
+      }
+    } else {
+      navigate('/signin');
+    }
   };
 
   // 상세페이지 링크 걸면 됨. (카드누르면 링크 바뀌게만 해둔 상태)
@@ -90,7 +121,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore }) => {
 
   return (
     <BestLoContainer onClick={handleCardClick}>
-      <BackDiv dataSrc={link + mainPhoto}>
+      <BackDiv dataSrc={RoomAPI.BASE_URL + mainPhoto}>
         <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
       </BackDiv>
       <Title>{name}</Title>
