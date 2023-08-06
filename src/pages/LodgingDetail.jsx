@@ -8,7 +8,8 @@ import {
   LodgingDetailReview,
 } from '../components/LodgingDetail/index';
 import useLodgingDetail from '../hooks/queries/Lodging/useLodgingDetail';
-import ErrorPage from './ErrorPage';
+import ErrorPage from './Error';
+import Loading from './Loading';
 
 const LodgingLayout = styled.div`
   max-width: 1280px;
@@ -23,7 +24,7 @@ const LodgingDetail = () => {
 
   return (
     <LodgingLayout>
-      {isLoading && <>로딩중</>}
+      {isLoading && <Loading />}
       {error && <ErrorPage />}
       {lodgingDetail && (
         <>

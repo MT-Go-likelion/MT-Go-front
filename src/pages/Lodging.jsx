@@ -9,8 +9,9 @@ import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
-import ErrorPage from './ErrorPage';
+import ErrorPage from './Error';
 import useLodging from '../hooks/queries/Lodging/useLodging';
+import Loading from './Loading';
 
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
@@ -75,7 +76,7 @@ const Lodging = () => {
   return (
     <div>
       {error && <ErrorPage />}
-      {isLoading && <>로딩 중...</>}
+      {isLoading && <Loading />}
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>
         <BoxFlex>

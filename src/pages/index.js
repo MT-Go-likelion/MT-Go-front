@@ -1,4 +1,5 @@
-export { default as ErrorPage } from './ErrorPage';
+export { default as Error } from './Error';
+export { default as Loading } from './Loading';
 export { default as Main } from './Main';
 export { default as SignIn } from './SignIn';
 export { default as SignUp } from './SignUp';

@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 
 import {
-  ErrorPage,
+  Error,
   Main,
   SignIn,
   SignUp,
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <Main /> },
       { path: '/signin', element: <SignIn /> },
