@@ -10,7 +10,7 @@ import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
 import Checkbox from '../Common/CheckBox/CheckBox';
 
-import useSignIn from '../../hooks/queries/useSignIn';
+import useSignIn from '../../hooks/queries/Auth/useSignIn';
 
 const LoginForm = styled.form`
   width: 80%;

@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import LODGINGAPI from '../../apis/lodingAPI';
+import lodgingAPI from '../../../apis/lodingAPI';
 
 const useLodging = () => {
-  const lodgingQuery = useQuery(['products'], LODGINGAPI.list);
+  const lodgingsQuery = useQuery(['lodgings'], lodgingAPI.list);
 
-  const { mutate: scrapMutation } = useMutation((payload) => LODGINGAPI.scrap(payload), {
+  const { mutate: scrapMutation } = useMutation((payload) => lodgingAPI.scrap(payload), {
     onSuccess: (data) => {
       console.log(data);
     },
@@ -13,7 +13,7 @@ const useLodging = () => {
     },
   });
 
-  const { mutate: lodgingMutation } = useMutation((payload) => LODGINGAPI.create(payload), {
+  const { mutate: lodgingMutation } = useMutation((payload) => lodgingAPI.create(payload), {
     onSuccess: (data) => {
       console.log(data);
     },
@@ -22,7 +22,7 @@ const useLodging = () => {
     },
   });
 
-  return { lodgingQuery, scrapMutation, lodgingMutation };
+  return { lodgingsQuery, scrapMutation, lodgingMutation };
 };
 
 export default useLodging;
