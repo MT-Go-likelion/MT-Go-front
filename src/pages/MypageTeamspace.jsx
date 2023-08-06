@@ -169,7 +169,7 @@ const Notification = styled.div`
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4caf50;
+  background-color: ${COLOR.primary.blue};
   color: #fff;
   padding: 8px 16px;
   border-radius: 4px;
