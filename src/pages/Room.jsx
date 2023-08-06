@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../constants/color';
-import { RoomAPI } from '../config/api';
 
 import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
@@ -11,6 +9,8 @@ import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
+import useRoom from '../hooks/queries/useRoom';
+import ErrorPage from './ErrorPage';
 
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
@@ -68,42 +68,13 @@ const SearchBtn = styled.button`
 `;
 
 const Room = () => {
-  const [data, setData] = useState([]);
-
-  // 로딩 중 처리
-  const [isLoading, setIsLoading] = useState(false);
-
-  // 토큰
-  const tokenData = localStorage.getItem('USER');
-  let token = '';
-  if (tokenData) {
-    const parsedData = JSON.parse(tokenData);
-    token = parsedData.token;
-  }
-
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      // 로그인 된 상태 -> 좋아요 누를 수 있게 토큰 보내주고
-      // 로그아웃 된 상태 -> 리스트만 보이게
-      const headers = token ? { Authorization: `Token ${token}` } : {};
-      const response = await axios.get(RoomAPI.MAINLIST, { headers });
-
-      setIsLoading(false);
-      setData(response.data);
-    } catch (err) {
-      console.error(err);
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-    return () => {};
-  }, []);
+  const {
+    roomQuery: { isLoading, error, data: rooms },
+  } = useRoom();
 
   return (
     <div>
+      {error && <ErrorPage />}
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>
         <BoxFlex>
@@ -120,7 +91,7 @@ const Room = () => {
         {isLoading ? (
           <p>로딩 중...</p>
         ) : (
-          data.map((obj) => (
+          rooms.map((obj) => (
             <BestlocationCard
               pk={obj?.pk}
               name={obj?.name}
