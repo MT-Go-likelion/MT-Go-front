@@ -13,12 +13,12 @@ import {
   SignUp,
   LodgingDetail,
   Recreation,
-  Room,
+  Lodging,
   Shopping,
   Mypage,
   RecreationDetail,
   RecreationRegistration,
-  CreateRoom,
+  CreateLodging,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -30,14 +30,14 @@ const router = createBrowserRouter([
       { index: true, element: <Main /> },
       { path: '/signin', element: <SignIn /> },
       { path: '/signup', element: <SignUp /> },
-      { path: '/room', element: <Room /> },
-      { path: '/room/detail/:lodingId', element: <LodgingDetail /> },
+      { path: '/lodging', element: <Lodging /> },
+      { path: '/lodging/:lodgingId', element: <LodgingDetail /> },
       { path: '/recreation', element: <Recreation /> },
-      { path: '/recreation/detail/:recreationId', element: <RecreationDetail /> },
+      { path: '/recreation/:recreationId', element: <RecreationDetail /> },
       { path: '/recreation/register', element: <RecreationRegistration /> },
       { path: '/shopping', element: <Shopping /> },
       { path: '/mypage', element: <Mypage /> },
-      { path: '/createRoom', element: <CreateRoom /> },
+      { path: '/createLoding', element: <CreateLodging /> },
     ],
   },
 ]);

@@ -8,7 +8,7 @@ import COLOR from '../../constants/color';
 import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
-import useRoom from '../../hooks/queries/useRoom';
+import useLoding from '../../hooks/queries/useLodings';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -86,7 +86,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const { scrapMutation } = useRoom();
+  const { scrapMutation } = useLoding();
 
   const handlelikeClick = async () => {
     if (user) {
@@ -103,7 +103,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
   // 상세페이지 링크 걸면 됨. (카드누르면 링크 바뀌게만 해둔 상태)
   const handleCardClick = () => {
-    navigate(`#${pk}`);
+    navigate(`/lodging/${pk}`, { state: pk });
   };
 
   return (

@@ -1,20 +1,20 @@
 import axios from 'axios';
-import { ROOMAPI } from '../config/api';
+import { LODGINGAPI } from '../config/api';
 
-const roomAPI = {
+const lodgingAPI = {
   list: async () => {
-    const res = await axios.get(ROOMAPI.MAINLIST);
+    const res = await axios.get(LODGINGAPI.MAINLIST);
 
     return res.data;
   },
   scrap: async ({ isScrap, lodging, token }) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
-    const res = await axios.post(ROOMAPI.SCRAP, { isScrap, lodging }, headers);
+    const res = await axios.post(LODGINGAPI.SCRAP, { isScrap, lodging }, headers);
 
     return res.data;
   },
   create: async (payload) => {
-    const res = await axios.post(ROOMAPI.CREATEROOM, payload, {
+    const res = await axios.post(LODGINGAPI.CREATELODGING, payload, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -24,4 +24,4 @@ const roomAPI = {
   },
 };
 
-export default roomAPI;
+export default lodgingAPI;

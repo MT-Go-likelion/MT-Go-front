@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../constants/color';
-import useRoom from '../hooks/queries/useRoom';
 import useInput from '../hooks/useInput';
+import useLoding from '../hooks/queries/useLodings';
 
 const FormContainer = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
-const CreateRoom = () => {
+const CreateLodging = () => {
   // const [pk, setPK] = useState('');
   const [name, onChangeName] = useInput('');
   const [address, onChangeAddress] = useInput('');
@@ -46,7 +46,7 @@ const CreateRoom = () => {
   const [checkOutTime, onChangeCheckOutTime] = useInput('');
   const [mainPhoto, setMainPhoto] = useState('');
 
-  const { roomMutation } = useRoom();
+  const { lodgingMutation } = useLoding();
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -69,7 +69,7 @@ const CreateRoom = () => {
     formData.append('checkOutTime', checkOutTime);
     formData.append('mainPhoto', mainPhoto);
 
-    roomMutation(formData);
+    lodgingMutation(formData);
   };
   return (
     <FormContainer>
@@ -123,4 +123,4 @@ const CreateRoom = () => {
   );
 };
 
-export default CreateRoom;
+export default CreateLodging;

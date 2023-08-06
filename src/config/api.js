@@ -5,8 +5,8 @@ export const API = {
   SIGNIN: `${BASE_URL}/accounts/user/signin/`,
 };
 
-export const ROOMAPI = {
+export const LODGINGAPI = {
   MAINLIST: `${BASE_URL}/lodging/main/`,
   SCRAP: `${BASE_URL}/lodging/scrap/`,
-  CREATEROOM: `${BASE_URL}/lodging/create/`,
+  CREATELODGING: `${BASE_URL}/lodging/create/`,
 };

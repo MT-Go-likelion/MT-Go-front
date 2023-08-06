@@ -9,8 +9,8 @@ import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
-import useRoom from '../hooks/queries/useRoom';
 import ErrorPage from './ErrorPage';
+import useLoding from '../hooks/queries/useLodings';
 
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
@@ -67,10 +67,10 @@ const SearchBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-const Room = () => {
+const Lodging = () => {
   const {
-    roomQuery: { isLoading, error, data: rooms },
-  } = useRoom();
+    lodgingQuery: { isLoading, error, data: lodings },
+  } = useLoding();
 
   return (
     <div>
@@ -91,7 +91,7 @@ const Room = () => {
         {isLoading ? (
           <p>로딩 중...</p>
         ) : (
-          rooms.map((obj) => (
+          lodings.map((obj) => (
             <BestlocationCard
               pk={obj?.pk}
               name={obj?.name}
@@ -107,4 +107,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default Lodging;

@@ -63,7 +63,7 @@ const Navbar = ({ auth }) => {
       <NavLeft>
         <NavLogo onClick={() => navigate('/')}>MTLOGO</NavLogo>
         <NavMenuList>
-          <NavMenu onClick={() => navigate('/room')}>
+          <NavMenu onClick={() => navigate('/lodging')}>
             <NavMenuIcon src={menu} />
             <NavMenuText>숙소예약</NavMenuText>
           </NavMenu>

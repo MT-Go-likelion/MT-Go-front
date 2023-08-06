@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useParams } from 'react-router-dom';
 import {
   LodgingDetailHeader,
   LodgingDetailContent,
@@ -13,6 +14,8 @@ const LodgingLayout = styled.div`
 `;
 
 const LodgingDetail = () => {
+  const { id } = useParams();
+  console.log(id);
   return (
     <LodgingLayout>
       <LodgingDetailHeader />
