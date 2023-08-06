@@ -36,8 +36,8 @@ const router = createBrowserRouter([
       { path: '/recreation/detail/:recreationId', element: <RecreationDetail /> },
       { path: '/recreation/register', element: <RecreationRegistration /> },
       { path: '/shopping', element: <Shopping /> },
-      { path: '/Mypage', element: <Mypage /> },
-      { path: '/CreateRoom', element: <CreateRoom /> },
+      { path: '/mypage', element: <Mypage /> },
+      { path: '/createRoom', element: <CreateRoom /> },
     ],
   },
 ]);

@@ -13,7 +13,16 @@ const useRoom = () => {
     },
   });
 
-  return { roomQuery, scrapMutation };
+  const { mutate: roomMutation } = useMutation((payload) => roomAPI.create(payload), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  return { roomQuery, scrapMutation, roomMutation };
 };
 
 export default useRoom;

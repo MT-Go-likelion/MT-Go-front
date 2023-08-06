@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
-import { RoomAPI } from '../config/api';
 import COLOR from '../constants/color';
+import useRoom from '../hooks/queries/useRoom';
+import useInput from '../hooks/useInput';
 
 const FormContainer = styled.div`
   display: flex;
@@ -33,18 +33,20 @@ const SubmitButton = styled.button`
 
 const CreateRoom = () => {
   // const [pk, setPK] = useState('');
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [place, setPlace] = useState('');
-  const [price, setPrice] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [homePageURL, setHomePageURL] = useState('');
-  const [headCount, setHeadCount] = useState('');
-  const [content, setContent] = useState('');
-  const [precaution, setPrecaution] = useState('');
-  const [checkInTime, setCheckInTime] = useState('');
-  const [checkOutTime, setCheckOutTime] = useState('');
+  const [name, onChangeName] = useInput('');
+  const [address, onChangeAddress] = useInput('');
+  const [place, onChangePlace] = useInput('');
+  const [price, onChangePrice] = useInput('');
+  const [phoneNumber, onChangePhoneNumber] = useInput('');
+  const [homePageURL, onChangeHomePageURL] = useInput('');
+  const [headCount, onChangeHeadCount] = useInput('');
+  const [content, onChangeContent] = useInput('');
+  const [precaution, onChangePrecaution] = useInput('');
+  const [checkInTime, onChangeCheckInTime] = useInput('');
+  const [checkOutTime, onChangeCheckOutTime] = useInput('');
   const [mainPhoto, setMainPhoto] = useState('');
+
+  const { roomMutation } = useRoom();
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -53,100 +55,65 @@ const CreateRoom = () => {
 
   const handlesubmit = async (event) => {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('address', address);
-      formData.append('place', place);
-      formData.append('price', price);
-      formData.append('phoneNumber', phoneNumber);
-      formData.append('homePageURL', homePageURL);
-      formData.append('headCount', headCount);
-      formData.append('content', content);
-      formData.append('precaution', precaution);
-      formData.append('checkInTime', checkInTime);
-      formData.append('checkOutTime', checkOutTime);
-      formData.append('mainPhoto', mainPhoto);
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('address', address);
+    formData.append('place', place);
+    formData.append('price', price);
+    formData.append('phoneNumber', phoneNumber);
+    formData.append('homePageURL', homePageURL);
+    formData.append('headCount', headCount);
+    formData.append('content', content);
+    formData.append('precaution', precaution);
+    formData.append('checkInTime', checkInTime);
+    formData.append('checkOutTime', checkOutTime);
+    formData.append('mainPhoto', mainPhoto);
 
-      const response = await axios.post(RoomAPI.CREATEROOM, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      console.log('데이터 전송 성공', response.data);
-    } catch (error) {
-      console.error('에러 전송 실패', error);
-    }
+    roomMutation(formData);
   };
   return (
     <FormContainer>
       <form onSubmit={handlesubmit} method="POST">
-        <FormInput
-          type="text"
-          placeholder="숙소이름"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <FormInput
-          type="text"
-          placeholder="address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-        <FormInput
-          type="text"
-          placeholder="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <FormInput
-          type="text"
-          placeholder="place"
-          value={place}
-          onChange={(e) => setPlace(e.target.value)}
-        />
+        <FormInput type="text" placeholder="숙소이름" value={name} onChange={onChangeName} />
+        <FormInput type="text" placeholder="address" value={address} onChange={onChangeAddress} />
+        <FormInput type="text" placeholder="price" value={price} onChange={onChangePrice} />
+        <FormInput type="text" placeholder="place" value={place} onChange={onChangePlace} />
         <FormInput
           type="text"
           placeholder="headCount"
           value={headCount}
-          onChange={(e) => setHeadCount(e.target.value)}
+          onChange={onChangeHeadCount}
         />
         <FormInput
           type="text"
           placeholder="phoneNumber"
           value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          onChange={onChangePhoneNumber}
         />
         <FormInput
           type="text"
           placeholder="homePageURL"
           value={homePageURL}
-          onChange={(e) => setHomePageURL(e.target.value)}
+          onChange={onChangeHomePageURL}
         />
-        <FormInput
-          type="text"
-          placeholder="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <FormInput type="text" placeholder="content" value={content} onChange={onChangeContent} />
         <FormInput
           type="text"
           placeholder="precaution"
           value={precaution}
-          onChange={(e) => setPrecaution(e.target.value)}
+          onChange={onChangePrecaution}
         />
         <FormInput
           type="text"
           placeholder="checkintime"
           value={checkInTime}
-          onChange={(e) => setCheckInTime(e.target.value)}
+          onChange={onChangeCheckInTime}
         />
         <FormInput
           type="text"
           placeholder="checkouttime"
           value={checkOutTime}
-          onChange={(e) => setCheckOutTime(e.target.value)}
+          onChange={onChangeCheckOutTime}
         />
         <input type="file" onChange={handleImageChange} />
 
