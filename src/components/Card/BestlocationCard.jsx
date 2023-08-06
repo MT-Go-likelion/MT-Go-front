@@ -77,7 +77,7 @@ const Flex = styled.div`
  * @param {number} avgScore  별점
  * @param {boolean} isScrap 스크랩 여부
  */
-// const BestlocationCard = ({pk, name, place, price, headCount, mainPhoto}) => {
+
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
   const navigate = useNavigate();
