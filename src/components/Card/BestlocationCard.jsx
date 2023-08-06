@@ -8,7 +8,7 @@ import COLOR from '../../constants/color';
 import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
-import useLoding from '../../hooks/queries/useLodings';
+import useLoding from '../../hooks/queries/Lodging/useLodging';
 
 const BestLoContainer = styled.div`
   width: 240px;

@@ -10,7 +10,7 @@ import Date from '../components/SelectBox/Date';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
 import ErrorPage from './ErrorPage';
-import useLoding from '../hooks/queries/useLodings';
+import useLodging from '../hooks/queries/Lodging/useLodging';
 
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
@@ -69,12 +69,13 @@ const SearchBtn = styled.button`
 
 const Lodging = () => {
   const {
-    lodgingQuery: { isLoading, error, data: lodings },
-  } = useLoding();
+    lodgingsQuery: { isLoading, error, data: lodgings },
+  } = useLodging();
 
   return (
     <div>
       {error && <ErrorPage />}
+      {isLoading && <>로딩 중...</>}
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>
         <BoxFlex>
@@ -88,10 +89,8 @@ const Lodging = () => {
         <SearchBtn>검색하기</SearchBtn>
       </SearchBack>
       <ContentsDiv>
-        {isLoading ? (
-          <p>로딩 중...</p>
-        ) : (
-          lodings.map((obj) => (
+        {lodgings &&
+          lodgings.map((obj) => (
             <BestlocationCard
               pk={obj?.pk}
               name={obj?.name}
@@ -100,8 +99,7 @@ const Lodging = () => {
               avgScore={obj?.avgScore}
               isScrap={obj?.isScrap}
             />
-          ))
-        )}
+          ))}
       </ContentsDiv>
     </div>
   );

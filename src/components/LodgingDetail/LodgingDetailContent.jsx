@@ -4,63 +4,58 @@ import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
 import DetailCalendar from '../Calendar/DetailCalendar';
 
-const LodgingDetailContent = () => {
+const LodgingDetailContent = ({
+  mainPhoto,
+  photos,
+  address,
+  price,
+  homePageURL,
+  amenities,
+  phoneNumber,
+  headCount,
+  content,
+  precaution,
+  checkInTime,
+  checkOutTime,
+  pricesByDate,
+  place,
+}) => {
+  console.log(mainPhoto, photos, pricesByDate, place);
   return (
     <>
       <ContentContainer>
         <ContentLeftContainer>
           <Header>
             <ContentHeaderLeft>
-              <AddressText>Address</AddressText>
-              <PriceText>1박 000,000,00원</PriceText>
-              <UrlText>https://homepage.com//example</UrlText>
+              <AddressText>{address}</AddressText>
+              <PriceText>{price}</PriceText>
+              <UrlText>{homePageURL}</UrlText>
             </ContentHeaderLeft>
             <ContentHeaderRight>
-              <PhoneNumText>nn-nnnn-nnnn</PhoneNumText>
-              <CapacityText>수용인원: NN</CapacityText>
+              <PhoneNumText>{phoneNumber}</PhoneNumText>
+              <CapacityText>{headCount}</CapacityText>
             </ContentHeaderRight>
           </Header>
           <FacilitiesContainer>
-            {/* 추후에 API 연결하면 map 함수로 처리 */}
             <FacilitiesList>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
-              <FacilitiesItem>
-                <FacilitiesText>침실 4</FacilitiesText>
-              </FacilitiesItem>
+              {amenities &&
+                amenities.split(',').map((pre) => (
+                  <FacilitiesItem>
+                    <FacilitiesText>{pre}</FacilitiesText>
+                  </FacilitiesItem>
+                ))}
             </FacilitiesList>
           </FacilitiesContainer>
-          <InformationText>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros dolore eu feugiat
-            nulla facilisis at vero eros
-          </InformationText>
+          <InformationText>{content}</InformationText>
           <CautionContainer>
             <ContentSubTitleText>주의사항</ContentSubTitleText>
-            <InformationText>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-              euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-              veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-              commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
-              esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros
-              dolore eu feugiat nulla facilisis at vero eros
-            </InformationText>
+            <InformationText>{precaution}</InformationText>
           </CautionContainer>
           <>
             <ContentSubTitleText>체크인 / 체크아웃</ContentSubTitleText>
             <CheckBox>
-              <CheckText>체크인: nnn</CheckText>
-              <CheckText>체크아웃: nnn</CheckText>
+              <CheckText>체크인: {checkInTime}</CheckText>
+              <CheckText>체크아웃: {checkOutTime}</CheckText>
             </CheckBox>
           </>
         </ContentLeftContainer>

@@ -7,6 +7,8 @@ import {
   LodgingDetailContent,
   LodgingDetailReview,
 } from '../components/LodgingDetail/index';
+import useLodgingDetail from '../hooks/queries/Lodging/useLodgingDetail';
+import ErrorPage from './ErrorPage';
 
 const LodgingLayout = styled.div`
   max-width: 1280px;
@@ -14,13 +16,36 @@ const LodgingLayout = styled.div`
 `;
 
 const LodgingDetail = () => {
-  const { id } = useParams();
-  console.log(id);
+  const { lodgingId } = useParams();
+  const {
+    lodgingDetailQuery: { isLoading, error, data: lodgingDetail },
+  } = useLodgingDetail(lodgingId);
+
   return (
     <LodgingLayout>
-      <LodgingDetailHeader />
-      <LodgingDetailContent />
-      <LodgingDetailReview />
+      {isLoading && <>로딩중</>}
+      {error && <ErrorPage />}
+      {lodgingDetail && (
+        <>
+          <LodgingDetailHeader name={lodgingDetail.lodging.name} />
+          <LodgingDetailContent
+            mainPhoto={lodgingDetail.lodging.mainPhoto}
+            photos={lodgingDetail.lodging.photos}
+            address={lodgingDetail.lodging.address}
+            price={lodgingDetail.lodging.price}
+            homePageURL={lodgingDetail.lodging.homePageURL}
+            amenities={lodgingDetail.lodging.amenities}
+            phoneNumber={lodgingDetail.lodging.phoneNumber}
+            headCount={lodgingDetail.lodging.headCount}
+            content={lodgingDetail.lodging.content}
+            precaution={lodgingDetail.lodging.precaution}
+            checkInTime={lodgingDetail.lodging.checkInTime}
+            checkOutTime={lodgingDetail.lodging.checkOutTime}
+            place={lodgingDetail.lodging.place}
+          />
+          <LodgingDetailReview />
+        </>
+      )}
     </LodgingLayout>
   );
 };

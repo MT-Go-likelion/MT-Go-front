@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
-import useLoding from '../hooks/queries/useLodings';
+import useLoding from '../hooks/queries/Lodging/useLodging';
 
 const FormContainer = styled.div`
   display: flex;
@@ -38,6 +38,7 @@ const CreateLodging = () => {
   const [place, onChangePlace] = useInput('');
   const [price, onChangePrice] = useInput('');
   const [phoneNumber, onChangePhoneNumber] = useInput('');
+  const [amenities, onChangeAmenities] = useInput('');
   const [homePageURL, onChangeHomePageURL] = useInput('');
   const [headCount, onChangeHeadCount] = useInput('');
   const [content, onChangeContent] = useInput('');
@@ -61,6 +62,7 @@ const CreateLodging = () => {
     formData.append('place', place);
     formData.append('price', price);
     formData.append('phoneNumber', phoneNumber);
+    formData.append('amenities', amenities);
     formData.append('homePageURL', homePageURL);
     formData.append('headCount', headCount);
     formData.append('content', content);
@@ -68,6 +70,7 @@ const CreateLodging = () => {
     formData.append('checkInTime', checkInTime);
     formData.append('checkOutTime', checkOutTime);
     formData.append('mainPhoto', mainPhoto);
+    formData.append('photos', []);
 
     lodgingMutation(formData);
   };
@@ -95,6 +98,12 @@ const CreateLodging = () => {
           placeholder="homePageURL"
           value={homePageURL}
           onChange={onChangeHomePageURL}
+        />
+        <FormInput
+          type="text"
+          placeholder="amenities"
+          value={amenities}
+          onChange={onChangeAmenities}
         />
         <FormInput type="text" placeholder="content" value={content} onChange={onChangeContent} />
         <FormInput
