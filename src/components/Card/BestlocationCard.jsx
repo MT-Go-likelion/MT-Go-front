@@ -13,6 +13,7 @@ import useLoding from '../../hooks/queries/useLodings';
 const BestLoContainer = styled.div`
   width: 240px;
   height: 400px;
+  cursor: pointer;
 `;
 
 const BackDiv = styled.div`
@@ -88,7 +89,9 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
   const { scrapMutation } = useLoding();
 
-  const handlelikeClick = async () => {
+  const handlelikeClick = (e) => {
+    e.stopPropagation();
+
     if (user) {
       setLiked((prevState) => !prevState);
       scrapMutation({
