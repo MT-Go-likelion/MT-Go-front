@@ -44,7 +44,7 @@ const LodgingDetail = () => {
             checkOutTime={lodgingDetail.lodging.checkOutTime}
             place={lodgingDetail.lodging.place}
           />
-          <LodgingDetailReview />
+          <LodgingDetailReview pk={lodgingDetail.lodging.pk} reviews={lodgingDetail.reviews} />
         </>
       )}
     </LodgingLayout>

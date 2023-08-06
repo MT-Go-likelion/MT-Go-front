@@ -10,4 +10,5 @@ export const LODGINGAPI = {
   SCRAP: `${BASE_URL}/lodging/scrap/`,
   CREATELODGING: `${BASE_URL}/lodging/create/`,
   DETAIL: `${BASE_URL}/lodging/detail/`,
+  REVIEW: `${BASE_URL}/lodging/createReview/`,
 };

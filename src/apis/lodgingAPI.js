@@ -14,11 +14,7 @@ const lodgingAPI = {
     return res.data;
   },
   create: async (payload) => {
-    const res = await axios.post(LODGINGAPI.CREATELODGING, payload, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const res = await axios.post(LODGINGAPI.CREATELODGING, payload);
 
     return res.data;
   },

@@ -21,6 +21,7 @@ const LodgingDetailContent = ({
   place,
 }) => {
   console.log(mainPhoto, photos, pricesByDate, place);
+
   return (
     <>
       <ContentContainer>

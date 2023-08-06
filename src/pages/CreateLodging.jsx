@@ -54,7 +54,7 @@ const CreateLodging = () => {
     setMainPhoto(selectedFile);
   };
 
-  const handlesubmit = async (event) => {
+  const handlesubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
@@ -72,6 +72,7 @@ const CreateLodging = () => {
     formData.append('mainPhoto', mainPhoto);
     formData.append('photos', []);
 
+    console.log(formData);
     lodgingMutation(formData);
   };
   return (
