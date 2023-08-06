@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import COLOR from '../constants/color';
+import { useNavigate } from 'react-router-dom';
 
+import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
-import BagCard from '../components/Card/BagCard';
+// import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
 import TeamspacePopup from '../components/Popup/TeamspacePopup';
 
@@ -29,12 +30,12 @@ const ScrapDiv = styled.div`
   padding-top: 4rem;
 `;
 
-const Title = styled.div`
-  font-size: 30px;
+const Title = styled.button`
+  font-size: 25px;
   font-weight: 700;
   margin: 3rem 0 10rem 0;
-  border-bottom: 1.4px solid ${COLOR.primary.blue};
-  width: 120px;
+  border-bottom: 1.4px solid ${COLOR.primary.lightBlue};
+  width: 140px;
 `;
 
 const SubTitle = styled.div`
@@ -86,6 +87,14 @@ const DivTeamlist = styled.div`
 
 const MyPage = () => {
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const navigate = useNavigate();
+  const gotoTeamSpace = () => {
+    // useNavigate(`/Teamspace/${pk}`);
+    navigate(`/MypageTeamspace`);
+  };
+  const gotoMypage = () => {
+    navigate(`/Mypage`);
+  };
 
   const handleTeamspacePlusClick = () => {
     setIspopupVisivle(true);
@@ -100,12 +109,12 @@ const MyPage = () => {
       <Hrbar />
       <Container>
         <TeamspaceDiv>
-          <Title>스크랩</Title>
+          <Title onClick={gotoMypage}>개인 스페이스</Title>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
             <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
             {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
-            <TeamspaceButton>국민대스페이스</TeamspaceButton>
+            <TeamspaceButton onClick={gotoTeamSpace}>국민대스페이스</TeamspaceButton>
             <TeamspaceButton>동아리스페이스</TeamspaceButton>
             <TeamspaceButton>동아리스페이스</TeamspaceButton>
             <TeamspaceButton>동아리스페이스</TeamspaceButton>
@@ -121,14 +130,6 @@ const MyPage = () => {
             <BestlocationCard />
             <BestlocationCard />
           </Flex>
-          <SubTitle>장바구니</SubTitle>
-          <Flex>
-            <BagCard />
-            <BagCard />
-            <BagCard />
-            <BagCard />
-            <BagCard />
-          </Flex>
           <SubTitle>레크레이션</SubTitle>
           <Flex>
             <RecreationCard />
@@ -137,6 +138,8 @@ const MyPage = () => {
             <RecreationCard />
             <RecreationCard />
           </Flex>
+          <SubTitle>장바구니</SubTitle>
+          <Flex>장바구니 컴포넌트</Flex>
         </ScrapDiv>
       </Container>
     </>
