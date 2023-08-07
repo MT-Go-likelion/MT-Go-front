@@ -35,24 +35,26 @@ const SumPrice = styled.div`
   margin: 10px 5rem;
 `;
 
-const Calculator = () => {
-  const data = [
-    { item: 'name', amount: 3, price: 10000 },
-    { item: 'name', amount: 2, price: 15000 },
-    { item: 'name', amount: 1, price: 20000 },
-    { item: 'name', amount: 1, price: 20000 },
-    { item: 'name', amount: 1, price: 20000 },
-    { item: 'name', amount: 1, price: 20000 },
-    { item: 'name', amount: 2, price: 15000 },
-    { item: 'name', amount: 2, price: 15000 },
-    { item: 'name', amount: 3, price: 10000 },
-    { item: 'name', amount: 3, price: 10000 },
-  ];
+const ShoppingTable = ({ data }) => {
+  // const data = [
+  //   { item: 'name', amount: 3, price: 10000 },
+  //   { item: 'name', amount: 2, price: 15000 },
+  //   { item: 'name', amount: 1, price: 20000 },
+  //   { item: 'name', amount: 1, price: 20000 },
+  //   { item: 'name', amount: 1, price: 20000 },
+  //   { item: 'name', amount: 1, price: 20000 },
+  //   { item: 'name', amount: 2, price: 15000 },
+  //   { item: 'name', amount: 2, price: 15000 },
+  //   { item: 'name', amount: 3, price: 10000 },
+  //   { item: 'name', amount: 3, price: 10000 },
+  // ];
+
   const dataWithTotalPrice = data.map((item) => ({
     ...item,
     totalPrice: item.amount * item.price,
   }));
   const totalSum = dataWithTotalPrice.reduce((acc, item) => acc + item.totalPrice, 0);
+
   return (
     <Border>
       <Table>
@@ -80,4 +82,4 @@ const Calculator = () => {
   );
 };
 
-export default Calculator;
+export default ShoppingTable;

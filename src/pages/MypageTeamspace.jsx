@@ -6,8 +6,8 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import RecreationCard from '../components/Card/RecreationCard';
-import TeamspacePopup from '../components/Popup/TeamspacePopup';
-import DeleteSharePopup from '../components/Popup/DeleteSharePopup';
+import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
+import DeleteSharePopup from '../components/Popup/Mypage/DeleteSharePopup';
 
 // 전체 여백
 const Container = styled.div`

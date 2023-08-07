@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import ShoppingTag from '../components/Button/ShoppingTag';
 import MainBanner from '../assets/images/ShoppingMain.png';
+import TagPopup from '../components/Popup/Shopping/TagPopup';
 
 const BannerImg = styled.img`
   width: 100%;
@@ -45,14 +46,14 @@ const SelectName = styled.select`
 
 const Shopping = () => {
   const TagOptions = [
-    { Tag: 1, name: '소고기 등심' },
-    { Tag: 2, name: '소고기 안심' },
-    { Tag: 3, name: 'LA갈비' },
-    { Tag: 4, name: '소고기 모듬구이' },
-    { Tag: 5, name: '스테이크' },
-    { Tag: 6, name: '돼지고기' },
-    { Tag: 7, name: '돼지고기' },
-    { Tag: 8, name: '돼지고기' },
+    { TagId: 1, name: '소고기 등심' },
+    { TagId: 2, name: '소고기 안심' },
+    { TagId: 3, name: 'LA갈비' },
+    { TagId: 4, name: '소고기 모듬구이' },
+    { TagId: 5, name: '스테이크' },
+    { TagId: 6, name: '돼지고기' },
+    { TagId: 7, name: '돼지고기' },
+    { TagId: 8, name: '돼지고기' },
   ];
 
   const spaceOptions = [
@@ -60,13 +61,44 @@ const Shopping = () => {
     { id: 2, name: '국민대 스페이스' },
     { id: 3, name: '동아리 스페이스' },
   ];
+
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [shoppingItems, setShoppingItems] = useState([]); // State to store the shopping items
+
+  const handleTagClick = (item) => {
+    setIsPopupVisible(true);
+    setSelectedItem(item);
+    console.log(item);
+  };
+
+  const handlePopupClose = () => {
+    setIsPopupVisible(false);
+  };
+
+  const handleComplete = (amount, price, totalPrice) => {
+    // Perform any actions with amount and price here.
+    if (amount && price && selectedItem) {
+      const newItem = {
+        item: selectedItem.name,
+        amount: parseInt(amount, 10),
+        price: parseInt(price, 10),
+        totalPrice,
+      };
+      setShoppingItems((prevItems) => [...prevItems, newItem]);
+    }
+    setIsPopupVisible(false);
+  };
+
   return (
     <>
       <BannerImg src={MainBanner} />
       <Container>
         <Flex>
           {TagOptions.map((options) => (
-            <ShoppingTag>{options.name}</ShoppingTag>
+            <ShoppingTag key={options.TagId} onClick={() => handleTagClick(options)}>
+              {options.name}
+            </ShoppingTag>
           ))}
         </Flex>
       </Container>
@@ -81,8 +113,16 @@ const Shopping = () => {
         </SelectName>
       </CalDiv>
       <Container>
-        <ShoppingTable />
+        <ShoppingTable data={shoppingItems} />
       </Container>
+      <TagPopup
+        isVisible={isPopupVisible}
+        onClose={handlePopupClose}
+        onComplete={(amount, price, totalPrice) => {
+          handleComplete(amount, price, totalPrice);
+          setIsPopupVisible(false);
+        }}
+      />
     </>
   );
 };
