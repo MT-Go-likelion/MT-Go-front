@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import COLOR from '../../constants/color';
 import Recreatbtn from '../../assets/images/Recreat.png';
 import SelectRecreat from '../../assets/images/Select_recreat.png';
 import { BASE_URL } from '../../config/api';
+import useRecreation from '../../hooks/queries/Recreation/useRecreation';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -86,14 +89,29 @@ const Flex = styled.div`
 
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
-const RecreationCard = ({ name, photo, headCountMin, headCountMax, isScrap }) => {
-  console.log(isScrap, photo);
-  const [teamspace, setTeamspace] = useState(false);
-  const [save, setSave] = useState(false);
+const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
+  const [teamspace] = useState(false);
+  const [save, setSave] = useState(isScrap);
+  const navigate = useNavigate();
 
-  const handleSaveClick = () => {
-    setTeamspace((prevState) => !prevState);
-    setSave((prevState) => !prevState);
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { recreationReviewMutation } = useRecreation();
+
+  const handleSaveClick = (e) => {
+    e.stopPropagation();
+
+    if (user) {
+      setSave((prevState) => !prevState);
+      recreationReviewMutation({
+        isScrap: !save,
+        recreationPk: pk,
+        token: user.token,
+      });
+    } else {
+      navigate('/signin');
+    }
   };
 
   return (

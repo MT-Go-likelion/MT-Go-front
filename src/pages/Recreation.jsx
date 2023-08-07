@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
 import RecreationCard from '../components/Card/RecreationCard';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import Error from './Error';
@@ -42,10 +43,12 @@ const RecreationItem = styled.li`
 `;
 
 const Recreation = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const {
     recreationsQuery: { isLoading, error, data: recreations },
-  } = useRecreation();
-  console.log(recreations);
+  } = useRecreation(user.token);
 
   return (
     <RecreationLayout>
