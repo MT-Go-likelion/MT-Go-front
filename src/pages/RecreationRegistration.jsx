@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
 import RecreationEditor from '../components/Editor/RecreationEditor';
+import useRecreation from '../hooks/queries/Recreation/useRecreation';
 
 const RegisterForm = styled.form``;
 
@@ -58,11 +59,14 @@ const ImgInput = styled.input``;
 const SubmitBtn = styled.button``;
 
 const RecreationRegistration = () => {
-  const [title, onChangeTitle] = useInput('');
-  const [recommendedNum, onChangeRecommendedNum] = useInput(0);
+  const [name, onChangeName] = useInput('');
+  const [headCountMin, onChangeHeadCountMin] = useInput(0);
+  const [headCountMax, onChangeHeadCountMax] = useInput(0);
   const [img, setImg] = useState('');
   const imgInputRef = useRef();
   const editorRef = useRef();
+
+  const { recreaetionMutation } = useRecreation();
 
   const onChangeImg = (e) => {
     const file = e.target.files[0];
@@ -80,25 +84,30 @@ const RecreationRegistration = () => {
   const onSubmitRecreation = (e) => {
     e.preventDefault();
 
-    // API 연동 시 추가 작업 예정
-    const form = {
-      title,
-      recommendedNum,
-      img,
+    const payload = {
+      name,
       content: editorRef.current?.getInstance().getHTML(),
+      img,
+      headCountMin,
+      headCountMax,
     };
-    console.log(form);
+
+    recreaetionMutation(payload);
   };
 
   return (
     <RegisterForm onSubmit={onSubmitRecreation}>
       <TitleContainer>
-        <TitleLabel onChange={onChangeTitle}>제목</TitleLabel>
-        <TitleInput />
+        <TitleLabel>제목</TitleLabel>
+        <TitleInput onChange={onChangeName} />
       </TitleContainer>
       <RecommenedNumContainer>
-        <RecommenedNumLabel>추천 인원</RecommenedNumLabel>
-        <RecommenedNumInput onChange={onChangeRecommendedNum} />
+        <RecommenedNumLabel>최소 인원</RecommenedNumLabel>
+        <RecommenedNumInput onChange={onChangeHeadCountMin} />
+      </RecommenedNumContainer>
+      <RecommenedNumContainer>
+        <RecommenedNumLabel>최대 인원</RecommenedNumLabel>
+        <RecommenedNumInput onChange={onChangeHeadCountMax} />
       </RecommenedNumContainer>
       <ImgInput type="file" accept="image/*" ref={imgInputRef} onChange={onChangeImg} />
       <SelectedImg>{img}</SelectedImg>

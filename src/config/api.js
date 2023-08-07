@@ -12,3 +12,7 @@ export const LODGINGAPI = {
   DETAIL: `${BASE_URL}/lodging/detail/`,
   REVIEW: `${BASE_URL}/lodging/createReview/`,
 };
+
+export const RECREATIONAPI = {
+  CREATE: `${BASE_URL}/recreation/create/`,
+};
