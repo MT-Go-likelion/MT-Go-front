@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
+import useShopping from '../../../hooks/queries/Shopping/useShopping';
 
 const Container = styled.div`
   display: flex;
@@ -79,6 +81,11 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
 
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { shoppingMutation } = useShopping(user ? user.token : '');
+
   const handleEditClick = () => {
     setEditHandle(true);
   };
@@ -114,7 +121,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(data);
+    shoppingMutation(data);
   };
 
   return (

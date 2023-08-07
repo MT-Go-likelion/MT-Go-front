@@ -19,3 +19,7 @@ export const RECREATIONAPI = {
   SCRAP: `${BASE_URL}/recreation/scrap/`,
   DETAIL: `${BASE_URL}/recreation/detail/`,
 };
+
+export const SHOPPINGAPI = {
+  CREATE: `${BASE_URL}/shopping/create/`,
+};
