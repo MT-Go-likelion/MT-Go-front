@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
 import RecreationCard from '../components/Card/RecreationCard';
+import useRecreation from '../hooks/queries/Recreation/useRecreation';
+import Error from './Error';
+import Loading from './Loading';
 
 const RecreationLayout = styled.div`
   max-width: 1280px;
@@ -39,15 +43,32 @@ const RecreationItem = styled.li`
 `;
 
 const Recreation = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const {
+    recreationsQuery: { isLoading, error, data: recreations },
+  } = useRecreation(user.token);
+
   return (
     <RecreationLayout>
+      {error && <Error />}
+      {isLoading && <Loading />}
       <Title>레크레이션</Title>
       <RecreationList>
-        {Array.from(Array(100), () => (
-          <RecreationItem>
-            <RecreationCard />
-          </RecreationItem>
-        ))}
+        {recreations &&
+          recreations.map((recreation) => (
+            <RecreationItem>
+              <RecreationCard
+                pk={recreation.pk}
+                name={recreation.name}
+                photo={recreation.photo}
+                headCountMin={recreation.headCountMin}
+                headCountMax={recreation.headCountMax}
+                isScrap={recreation.isScrap}
+              />
+            </RecreationItem>
+          ))}
       </RecreationList>
     </RecreationLayout>
   );

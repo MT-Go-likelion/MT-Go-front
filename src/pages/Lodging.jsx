@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
+
 import COLOR from '../constants/color';
 
 import Location from '../components/SelectBox/Location';
@@ -9,7 +11,7 @@ import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
-import ErrorPage from './Error';
+import Error from './Error';
 import useLodging from '../hooks/queries/Lodging/useLodging';
 import Loading from './Loading';
 
@@ -69,13 +71,16 @@ const SearchBtn = styled.button`
 `;
 
 const Lodging = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
-  } = useLodging();
+  } = useLodging(user.token);
 
   return (
     <div>
-      {error && <ErrorPage />}
+      {error && <Error />}
       {isLoading && <Loading />}
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>

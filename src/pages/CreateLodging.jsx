@@ -72,7 +72,6 @@ const CreateLodging = () => {
     formData.append('mainPhoto', mainPhoto);
     formData.append('photos', []);
 
-    console.log(formData);
     lodgingMutation(formData);
   };
   return (
