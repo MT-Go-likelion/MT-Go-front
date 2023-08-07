@@ -45,6 +45,7 @@ const SelectName = styled.select`
 `;
 
 const Shopping = () => {
+  // 태그 데이터
   const TagOptions = [
     { TagId: 1, name: '소고기 등심' },
     { TagId: 2, name: '소고기 안심' },
@@ -55,7 +56,7 @@ const Shopping = () => {
     { TagId: 7, name: '돼지고기' },
     { TagId: 8, name: '돼지고기' },
   ];
-
+  // 유저별 스페이스 데이터
   const spaceOptions = [
     { id: 1, name: '개인 스페이스' },
     { id: 2, name: '국민대 스페이스' },
@@ -113,7 +114,7 @@ const Shopping = () => {
         </SelectName>
       </CalDiv>
       <Container>
-        <ShoppingTable data={shoppingItems} />
+        <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
       </Container>
       <TagPopup
         isVisible={isPopupVisible}
