@@ -11,7 +11,7 @@ import blueEye from '../../assets/images/eye_blue.png';
 import TermsModal from '../Common/Modal/TermsModal';
 import Checkbox from '../Common/CheckBox/CheckBox';
 import HorizonLine from '../Common/Line/HorizonLine';
-import useSignUpMutation from '../../hooks/queries/useSignUp';
+import useSignUpMutation from '../../hooks/queries/Auth/useSignUp';
 
 const SignForm = styled.form`
   width: 80%;

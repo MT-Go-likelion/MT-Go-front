@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { RoomAPI } from '../../config/api';
+import { useQueryClient } from '@tanstack/react-query';
+import { BASE_URL } from '../../config/api';
 
 import COLOR from '../../constants/color';
 import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
+import useLoding from '../../hooks/queries/Lodging/useLodging';
 
 const BestLoContainer = styled.div`
   width: 240px;
   height: 400px;
+  cursor: pointer;
 `;
 
 const BackDiv = styled.div`
@@ -81,34 +83,22 @@ const Flex = styled.div`
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
   const navigate = useNavigate();
-  // 토큰
-  const tokenData = localStorage.getItem('USER');
-  let token = '';
-  if (tokenData) {
-    const parsedData = JSON.parse(tokenData);
-    token = parsedData.token;
-  }
 
-  const handlelikeClick = async () => {
-    if (token) {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { scrapMutation } = useLoding();
+
+  const handlelikeClick = (e) => {
+    e.stopPropagation();
+
+    if (user) {
       setLiked((prevState) => !prevState);
-      try {
-        const response = await axios.post(
-          RoomAPI.SCRAP,
-          {
-            isScrap: !liked,
-            lodging: pk,
-          },
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          },
-        );
-        console.log('데이터 전송 성공', response.data);
-      } catch (err) {
-        console.error('데이터 전송 실패', err.message);
-      }
+      scrapMutation({
+        isScrap: !liked,
+        lodging: pk,
+        token: user.token,
+      });
     } else {
       navigate('/signin');
     }
@@ -116,12 +106,12 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
   // 상세페이지 링크 걸면 됨. (카드누르면 링크 바뀌게만 해둔 상태)
   const handleCardClick = () => {
-    navigate(`#${pk}`);
+    navigate(`/lodging/${pk}`, { state: pk });
   };
 
   return (
     <BestLoContainer onClick={handleCardClick}>
-      <BackDiv dataSrc={RoomAPI.BASE_URL + mainPhoto}>
+      <BackDiv dataSrc={BASE_URL + mainPhoto}>
         <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
       </BackDiv>
       <Title>{name}</Title>

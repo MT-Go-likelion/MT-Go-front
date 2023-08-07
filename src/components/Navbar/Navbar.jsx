@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import menu from '../../assets/images/bag-outline.png';
-import { useSignOut } from '../../hooks/queries/useSignOut';
+import { useSignOut } from '../../hooks/queries/Auth/useSignOut';
 
 const NavLayout = styled.header`
   width: 100%;
@@ -63,7 +63,7 @@ const Navbar = ({ auth }) => {
       <NavLeft>
         <NavLogo onClick={() => navigate('/')}>MTLOGO</NavLogo>
         <NavMenuList>
-          <NavMenu onClick={() => navigate('/room')}>
+          <NavMenu onClick={() => navigate('/lodging')}>
             <NavMenuIcon src={menu} />
             <NavMenuText>숙소예약</NavMenuText>
           </NavMenu>

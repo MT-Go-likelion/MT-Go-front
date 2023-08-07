@@ -7,39 +7,40 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 
 import {
-  ErrorPage,
+  Error,
   Main,
   SignIn,
   SignUp,
   LodgingDetail,
   Recreation,
-  Room,
+  Lodging,
   Shopping,
   Mypage,
   MypageTeamspace,
   RecreationDetail,
   RecreationRegistration,
-  CreateRoom,
+  CreateLodging,
 } from './pages/index';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <Main /> },
       { path: '/signin', element: <SignIn /> },
       { path: '/signup', element: <SignUp /> },
-      { path: '/room', element: <Room /> },
-      { path: '/room/detail/:lodingId', element: <LodgingDetail /> },
+      { path: '/lodging', element: <Lodging /> },
+      { path: '/lodging/:lodgingId', element: <LodgingDetail /> },
       { path: '/recreation', element: <Recreation /> },
-      { path: '/recreation/detail/:recreationId', element: <RecreationDetail /> },
+      { path: '/recreation/:recreationId', element: <RecreationDetail /> },
       { path: '/recreation/register', element: <RecreationRegistration /> },
       { path: '/shopping', element: <Shopping /> },
-      { path: '/Mypage', element: <Mypage /> },
-      { path: '/MypageTeamspace', element: <MypageTeamspace /> },
-      { path: '/CreateRoom', element: <CreateRoom /> },
+      { path: '/mypage', element: <Mypage /> },
+      { path: '/mypageTeamspace', element: <MypageTeamspace /> },
+      { path: '/mypage', element: <Mypage /> },
+      { path: '/createLodging', element: <CreateLodging /> },
     ],
   },
 ]);

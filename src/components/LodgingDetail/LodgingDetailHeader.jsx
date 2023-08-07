@@ -57,11 +57,11 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-const LodgingDetailHeader = () => {
+const LodgingDetailHeader = ({ name, mainPhoto, photos }) => {
   return (
     <HeaderContainer>
       <Header>
-        <TitleText>TitleText</TitleText>
+        <TitleText>{name}</TitleText>
         <HeaderRight>
           <LodingDealingContainer>
             <RatingContainer score="4.9" />
@@ -73,7 +73,7 @@ const LodgingDetailHeader = () => {
           </ReservationBtn>
         </HeaderRight>
       </Header>
-      <ImageSwiper />
+      <ImageSwiper mainPhoto={mainPhoto} photos={photos} />
     </HeaderContainer>
   );
 };

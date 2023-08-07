@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import * as userLocalStorage from '../../utils/userLocalstore';
+import * as userLocalStorage from '../../../utils/userLocalstore';
 
 // 백한테 user 정보 달라고 요청해야함 추후에 회의 후 수정
 function getUser(user) {

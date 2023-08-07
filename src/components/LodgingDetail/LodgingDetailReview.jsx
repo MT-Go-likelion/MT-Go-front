@@ -1,29 +1,47 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { FaStar } from 'react-icons/fa';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import HorizonLine from '../Common/Line/HorizonLine';
 import COLOR from '../../constants/color';
 import RatingContainer from '../Common/Review/RatingContainer';
 
 import camera from '../../assets/images/camera.png';
+import useLodgingReview from '../../hooks/queries/Lodging/useLodgingReview';
+import { BASE_URL } from '../../config/api';
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-const LodgingDetailReview = () => {
+const LodgingDetailReview = ({ pk, reviews }) => {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const [reviewImg, setReviewImg] = useState('');
+  const [content, setContent] = useState('');
+  const [selectedImgName, setSelectedReviewImgName] = useState('');
+  const [selectedImg, setSelectedImg] = useState('');
 
   const reviewImgInputRef = useRef();
+
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { lodgingReviewMutation } = useLodgingReview(user ? user.token : '');
 
   const onClickReviewInput = (e) => {
     e.preventDefault();
     reviewImgInputRef.current.click();
   };
 
+  const handleContent = (e) => {
+    setContent(e.target.value);
+  };
+
   const onChangeReviewImg = (e) => {
     const file = e.target.files[0];
-    setReviewImg(file.name);
+    setSelectedReviewImgName(file.name);
+    setSelectedImg(file);
   };
 
   const handleStarClick = (index) => {
@@ -35,11 +53,22 @@ const LodgingDetailReview = () => {
     });
   };
 
-  // 추후 후기 작성 API 연결 시 보낼 후기 평점
-  useEffect(() => {
-    const reviewRating = clicked.filter(Boolean).length;
-    console.log(reviewRating);
-  }, [clicked]);
+  const onSubmitReview = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('score', clicked.filter(Boolean).length);
+    formData.append('contents', content);
+    formData.append('image', selectedImg);
+    formData.append('lodgingPk', pk);
+
+    if (user) {
+      lodgingReviewMutation(formData);
+    } else {
+      navigate('/signin');
+    }
+  };
+
   return (
     <>
       <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
@@ -51,7 +80,7 @@ const LodgingDetailReview = () => {
         <ReviewContentContainer>
           <ReviewWritingContainer>
             <ReviewTextareBox>
-              <ReviewTextarea placeholder="후기를 입력하세요" />
+              <ReviewTextarea placeholder="후기를 입력하세요" onChange={handleContent} />
               <ReviewImgBox>
                 <ReviewImgInput
                   type="file"
@@ -59,7 +88,7 @@ const LodgingDetailReview = () => {
                   ref={reviewImgInputRef}
                   onChange={onChangeReviewImg}
                 />
-                <ReviewImgText>{reviewImg}</ReviewImgText>
+                <ReviewImgText>{selectedImgName}</ReviewImgText>
                 <ReviewImgBtn src={camera} onClick={onClickReviewInput} />
               </ReviewImgBox>
             </ReviewTextareBox>
@@ -78,50 +107,23 @@ const LodgingDetailReview = () => {
                   })}
                 </ReviewStarList>
               </ReviewStarContainer>
-              <ReviewWritingBtn>후기 등록하기</ReviewWritingBtn>
+              <ReviewWritingBtn onClick={onSubmitReview}>후기 등록하기</ReviewWritingBtn>
             </ReviewWritingRight>
           </ReviewWritingContainer>
-
-          {/* 추후에 API 연결하면 map 함수로 처리 */}
           <ReviewList>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
-            <ReviewItem>
-              <ReviewItemLeft>
-                <UserText>Name</UserText>
-                <DateText>yyyy년 mm월 dd일</DateText>
-              </ReviewItemLeft>
-              <ReviewText>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis{' '}
-              </ReviewText>
-              <ReviewItemRight>
-                <RatingContainer score="5.0" />
-                <TmpBox />
-              </ReviewItemRight>
-            </ReviewItem>
+            {reviews.map((review) => (
+              <ReviewItem>
+                <ReviewItemLeft>
+                  <UserText>{review.userName}</UserText>
+                  <DateText>{review.createdAt}</DateText>
+                </ReviewItemLeft>
+                <ReviewText>{review.contents}</ReviewText>
+                <ReviewItemRight>
+                  <RatingContainer score={review.score} />
+                  {review.image ? <ReviewImg src={BASE_URL + review.image} /> : <TmpImg />}
+                </ReviewItemRight>
+              </ReviewItem>
+            ))}
           </ReviewList>
         </ReviewContentContainer>
       </ReviewContainer>
@@ -231,13 +233,19 @@ const ReviewWritingBtn = styled.button`
   border-radius: 1.5rem;
 `;
 
-const TmpBox = styled.div`
+const ReviewImg = styled.img`
+  width: 10rem;
+  height: 10rem;
+`;
+
+const TmpImg = styled.div`
   width: 10rem;
   height: 10rem;
   background-color: ${COLOR.primary.lightBlue};
 `;
 
 const ReviewList = styled.ul`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -261,7 +269,7 @@ const DateText = styled.span`
   color: ${COLOR.lightGray};
 `;
 
-const ReviewText = styled.span`
+const ReviewText = styled.div`
   flex-basis: 70%;
   line-height: 1.7;
 `;

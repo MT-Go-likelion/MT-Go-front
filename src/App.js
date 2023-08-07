@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import GlobalStyles from './styles/GlobalStyle';
 import Navbar from './components/Navbar/Navbar';
-import { useUser } from './hooks/queries/useUser';
+import { useUser } from './hooks/queries/Auth/useUser';
 
 const AppLayout = styled.div`
   display: flex;
