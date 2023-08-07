@@ -1,14 +1,18 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import lodgingReviewAPI from '../../../apis/lodgingReviewAPI';
 
 const useLodgingReview = (token, id) => {
-  const lodgingReviewQuery = useQuery(['lodging', id, 'reviews'], () => lodgingReviewAPI.list(id));
+  const queryClient = useQueryClient();
+
+  const lodgingReviewQuery = useQuery(['lodging', id, 'reviews'], () => lodgingReviewAPI.list(id), {
+    enabled: !!id,
+  });
 
   const { mutate: lodgingReviewMutation } = useMutation(
     (payload) => lodgingReviewAPI.create(payload, token),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
+        queryClient.invalidateQueries(['lodging', id, 'reviews']);
       },
       onError: (error) => {
         console.log(error);
