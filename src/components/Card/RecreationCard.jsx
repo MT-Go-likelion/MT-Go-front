@@ -23,6 +23,7 @@ const BackContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding: 10px;
+  cursor: pointer;
 `;
 
 const BackImg = styled.img`
@@ -114,9 +115,13 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
     }
   };
 
+  const handleCardClick = () => {
+    navigate(`/recreation/${pk}`, { state: pk });
+  };
+
   return (
     <BestLoContainer>
-      <BackContainer>
+      <BackContainer onClick={handleCardClick}>
         <BackImg src={BASE_URL + photo} />
         <BtnCotainer>
           <RecreatButton

@@ -21,6 +21,12 @@ const recreationAPI = {
 
     return res.data;
   },
+
+  detail: async (id) => {
+    const res = await axios.get(RECREATIONAPI.DETAIL + id);
+
+    return res.data;
+  },
 };
 
 export default recreationAPI;

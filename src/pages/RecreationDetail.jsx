@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useParams } from 'react-router-dom';
 import COLOR from '../constants/color';
+import useRecreationDetail from '../hooks/queries/Recreation/useRecreationDetail';
+import Loading from './Loading';
+import Error from './Error';
 
 const RecreationDetailLayout = styled.div`
   max-width: 1280px;
@@ -50,6 +54,11 @@ const RecreationDetailRightContainer = styled.div`
   flex-basis: 60%;
   display: flex;
   flex-direction: column;
+`;
+
+const RightContainerHeader = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: flex-end;
 `;
 
@@ -63,34 +72,38 @@ const RecreationDetailContent = styled.div`
 `;
 
 const RecreationDetail = () => {
+  const { recreationId } = useParams();
+  const {
+    lodgingDetailQuery: { isLoading, error, data: recreationDetail },
+  } = useRecreationDetail(recreationId);
   return (
     <RecreationDetailLayout>
-      <RecreationTitle>Title</RecreationTitle>
-      <RecreationContentContainer>
-        <RecreationDetailLeftContiner>
-          <RecreationImg />
-        </RecreationDetailLeftContiner>
-        <RecreationDetailRightContainer>
-          <RecommendedNum>추천인원: nn~nn명</RecommendedNum>
-          <TeamspaceBtn>팀스페이스 담기</TeamspaceBtn>
-          <RecreationDetailContent>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi
-            enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-            aliquip ex ea commodo consequat. Duis <br /> <br />
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi
-            enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-            aliquip ex ea commodo consequat. Duis
-          </RecreationDetailContent>
-        </RecreationDetailRightContainer>
-      </RecreationContentContainer>
+      {isLoading && <Loading />}
+      {error && <Error />}
+
+      {recreationDetail && (
+        <>
+          <RecreationTitle>{recreationDetail.name}</RecreationTitle>
+          <RecreationContentContainer>
+            <RecreationDetailLeftContiner>
+              <RecreationImg />
+            </RecreationDetailLeftContiner>
+            <RecreationDetailRightContainer>
+              <RightContainerHeader>
+                <RecommendedNum>
+                  추천인원: {recreationDetail.headCountMin} ~ {recreationDetail.headCountMax}명
+                </RecommendedNum>
+                <TeamspaceBtn>팀스페이스 담기</TeamspaceBtn>
+              </RightContainerHeader>
+              <RecreationDetailContent
+                dangerouslySetInnerHTML={{ __html: recreationDetail.content }}
+              >
+                {}
+              </RecreationDetailContent>
+            </RecreationDetailRightContainer>
+          </RecreationContentContainer>
+        </>
+      )}
     </RecreationDetailLayout>
   );
 };

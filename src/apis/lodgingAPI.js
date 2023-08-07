@@ -22,6 +22,7 @@ const lodgingAPI = {
 
   detail: async (id) => {
     const res = await axios.get(LODGINGAPI.DETAIL + id);
+
     return res.data;
   },
 };

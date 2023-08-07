@@ -17,4 +17,5 @@ export const RECREATIONAPI = {
   CREATE: `${BASE_URL}/recreation/create/`,
   LIST: `${BASE_URL}/recreation/main/`,
   SCRAP: `${BASE_URL}/recreation/scrap/`,
+  DETAIL: `${BASE_URL}/recreation/detail/`,
 };
