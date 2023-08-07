@@ -92,7 +92,7 @@ const Divstyled = styled.div`
 
 const Main = () => {
   return (
-    <div>
+    <>
       <MainLayout>
         <Banner>
           <BannerImg src={MainBanner} />
@@ -144,7 +144,7 @@ const Main = () => {
           <RecreationCard />
         </Flexdiv>
       </ContentLayout>
-    </div>
+    </>
   );
 };
 

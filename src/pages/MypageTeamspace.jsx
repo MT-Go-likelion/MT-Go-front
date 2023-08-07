@@ -5,10 +5,8 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
-// import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
 import TeamspacePopup from '../components/Popup/TeamspacePopup';
-// import ShareDeleteButton from '../components/Button/ShareDeleteButton';
 import DeleteSharePopup from '../components/Popup/DeleteSharePopup';
 
 // 전체 여백
