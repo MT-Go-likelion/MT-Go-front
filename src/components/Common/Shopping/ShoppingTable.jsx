@@ -90,20 +90,24 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
   const handleInputChange = (e, item) => {
     const { name, value } = e.target;
     const itemIndex = data.findIndex((i) => i.item === item.item);
-    const updatedItem = { ...item };
+    const updatedData = data.map((dataItem, index) => {
+      if (index === itemIndex) {
+        const updatedItem = { ...dataItem };
 
-    if (name === 'amount') {
-      updatedItem.amount = parseInt(value, 10);
-      updatedItem.totalPrice = updatedItem.amount * updatedItem.price;
-    } else if (name === 'price') {
-      updatedItem.price = parseFloat(value);
-      updatedItem.totalPrice = updatedItem.amount * updatedItem.price;
-    } else if (name === 'totalPrice') {
-      updatedItem.totalPrice = parseFloat(value);
-    }
-    const updatedData = [...data];
-    updatedData[itemIndex] = updatedItem;
+        if (name === 'amount') {
+          updatedItem.amount = parseInt(value, 10);
+          updatedItem.totalPrice = updatedItem.amount * updatedItem.price;
+        } else if (name === 'price') {
+          updatedItem.price = parseFloat(value);
+          updatedItem.totalPrice = updatedItem.amount * updatedItem.price;
+        } else if (name === 'totalPrice') {
+          updatedItem.totalPrice = parseFloat(value);
+        }
 
+        return updatedItem;
+      }
+      return dataItem;
+    });
     setShoppingItems(updatedData);
   };
 
