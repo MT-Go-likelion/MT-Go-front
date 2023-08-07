@@ -70,7 +70,7 @@ const RecreationRegistration = () => {
 
   const onChangeImg = (e) => {
     const file = e.target.files[0];
-    setImg(file.name);
+    setImg(file);
   };
 
   // 에디터 등록 시 에디터 내용 HTML or Markdown 형식으로 변환
@@ -84,15 +84,14 @@ const RecreationRegistration = () => {
   const onSubmitRecreation = (e) => {
     e.preventDefault();
 
-    const payload = {
-      name,
-      content: editorRef.current?.getInstance().getHTML(),
-      img,
-      headCountMin,
-      headCountMax,
-    };
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('content', editorRef.current?.getInstance().getHTML());
+    formData.append('photo', img);
+    formData.append('headCountMin', headCountMin);
+    formData.append('headCountMax', headCountMax);
 
-    recreaetionMutation(payload);
+    recreaetionMutation(formData);
   };
 
   return (
@@ -110,7 +109,7 @@ const RecreationRegistration = () => {
         <RecommenedNumInput onChange={onChangeHeadCountMax} />
       </RecommenedNumContainer>
       <ImgInput type="file" accept="image/*" ref={imgInputRef} onChange={onChangeImg} />
-      <SelectedImg>{img}</SelectedImg>
+      <SelectedImg>{img.name}</SelectedImg>
       <RecreationEditor
         content=""
         editorRef={editorRef}

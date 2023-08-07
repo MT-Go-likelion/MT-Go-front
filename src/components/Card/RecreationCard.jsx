@@ -4,16 +4,16 @@ import styled, { css } from 'styled-components';
 import COLOR from '../../constants/color';
 import Recreatbtn from '../../assets/images/Recreat.png';
 import SelectRecreat from '../../assets/images/Select_recreat.png';
+import { BASE_URL } from '../../config/api';
 
 const BestLoContainer = styled.div`
   width: 240px;
   height: 450px;
 `;
 
-const BackImg = styled.div`
+const BackContainer = styled.div`
   width: 240px;
   height: 320px;
-  background-color: ${COLOR.blue};
   border-radius: 20px;
   position: relative;
   display: flex;
@@ -22,13 +22,23 @@ const BackImg = styled.div`
   padding: 10px;
 `;
 
+const BackImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const BtnCotainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 const RecreatButton = styled.img`
   width: 36px;
   height: 36px;
   cursor: pointer;
-  // position: absolute;
-  top: 10px;
-  right: 10px;
 `;
 
 const SaveCount = styled.span`
@@ -76,7 +86,8 @@ const Flex = styled.div`
 
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
-const RecreationCard = () => {
+const RecreationCard = ({ name, photo, headCountMin, headCountMax, isScrap }) => {
+  console.log(isScrap, photo);
   const [teamspace, setTeamspace] = useState(false);
   const [save, setSave] = useState(false);
 
@@ -87,17 +98,22 @@ const RecreationCard = () => {
 
   return (
     <BestLoContainer>
-      <BackImg>
-        <RecreatButton
-          src={save ? SelectRecreat : Recreatbtn}
-          alt="save"
-          onClick={handleSaveClick}
-        />
-        <SaveCount>NN</SaveCount>
-      </BackImg>
+      <BackContainer>
+        <BackImg src={BASE_URL + photo} />
+        <BtnCotainer>
+          <RecreatButton
+            src={save ? SelectRecreat : Recreatbtn}
+            alt="save"
+            onClick={handleSaveClick}
+          />
+          <SaveCount>NN</SaveCount>
+        </BtnCotainer>
+      </BackContainer>
       <Flex>
-        <Title>Title</Title>
-        <PeopleCount>추천인원 : nn ~ nn 명</PeopleCount>
+        <Title>{name}</Title>
+        <PeopleCount>
+          추천인원 : {headCountMin} ~ {headCountMax} 명
+        </PeopleCount>
         <Teamspace teamspace={teamspace} onClick={handleSaveClick}>
           팀스페이스 담기
         </Teamspace>

@@ -15,4 +15,5 @@ export const LODGINGAPI = {
 
 export const RECREATIONAPI = {
   CREATE: `${BASE_URL}/recreation/create/`,
+  LIST: `${BASE_URL}/recreation/main/`,
 };

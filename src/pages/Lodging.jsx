@@ -9,7 +9,7 @@ import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
-import ErrorPage from './Error';
+import Error from './Error';
 import useLodging from '../hooks/queries/Lodging/useLodging';
 import Loading from './Loading';
 
@@ -75,7 +75,7 @@ const Lodging = () => {
 
   return (
     <div>
-      {error && <ErrorPage />}
+      {error && <Error />}
       {isLoading && <Loading />}
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>
