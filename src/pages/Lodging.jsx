@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
+
 import COLOR from '../constants/color';
 
 import Location from '../components/SelectBox/Location';
@@ -69,9 +71,12 @@ const SearchBtn = styled.button`
 `;
 
 const Lodging = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
-  } = useLodging();
+  } = useLodging(user.token);
 
   return (
     <div>

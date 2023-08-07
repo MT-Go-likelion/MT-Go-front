@@ -3,7 +3,6 @@ import { RECREATIONAPI } from '../config/api';
 
 const recreationAPI = {
   list: async (token) => {
-    console.log(token);
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.get(RECREATIONAPI.LIST, headers);
 
