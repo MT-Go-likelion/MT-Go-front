@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { API } from '../config/api';
+import { AUTHAPI } from '../config/api';
 
 const authAPI = {
   signUp: async (payload) => {
-    const res = await axios.post(API.SIGNUP, payload);
+    const res = await axios.post(AUTHAPI.SIGNUP, payload);
     return res.data;
   },
   signIn: async (payload) => {
-    const res = await axios.post(API.SIGNIN, payload);
+    const res = await axios.post(AUTHAPI.SIGNIN, payload);
     return res.data;
   },
 };
