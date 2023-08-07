@@ -6,6 +6,7 @@ import COLOR from '../constants/color';
 import useRecreationDetail from '../hooks/queries/Recreation/useRecreationDetail';
 import Loading from './Loading';
 import Error from './Error';
+import { BASE_URL } from '../config/api';
 
 const RecreationDetailLayout = styled.div`
   max-width: 1280px;
@@ -29,10 +30,9 @@ const RecreationTitle = styled.h1`
   margin-bottom: 2rem;
 `;
 
-const RecreationImg = styled.div`
+const RecreationImg = styled.img`
   width: 100%;
   height: 40rem;
-  background-color: ${COLOR.primary.lightBlue};
   border-radius: 1rem;
 `;
 const TeamspaceBtn = styled.button`
@@ -86,7 +86,7 @@ const RecreationDetail = () => {
           <RecreationTitle>{recreationDetail.name}</RecreationTitle>
           <RecreationContentContainer>
             <RecreationDetailLeftContiner>
-              <RecreationImg />
+              <RecreationImg src={BASE_URL + recreationDetail.photo} />
             </RecreationDetailLeftContiner>
             <RecreationDetailRightContainer>
               <RightContainerHeader>
