@@ -28,10 +28,12 @@ const LodgingDetail = () => {
       {error && <ErrorPage />}
       {lodgingDetail && (
         <>
-          <LodgingDetailHeader name={lodgingDetail.lodging.name} />
-          <LodgingDetailContent
+          <LodgingDetailHeader
+            name={lodgingDetail.lodging.name}
             mainPhoto={lodgingDetail.lodging.mainPhoto}
             photos={lodgingDetail.lodging.photos}
+          />
+          <LodgingDetailContent
             address={lodgingDetail.lodging.address}
             price={lodgingDetail.lodging.price}
             homePageURL={lodgingDetail.lodging.homePageURL}

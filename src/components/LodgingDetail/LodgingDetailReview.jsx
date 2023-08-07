@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { FaStar } from 'react-icons/fa';
@@ -10,6 +10,7 @@ import RatingContainer from '../Common/Review/RatingContainer';
 
 import camera from '../../assets/images/camera.png';
 import useLodgingReview from '../../hooks/queries/Lodging/useLodgingReview';
+import { BASE_URL } from '../../config/api';
 
 const ARRAY = [0, 1, 2, 3, 4];
 
@@ -18,7 +19,6 @@ const LodgingDetailReview = ({ pk, reviews }) => {
   const [content, setContent] = useState('');
   const [selectedImgName, setSelectedReviewImgName] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
-  const [preReViews, setPreReviews] = useState(reviews);
 
   const reviewImgInputRef = useRef();
 
@@ -62,26 +62,13 @@ const LodgingDetailReview = ({ pk, reviews }) => {
     formData.append('image', selectedImg);
     formData.append('lodgingPk', pk);
 
-    const payload = {
-      score: clicked.filter(Boolean).length,
-      content,
-      image: formData,
-      token: user.token,
-    };
-
     if (user) {
       lodgingReviewMutation(formData);
-      setPreReviews((state) => {
-        return [...state, payload];
-      });
     } else {
       navigate('/signin');
     }
   };
 
-  useEffect(() => {
-    console.log(reviews);
-  }, [reviews]);
   return (
     <>
       <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
@@ -124,16 +111,16 @@ const LodgingDetailReview = ({ pk, reviews }) => {
             </ReviewWritingRight>
           </ReviewWritingContainer>
           <ReviewList>
-            {preReViews.map((review) => (
+            {reviews.map((review) => (
               <ReviewItem>
                 <ReviewItemLeft>
-                  <UserText>Name</UserText>
-                  <DateText>yyyy년 mm월 dd일</DateText>
+                  <UserText>{review.userName}</UserText>
+                  <DateText>{review.createdAt}</DateText>
                 </ReviewItemLeft>
                 <ReviewText>{review.contents}</ReviewText>
                 <ReviewItemRight>
                   <RatingContainer score={review.score} />
-                  <TmpBox />
+                  {review.image ? <ReviewImg src={BASE_URL + review.image} /> : <TmpImg />}
                 </ReviewItemRight>
               </ReviewItem>
             ))}
@@ -246,7 +233,12 @@ const ReviewWritingBtn = styled.button`
   border-radius: 1.5rem;
 `;
 
-const TmpBox = styled.div`
+const ReviewImg = styled.img`
+  width: 10rem;
+  height: 10rem;
+`;
+
+const TmpImg = styled.div`
   width: 10rem;
   height: 10rem;
   background-color: ${COLOR.primary.lightBlue};

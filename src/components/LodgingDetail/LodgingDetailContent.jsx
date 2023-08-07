@@ -5,8 +5,6 @@ import LodgingMap from '../Map/LodgingMap';
 import DetailCalendar from '../Calendar/DetailCalendar';
 
 const LodgingDetailContent = ({
-  mainPhoto,
-  photos,
   address,
   price,
   homePageURL,
@@ -20,7 +18,7 @@ const LodgingDetailContent = ({
   pricesByDate,
   place,
 }) => {
-  console.log(mainPhoto, photos, pricesByDate, place);
+  console.log(pricesByDate, place);
 
   return (
     <>
