@@ -6,7 +6,7 @@ import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 // import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
-import TeamspacePopup from '../components/Popup/TeamspacePopup';
+import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
 
 // 전체 여백
 const Container = styled.div`
