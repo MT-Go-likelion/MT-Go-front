@@ -58,6 +58,11 @@ const ImgInput = styled.input``;
 
 const SubmitBtn = styled.button``;
 
+const SuccessText = styled.div`
+  font-size: 1.75rem;
+  font-size: bold;
+`;
+
 const RecreationRegistration = () => {
   const [name, onChangeName] = useInput('');
   const [headCountMin, onChangeHeadCountMin] = useInput(0);
@@ -65,6 +70,8 @@ const RecreationRegistration = () => {
   const [img, setImg] = useState('');
   const imgInputRef = useRef();
   const editorRef = useRef();
+
+  const [success, setSuccess] = useState('');
 
   const { recreaetionMutation } = useRecreation();
 
@@ -91,11 +98,18 @@ const RecreationRegistration = () => {
     formData.append('headCountMin', headCountMin);
     formData.append('headCountMax', headCountMax);
 
-    recreaetionMutation(formData);
+    recreaetionMutation(formData, {
+      onSuccess: () => {
+        setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
+        setTimeout(() => setSuccess(null), 3000);
+      },
+    });
   };
 
   return (
     <RegisterForm onSubmit={onSubmitRecreation}>
+      {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
+
       <TitleContainer>
         <TitleLabel>제목</TitleLabel>
         <TitleInput onChange={onChangeName} />

@@ -74,6 +74,11 @@ const LodgingDetailReview = ({ pk }) => {
     } else {
       navigate('/signin');
     }
+
+    setContent('');
+    setSelectedImg('');
+    setSelectedReviewImgName('');
+    setClicked([false, false, false, false, false]);
   };
 
   return (
@@ -89,7 +94,12 @@ const LodgingDetailReview = ({ pk }) => {
         <ReviewContentContainer>
           <ReviewWritingContainer>
             <ReviewTextareBox>
-              <ReviewTextarea placeholder="후기를 입력하세요" onChange={handleContent} />
+              <ReviewTextarea
+                value={content}
+                placeholder="후기를 입력하세요"
+                onChange={handleContent}
+              />
+
               <ReviewImgBox>
                 <ReviewImgInput
                   type="file"
