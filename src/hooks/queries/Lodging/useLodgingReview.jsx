@@ -1,7 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import lodgingReviewAPI from '../../../apis/lodgingReviewAPI';
 
-const useLodgingReview = (token) => {
+const useLodgingReview = (token, id) => {
+  const lodgingReviewQuery = useQuery(['lodging', id, 'reviews'], () => lodgingReviewAPI.list(id));
+
   const { mutate: lodgingReviewMutation } = useMutation(
     (payload) => lodgingReviewAPI.create(payload, token),
     {
@@ -14,7 +16,7 @@ const useLodgingReview = (token) => {
     },
   );
 
-  return { lodgingReviewMutation };
+  return { lodgingReviewMutation, lodgingReviewQuery };
 };
 
 export default useLodgingReview;
