@@ -77,7 +77,7 @@ const ButtonDiv = styled.div`
 `;
 const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
-  const totalSum = data.reduce((acc, item) => acc + item.totalPrice, 0);
+  const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
 
   const handleEditClick = () => {
     setEditHandle(true);
@@ -109,6 +109,12 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
       return dataItem;
     });
     setShoppingItems(updatedData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(data);
   };
 
   return (
@@ -159,7 +165,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
                     item.price
                   )}
                 </EditableTd>
-                <Td>{item.totalPrice}</Td>
+                <Td>{item.amount * item.price}</Td>
               </tr>
             ))}
           </Tbody>
@@ -172,7 +178,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
         ) : (
           <EditButton onClick={handleEditComplete}>완료</EditButton>
         )}
-        <Submitbutton>제출</Submitbutton>
+        <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
       </ButtonDiv>
     </Container>
   );

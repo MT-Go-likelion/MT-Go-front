@@ -77,14 +77,13 @@ const Shopping = () => {
     setIsPopupVisible(false);
   };
 
-  const handleComplete = (amount, price, totalPrice) => {
+  const handleComplete = (amount, price) => {
     // Perform any actions with amount and price here.
     if (amount && price && selectedItem) {
       const newItem = {
         item: selectedItem.name,
         amount: parseInt(amount, 10),
         price: parseInt(price, 10),
-        totalPrice,
       };
       setShoppingItems((prevItems) => [...prevItems, newItem]);
     }
@@ -119,8 +118,8 @@ const Shopping = () => {
       <TagPopup
         isVisible={isPopupVisible}
         onClose={handlePopupClose}
-        onComplete={(amount, price, totalPrice) => {
-          handleComplete(amount, price, totalPrice);
+        onComplete={(amount, price) => {
+          handleComplete(amount, price);
           setIsPopupVisible(false);
         }}
       />
