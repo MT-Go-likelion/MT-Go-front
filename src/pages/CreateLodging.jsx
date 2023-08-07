@@ -31,6 +31,11 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
+const SuccessText = styled.div`
+  font-size: 1.75rem;
+  font-size: bold;
+`;
+
 const CreateLodging = () => {
   // const [pk, setPK] = useState('');
   const [name, onChangeName] = useInput('');
@@ -46,6 +51,8 @@ const CreateLodging = () => {
   const [checkInTime, onChangeCheckInTime] = useInput('');
   const [checkOutTime, onChangeCheckOutTime] = useInput('');
   const [mainPhoto, setMainPhoto] = useState('');
+
+  const [success, setSuccess] = useState('');
 
   const { lodgingMutation } = useLoding();
 
@@ -72,10 +79,16 @@ const CreateLodging = () => {
     formData.append('mainPhoto', mainPhoto);
     formData.append('photos', []);
 
-    lodgingMutation(formData);
+    lodgingMutation(formData, {
+      onSuccess: () => {
+        setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
+        setTimeout(() => setSuccess(null), 3000);
+      },
+    });
   };
   return (
     <FormContainer>
+      {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
       <form onSubmit={handlesubmit} method="POST">
         <FormInput type="text" placeholder="숙소이름" value={name} onChange={onChangeName} />
         <FormInput type="text" placeholder="address" value={address} onChange={onChangeAddress} />

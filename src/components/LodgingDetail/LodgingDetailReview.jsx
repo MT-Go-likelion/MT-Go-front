@@ -11,10 +11,12 @@ import RatingContainer from '../Common/Review/RatingContainer';
 import camera from '../../assets/images/camera.png';
 import useLodgingReview from '../../hooks/queries/Lodging/useLodgingReview';
 import { BASE_URL } from '../../config/api';
+import Loading from '../../pages/Loading';
+import Error from '../../pages/Error';
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-const LodgingDetailReview = ({ pk, reviews }) => {
+const LodgingDetailReview = ({ pk }) => {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [content, setContent] = useState('');
   const [selectedImgName, setSelectedReviewImgName] = useState('');
@@ -27,7 +29,12 @@ const LodgingDetailReview = ({ pk, reviews }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const { lodgingReviewMutation } = useLodgingReview(user ? user.token : '');
+  const {
+    lodgingReviewQuery: { isLoading, error, data: reviews },
+    lodgingReviewMutation,
+  } = useLodgingReview(user ? user.token : '', pk);
+
+  console.log(reviews);
 
   const onClickReviewInput = (e) => {
     e.preventDefault();
@@ -67,12 +74,19 @@ const LodgingDetailReview = ({ pk, reviews }) => {
     } else {
       navigate('/signin');
     }
+
+    setContent('');
+    setSelectedImg('');
+    setSelectedReviewImgName('');
+    setClicked([false, false, false, false, false]);
   };
 
   return (
     <>
       <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
       <ReviewContainer>
+        {isLoading && <Loading />}
+        {error && <Error />}
         <ReviewHeader>
           <RatingContainer score="5.0" />
           <ReviewCntText>후기 3433개</ReviewCntText>
@@ -80,7 +94,12 @@ const LodgingDetailReview = ({ pk, reviews }) => {
         <ReviewContentContainer>
           <ReviewWritingContainer>
             <ReviewTextareBox>
-              <ReviewTextarea placeholder="후기를 입력하세요" onChange={handleContent} />
+              <ReviewTextarea
+                value={content}
+                placeholder="후기를 입력하세요"
+                onChange={handleContent}
+              />
+
               <ReviewImgBox>
                 <ReviewImgInput
                   type="file"
@@ -111,19 +130,20 @@ const LodgingDetailReview = ({ pk, reviews }) => {
             </ReviewWritingRight>
           </ReviewWritingContainer>
           <ReviewList>
-            {reviews.map((review) => (
-              <ReviewItem>
-                <ReviewItemLeft>
-                  <UserText>{review.userName}</UserText>
-                  <DateText>{review.createdAt}</DateText>
-                </ReviewItemLeft>
-                <ReviewText>{review.contents}</ReviewText>
-                <ReviewItemRight>
-                  <RatingContainer score={review.score} />
-                  {review.image ? <ReviewImg src={BASE_URL + review.image} /> : <TmpImg />}
-                </ReviewItemRight>
-              </ReviewItem>
-            ))}
+            {reviews &&
+              reviews.map((review) => (
+                <ReviewItem>
+                  <ReviewItemLeft>
+                    <UserText>{review.userName}</UserText>
+                    <DateText>{review.createdAt}</DateText>
+                  </ReviewItemLeft>
+                  <ReviewText>{review.contents}</ReviewText>
+                  <ReviewItemRight>
+                    <RatingContainer score={review.score} />
+                    {review.image ? <ReviewImg src={BASE_URL + review.image} /> : <TmpImg />}
+                  </ReviewItemRight>
+                </ReviewItem>
+              ))}
           </ReviewList>
         </ReviewContentContainer>
       </ReviewContainer>

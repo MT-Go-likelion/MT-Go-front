@@ -29,24 +29,24 @@ const LodgingDetail = () => {
       {lodgingDetail && (
         <>
           <LodgingDetailHeader
-            name={lodgingDetail.lodging.name}
-            mainPhoto={lodgingDetail.lodging.mainPhoto}
-            photos={lodgingDetail.lodging.photos}
+            name={lodgingDetail.name}
+            mainPhoto={lodgingDetail.mainPhoto}
+            photos={lodgingDetail.photos}
           />
           <LodgingDetailContent
-            address={lodgingDetail.lodging.address}
-            price={lodgingDetail.lodging.price}
-            homePageURL={lodgingDetail.lodging.homePageURL}
-            amenities={lodgingDetail.lodging.amenities}
-            phoneNumber={lodgingDetail.lodging.phoneNumber}
-            headCount={lodgingDetail.lodging.headCount}
-            content={lodgingDetail.lodging.content}
-            precaution={lodgingDetail.lodging.precaution}
-            checkInTime={lodgingDetail.lodging.checkInTime}
-            checkOutTime={lodgingDetail.lodging.checkOutTime}
-            place={lodgingDetail.lodging.place}
+            address={lodgingDetail.address}
+            price={lodgingDetail.price}
+            homePageURL={lodgingDetail.homePageURL}
+            amenities={lodgingDetail.amenities}
+            phoneNumber={lodgingDetail.phoneNumber}
+            headCount={lodgingDetail.headCount}
+            content={lodgingDetail.content}
+            precaution={lodgingDetail.precaution}
+            checkInTime={lodgingDetail.checkInTime}
+            checkOutTime={lodgingDetail.checkOutTime}
+            place={lodgingDetail.place}
           />
-          <LodgingDetailReview pk={lodgingDetail.lodging.pk} reviews={lodgingDetail.reviews} />
+          <LodgingDetailReview pk={lodgingDetail.pk} />
         </>
       )}
     </LodgingLayout>
