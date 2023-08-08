@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FaStar } from 'react-icons/fa';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 import HorizonLine from '../Common/Line/HorizonLine';
 import COLOR from '../../constants/color';
 import RatingContainer from '../Common/Review/RatingContainer';
@@ -113,15 +114,15 @@ const LodgingDetailReview = ({ pk }) => {
               <ReviewStarContainer>
                 <ReviewStarTitle>숙소에 만족하셨나요?</ReviewStarTitle>
                 <ReviewStarList>
-                  {ARRAY.map((el) => {
-                    return (
+                  {ARRAY.map((el) => (
+                    <ReviewStarItem key={el}>
                       <FaStar
                         size="40"
                         onClick={() => handleStarClick(el)}
                         className={clicked[el] && 'blueStar'}
                       />
-                    );
-                  })}
+                    </ReviewStarItem>
+                  ))}
                 </ReviewStarList>
               </ReviewStarContainer>
               <ReviewWritingBtn onClick={onSubmitReview}>후기 등록하기</ReviewWritingBtn>
@@ -130,7 +131,7 @@ const LodgingDetailReview = ({ pk }) => {
           <ReviewList>
             {reviews &&
               reviews.map((review) => (
-                <ReviewItem>
+                <ReviewItem key={uuid()}>
                   <ReviewItemLeft>
                     <UserText>{review.userName}</UserText>
                     <DateText>{review.createdAt}</DateText>
@@ -238,6 +239,8 @@ const ReviewStarList = styled.ul`
     color: ${COLOR.primary.blue};
   }
 `;
+
+const ReviewStarItem = styled.div``;
 
 const ReviewStarTitle = styled.span`
   font-weight: bold;
