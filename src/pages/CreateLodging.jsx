@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
 import useLoding from '../hooks/queries/Lodging/useLodging';
@@ -37,6 +39,9 @@ const SuccessText = styled.div`
 `;
 
 const CreateLodging = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   // const [pk, setPK] = useState('');
   const [name, onChangeName] = useInput('');
   const [address, onChangeAddress] = useInput('');
@@ -51,8 +56,9 @@ const CreateLodging = () => {
   const [checkInTime, onChangeCheckInTime] = useInput('');
   const [checkOutTime, onChangeCheckOutTime] = useInput('');
   const [mainPhoto, setMainPhoto] = useState('');
-
   const [success, setSuccess] = useState('');
+
+  const navigate = useNavigate();
 
   const { lodgingMutation } = useLoding();
 
@@ -79,12 +85,16 @@ const CreateLodging = () => {
     formData.append('mainPhoto', mainPhoto);
     formData.append('photos', []);
 
-    lodgingMutation(formData, {
-      onSuccess: () => {
-        setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
-        setTimeout(() => setSuccess(null), 3000);
-      },
-    });
+    if (user) {
+      lodgingMutation(formData, {
+        onSuccess: () => {
+          setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
+          setTimeout(() => setSuccess(null), 3000);
+        },
+      });
+    } else {
+      navigate('/signin');
+    }
   };
   return (
     <FormContainer>

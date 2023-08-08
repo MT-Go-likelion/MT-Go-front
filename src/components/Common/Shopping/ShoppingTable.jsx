@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
+import useShopping from '../../../hooks/queries/Shopping/useShopping';
 
 const Container = styled.div`
   display: flex;
@@ -77,10 +80,21 @@ const ButtonDiv = styled.div`
 `;
 const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
-  const totalSum = data.reduce((acc, item) => acc + item.totalPrice, 0);
+  const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
+
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { shoppingMutation } = useShopping(user ? user.token : '');
 
   const handleEditClick = () => {
-    setEditHandle(true);
+    if (user) {
+      setEditHandle(true);
+    } else {
+      navigate('/signin');
+    }
   };
 
   const handleEditComplete = () => {
@@ -109,6 +123,16 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
       return dataItem;
     });
     setShoppingItems(updatedData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (user) {
+      shoppingMutation(data);
+    } else {
+      navigate('/signin');
+    }
   };
 
   return (
@@ -159,7 +183,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
                     item.price
                   )}
                 </EditableTd>
-                <Td>{item.totalPrice}</Td>
+                <Td>{item.amount * item.price}</Td>
               </tr>
             ))}
           </Tbody>
@@ -172,7 +196,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
         ) : (
           <EditButton onClick={handleEditComplete}>완료</EditButton>
         )}
-        <Submitbutton>제출</Submitbutton>
+        <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
       </ButtonDiv>
     </Container>
   );

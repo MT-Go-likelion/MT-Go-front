@@ -58,6 +58,11 @@ const Navbar = ({ auth }) => {
   const signOut = useSignOut();
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    signOut();
+    navigate('/');
+  };
+
   return (
     <NavLayout>
       <NavLeft>
@@ -79,7 +84,7 @@ const Navbar = ({ auth }) => {
       </NavLeft>
       <NavRight>
         {!auth && <LoginBtn onClick={() => navigate('/signin')}>로그인</LoginBtn>}
-        {auth && <LoginBtn onClick={signOut}>로그아웃</LoginBtn>}
+        {auth && <LoginBtn onClick={handleLogout}>로그아웃</LoginBtn>}
       </NavRight>
     </NavLayout>
   );

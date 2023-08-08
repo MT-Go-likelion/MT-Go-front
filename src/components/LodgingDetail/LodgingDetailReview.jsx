@@ -34,8 +34,6 @@ const LodgingDetailReview = ({ pk }) => {
     lodgingReviewMutation,
   } = useLodgingReview(user ? user.token : '', pk);
 
-  console.log(reviews);
-
   const onClickReviewInput = (e) => {
     e.preventDefault();
     reviewImgInputRef.current.click();
