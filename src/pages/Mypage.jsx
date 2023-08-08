@@ -147,19 +147,31 @@ const MyPage = () => {
           {lodgingError && <Error />}
           <Flex>
             {lodgingScrapList &&
-              lodgingScrapList.map((scrapItem) => <BestlocationCard key={scrapItem.pk} />)}
+              lodgingScrapList.map((scrapItem) => (
+                <BestlocationCard
+                  pk={scrapItem.pk}
+                  name={scrapItem.name}
+                  price={scrapItem.price}
+                  mainPhoto={scrapItem.mainPhoto}
+                  isScrap={scrapItem.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>레크레이션</SubTitle>
           {recreationIsLoading && <Loading />}
           {recreationError && <Error />}
           <Flex>
             {recreationScrapList &&
-              recreationScrapList.map((scrapItem) => <RecreationCard key={scrapItem.pk} />)}
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
+              recreationScrapList.map((scrapItem) => (
+                <RecreationCard
+                  pk={scrapItem.pk}
+                  name={scrapItem.name}
+                  photo={scrapItem.photo}
+                  headCountMin={scrapItem.headCountMin}
+                  headCountMax={scrapItem.headCountMax}
+                  isScrap={scrapItem.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
           <Flex>장바구니 컴포넌트</Flex>
