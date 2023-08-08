@@ -11,7 +11,7 @@ const NavLayout = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 8rem 0 1rem;
+  padding: 0 4rem 0 3rem;
 `;
 
 const NavLeft = styled.div`
@@ -23,18 +23,26 @@ const NavLeft = styled.div`
 
 const NavLogo = styled.div`
   font-size: 2rem;
+  font-weight: 800;
   cursor: pointer;
+  background: linear-gradient(90deg, #4987ff 0%, #5dffe2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const NavMenuList = styled.ul`
   display: flex;
   justify-content: space-between;
-  gap: 5rem;
+  gap: 4rem;
+  @media (max-width: 935px) {
+    display: none;
+  }
 `;
 
 const NavMenu = styled.li`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -53,12 +61,14 @@ const NavRight = styled.div`
 `;
 
 const SignBtn = styled.div`
-  font-size: 1.5rem;
+  font-size: 19px;
+  font-weight: 600;
   cursor: pointer;
 `;
 
 const MypageBtn = styled.div`
-  font-size: 1.5rem;
+  font-size: 19px;
+  font-weight: 600;
   cursor: pointer;
 `;
 
@@ -94,7 +104,7 @@ const Navbar = ({ auth }) => {
         {!auth && <SignBtn onClick={() => navigate('/signin')}>로그인</SignBtn>}
         {auth && (
           <>
-            <MypageBtn onClick={() => navigate('/mypage')}>마이페이지</MypageBtn>
+            <MypageBtn onClick={() => navigate('/mypage')}>MYPAGE</MypageBtn>
             <SignBtn onClick={handleLogout}>로그아웃</SignBtn>
           </>
         )}

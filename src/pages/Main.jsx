@@ -10,6 +10,8 @@ import RecreationCard from '../components/Card/RecreationCard';
 
 // import COLOR from '../constants/color';
 
+const mediaSize = 1030;
+
 const MainLayout = styled.div`
   width: 100%;
   height: 80%;
@@ -30,6 +32,10 @@ const ContentLayout = styled.div`
   margin: 4rem 6rem;
   padding: 0 3rem;
   position: relative;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 4rem 2rem;
+  }
 `;
 
 const Flexdiv = styled.div`
@@ -39,10 +45,13 @@ const Flexdiv = styled.div`
   margin: 4rem;
   padding-bottom: 0.5rem;
   height: 100%;
-
   overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 4rem 2rem;
+  }
 `;
 
 // 추천 단체숙소
@@ -50,17 +59,26 @@ const Title = styled.div`
   font-size: 32px;
   font-weight: 700;
   margin: 1rem 0;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    font-size: 24px;
+  }
 `;
 
 const SubTitle = styled.span`
   font-size: 20px;
   color: ${COLOR.gray};
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    font-size: 16px;
+  }
 `;
 
 const More = styled.a`
   font-size: 16px;
   color: ${COLOR.gray};
   margin-right: 4rem;
+  cursor: pointer;
 `;
 
 const Divstyled = styled.div`
