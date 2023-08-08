@@ -1,10 +1,13 @@
 import React, { useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 
-import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
 import RecreationEditor from '../components/Editor/RecreationEditor';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
+import COLOR from '../constants/color';
 
 const RegisterForm = styled.form``;
 
@@ -64,14 +67,18 @@ const SuccessText = styled.div`
 `;
 
 const RecreationRegistration = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const [name, onChangeName] = useInput('');
   const [headCountMin, onChangeHeadCountMin] = useInput(0);
   const [headCountMax, onChangeHeadCountMax] = useInput(0);
   const [img, setImg] = useState('');
   const imgInputRef = useRef();
   const editorRef = useRef();
-
   const [success, setSuccess] = useState('');
+
+  const navigate = useNavigate();
 
   const { recreaetionMutation } = useRecreation();
 
@@ -98,12 +105,16 @@ const RecreationRegistration = () => {
     formData.append('headCountMin', headCountMin);
     formData.append('headCountMax', headCountMax);
 
-    recreaetionMutation(formData, {
-      onSuccess: () => {
-        setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
-        setTimeout(() => setSuccess(null), 3000);
-      },
-    });
+    if (user) {
+      recreaetionMutation(formData, {
+        onSuccess: () => {
+          setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
+          setTimeout(() => setSuccess(null), 3000);
+        },
+      });
+    } else {
+      navigate('/signin');
+    }
   };
 
   return (

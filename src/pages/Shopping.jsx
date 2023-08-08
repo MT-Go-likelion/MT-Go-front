@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import ShoppingTag from '../components/Button/ShoppingTag';
 import MainBanner from '../assets/images/ShoppingMain.png';
 import TagPopup from '../components/Popup/Shopping/TagPopup';
 import useShopping from '../hooks/queries/Shopping/useShopping';
+
+const ShoppingLayout = styled.div`
+  max-width: 1280px;
+  margin: auto;
+`;
 
 const BannerImg = styled.img`
   width: 100%;
@@ -76,9 +82,15 @@ const Shopping = () => {
   const [selectedItem, setSelectedItem] = useState(false);
   const [shoppingItems, setShoppingItems] = useState(shoppingList || []); // State to store the shopping items
 
+  const navigate = useNavigate();
+
   const handleTagClick = (item) => {
-    setIsPopupVisible(true);
-    setSelectedItem(item);
+    if (user) {
+      setIsPopupVisible(true);
+      setSelectedItem(item);
+    } else {
+      navigate('/signin');
+    }
   };
 
   const handlePopupClose = () => {
@@ -105,28 +117,30 @@ const Shopping = () => {
   return (
     <>
       <BannerImg src={MainBanner} />
-      <Container>
-        <Flex>
-          {TagOptions.map((options) => (
-            <ShoppingTag key={options.TagId} onClick={() => handleTagClick(options)}>
-              {options.name}
-            </ShoppingTag>
-          ))}
-        </Flex>
-      </Container>
-      <CalDiv>
-        <Title>장바구니 계산</Title>
-        <SelectName>
-          {spaceOptions.map((option) => (
-            <option key={option.id} value={option.name}>
-              {option.name}
-            </option>
-          ))}
-        </SelectName>
-      </CalDiv>
-      <Container>
-        <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
-      </Container>
+      <ShoppingLayout>
+        <Container>
+          <Flex>
+            {TagOptions.map((options) => (
+              <ShoppingTag key={options.TagId} onClick={() => handleTagClick(options)}>
+                {options.name}
+              </ShoppingTag>
+            ))}
+          </Flex>
+        </Container>
+        <CalDiv>
+          <Title>장바구니 계산</Title>
+          <SelectName>
+            {spaceOptions.map((option) => (
+              <option key={option.id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </SelectName>
+        </CalDiv>
+        <Container>
+          <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+        </Container>
+      </ShoppingLayout>
       <TagPopup
         isVisible={isPopupVisible}
         onClose={handlePopupClose}

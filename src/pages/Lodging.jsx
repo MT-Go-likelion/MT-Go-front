@@ -76,7 +76,7 @@ const Lodging = () => {
 
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
-  } = useLodging(user.token);
+  } = useLodging(user ? user.token : '');
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
@@ -81,13 +82,19 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
 
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
   const { shoppingMutation } = useShopping(user ? user.token : '');
 
   const handleEditClick = () => {
-    setEditHandle(true);
+    if (user) {
+      setEditHandle(true);
+    } else {
+      navigate('/signin');
+    }
   };
 
   const handleEditComplete = () => {
@@ -121,7 +128,11 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    shoppingMutation(data);
+    if (user) {
+      shoppingMutation(data);
+    } else {
+      navigate('/signin');
+    }
   };
 
   return (
