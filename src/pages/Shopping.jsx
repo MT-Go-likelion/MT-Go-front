@@ -68,9 +68,15 @@ const Shopping = () => {
   const [shoppingItems, setShoppingItems] = useState([]); // State to store the shopping items
 
   const handleTagClick = (item) => {
-    setIsPopupVisible(true);
-    setSelectedItem(item);
     console.log(item);
+    const isItemExists = shoppingItems.some((shoppingItem) => shoppingItem.item === item.name);
+    if (isItemExists) {
+      // Show an alert if the item already exists
+      alert(`${item.name} is already in the shopping list.`);
+    } else {
+      setIsPopupVisible(true);
+      setSelectedItem(item);
+    }
   };
 
   const handlePopupClose = () => {

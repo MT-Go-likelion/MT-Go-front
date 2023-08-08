@@ -84,6 +84,7 @@ const SumContent = styled.div`
 `;
 
 const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
+  const [item, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');
 
@@ -91,8 +92,8 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
 
   const handleComplete = () => {
     if (amount !== '' && price !== '' && totalPrice !== '') {
-      console.log(amount, price, totalPrice);
-      onComplete(amount, price, totalPrice);
+      console.log(item, amount, price, totalPrice);
+      onComplete(item, amount, price, totalPrice);
       onClose();
     }
   };
@@ -100,8 +101,14 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
   return isVisible ? (
     <PopupOverlay>
       <PopupContent>
-        갯수와 가격을 입력해주세요
+        상품이름, 갯수, 가격을 입력해주세요
         <InputContent>
+          <Input
+            type="string"
+            value={item}
+            placeholder="상품이름"
+            onChange={(e) => setName(e.target.value)}
+          />
           <Input
             type="number"
             value={amount}

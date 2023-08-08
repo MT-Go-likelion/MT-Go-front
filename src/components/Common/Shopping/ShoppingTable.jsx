@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
+import CreatePopup from '../../Popup/Shopping/CreatePopup';
 
 const Container = styled.div`
   display: flex;
@@ -75,16 +76,61 @@ const ButtonDiv = styled.div`
   gap: 1rem;
   height: 100%;
 `;
+
+const DeleteButton = styled.button`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 14px;
+  background-color: ${COLOR.lightGray};
+  text-align: center;
+  color: ${COLOR.white};
+  transition: 0.3s;
+  &:hover {
+    background-color: ${COLOR.gray};
+  }
+`;
+const TrPlusRow = styled.tr`
+  text-align: center;
+`;
+
+const TrPlus = styled.button`
+  width: 6rem;
+  height: 1.8rem;
+  font-size: 25px;
+  margin-bottom: 0.5rem;
+  border-radius: 14px;
+  background-color: ${COLOR.lightGray};
+  text-align: center;
+  color: ${COLOR.white};
+  transition: 0.3s;
+  &:hover {
+    background-color: ${COLOR.gray};
+  }
+  margin: 0 auto;
+`;
+
 const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
+  const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
   const totalSum = data.reduce((acc, item) => acc + item.totalPrice, 0);
 
   const handleEditClick = () => {
     setEditHandle(true);
   };
 
-  const handleEditComplete = () => {
+  const handleEditComplete = (item, amount, price, totalPrice) => {
     setEditHandle(false);
+    if (amount && price && item) {
+      const newItem = {
+        item,
+        amount: parseInt(amount, 10),
+        price: parseInt(price, 10),
+        totalPrice,
+      };
+      setShoppingItems((prevItems) => [...prevItems, newItem]);
+      console.log(item, amount, price, totalPrice);
+    }
+    setCreatePopupVisible(false);
   };
 
   const handleInputChange = (e, item) => {
@@ -111,6 +157,21 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
     setShoppingItems(updatedData);
   };
 
+  const handleDeleteClick = (e, item) => {
+    e.stopPropagation();
+
+    const updatedData = data.filter((dataItem) => dataItem.item !== item.item);
+    setShoppingItems(updatedData);
+  };
+
+  const handleCreateClick = () => {
+    setCreatePopupVisible(true);
+  };
+
+  const handleCreateClose = () => {
+    setCreatePopupVisible(false);
+  };
+
   return (
     <Container>
       <Border>
@@ -121,6 +182,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
               <Th>수량</Th>
               <Th>단가</Th>
               <Th>총금액</Th>
+              {editHandle === true ? <Th>삭제</Th> : ''}
             </tr>
           </thead>
           <Tbody>
@@ -160,20 +222,48 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
                   )}
                 </EditableTd>
                 <Td>{item.totalPrice}</Td>
+                <Td>
+                  {editHandle === true ? (
+                    <DeleteButton onClick={(e) => handleDeleteClick(e, item)}>X</DeleteButton>
+                  ) : (
+                    ''
+                  )}
+                </Td>
               </tr>
             ))}
+            {editHandle !== true ? (
+              <TrPlusRow>
+                <Td colSpan="5">
+                  <TrPlus onClick={() => handleCreateClick()}>+</TrPlus>
+                </Td>
+              </TrPlusRow>
+            ) : (
+              ''
+            )}
+            <CreatePopup
+              isVisible={CreatePopupVisible}
+              onClose={handleCreateClose}
+              onComplete={(item, amount, price, totalPrice) => {
+                handleEditComplete(item, amount, price, totalPrice);
+                setCreatePopupVisible(false);
+              }}
+            />
           </Tbody>
         </Table>
         <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
       </Border>
-      <ButtonDiv>
-        {editHandle !== true ? (
-          <EditButton onClick={handleEditClick}>수정</EditButton>
-        ) : (
-          <EditButton onClick={handleEditComplete}>완료</EditButton>
-        )}
-        <Submitbutton>제출</Submitbutton>
-      </ButtonDiv>
+      {CreatePopupVisible !== true ? (
+        <ButtonDiv>
+          {editHandle !== true ? (
+            <EditButton onClick={handleEditClick}>수정</EditButton>
+          ) : (
+            <EditButton onClick={handleEditComplete}>완료</EditButton>
+          )}
+          <Submitbutton>제출</Submitbutton>
+        </ButtonDiv>
+      ) : (
+        ''
+      )}
     </Container>
   );
 };
