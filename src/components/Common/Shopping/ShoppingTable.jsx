@@ -112,23 +112,21 @@ const TrPlus = styled.button`
 const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
-  const totalSum = data.reduce((acc, item) => acc + item.totalPrice, 0);
-
+  const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
   const handleEditClick = () => {
     setEditHandle(true);
   };
 
-  const handleEditComplete = (item, amount, price, totalPrice) => {
+  const handleEditComplete = (item, amount, price) => {
     setEditHandle(false);
     if (amount && price && item) {
       const newItem = {
         item,
         amount: parseInt(amount, 10),
         price: parseInt(price, 10),
-        totalPrice,
       };
       setShoppingItems((prevItems) => [...prevItems, newItem]);
-      console.log(item, amount, price, totalPrice);
+      console.log(item, amount, price);
     }
     setCreatePopupVisible(false);
   };
@@ -221,7 +219,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
                     item.price
                   )}
                 </EditableTd>
-                <Td>{item.totalPrice}</Td>
+                <Td>{item.amount * item.price}</Td>
                 <Td>
                   {editHandle === true ? (
                     <DeleteButton onClick={(e) => handleDeleteClick(e, item)}>X</DeleteButton>
@@ -243,8 +241,8 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
             <CreatePopup
               isVisible={CreatePopupVisible}
               onClose={handleCreateClose}
-              onComplete={(item, amount, price, totalPrice) => {
-                handleEditComplete(item, amount, price, totalPrice);
+              onComplete={(item, amount, price) => {
+                handleEditComplete(item, amount, price);
                 setCreatePopupVisible(false);
               }}
             />

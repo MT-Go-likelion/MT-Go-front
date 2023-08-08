@@ -87,12 +87,10 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');
 
-  const totalPrice = Number(amount) * Number(price);
-
   const handleComplete = () => {
-    if (amount !== '' && price !== '' && totalPrice !== '') {
-      console.log(amount, price, totalPrice);
-      onComplete(amount, price, totalPrice);
+    if (amount !== '' && price !== '') {
+      console.log(amount, price);
+      onComplete(amount, price);
       onClose();
     }
   };
@@ -116,7 +114,7 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
           />
         </InputContent>
         <SumDiv>
-          총 금액 : <SumContent>{totalPrice || 0} 원</SumContent>
+          총 금액 : <SumContent>{amount * price || 0} 원</SumContent>
         </SumDiv>
         <ButtonDiv>
           <BlueButton type="button" onClick={onClose}>
