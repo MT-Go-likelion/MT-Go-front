@@ -113,7 +113,7 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
           />
         </InputContent>
         <SumDiv>
-          총 금액 : <SumContent>{Number(amount) * Number(price) || 0} 원</SumContent>
+          총 금액 : <SumContent>{amount * price || 0} 원</SumContent>
         </SumDiv>
         <ButtonDiv>
           <BlueButton type="button" onClick={onClose}>

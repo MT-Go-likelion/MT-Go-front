@@ -115,7 +115,6 @@ const TrPlus = styled.button`
 const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
-
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
