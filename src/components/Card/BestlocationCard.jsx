@@ -8,7 +8,7 @@ import COLOR from '../../constants/color';
 import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
-import useLoding from '../../hooks/queries/Lodging/useLodging';
+import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -87,7 +87,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const { scrapMutation } = useLoding();
+  const { scrapMutation } = useLodgingScrap();
 
   const handlelikeClick = (e) => {
     e.stopPropagation();

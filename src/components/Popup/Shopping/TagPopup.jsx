@@ -89,7 +89,6 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
 
   const handleComplete = () => {
     if (amount !== '' && price !== '') {
-      console.log(amount, price);
       onComplete(amount, price);
       onClose();
     }

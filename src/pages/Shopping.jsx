@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import COLOR from '../constants/color';
 
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import COLOR from '../constants/color';
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import ShoppingTag from '../components/Button/ShoppingTag';
 import MainBanner from '../assets/images/ShoppingMain.png';
 import TagPopup from '../components/Popup/Shopping/TagPopup';
+import useShopping from '../hooks/queries/Shopping/useShopping';
+
+const ShoppingLayout = styled.div`
+  max-width: 1280px;
+  margin: auto;
+`;
 
 const BannerImg = styled.img`
   width: 100%;
@@ -79,22 +87,34 @@ const Shopping = () => {
     { id: 3, name: '동아리 스페이스' },
   ];
 
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const {
+    shoppingQuery: { data: shoppingList },
+  } = useShopping(user ? user.token : '');
+
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [shoppingItems, setShoppingItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(false);
+  const [shoppingItems, setShoppingItems] = useState(shoppingList || []); // State to store the shopping items
   const [showNotification, setShowNotification] = useState(false); // Notification state
 
+  const navigate = useNavigate();
+
   const handleTagClick = (item) => {
-    console.log(item);
     const isItemExists = shoppingItems.some((shoppingItem) => shoppingItem.item === item.name);
-    if (isItemExists) {
-      setShowNotification(true);
-      setTimeout(() => {
-        setShowNotification(false);
-      }, 3000);
+    if (user) {
+      if (isItemExists) {
+        setShowNotification(true);
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 3000);
+      } else {
+        setIsPopupVisible(true);
+        setSelectedItem(item);
+      }
     } else {
-      setIsPopupVisible(true);
-      setSelectedItem(item);
+      navigate('/signin');
     }
   };
 
@@ -115,32 +135,38 @@ const Shopping = () => {
     setIsPopupVisible(false);
   };
 
+  useEffect(() => {
+    setShoppingItems(shoppingList || []);
+  }, [shoppingList]);
+
   return (
     <>
       <Notification visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>
       <BannerImg src={MainBanner} />
-      <Container>
-        <Flex>
-          {TagOptions.map((options) => (
-            <ShoppingTag key={options.TagId} onClick={() => handleTagClick(options)}>
-              {options.name}
-            </ShoppingTag>
-          ))}
-        </Flex>
-      </Container>
-      <CalDiv>
-        <Title>장바구니 계산</Title>
-        <SelectName>
-          {spaceOptions.map((option) => (
-            <option key={option.id} value={option.name}>
-              {option.name}
-            </option>
-          ))}
-        </SelectName>
-      </CalDiv>
-      <Container>
-        <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
-      </Container>
+      <ShoppingLayout>
+        <Container>
+          <Flex>
+            {TagOptions.map((options) => (
+              <ShoppingTag key={options.TagId} onClick={() => handleTagClick(options)}>
+                {options.name}
+              </ShoppingTag>
+            ))}
+          </Flex>
+        </Container>
+        <CalDiv>
+          <Title>장바구니 계산</Title>
+          <SelectName>
+            {spaceOptions.map((option) => (
+              <option key={option.id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </SelectName>
+        </CalDiv>
+        <Container>
+          <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+        </Container>
+      </ShoppingLayout>
       <TagPopup
         isVisible={isPopupVisible}
         onClose={handlePopupClose}

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
+import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import CreatePopup from '../../Popup/Shopping/CreatePopup';
 
 const Container = styled.div`
@@ -112,9 +115,21 @@ const TrPlus = styled.button`
 const ShoppingTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { shoppingMutation } = useShopping(user ? user.token : '');
+
   const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
+
   const handleEditClick = () => {
-    setEditHandle(true);
+    if (user) {
+      setEditHandle(true);
+    } else {
+      navigate('/signin');
+    }
   };
 
   const handleEditComplete = (item, amount, price) => {
@@ -168,6 +183,16 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
 
   const handleCreateClose = () => {
     setCreatePopupVisible(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (user) {
+      shoppingMutation(data);
+    } else {
+      navigate('/signin');
+    }
   };
 
   return (
@@ -257,7 +282,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
           ) : (
             <EditButton onClick={handleEditComplete}>완료</EditButton>
           )}
-          {editHandle !== true ? <Submitbutton>제출</Submitbutton> : ''}
+          {editHandle !== true ? <Submitbutton onClick={handleSubmit}>제출</Submitbutton> : ''}
         </ButtonDiv>
       ) : (
         ''

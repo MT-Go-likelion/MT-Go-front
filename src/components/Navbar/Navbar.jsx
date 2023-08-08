@@ -47,9 +47,17 @@ const NavMenuIcon = styled.img`
 
 const NavMenuText = styled.div``;
 
-const NavRight = styled.div``;
+const NavRight = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
 
-const LoginBtn = styled.div`
+const SignBtn = styled.div`
+  font-size: 1.5rem;
+  cursor: pointer;
+`;
+
+const MypageBtn = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
 `;
@@ -57,6 +65,11 @@ const LoginBtn = styled.div`
 const Navbar = ({ auth }) => {
   const signOut = useSignOut();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    signOut();
+    navigate('/');
+  };
 
   return (
     <NavLayout>
@@ -78,8 +91,13 @@ const Navbar = ({ auth }) => {
         </NavMenuList>
       </NavLeft>
       <NavRight>
-        {!auth && <LoginBtn onClick={() => navigate('/signin')}>로그인</LoginBtn>}
-        {auth && <LoginBtn onClick={signOut}>로그아웃</LoginBtn>}
+        {!auth && <SignBtn onClick={() => navigate('/signin')}>로그인</SignBtn>}
+        {auth && (
+          <>
+            <MypageBtn onClick={() => navigate('/mypage')}>마이페이지</MypageBtn>
+            <SignBtn onClick={handleLogout}>로그아웃</SignBtn>
+          </>
+        )}
       </NavRight>
     </NavLayout>
   );

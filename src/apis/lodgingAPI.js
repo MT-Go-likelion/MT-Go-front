@@ -4,7 +4,7 @@ import { LODGINGAPI } from '../config/api';
 const lodgingAPI = {
   list: async (token) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
-    const res = await axios.get(LODGINGAPI.MAINLIST, headers);
+    const res = await axios.get(LODGINGAPI.LIST, headers);
 
     return res.data;
   },
@@ -22,6 +22,12 @@ const lodgingAPI = {
 
   detail: async (id) => {
     const res = await axios.get(LODGINGAPI.DETAIL + id);
+
+    return res.data;
+  },
+  scrapList: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(LODGINGAPI.SCRAPLIST, headers);
 
     return res.data;
   },

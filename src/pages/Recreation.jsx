@@ -48,7 +48,7 @@ const Recreation = () => {
 
   const {
     recreationsQuery: { isLoading, error, data: recreations },
-  } = useRecreation(user.token);
+  } = useRecreation(user ? user.token : '');
 
   return (
     <RecreationLayout>
