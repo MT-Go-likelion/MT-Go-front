@@ -7,7 +7,7 @@ import COLOR from '../../constants/color';
 import Recreatbtn from '../../assets/images/Recreat.png';
 import SelectRecreat from '../../assets/images/Select_recreat.png';
 import { BASE_URL } from '../../config/api';
-import useRecreation from '../../hooks/queries/Recreation/useRecreation';
+import useRecreationScrap from '../../hooks/queries/Recreation/useRecreationScrap';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -98,14 +98,14 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const { recreationReviewMutation } = useRecreation();
+  const { recreationScrapMutation } = useRecreationScrap();
 
   const handleSaveClick = (e) => {
     e.stopPropagation();
 
     if (user) {
       setSave((prevState) => !prevState);
-      recreationReviewMutation({
+      recreationScrapMutation({
         isScrap: !save,
         recreationPk: pk,
         token: user.token,
