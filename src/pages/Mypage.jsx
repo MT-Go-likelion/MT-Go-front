@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 // import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
 import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
+import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
+import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
+import Loading from './Loading';
+import Error from './Error';
 
 // 전체 여백
 const Container = styled.div`
@@ -86,8 +91,23 @@ const DivTeamlist = styled.div`
 `;
 
 const MyPage = () => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const navigate = useNavigate();
+
+  const {
+    lodgingScrapQuery: { isLoading: lodgingIsLoading, error: lodgingError, data: lodgingScrapList },
+  } = useLodgingScrapList(user ? user.token : '');
+  const {
+    recreationScrapQuery: {
+      isLoading: recreationIsLoading,
+      error: recreationError,
+      data: recreationScrapList,
+    },
+  } = useRecreationScrapList(user ? user.token : '');
+
   const gotoTeamSpace = () => {
     // useNavigate(`/Teamspace/${pk}`);
     navigate(`/MypageTeamspace`);
@@ -123,20 +143,35 @@ const MyPage = () => {
         </TeamspaceDiv>
         <ScrapDiv>
           <SubTitle>숙소</SubTitle>
+          {lodgingIsLoading && <Loading />}
+          {lodgingError && <Error />}
           <Flex>
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
+            {lodgingScrapList &&
+              lodgingScrapList.map((scrapItem) => (
+                <BestlocationCard
+                  pk={scrapItem.pk}
+                  name={scrapItem.name}
+                  price={scrapItem.price}
+                  mainPhoto={scrapItem.mainPhoto}
+                  isScrap={scrapItem.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>레크레이션</SubTitle>
+          {recreationIsLoading && <Loading />}
+          {recreationError && <Error />}
           <Flex>
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
+            {recreationScrapList &&
+              recreationScrapList.map((scrapItem) => (
+                <RecreationCard
+                  pk={scrapItem.pk}
+                  name={scrapItem.name}
+                  photo={scrapItem.photo}
+                  headCountMin={scrapItem.headCountMin}
+                  headCountMax={scrapItem.headCountMax}
+                  isScrap={scrapItem.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
           <Flex>장바구니 컴포넌트</Flex>

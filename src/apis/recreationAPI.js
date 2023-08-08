@@ -27,6 +27,13 @@ const recreationAPI = {
 
     return res.data;
   },
+
+  scrapList: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(RECREATIONAPI.SCRAPLIST, headers);
+
+    return res.data;
+  },
 };
 
 export default recreationAPI;

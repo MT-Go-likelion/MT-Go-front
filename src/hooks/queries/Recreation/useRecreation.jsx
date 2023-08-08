@@ -19,19 +19,7 @@ const useRecreation = (token) => {
     },
   );
 
-  const { mutate: recreationReviewMutation } = useMutation(
-    (payload) => recreationAPI.scrap(payload),
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    },
-  );
-
-  return { recreationsQuery, recreaetionMutation, recreationReviewMutation };
+  return { recreationsQuery, recreaetionMutation };
 };
 
 export default useRecreation;
