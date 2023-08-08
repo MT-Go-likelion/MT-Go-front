@@ -259,7 +259,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
           ) : (
             <EditButton onClick={handleEditComplete}>완료</EditButton>
           )}
-          <Submitbutton>제출</Submitbutton>
+          {editHandle !== true ? <Submitbutton>제출</Submitbutton> : ''}
         </ButtonDiv>
       ) : (
         ''

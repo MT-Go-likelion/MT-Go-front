@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import COLOR from '../constants/color';
 
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import ShoppingTag from '../components/Button/ShoppingTag';
@@ -44,6 +45,21 @@ const SelectName = styled.select`
   padding-left: 2rem;
 `;
 
+const Notification = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: ${COLOR.primary.blue};
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transition: opacity 0.2s ease-in-out;
+`;
+
 const Shopping = () => {
   // 태그 데이터
   const TagOptions = [
@@ -65,14 +81,17 @@ const Shopping = () => {
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [shoppingItems, setShoppingItems] = useState([]); // State to store the shopping items
+  const [shoppingItems, setShoppingItems] = useState([]);
+  const [showNotification, setShowNotification] = useState(false); // Notification state
 
   const handleTagClick = (item) => {
     console.log(item);
     const isItemExists = shoppingItems.some((shoppingItem) => shoppingItem.item === item.name);
     if (isItemExists) {
-      // Show an alert if the item already exists
-      alert(`${item.name} is already in the shopping list.`);
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
     } else {
       setIsPopupVisible(true);
       setSelectedItem(item);
@@ -99,6 +118,7 @@ const Shopping = () => {
 
   return (
     <>
+      <Notification visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>
       <BannerImg src={MainBanner} />
       <Container>
         <Flex>
