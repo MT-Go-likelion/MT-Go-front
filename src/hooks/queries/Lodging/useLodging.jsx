@@ -14,7 +14,9 @@ const useLodging = (token) => {
   });
 
   const { mutate: lodgingMutation } = useMutation((payload) => lodgingAPI.create(payload), {
-    onSuccess: () => {},
+    onSuccess: (data) => {
+      console.log(data);
+    },
     onError: (error) => {
       console.log(error);
     },

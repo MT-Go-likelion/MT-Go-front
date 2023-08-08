@@ -6,11 +6,12 @@ export const AUTHAPI = {
 };
 
 export const LODGINGAPI = {
-  MAINLIST: `${BASE_URL}/lodging/main/`,
+  LIST: `${BASE_URL}/lodging/main/`,
   SCRAP: `${BASE_URL}/lodging/scrap/`,
   CREATELODGING: `${BASE_URL}/lodging/create/`,
   DETAIL: `${BASE_URL}/lodging/detail/`,
   CREATEREVIEW: `${BASE_URL}/lodging/createReview/`,
+  SCRAPLIST: `${BASE_URL}/lodging/scrapList/`,
 };
 
 export const RECREATIONAPI = {
@@ -18,4 +19,10 @@ export const RECREATIONAPI = {
   LIST: `${BASE_URL}/recreation/main/`,
   SCRAP: `${BASE_URL}/recreation/scrap/`,
   DETAIL: `${BASE_URL}/recreation/detail/`,
+  SCRAPLIST: `${BASE_URL}/recreation/scrapList`,
+};
+
+export const SHOPPINGAPI = {
+  CREATE: `${BASE_URL}/shopping/create/`,
+  LIST: `${BASE_URL}/shopping/shoppingList/`,
 };
