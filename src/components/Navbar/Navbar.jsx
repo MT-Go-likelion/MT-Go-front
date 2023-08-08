@@ -95,7 +95,7 @@ const Navbar = ({ auth }) => {
         {auth && (
           <>
             <MypageBtn onClick={() => navigate('/mypage')}>마이페이지</MypageBtn>
-            <SignBtn onClick={signOut}>로그아웃</SignBtn>
+            <SignBtn onClick={handleLogout}>로그아웃</SignBtn>
           </>
         )}
       </NavRight>
