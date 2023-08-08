@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import COLOR from '../constants/color';
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import ShoppingTag from '../components/Button/ShoppingTag';
 import MainBanner from '../assets/images/ShoppingMain.png';
@@ -52,6 +53,21 @@ const SelectName = styled.select`
   padding-left: 2rem;
 `;
 
+const Notification = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: ${COLOR.primary.blue};
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transition: opacity 0.2s ease-in-out;
+`;
+
 const Shopping = () => {
   // 태그 데이터
   const TagOptions = [
@@ -81,13 +97,22 @@ const Shopping = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(false);
   const [shoppingItems, setShoppingItems] = useState(shoppingList || []); // State to store the shopping items
+  const [showNotification, setShowNotification] = useState(false); // Notification state
 
   const navigate = useNavigate();
 
   const handleTagClick = (item) => {
+    const isItemExists = shoppingItems.some((shoppingItem) => shoppingItem.item === item.name);
     if (user) {
-      setIsPopupVisible(true);
-      setSelectedItem(item);
+      if (isItemExists) {
+        setShowNotification(true);
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 3000);
+      } else {
+        setIsPopupVisible(true);
+        setSelectedItem(item);
+      }
     } else {
       navigate('/signin');
     }
@@ -116,6 +141,7 @@ const Shopping = () => {
 
   return (
     <>
+      <Notification visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>
       <BannerImg src={MainBanner} />
       <ShoppingLayout>
         <Container>
