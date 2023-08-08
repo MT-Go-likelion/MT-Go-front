@@ -8,6 +8,13 @@ const shoppingAPI = {
 
     return res.data;
   },
+
+  list: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(`${SHOPPINGAPI.LIST}`, headers);
+
+    return res.data;
+  },
 };
 
 export default shoppingAPI;

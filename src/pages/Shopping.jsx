@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { useQueryClient } from '@tanstack/react-query';
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import ShoppingTag from '../components/Button/ShoppingTag';
 import MainBanner from '../assets/images/ShoppingMain.png';
 import TagPopup from '../components/Popup/Shopping/TagPopup';
+import useShopping from '../hooks/queries/Shopping/useShopping';
 
 const BannerImg = styled.img`
   width: 100%;
@@ -63,14 +65,20 @@ const Shopping = () => {
     { id: 3, name: '동아리 스페이스' },
   ];
 
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const {
+    shoppingQuery: { data: shoppingList },
+  } = useShopping(user ? user.token : '');
+
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [shoppingItems, setShoppingItems] = useState([]); // State to store the shopping items
+  const [selectedItem, setSelectedItem] = useState(false);
+  const [shoppingItems, setShoppingItems] = useState(shoppingList || []); // State to store the shopping items
 
   const handleTagClick = (item) => {
     setIsPopupVisible(true);
     setSelectedItem(item);
-    console.log(item);
   };
 
   const handlePopupClose = () => {
@@ -89,6 +97,10 @@ const Shopping = () => {
     }
     setIsPopupVisible(false);
   };
+
+  useEffect(() => {
+    setShoppingItems(shoppingList || []);
+  }, [shoppingList]);
 
   return (
     <>
