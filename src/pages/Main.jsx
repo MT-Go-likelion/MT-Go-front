@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import COLOR from '../constants/color';
+import { useNavigate } from 'react-router-dom';
 
+import COLOR from '../constants/color';
 import MainBanner from '../assets/images/banner.png';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import BagCard from '../components/Card/BagCard';
@@ -24,35 +25,13 @@ const BannerImg = styled.img`
   width: 100%;
 `;
 
-const Listdiv = styled.div`
-  position: relative;
-  top: -10rem;
-`;
-
-// 배너 - 리스트 3개
-const Tmpul = styled.ul`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const TmpLi = styled.li`
-  width: 14%;
-  height: 15rem;
-  background-color: ${COLOR.black};
-  opacity: 0.5;
-`;
-
 // 전체 적용 마진
 const ContentLayout = styled.div`
-  margin: 0 6rem;
+  margin: 4rem 6rem;
   padding: 0 3rem;
-  top: -7rem;
   position: relative;
 `;
+
 const Flexdiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
@@ -91,26 +70,32 @@ const Divstyled = styled.div`
 `;
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const handleLodgingClick = () => {
+    navigate(`/Lodging`);
+  };
+
+  const handleShoppingClick = () => {
+    navigate(`/Shopping`);
+  };
+
+  const handleRecreationClick = () => {
+    navigate(`/Recreation`);
+  };
+
   return (
     <>
       <MainLayout>
         <Banner>
           <BannerImg src={MainBanner} />
         </Banner>
-        <Listdiv>
-          <Tmpul>
-            <TmpLi>리스트1</TmpLi>
-            <TmpLi>리스트1</TmpLi>
-            <TmpLi>리스트1</TmpLi>
-          </Tmpul>
-        </Listdiv>
       </MainLayout>
-
       <ContentLayout>
         <Title>추천 단체 숙소</Title>
         <Divstyled>
           <SubTitle>마음에 드는 숙박 장소를 골라보세요.</SubTitle>
-          <More href="#">더보기</More>
+          <More onClick={handleLodgingClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
           <BestlocationCard />
@@ -122,7 +107,7 @@ const Main = () => {
         <Title>장보기</Title>
         <Divstyled>
           <SubTitle>파트너들과 함께 장바구니에 담을 물품들을 골라보세요.</SubTitle>
-          <More href="#">더보기</More>
+          <More onClick={handleShoppingClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
           <BagCard />
@@ -134,7 +119,7 @@ const Main = () => {
         <Title>추천 레크레이션</Title>
         <Divstyled>
           <SubTitle>MT의 꽃, 레크레이션! 만약 무엇을 할지 모르겠다면?</SubTitle>
-          <More href="#">더보기</More>
+          <More onClick={handleRecreationClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
           <RecreationCard />
