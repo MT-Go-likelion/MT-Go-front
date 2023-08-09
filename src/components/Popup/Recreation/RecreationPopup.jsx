@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import Submitbutton from '../../Button/SubmitButton';
 
@@ -8,7 +8,7 @@ import close from '../../../assets/images/close.png';
 import useTeam from '../../../hooks/queries/Team/useTeam';
 import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
-import useTeamRecreation from '../../../hooks/queries/Team/useTeamRecreation';
+import useTeamRecreationCreate from '../../../hooks/queries/Team/useTeamRecreationCreate';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -81,14 +81,6 @@ const TeamBtn = styled.div`
     border: 2px solid ${COLOR.gray};
     background: ${COLOR.lightGray};
   }
-
-  ${(props) =>
-    props.active &&
-    css`
-      background-color: ${COLOR.primary.blue};
-      border-color: ${COLOR.primary.blue};
-      color: ${COLOR.white};
-    `}
 `;
 
 const FlexDiv = styled.div`
@@ -104,7 +96,7 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
     teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
   } = useTeam(user ? user.token : '');
 
-  const { teamRecreationMutation } = useTeamRecreation();
+  const { teamRecreationMutation } = useTeamRecreationCreate(user ? user.token : '');
 
   const handleTeamClick = (teamToken) => {
     teamRecreationMutation({ teamToken, recreationPk: pk });
@@ -127,11 +119,7 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
           <TeamList>
             {teams &&
               teams.map((team) => (
-                <TeamBtn
-                  key={team.teamToken}
-                  active={team.teamName === true}
-                  onClick={() => handleTeamClick(team.teamToken)}
-                >
+                <TeamBtn key={team.teamToken} onClick={() => handleTeamClick(team.teamToken)}>
                   {team.teamName}
                 </TeamBtn>
               ))}

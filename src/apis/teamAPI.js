@@ -21,8 +21,8 @@ const teamAPI = {
     const headers = userToken
       ? { headers: { Authorization: `Token ${userToken}` } }
       : { headers: {} };
-
     const params = { params: teamToken };
+
     const res = await axios.get(TEAMAPI.TEAMLODGING, params, headers);
 
     return res.data;
@@ -40,7 +40,6 @@ const teamAPI = {
       ? { headers: { Authorization: `Token ${userToken}` } }
       : { headers: {} };
     const params = { params: teamToken };
-
     const res = await axios.get(TEAMAPI.TEAMRECREATION, params, headers);
 
     return res.data;

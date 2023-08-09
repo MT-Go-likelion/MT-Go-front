@@ -351,12 +351,11 @@ const MypageTeamspace = () => {
             {recreations &&
               recreations.map((recreation) => (
                 <RecreationCard
-                  key={recreation.pk}
                   pk={recreation.pk}
                   name={recreation.name}
-                  price={recreation.price}
-                  mainPhoto={recreation.mainPhoto}
-                  avgScore={recreation.avgScore}
+                  photo={recreation.photo}
+                  headCountMin={recreation.headCountMin}
+                  headCountMax={recreation.headCountMax}
                   isScrap={recreation.isScrap}
                 />
               ))}
