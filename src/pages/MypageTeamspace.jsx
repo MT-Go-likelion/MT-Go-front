@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -41,11 +41,11 @@ const ScrapDiv = styled.div`
 `;
 
 const Title = styled.button`
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 400;
   margin: 3rem 0 10rem 0;
-  border-bottom: 1.4px solid ${COLOR.primary.lightBlue};
   width: 140px;
+  color: ${COLOR.gray};
 `;
 
 const SubTitle = styled.div`
@@ -77,16 +77,19 @@ const TeamspaceButton = styled.button`
   background: transparent;
   cursor: pointer;
   transition:
-    background-color 0.2s,
-    border 0.2s;
+    background-color 0.5s,
+    border 0.5s;
 
   &:hover {
     background-color: ${COLOR.lightGray};
   }
 
-  &:active {
-    border: 3px solid ${COLOR.primary.blue};
-  }
+  ${(props) =>
+    props.active &&
+    css`
+      border: 2px solid ${COLOR.blue};
+      font-weight: bold;
+    `}
 `;
 
 // 팀스페이스 리스트
@@ -192,6 +195,7 @@ const MypageTeamspace = () => {
   const [inviteCode, setInviteCode] = useState('ABCD1234');
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
+  const { state: teamName } = useLocation();
 
   const { teamToken } = useParams();
 
@@ -214,8 +218,8 @@ const MypageTeamspace = () => {
     },
   } = useTeamRecreation(user ? user.token : '', { teamToken });
 
-  const gotoTeamSpace = (teamToken) => {
-    navigate(`/mypage/${teamToken}`);
+  const gotoTeamSpace = (teamToken, teamName) => {
+    navigate(`/mypage/${teamToken}`, { state: teamName });
   };
 
   const gotoMypage = () => {
@@ -287,7 +291,10 @@ const MypageTeamspace = () => {
             {teamError && <Error />}
             {teams &&
               teams.map((team) => (
-                <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken)}>
+                <TeamspaceButton
+                  active={teamToken === team.teamToken}
+                  onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}
+                >
                   {team.teamName}
                 </TeamspaceButton>
               ))}
@@ -295,7 +302,7 @@ const MypageTeamspace = () => {
         </TeamspaceDiv>
         <ScrapDiv>
           <TNameDiv>
-            <SubTitle>Teamspace name</SubTitle>
+            <SubTitle>{teamName}</SubTitle>
             <ButtonDiv>
               <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
               {isDeletePopupVisible && (
