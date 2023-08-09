@@ -1,17 +1,19 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import teamAPI from '../../../apis/teamAPI';
 
-const useTeamRecreation = (token) => {
+const useTeamRecreation = (userToken, teamToken = {}) => {
   const queryClient = useQueryClient();
 
-  // const teamLodgingQuery = useQuery(['team', 'recreation'], () => teamAPI.recreaitonList(token));
+  const teamRecreationQuery = useQuery(['team', teamToken, 'recreation'], () =>
+    teamAPI.recreaitonList(userToken, teamToken),
+  );
 
   const { mutate: teamRecreationMutation } = useMutation(
-    (paylod) => teamAPI.recreaitonCreate(paylod, token),
+    (paylod) => teamAPI.recreaitonCreate(paylod, userToken),
     {
       onSuccess: (data) => {
         console.log(data);
-        queryClient.invalidateQueries(['team', 'recreation']);
+        queryClient.invalidateQueries(['team', teamToken, 'recreation']);
       },
       onError: (error) => {
         console.log(error);
@@ -19,7 +21,7 @@ const useTeamRecreation = (token) => {
     },
   );
 
-  return { teamRecreationMutation };
+  return { teamRecreationQuery, teamRecreationMutation };
 };
 
 export default useTeamRecreation;

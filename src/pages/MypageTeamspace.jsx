@@ -13,13 +13,15 @@ import useTeam from '../hooks/queries/Team/useTeam';
 import Loading from './Loading';
 import Error from './Error';
 import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
+import useTeamRecreation from '../hooks/queries/Team/useTeamRecreation';
 
 // 전체 여백
 const Container = styled.div`
-  margin: 0 5rem;
-  padding: 0 5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
   display: flex;
-  gap: 2.5rem;
+  gap: 1rem;
 `;
 
 const Hrbar = styled.hr`
@@ -29,11 +31,13 @@ const Hrbar = styled.hr`
 
 const TeamspaceDiv = styled.div`
   width: 100%;
+  flex-basis: 20%;
 `;
 
 const ScrapDiv = styled.div`
-  width: 80%;
+  width: 100%;
   padding-top: 4rem;
+  flex-basis: 80%;
 `;
 
 const Title = styled.button`
@@ -190,7 +194,6 @@ const MypageTeamspace = () => {
   const navigate = useNavigate();
 
   const { teamToken } = useParams();
-  console.log(teamToken);
 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
@@ -202,6 +205,14 @@ const MypageTeamspace = () => {
   const {
     teamLodgingQuery: { isLoading: lodgingLoading, error: lodgingError, data: lodgings },
   } = useTeamLodging(user ? user.token : '', { teamToken });
+
+  const {
+    teamRecreationQuery: {
+      isLoading: recreationLoading,
+      error: recreationError,
+      data: recreations,
+    },
+  } = useTeamRecreation(user ? user.token : '', { teamToken });
 
   const gotoTeamSpace = (teamToken) => {
     navigate(`/mypage/${teamToken}`);
@@ -335,11 +346,20 @@ const MypageTeamspace = () => {
           </Flex>
           <SubTitle>공유한 레크레이션</SubTitle>
           <Flex>
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
+            {recreationLoading && <Loading />}
+            {recreationError && <Error />}
+            {recreations &&
+              recreations.map((recreation) => (
+                <RecreationCard
+                  key={recreation.pk}
+                  pk={recreation.pk}
+                  name={recreation.name}
+                  price={recreation.price}
+                  mainPhoto={recreation.mainPhoto}
+                  avgScore={recreation.avgScore}
+                  isScrap={recreation.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
           <Flex>장바구니 컴포넌트</Flex>

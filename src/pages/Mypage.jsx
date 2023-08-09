@@ -16,10 +16,11 @@ import useTeam from '../hooks/queries/Team/useTeam';
 
 // 전체 여백
 const Container = styled.div`
-  margin: 0 5rem;
-  padding: 0 5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
   display: flex;
-  gap: 2.5rem;
+  gap: 1rem;
 `;
 
 const Hrbar = styled.hr`
@@ -29,11 +30,13 @@ const Hrbar = styled.hr`
 
 const TeamspaceDiv = styled.div`
   width: 100%;
+  flex-basis: 20%;
 `;
 
 const ScrapDiv = styled.div`
-  width: 80%;
+  width: 100%;
   padding-top: 4rem;
+  flex-basis: 80%;
 `;
 
 const Title = styled.button`
