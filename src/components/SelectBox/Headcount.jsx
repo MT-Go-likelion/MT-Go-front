@@ -19,14 +19,14 @@ const StyledSelect = styled.select`
   width: 110px;
   height: 33px;
   padding-left: 10px;
-  color: ${(props) => (props.count === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
+  color: ${(props) => (props.$count === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
 `;
 
 const SelectBox = ({ options }) => {
   const [count, onChangeCount] = useSelect('');
 
   return (
-    <StyledSelect onChange={onChangeCount} count={count}>
+    <StyledSelect onChange={onChangeCount} $count={count}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}

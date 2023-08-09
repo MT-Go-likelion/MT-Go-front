@@ -16,7 +16,7 @@ const StyledSelect = styled.select`
   width: 150px;
   height: 33px;
   padding-left: 10px;
-  color: ${(props) => (props.place === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
+  color: ${(props) => (props.$place === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
   ::selection {
     color: ${COLOR.black};
   }
@@ -26,7 +26,7 @@ const SelectBox = ({ options }) => {
   const [place, onChangePlace] = useSelect('');
 
   return (
-    <StyledSelect onChange={onChangePlace} place={place}>
+    <StyledSelect onChange={onChangePlace} $place={place}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}
