@@ -26,3 +26,7 @@ export const SHOPPINGAPI = {
   CREATE: `${BASE_URL}/shopping/create/`,
   LIST: `${BASE_URL}/shopping/shoppingList/`,
 };
+
+export const TEAMAPI = {
+  TEAM: `${BASE_URL}/team/teamSpace/`,
+};

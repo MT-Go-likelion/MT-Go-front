@@ -12,6 +12,7 @@ import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
 import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
 import Loading from './Loading';
 import Error from './Error';
+import useTeam from '../hooks/queries/Team/useTeam';
 
 // 전체 여백
 const Container = styled.div`
@@ -98,6 +99,10 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const {
+    teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
+  } = useTeam(user ? user.token : '');
+
+  const {
     lodgingScrapQuery: { isLoading: lodgingIsLoading, error: lodgingError, data: lodgingScrapList },
   } = useLodgingScrapList(user ? user.token : '');
   const {
@@ -134,11 +139,12 @@ const MyPage = () => {
           <DivTeamlist>
             <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
             {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
-            <TeamspaceButton onClick={gotoTeamSpace}>국민대스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
+            {teamIsLoading && <Loading />}
+            {teamError && <Error />}
+            {teams &&
+              teams.map((team) => (
+                <TeamspaceButton onClick={gotoTeamSpace}>{team.teamName}</TeamspaceButton>
+              ))}
           </DivTeamlist>
         </TeamspaceDiv>
         <ScrapDiv>

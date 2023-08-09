@@ -1,10 +1,13 @@
 // TeamSpacePopup.js
 import React from 'react';
 import styled from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
 import Submitbutton from '../../Button/SubmitButton';
 
 import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
+import useTeam from '../../../hooks/queries/Team/useTeam';
+import useInput from '../../../hooks/useInput';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -69,6 +72,18 @@ const FlexDiv = styled.div`
 `;
 
 const TeamSpacePopup = ({ handlePopupClose }) => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const [teamName, onChangeTeamName] = useInput();
+  const { teamMutation } = useTeam(user ? user.token : '');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    teamMutation({ teamName });
+    handlePopupClose();
+  };
   return (
     <PopupBackground>
       <PopupContainer>
@@ -76,9 +91,9 @@ const TeamSpacePopup = ({ handlePopupClose }) => {
         <PopupContent>
           <Title>팀스페이스 추가하기</Title>
           <SubTitle>팀스페이스 이름을 입력해주세요.</SubTitle>
-          <Minibox placeholder="최대 N자까지 가능" />
+          <Minibox placeholder="최대 N자까지 가능" onChange={onChangeTeamName} />
           <FlexDiv>
-            <Submitbutton>완료</Submitbutton>
+            <Submitbutton onClick={handleSubmit}>완료</Submitbutton>
           </FlexDiv>
         </PopupContent>
       </PopupContainer>
