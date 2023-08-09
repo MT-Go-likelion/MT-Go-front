@@ -29,6 +29,20 @@ const teamAPI = {
 
     return res.data;
   },
+
+  recreaitonList: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(TEAMAPI.TEAMRECREATION, headers);
+
+    return res.data;
+  },
+
+  recreaitonCreate: async (payload, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.post(TEAMAPI.TEAMRECREATION, payload, headers);
+
+    return res.data;
+  },
 };
 
 export default teamAPI;

@@ -97,7 +97,6 @@ const TeamBtn = styled.button`
 
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
-  // const [selected, setSelected] = useState('');
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
 
   const navigate = useNavigate();
@@ -131,7 +130,6 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
     setIspopupVisivle(false);
   };
 
-  // 상세페이지 링크 걸면 됨. (카드누르면 링크 바뀌게만 해둔 상태)
   const handleCardClick = () => {
     navigate(`/lodging/${pk}`, { state: pk });
   };

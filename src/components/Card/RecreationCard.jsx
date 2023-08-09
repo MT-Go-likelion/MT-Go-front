@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import Recreatbtn from '../../assets/images/Recreat.png';
 import SelectRecreat from '../../assets/images/Select_recreat.png';
 import { BASE_URL } from '../../config/api';
 import useRecreationScrap from '../../hooks/queries/Recreation/useRecreationScrap';
+import RecreationPopup from '../Popup/Recreation/RecreationPopup';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -63,24 +64,6 @@ const PeopleCount = styled.div`
   color: ${COLOR.lightGray};
 `;
 
-const Teamspace = styled.button`
-  padding: 4px 10px;
-  border: 2px solid ${COLOR.lightGray};
-  border-radius: 16px;
-  width: 148px;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
-
-  ${(props) =>
-    props.$teamspace &&
-    css`
-      background-color: ${COLOR.primary.blue};
-      border-color: ${COLOR.primary.blue};
-      color: ${COLOR.white};
-    `}
-`;
-
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
@@ -88,11 +71,26 @@ const Flex = styled.div`
   margin: 17px 10px 10px 10px;
 `;
 
+const TeamBtn = styled.button`
+  padding: 4px 10px;
+  border: 2px solid ${COLOR.lightGray};
+  border-radius: 16px;
+  width: 148px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+  &:hover {
+    border: 2px solid ${COLOR.primary.blue};
+  }
+`;
+
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
 const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
-  const [teamspace] = useState(false);
   const [save, setSave] = useState(isScrap);
+  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -119,29 +117,39 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
     navigate(`/recreation/${pk}`, { state: pk });
   };
 
+  const handleTeamBtnClick = (e) => {
+    e.stopPropagation();
+    setIspopupVisivle(true);
+  };
+
+  const handlePopupClose = () => {
+    setIspopupVisivle(false);
+  };
+
   return (
-    <BestLoContainer>
-      <BackContainer onClick={handleCardClick}>
-        <BackImg src={BASE_URL + photo} />
-        <BtnCotainer>
-          <RecreatButton
-            src={save ? SelectRecreat : Recreatbtn}
-            alt="save"
-            onClick={handleSaveClick}
-          />
-          <SaveCount>NN</SaveCount>
-        </BtnCotainer>
-      </BackContainer>
-      <Flex>
-        <Title>{name}</Title>
-        <PeopleCount>
-          추천인원 : {headCountMin} ~ {headCountMax} 명
-        </PeopleCount>
-        <Teamspace $teamspace={teamspace} onClick={handleSaveClick}>
-          팀스페이스 담기
-        </Teamspace>
-      </Flex>
-    </BestLoContainer>
+    <>
+      <BestLoContainer>
+        <BackContainer onClick={handleCardClick}>
+          <BackImg src={BASE_URL + photo} />
+          <BtnCotainer>
+            <RecreatButton
+              src={save ? SelectRecreat : Recreatbtn}
+              alt="save"
+              onClick={handleSaveClick}
+            />
+            <SaveCount>NN</SaveCount>
+          </BtnCotainer>
+        </BackContainer>
+        <Flex>
+          <Title>{name}</Title>
+          <PeopleCount>
+            추천인원 : {headCountMin} ~ {headCountMax} 명
+          </PeopleCount>
+          <TeamBtn onClick={handleTeamBtnClick}>팀스페이스에 담기</TeamBtn>
+        </Flex>
+      </BestLoContainer>
+      {IspopupVisivle && <RecreationPopup pk={pk} handlePopupClose={handlePopupClose} />}
+    </>
   );
 };
 export default RecreationCard;
