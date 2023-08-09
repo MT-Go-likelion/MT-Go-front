@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 import heart from '../../assets/images/heart-gradient.png';
 import booking from '../../assets/images/booking.png';
 import ImageSwiper from '../ImageSwiper/ImageSwiper';
 import COLOR from '../../constants/color';
 import RatingContainer from '../Common/Review/RatingContainer';
+import LodingPopup from '../Popup/Lodging/LodingPopup';
 
 const HeaderContainer = styled.div`
   margin-bottom: 3rem;
@@ -33,11 +34,13 @@ const TitleText = styled.span`
 const Heart = styled.img`
   width: 3.75rem;
   height: 3.75rem;
+  cursor: pointer;
 `;
 
 const Booking = styled.img`
   width: 3.75rem;
   height: 3.75rem;
+  cursor: pointer;
 `;
 
 const LodingDealingContainer = styled.div`
@@ -57,7 +60,18 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-const LodgingDetailHeader = ({ name, mainPhoto, photos }) => {
+const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
+  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+
+  const handleTeamBtnClick = (e) => {
+    e.stopPropagation();
+    setIspopupVisivle(true);
+  };
+
+  const handlePopupClose = () => {
+    setIspopupVisivle(false);
+  };
+
   return (
     <HeaderContainer>
       <Header>
@@ -66,7 +80,7 @@ const LodgingDetailHeader = ({ name, mainPhoto, photos }) => {
           <LodingDealingContainer>
             <RatingContainer score="4.9" />
             <Heart src={heart} />
-            <Booking src={booking} />
+            <Booking src={booking} onClick={handleTeamBtnClick} />
           </LodingDealingContainer>
           <ReservationBtn width={11.25} height={3.75}>
             예약하기
@@ -74,6 +88,7 @@ const LodgingDetailHeader = ({ name, mainPhoto, photos }) => {
         </HeaderRight>
       </Header>
       <ImageSwiper mainPhoto={mainPhoto} photos={photos} />
+      {IspopupVisivle && <LodingPopup pk={pk} handlePopupClose={handlePopupClose} />}
     </HeaderContainer>
   );
 };
