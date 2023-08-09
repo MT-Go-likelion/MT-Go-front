@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       { path: '/recreation/register', element: <RecreationRegistration /> },
       { path: '/shopping', element: <Shopping /> },
       { path: '/mypage', element: <Mypage /> },
-      { path: '/mypageTeamspace', element: <MypageTeamspace /> },
+      { path: '/mypage/:teamToken', element: <MypageTeamspace /> },
       { path: '/mypage', element: <Mypage /> },
       { path: '/createLodging', element: <CreateLodging /> },
     ],

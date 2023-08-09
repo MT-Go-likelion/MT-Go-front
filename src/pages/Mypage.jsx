@@ -113,10 +113,10 @@ const MyPage = () => {
     },
   } = useRecreationScrapList(user ? user.token : '');
 
-  const gotoTeamSpace = () => {
-    // useNavigate(`/Teamspace/${pk}`);
-    navigate(`/MypageTeamspace`);
+  const gotoTeamSpace = (teamToken) => {
+    navigate(`/mypage/${teamToken}`);
   };
+
   const gotoMypage = () => {
     navigate(`/Mypage`);
   };
@@ -143,7 +143,9 @@ const MyPage = () => {
             {teamError && <Error />}
             {teams &&
               teams.map((team) => (
-                <TeamspaceButton onClick={gotoTeamSpace}>{team.teamName}</TeamspaceButton>
+                <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken)}>
+                  {team.teamName}
+                </TeamspaceButton>
               ))}
           </DivTeamlist>
         </TeamspaceDiv>

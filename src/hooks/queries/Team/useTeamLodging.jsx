@@ -1,13 +1,15 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import teamAPI from '../../../apis/teamAPI';
 
-const useTeamLodging = (token) => {
+const useTeamLodging = (userToken, teamToken = {}) => {
   const queryClient = useQueryClient();
 
-  //   const teamLodgingQuery = useQuery(['team', 'lodging'], () => teamAPI.lodgingList(token));
+  const teamLodgingQuery = useQuery(['team', 'lodging'], () =>
+    teamAPI.lodgingList(userToken, teamToken),
+  );
 
   const { mutate: teamLodgingMutation } = useMutation(
-    (paylod) => teamAPI.lodgingCreate(paylod, token),
+    (paylod) => teamAPI.lodgingCreate(paylod, userToken),
     {
       onSuccess: (data) => {
         console.log(data);
@@ -19,7 +21,7 @@ const useTeamLodging = (token) => {
     },
   );
 
-  return { teamLodgingMutation };
+  return { teamLodgingQuery, teamLodgingMutation };
 };
 
 export default useTeamLodging;

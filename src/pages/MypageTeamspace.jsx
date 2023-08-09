@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import RecreationCard from '../components/Card/RecreationCard';
 import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
 import DeleteSharePopup from '../components/Popup/Mypage/DeleteSharePopup';
+import useTeam from '../hooks/queries/Team/useTeam';
+import Loading from './Loading';
+import Error from './Error';
+import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
 
 // 전체 여백
 const Container = styled.div`
@@ -184,10 +189,22 @@ const MypageTeamspace = () => {
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
 
-  // 팀스페이스로 가도록 하는
-  const gotoTeamSpace = () => {
-    // useNavigate(`/Teamspace/${pk}`);
-    navigate(`/MypageTeamspace`);
+  const { teamToken } = useParams();
+  console.log(teamToken);
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const {
+    teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
+  } = useTeam(user ? user.token : '');
+
+  const {
+    teamLodgingQuery: { isLoading: lodgingLoading, error: lodgingError, data: lodgings },
+  } = useTeamLodging(user ? user.token : '', { teamToken });
+
+  const gotoTeamSpace = (teamToken) => {
+    navigate(`/mypage/${teamToken}`);
   };
 
   const gotoMypage = () => {
@@ -255,11 +272,14 @@ const MypageTeamspace = () => {
           <DivTeamlist>
             <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
             {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
-            <TeamspaceButton onClick={gotoTeamSpace}>국민대스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
+            {teamIsLoading && <Loading />}
+            {teamError && <Error />}
+            {teams &&
+              teams.map((team) => (
+                <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken)}>
+                  {team.teamName}
+                </TeamspaceButton>
+              ))}
           </DivTeamlist>
         </TeamspaceDiv>
         <ScrapDiv>
@@ -298,11 +318,20 @@ const MypageTeamspace = () => {
           </Flex>
           <SubTitle>담은 숙소</SubTitle>
           <Flex>
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
+            {lodgingLoading && <Loading />}
+            {lodgingError && <Error />}
+            {lodgings &&
+              lodgings.map((lodging) => (
+                <BestlocationCard
+                  key={lodging.pk}
+                  pk={lodging.pk}
+                  name={lodging.name}
+                  price={lodging.price}
+                  mainPhoto={lodging.mainPhoto}
+                  avgScore={lodging.avgScore}
+                  isScrap={lodging.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>공유한 레크레이션</SubTitle>
           <Flex>

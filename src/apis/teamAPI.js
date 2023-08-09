@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { TEAMAPI } from '../config/api';
 
 const teamAPI = {
@@ -16,9 +17,14 @@ const teamAPI = {
     return res.data;
   },
 
-  lodgingList: async (token) => {
-    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
-    const res = await axios.get(TEAMAPI.TEAMLODGING, headers);
+  lodgingList: async (userToken, teamToken) => {
+    console.log(userToken, teamToken);
+    const headers = userToken
+      ? { headers: { Authorization: `Token ${userToken}` } }
+      : { headers: {} };
+
+    const params = { params: teamToken };
+    const res = await axios.get(TEAMAPI.TEAMLODGING, params, headers);
 
     return res.data;
   },
