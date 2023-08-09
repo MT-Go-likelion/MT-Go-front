@@ -208,7 +208,7 @@ const MypageTeamspace = () => {
   };
 
   const gotoMypage = () => {
-    navigate(`/Mypage`);
+    navigate(`/mypage`);
   };
 
   const handleTeamspacePlusClick = () => {

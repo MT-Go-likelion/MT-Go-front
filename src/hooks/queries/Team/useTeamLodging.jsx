@@ -4,7 +4,7 @@ import teamAPI from '../../../apis/teamAPI';
 const useTeamLodging = (userToken, teamToken = {}) => {
   const queryClient = useQueryClient();
 
-  const teamLodgingQuery = useQuery(['team', 'lodging'], () =>
+  const teamLodgingQuery = useQuery(['team', teamToken, 'lodging'], () =>
     teamAPI.lodgingList(userToken, teamToken),
   );
 
@@ -13,7 +13,7 @@ const useTeamLodging = (userToken, teamToken = {}) => {
     {
       onSuccess: (data) => {
         console.log(data);
-        queryClient.invalidateQueries(['team', 'lodging']);
+        queryClient.invalidateQueries(['team', teamToken, 'lodging']);
       },
       onError: (error) => {
         console.log(error);
