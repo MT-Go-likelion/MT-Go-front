@@ -15,6 +15,20 @@ const teamAPI = {
 
     return res.data;
   },
+
+  lodgingList: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(TEAMAPI.TEAMLODGING, headers);
+
+    return res.data;
+  },
+
+  lodgingCreate: async (payload, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.post(TEAMAPI.TEAMLODGING, payload, headers);
+
+    return res.data;
+  },
 };
 
 export default teamAPI;

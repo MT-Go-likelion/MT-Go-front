@@ -9,6 +9,7 @@ import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
+import LodingPopup from '../Popup/Lodging/LodingPopup';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -70,6 +71,20 @@ const Flex = styled.div`
   align-items: flex-end;
 `;
 
+const TeamBtn = styled.button`
+  padding: 4px 10px;
+  border: 2px solid ${COLOR.lightGray};
+  border-radius: 16px;
+  width: 148px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+  &:hover {
+    border: 2px solid ${COLOR.primary.blue};
+  }
+`;
+
 /**
  * 카드 컴포넌트 설명
  * @param {number} pk 카드 id
@@ -82,6 +97,9 @@ const Flex = styled.div`
 
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
+  // const [selected, setSelected] = useState('');
+  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -104,25 +122,39 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
     }
   };
 
+  const handleTeamBtnClick = (e) => {
+    e.stopPropagation();
+    setIspopupVisivle(true);
+  };
+
+  const handlePopupClose = () => {
+    setIspopupVisivle(false);
+  };
+
   // 상세페이지 링크 걸면 됨. (카드누르면 링크 바뀌게만 해둔 상태)
   const handleCardClick = () => {
     navigate(`/lodging/${pk}`, { state: pk });
   };
 
   return (
-    <BestLoContainer onClick={handleCardClick}>
-      <BackDiv $$datasrc={BASE_URL + mainPhoto}>
-        <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
-      </BackDiv>
-      <Title>{name}</Title>
-      <Flexdirection>
-        <Price>{price} 원</Price>
-        <Flex>
-          <BlueStar src={Star} />
-          <Score>{avgScore}</Score>
-        </Flex>
-      </Flexdirection>
-    </BestLoContainer>
+    <>
+      <BestLoContainer onClick={handleCardClick}>
+        <BackDiv $$datasrc={BASE_URL + mainPhoto}>
+          <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
+        </BackDiv>
+        <Title>{name}</Title>
+        <Flexdirection>
+          <Price>{price} 원</Price>
+          <Flex>
+            <BlueStar src={Star} />
+            <Score>{avgScore}</Score>
+          </Flex>
+        </Flexdirection>
+
+        <TeamBtn onClick={handleTeamBtnClick}>팀스페이스에 담기</TeamBtn>
+      </BestLoContainer>
+      {IspopupVisivle && <LodingPopup pk={pk} handlePopupClose={handlePopupClose} />}
+    </>
   );
 };
 export default BestlocationCard;
