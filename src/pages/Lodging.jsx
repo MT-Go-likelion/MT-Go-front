@@ -98,12 +98,13 @@ const Lodging = () => {
         {lodgings &&
           lodgings.map((obj) => (
             <BestlocationCard
-              pk={obj?.pk}
-              name={obj?.name}
-              price={obj?.price}
-              mainPhoto={obj?.mainPhoto}
-              avgScore={obj?.avgScore}
-              isScrap={obj?.isScrap}
+              key={obj.pk}
+              pk={obj.pk}
+              name={obj.name}
+              price={obj.price}
+              mainPhoto={obj.mainPhoto}
+              avgScore={obj.avgScore}
+              isScrap={obj.isScrap}
             />
           ))}
       </ContentsDiv>

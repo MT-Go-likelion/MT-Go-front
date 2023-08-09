@@ -263,18 +263,18 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
             ) : (
               ''
             )}
-            <CreatePopup
-              isVisible={CreatePopupVisible}
-              onClose={handleCreateClose}
-              onComplete={(item, amount, price) => {
-                handleEditComplete(item, amount, price);
-                setCreatePopupVisible(false);
-              }}
-            />
           </Tbody>
         </Table>
         <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
       </Border>
+      <CreatePopup
+        isVisible={CreatePopupVisible}
+        onClose={handleCreateClose}
+        onComplete={(item, amount, price) => {
+          handleEditComplete(item, amount, price);
+          setCreatePopupVisible(false);
+        }}
+      />
       {CreatePopupVisible !== true ? (
         <ButtonDiv>
           {editHandle !== true ? (

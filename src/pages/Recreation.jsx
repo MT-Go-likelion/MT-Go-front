@@ -58,7 +58,7 @@ const Recreation = () => {
       <RecreationList>
         {recreations &&
           recreations.map((recreation) => (
-            <RecreationItem>
+            <RecreationItem key={recreation.pk}>
               <RecreationCard
                 pk={recreation.pk}
                 name={recreation.name}
