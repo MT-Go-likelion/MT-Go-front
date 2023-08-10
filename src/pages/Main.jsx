@@ -41,8 +41,9 @@ const ContentLayout = styled.div`
     margin: 4rem 2rem;
   }
   @media (max-width: ${mobileSize}px) {
-    margin: 1rem;
-    padding: 0 1rem;
+    margin: 0;
+    padding: 1rem 2rem;
+    background-color: ${COLOR.white};
   }
 `;
 
@@ -61,7 +62,7 @@ const Flexdiv = styled.div`
     margin: 4rem 2rem;
   }
   @media (max-width: ${mobileSize}px) {
-    margin: 1rem 0;
+    margin: 1rem 0 2rem 0;
     gap: 1rem;
   }
 `;
