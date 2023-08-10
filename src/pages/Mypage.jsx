@@ -13,6 +13,8 @@ import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScr
 import Loading from './Loading';
 import Error from './Error';
 import useTeam from '../hooks/queries/Team/useTeam';
+import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
+import useShopping from '../hooks/queries/Shopping/useShopping';
 
 // 전체 여백
 const Container = styled.div`
@@ -49,7 +51,7 @@ const Title = styled.button`
 
 const SubTitle = styled.div`
   font-size: 24px;
-  margin: 2rem 0;
+  margin: 5rem 0 2rem 0;
 `;
 
 const Flex = styled.div`
@@ -115,6 +117,11 @@ const MyPage = () => {
       data: recreationScrapList,
     },
   } = useRecreationScrapList(user ? user.token : '');
+
+  const {
+    shoppingQuery: { data: shoppingList },
+  } = useShopping(user ? user.token : '');
+  const [shoppingItems, setShoppingItems] = useState(shoppingList || []);
 
   const gotoTeamSpace = (teamToken, teamName) => {
     navigate(`/mypage/${teamToken}`, { state: teamName });
@@ -187,7 +194,9 @@ const MyPage = () => {
               ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
-          <Flex>장바구니 컴포넌트</Flex>
+          <Flex>
+            <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+          </Flex>
         </ScrapDiv>
       </Container>
     </>
