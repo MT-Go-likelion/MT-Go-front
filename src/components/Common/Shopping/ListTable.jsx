@@ -68,7 +68,7 @@ const ButtonDiv = styled.div`
   gap: 1rem;
   height: 100%;
 `;
-const ShoppingTable = ({ data, setShoppingItems }) => {
+const ListTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
 
@@ -188,4 +188,4 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
     </Container>
   );
 };
-export default ShoppingTable;
+export default ListTable;

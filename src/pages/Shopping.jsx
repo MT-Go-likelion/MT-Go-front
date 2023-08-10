@@ -131,6 +131,8 @@ const Shopping = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
+  const [selectedSpace, setSelectedSpace] = useState('개인 스페이스');
+
   const {
     shoppingQuery: { data: shoppingList },
   } = useShopping(user ? user.token : '');
@@ -164,11 +166,9 @@ const Shopping = () => {
   };
   const handleScroll = () => {
     const checklist = document.getElementById('checklist');
-    console.log(window.innerWidth);
 
     if (checklist) {
       const scrollTop = window.scrollY || window.pageYOffset;
-      console.log('scrollTop: ', scrollTop);
       const maxScrollTop = 500;
       if (scrollTop + 200 <= maxScrollTop) {
         checklist.style.position = 'absolute';
@@ -214,8 +214,12 @@ const Shopping = () => {
           </Container>
         </ShoppingLayout>
         <Checklist id="checklist">
-
-          <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+          <ShoppingTable
+            data={shoppingItems}
+            setShoppingItems={setShoppingItems}
+            selectedSpace={selectedSpace}
+            setSelectedSpace={setSelectedSpace}
+          />
         </Checklist>
       </Flex>
     </>

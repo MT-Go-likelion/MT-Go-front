@@ -51,6 +51,24 @@ const teamAPI = {
 
     return res.data;
   },
+
+  shoppingList: async (userToken, teamToken) => {
+    const headers = userToken
+      ? { headers: { Authorization: `Token ${userToken}` } }
+      : { headers: {} };
+    const params = { params: teamToken };
+    console.log(headers);
+    const res = await axios.get(TEAMAPI.TEAMSHOPPING, params, headers);
+
+    return res.data;
+  },
+
+  shoppingCreate: async (payload, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.post(TEAMAPI.TEAMSHOPPING, payload, headers);
+
+    return res.data;
+  },
 };
 
 export default teamAPI;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -14,6 +14,8 @@ import Loading from './Loading';
 import Error from './Error';
 import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
 import useTeamRecreation from '../hooks/queries/Team/useTeamRecreation';
+import useTeamShopping from '../hooks/queries/Team/useTeamShopping';
+import ListTable from '../components/Common/Shopping/ListTable';
 
 const mediaSize = 1030;
 
@@ -229,6 +231,12 @@ const MypageTeamspace = () => {
     },
   } = useTeamRecreation(user ? user.token : '', { teamToken });
 
+  const {
+    teamShoppingQuery: { isLoading: shoppingLoading, error: shoppingError, data: teamShoppingList },
+  } = useTeamShopping(user ? user.token : '', { teamToken });
+
+  const [shoppingItems, setShoppingItems] = useState(teamShoppingList || []);
+
   const gotoTeamSpace = (teamToken, teamName) => {
     navigate(`/mypage/${teamToken}`, { state: teamName });
   };
@@ -267,6 +275,10 @@ const MypageTeamspace = () => {
       setShowNotification(false);
     }, 3000);
   };
+
+  useEffect(() => {
+    setShoppingItems(teamShoppingList || []);
+  }, [teamShoppingList]);
 
   return (
     <>
@@ -360,7 +372,13 @@ const MypageTeamspace = () => {
               ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
-          <Flex>장바구니 컴포넌트</Flex>
+          <Flex>
+            {shoppingLoading && <Loading />}
+            {shoppingError && <Error />}
+            {teamShoppingList && (
+              <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+            )}
+          </Flex>
         </ScrapDiv>
       </Container>
     </>

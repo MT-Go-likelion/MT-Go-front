@@ -13,8 +13,8 @@ import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScr
 import Loading from './Loading';
 import Error from './Error';
 import useTeam from '../hooks/queries/Team/useTeam';
-import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import useShopping from '../hooks/queries/Shopping/useShopping';
+import ListTable from '../components/Common/Shopping/ListTable';
 
 const mediaSize = 1030;
 
@@ -206,7 +206,7 @@ const MyPage = () => {
           </Flex>
           <SubTitle>장바구니</SubTitle>
           <Flex>
-            <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+            <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
           </Flex>
         </ScrapDiv>
       </Container>
