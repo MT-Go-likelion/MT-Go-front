@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
-import DetailCalendar from '../Calendar/DetailCalendar';
 
 const LodgingDetailContent = ({
   address,
@@ -18,7 +18,7 @@ const LodgingDetailContent = ({
   pricesByDate,
   place,
 }) => {
-  console.log(pricesByDate, place);
+  console.log(pricesByDate, place, amenities);
 
   return (
     <>
@@ -38,9 +38,9 @@ const LodgingDetailContent = ({
           <FacilitiesContainer>
             <FacilitiesList>
               {amenities &&
-                amenities.split(',').map((pre) => (
-                  <FacilitiesItem>
-                    <FacilitiesText>{pre}</FacilitiesText>
+                amenities.split(',').map((amenity) => (
+                  <FacilitiesItem key={uuid()}>
+                    <FacilitiesText>{amenity}</FacilitiesText>
                   </FacilitiesItem>
                 ))}
             </FacilitiesList>
@@ -58,9 +58,7 @@ const LodgingDetailContent = ({
             </CheckBox>
           </>
         </ContentLeftContainer>
-        <CalenderBox>
-          <DetailCalendar />
-        </CalenderBox>
+        <CalenderBox />
       </ContentContainer>
       <ContentBottomContainer>
         <LodgingMap />
@@ -133,6 +131,7 @@ const CalenderBox = styled.div`
   max-width: 100%;
   height: 25rem;
   flex-basis: 30%;
+  background-color: ${COLOR.primary.lightBlue};
 `;
 
 const FacilitiesContainer = styled.div`

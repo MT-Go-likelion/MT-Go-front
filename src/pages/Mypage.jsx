@@ -160,6 +160,7 @@ const MyPage = () => {
             {lodgingScrapList &&
               lodgingScrapList.map((scrapItem) => (
                 <BestlocationCard
+                  key={scrapItem.pk}
                   pk={scrapItem.pk}
                   name={scrapItem.name}
                   price={scrapItem.price}
@@ -175,6 +176,7 @@ const MyPage = () => {
             {recreationScrapList &&
               recreationScrapList.map((scrapItem) => (
                 <RecreationCard
+                  key={scrapItem.pk}
                   pk={scrapItem.pk}
                   name={scrapItem.name}
                   photo={scrapItem.photo}

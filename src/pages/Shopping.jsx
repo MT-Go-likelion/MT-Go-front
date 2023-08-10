@@ -92,7 +92,7 @@ const Notification = styled.div`
   border-radius: 4px;
   font-size: 14px;
   z-index: 9999;
-  opacity: ${(props) => (props.visible ? 1 : 0)};
+  opacity: ${(props) => (props.$visible ? 1 : 0)};
   transition: opacity 0.2s ease-in-out;
 `;
 
@@ -214,6 +214,7 @@ const Shopping = () => {
           </Container>
         </ShoppingLayout>
         <Checklist id="checklist">
+
           <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
         </Checklist>
       </Flex>

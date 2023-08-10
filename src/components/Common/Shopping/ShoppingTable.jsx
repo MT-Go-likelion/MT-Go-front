@@ -328,6 +328,7 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
         </Tbody>
       </Table>
       <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
+
       {CreatePopupVisible !== true ? (
         <ButtonDiv>
           {editHandle !== true ? (

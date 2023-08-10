@@ -73,7 +73,7 @@ const Teamspace = styled.button`
     border-color 0.2s;
 
   ${(props) =>
-    props.teamspace &&
+    props.$teamspace &&
     css`
       background-color: ${COLOR.primary.blue};
       border-color: ${COLOR.primary.blue};
@@ -137,7 +137,7 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
         <PeopleCount>
           추천인원 : {headCountMin} ~ {headCountMax} 명
         </PeopleCount>
-        <Teamspace teamspace={teamspace} onClick={handleSaveClick}>
+        <Teamspace $teamspace={teamspace} onClick={handleSaveClick}>
           팀스페이스 담기
         </Teamspace>
       </Flex>
