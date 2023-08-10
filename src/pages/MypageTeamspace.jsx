@@ -15,17 +15,29 @@ import Error from './Error';
 import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
 import useTeamRecreation from '../hooks/queries/Team/useTeamRecreation';
 
+const mediaSize = 1030;
+
+// 전체 여백
 const Container = styled.div`
   width: 100%;
   max-width: 1280px;
   margin: auto;
   display: flex;
-  gap: 1rem;
+  gap: 2.5rem;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 0 3rem;
+    padding: 0 2rem;
+  }
 `;
 
 const Hrbar = styled.hr`
   border: 0.5px solid ${COLOR.primary.blue};
   margin: 4rem 10rem 0 10rem;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 4rem 5rem 0 5rem;
+  }
 `;
 
 const TeamspaceDiv = styled.div`
@@ -132,8 +144,8 @@ const ButtonDiv = styled.div`
 `;
 
 const Button = styled.button`
-  width: 110px;
-  height: 36px;
+  width: 100px;
+  height: 34px;
   text-align: center;
   font-size: 16px;
   border-radius: 50px;
