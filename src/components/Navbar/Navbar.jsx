@@ -6,7 +6,7 @@ import { useSignOut } from '../../hooks/queries/Auth/useSignOut';
 
 const NavLayout = styled.header`
   width: 100%;
-  height: 5rem;
+  height: 3.8rem;
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: space-between;

@@ -13,17 +13,28 @@ import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScr
 import Loading from './Loading';
 import Error from './Error';
 
+const mediaSize = 1030;
+
 // 전체 여백
 const Container = styled.div`
   margin: 0 5rem;
   padding: 0 5rem;
   display: flex;
   gap: 2.5rem;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 0 3rem;
+    padding: 0 2rem;
+  }
 `;
 
 const Hrbar = styled.hr`
   border: 0.5px solid ${COLOR.primary.blue};
   margin: 4rem 10rem 0 10rem;
+  transition: 0.3s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 4rem 5rem 0 5rem;
+  }
 `;
 
 const TeamspaceDiv = styled.div`

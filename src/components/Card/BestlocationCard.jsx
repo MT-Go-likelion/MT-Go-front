@@ -22,7 +22,7 @@ const BackDiv = styled.div`
   height: 320px;
   background-color: ${COLOR.blue};
   border-radius: 20px;
-  background-image: ${(props) => `url(${props.dataSrc})`}; // Use props to set the background image
+  background-image: ${(props) => `url(${props.dataSrc})`};
   background-size: cover;
   background-position: center;
 `;

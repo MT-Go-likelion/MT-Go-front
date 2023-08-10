@@ -29,7 +29,7 @@ const BannerImg = styled.img`
 
 // 전체 적용 마진
 const ContentLayout = styled.div`
-  margin: 4rem 6rem;
+  margin: 4rem 7rem;
   padding: 0 3rem;
   position: relative;
   transition: 0.3s;
