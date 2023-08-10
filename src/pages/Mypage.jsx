@@ -16,7 +16,6 @@ import useTeam from '../hooks/queries/Team/useTeam';
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import useShopping from '../hooks/queries/Shopping/useShopping';
 
-// 전체 여백
 const Container = styled.div`
   width: 100%;
   max-width: 1280px;
@@ -36,7 +35,7 @@ const TeamspaceDiv = styled.div`
 `;
 
 const ScrapDiv = styled.div`
-  width: 100%;
+  width: 170px;
   padding-top: 4rem;
   flex-basis: 80%;
 `;
@@ -77,8 +76,8 @@ const TeamspaceButton = styled.button`
   background: transparent;
   cursor: pointer;
   transition:
-    background-color 0.2s,
-    border 0.2s;
+    background-color 0.5s,
+    border 0.5s;
 
   &:hover {
     background-color: ${COLOR.lightGray};
@@ -92,7 +91,7 @@ const TeamspaceButton = styled.button`
 // 팀스페이스 리스트
 const DivTeamlist = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   flex-direction: column;
 `;
 

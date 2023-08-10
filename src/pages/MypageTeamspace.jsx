@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -15,7 +15,6 @@ import Error from './Error';
 import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
 import useTeamRecreation from '../hooks/queries/Team/useTeamRecreation';
 
-// 전체 여백
 const Container = styled.div`
   width: 100%;
   max-width: 1280px;
@@ -35,7 +34,7 @@ const TeamspaceDiv = styled.div`
 `;
 
 const ScrapDiv = styled.div`
-  width: 100%;
+  width: 170px;
   padding-top: 4rem;
   flex-basis: 80%;
 `;
@@ -95,7 +94,7 @@ const TeamspaceButton = styled.button`
 // 팀스페이스 리스트
 const DivTeamlist = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 1rem;
   flex-direction: column;
 `;
 
@@ -192,12 +191,12 @@ const Notification = styled.div`
 const MypageTeamspace = () => {
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const [isDeletePopupVisible, setIsDeletePopupVisible] = useState(false);
-  const [inviteCode, setInviteCode] = useState('ABCD1234');
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
   const { state: teamName } = useLocation();
 
   const { teamToken } = useParams();
+  const inviteCode = teamToken;
 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
@@ -256,25 +255,6 @@ const MypageTeamspace = () => {
       setShowNotification(false);
     }, 3000);
   };
-
-  // api 연결 예정
-  const fetchInviteCode = async () => {
-    try {
-      const response = await fetch('');
-      if (response.ok) {
-        const data = await response.json();
-        setInviteCode(data.inviteCode);
-      } else {
-        console.error('실패');
-      }
-    } catch (error) {
-      console.error('에러:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchInviteCode();
-  }, []);
 
   return (
     <>
