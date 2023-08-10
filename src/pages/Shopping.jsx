@@ -10,6 +10,7 @@ import useShopping from '../hooks/queries/Shopping/useShopping';
 import ShoppingCard from '../components/Card/ShoppingCard';
 
 const mediaSize = 1070;
+const mobileSize = 450;
 const ShoppingLayout = styled.div`
   max-width: 1280px;
   margin: auto;
@@ -29,6 +30,10 @@ const BannerImg = styled.div`
   }
   @media (max-width: ${mediaSize - 220}px) {
     background-position: 32% center;
+  }
+  @media (max-width: ${mobileSize}px) {
+    background-size: cover;
+    width: 100%;
   }
 `;
 
@@ -214,7 +219,6 @@ const Shopping = () => {
           </Container>
         </ShoppingLayout>
         <Checklist id="checklist">
-
           <ShoppingTable data={shoppingItems} setShoppingItems={setShoppingItems} />
         </Checklist>
       </Flex>

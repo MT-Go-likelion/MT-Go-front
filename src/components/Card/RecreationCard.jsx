@@ -9,9 +9,15 @@ import SelectRecreat from '../../assets/images/Select_recreat.png';
 import { BASE_URL } from '../../config/api';
 import useRecreationScrap from '../../hooks/queries/Recreation/useRecreationScrap';
 
+const mobileSize = 450;
+
 const BestLoContainer = styled.div`
   width: 240px;
   height: 450px;
+  @media (max-width: ${mobileSize}px) {
+    width: 120px;
+    height: 154px;
+  }
 `;
 
 const BackContainer = styled.div`
@@ -24,11 +30,24 @@ const BackContainer = styled.div`
   align-items: flex-end;
   padding: 10px;
   cursor: pointer;
+  @media (max-width: ${mobileSize}px) {
+    width: 120px;
+    height: 120px;
+    padding: 0;
+  }
 `;
 
-const BackImg = styled.img`
+const BackImg = styled.div`
   width: 100%;
   height: 100%;
+  background-color: ${COLOR.blue};
+  border-radius: 20px;
+  background-image: ${(props) => `url(${props.dataSrc})`};
+  @media (max-width: ${mobileSize}px) {
+    width: 120px;
+    height: 120px;
+    border-radius: 6px;
+  }
 `;
 
 const BtnCotainer = styled.div`
@@ -37,12 +56,20 @@ const BtnCotainer = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
+  @media (max-width: ${mobileSize}px) {
+    top: 95px;
+    right: 5px;
+  }
 `;
 
 const RecreatButton = styled.img`
   width: 36px;
   height: 36px;
   cursor: pointer;
+  @media (max-width: ${mobileSize}px) {
+    width: 18px;
+    height: 18px;
+  }
 `;
 
 const SaveCount = styled.span`
@@ -56,11 +83,27 @@ const Title = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: bold;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    margin: 2px 0 0 0;
+    color: ${COLOR.gary};
+  }
 `;
 
 const PeopleCount = styled.div`
   font-size: 20px;
   color: ${COLOR.lightGray};
+  @media (max-width: ${mobileSize}px) {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%;
+    margin-bottom: 0.5rem;
+    color: ${COLOR.black};
+  }
 `;
 
 const Teamspace = styled.button`
@@ -86,6 +129,10 @@ const Flex = styled.div`
   flex-direction: column;
   gap: 6px;
   margin: 17px 10px 10px 10px;
+  @media (max-width: ${mobileSize}px) {
+    gap: 0;
+    margin: 0;
+  }
 `;
 
 // 레크리에이션 카드
@@ -118,28 +165,32 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
   const handleCardClick = () => {
     navigate(`/recreation/${pk}`, { state: pk });
   };
-
+  const isMobile = window.innerWidth <= mobileSize;
   return (
     <BestLoContainer>
       <BackContainer onClick={handleCardClick}>
-        <BackImg src={BASE_URL + photo} />
+        <BackImg dataSrc={BASE_URL + photo} />
         <BtnCotainer>
           <RecreatButton
             src={save ? SelectRecreat : Recreatbtn}
             alt="save"
             onClick={handleSaveClick}
           />
-          <SaveCount>NN</SaveCount>
+          {isMobile ? ' ' : <SaveCount>NN</SaveCount>}
         </BtnCotainer>
       </BackContainer>
       <Flex>
-        <Title>{name}</Title>
+        <Title>{name}name</Title>
         <PeopleCount>
           추천인원 : {headCountMin} ~ {headCountMax} 명
         </PeopleCount>
-        <Teamspace $teamspace={teamspace} onClick={handleSaveClick}>
-          팀스페이스 담기
-        </Teamspace>
+        {isMobile ? (
+          ' '
+        ) : (
+          <Teamspace $teamspace={teamspace} onClick={handleSaveClick}>
+            팀스페이스 담기
+          </Teamspace>
+        )}
       </Flex>
     </BestLoContainer>
   );
