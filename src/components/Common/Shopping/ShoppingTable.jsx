@@ -9,7 +9,7 @@ import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import CreatePopup from '../../Popup/Shopping/CreatePopup';
 
 const Container = styled.div`
-  width: 270px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -20,10 +20,14 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
+  width: 80%;
+  text-align: center;
   font-size: 28px;
   color: ${COLOR.gray};
   font-weight: 700;
-  margin: 0.2rem;
+
+  padding-bottom: 0.5rem;
+  border-bottom: 2.5px solid ${COLOR.gray};
 `;
 
 const Table = styled.table`
@@ -35,14 +39,29 @@ const Table = styled.table`
 
 const Th = styled.th`
   color: ${COLOR.gray};
-
+  width: 100%;
   padding: 6px;
   font-size: 12px;
   font-weight: 400;
 `;
 
+const Thamount = styled.th`
+  color: ${COLOR.gray};
+  min-width: 20px;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  writing-mode: horizontal-tb; /* This ensures horizontal writing mode */
+  text-orientation: mixed;
+`;
+
 const Td = styled.td`
-  padding: 2px;
+  padding: 1px 1px;
+  text-align: center;
+  min-width: 40px;
+`;
+const Tdcancle = styled.td`
+  padding: 1px 1px;
   text-align: center;
 `;
 
@@ -121,6 +140,15 @@ const TrPlus = styled.button`
 
 const Item = styled.span`
   font-size: 12px;
+`;
+
+const SelectName = styled.select`
+  width: 120px;
+  height: 25px;
+  border-radius: 32px;
+  border: 1px solid ${COLOR.lightGray};
+  color: ${COLOR.gray};
+  padding-left: 5px;
 `;
 
 const ShoppingTable = ({ data, setShoppingItems }) => {
@@ -205,15 +233,28 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
       navigate('/signin');
     }
   };
+  // 유저별 스페이스 데이터
+  const spaceOptions = [
+    { id: 1, name: '개인 스페이스' },
+    { id: 2, name: '국민대 스페이스' },
+    { id: 3, name: '동아리 스페이스' },
+  ];
 
   return (
     <Container>
       <Title>Check List</Title>
+      <SelectName>
+        {spaceOptions.map((option) => (
+          <option key={option.id} value={option.name}>
+            {option.name}
+          </option>
+        ))}
+      </SelectName>
       <Table>
         <thead>
           <tr>
             <Th>상품명</Th>
-            <Th>수량</Th>
+            <Thamount>수량</Thamount>
             <Th>단가</Th>
             <Th>총금액</Th>
             {editHandle === true ? <Th>삭제</Th> : ''}
@@ -258,13 +299,13 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
               <Td>
                 <Item>{item.amount * item.price}</Item>
               </Td>
-              <Td>
+              <Tdcancle>
                 {editHandle === true ? (
                   <DeleteButton onClick={(e) => handleDeleteClick(e, item)}>X</DeleteButton>
                 ) : (
                   ''
                 )}
-              </Td>
+              </Tdcancle>
             </tr>
           ))}
           {editHandle !== true ? (

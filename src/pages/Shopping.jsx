@@ -81,13 +81,6 @@ const Subtitle = styled.span`
   letter-spacing: 0.24px;
 `;
 
-const SelectName = styled.select`
-  width: 160px;
-  height: 33px;
-  border-radius: 32px;
-  padding-left: 2rem;
-`;
-
 const Notification = styled.div`
   position: fixed;
   top: 20px;
@@ -133,12 +126,6 @@ const Shopping = () => {
     { TagId: 6, name: '돼지고기 100g', price: '15000' },
     { TagId: 7, name: '돼지고기 100g', price: '15000' },
     { TagId: 8, name: '돼지고기 100g', price: '15000' },
-  ];
-  // 유저별 스페이스 데이터
-  const spaceOptions = [
-    { id: 1, name: '개인 스페이스' },
-    { id: 2, name: '국민대 스페이스' },
-    { id: 3, name: '동아리 스페이스' },
   ];
 
   const queryClient = useQueryClient();
@@ -210,13 +197,6 @@ const Shopping = () => {
           <TitleDiv>
             <CalDiv>
               <Title>장바구니 계산</Title>
-              <SelectName>
-                {spaceOptions.map((option) => (
-                  <option key={option.id} value={option.name}>
-                    {option.name}
-                  </option>
-                ))}
-              </SelectName>
             </CalDiv>
             <Subtitle> 무엇을 사야할지 고민된다면? </Subtitle>
           </TitleDiv>
