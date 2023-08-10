@@ -106,18 +106,18 @@ const Notification = styled.div`
 const Checklist = styled.div`
   height: 660px;
   position: fixed;
-  right: 15rem;
+  right: 15%;
   top: 180px;
 
   transition: opacity 0.2s ease-in-out;
   @media (max-width: 1348px) {
-    right: 10rem;
+    right: 10%;
   }
   @media (max-width: 1150px) {
-    right: 4rem;
+    right: 4%;
   }
   @media (max-width: 855px) {
-    position: static;
+    position: static !important;
   }
 `;
 
@@ -177,6 +177,8 @@ const Shopping = () => {
   };
   const handleScroll = () => {
     const checklist = document.getElementById('checklist');
+    console.log(window.innerWidth);
+
     if (checklist) {
       const scrollTop = window.scrollY || window.pageYOffset;
       console.log('scrollTop: ', scrollTop);
