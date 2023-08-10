@@ -9,44 +9,71 @@ import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import CreatePopup from '../../Popup/Shopping/CreatePopup';
 
 const Container = styled.div`
+  width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  align-items: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 0;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 `;
 
-const Border = styled.div`
-  border-top: 2px solid ${COLOR.primary.blue};
-  border-bottom: 2px solid ${COLOR.primary.blue};
-  margin: 0 auto;
-  width: 50rem;
-  height: 100%;
-  padding: 0.5rem 3rem 0.7rem 3rem;
+const Title = styled.div`
+  width: 80%;
+  text-align: center;
+  font-size: 28px;
+  color: ${COLOR.gray};
+  font-weight: 700;
+
+  padding-bottom: 0.5rem;
+  border-bottom: 2.5px solid ${COLOR.gray};
 `;
 
 const Table = styled.table`
-  width: 100%;
   border-collapse: collapse;
+  border-top: 2.5px solid ${COLOR.gray};
+  width: 80%;
+  // min-height: 400px;
 `;
 
 const Th = styled.th`
-  color: ${COLOR.lightGray};
-  border-bottom: 1px solid ${COLOR.lightGray};
-  padding: 1rem;
+  color: ${COLOR.gray};
+  width: 100%;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+const Thamount = styled.th`
+  color: ${COLOR.gray};
+  min-width: 20px;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  writing-mode: horizontal-tb; /* This ensures horizontal writing mode */
+  text-orientation: mixed;
 `;
 
 const Td = styled.td`
-  padding: 1rem;
+  padding: 1px 1px;
+  text-align: center;
+  min-width: 40px;
+`;
+const Tdcancle = styled.td`
+  padding: 1px 1px;
   text-align: center;
 `;
 
-const Tbody = styled.tbody`
-  border-bottom: 1px solid ${COLOR.lightGray};
-`;
+const Tbody = styled.tbody``;
 
 const SumPrice = styled.div`
-  float: right;
-  margin: 10px 5rem;
+  padding: 0.6rem;
+  border-bottom: 2.5px solid ${COLOR.gray};
+  border-top: 2.5px solid ${COLOR.gray};
+  width: 80%;
+  font-size: 12px;
+  text-align: right;
 `;
 
 const EditableTd = styled(Td)`
@@ -62,8 +89,8 @@ const EditInput = styled.input`
 `;
 
 const EditButton = styled.button`
-  width: 100px;
-  height: 36px;
+  width: 3.5rem;
+  height: 1.5rem;
   border-radius: 16px;
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.05));
   background-color: ${COLOR.lightGray};
@@ -81,9 +108,9 @@ const ButtonDiv = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 14px;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 10px;
   background-color: ${COLOR.lightGray};
   text-align: center;
   color: ${COLOR.white};
@@ -97,10 +124,9 @@ const TrPlusRow = styled.tr`
 `;
 
 const TrPlus = styled.button`
-  width: 6rem;
-  height: 1.8rem;
-  font-size: 25px;
-  margin-bottom: 0.5rem;
+  width: 3rem;
+  height: 1rem;
+
   border-radius: 14px;
   background-color: ${COLOR.lightGray};
   text-align: center;
@@ -109,7 +135,20 @@ const TrPlus = styled.button`
   &:hover {
     background-color: ${COLOR.gray};
   }
-  margin: 0 auto;
+  margin-bottom: 3rem;
+`;
+
+const Item = styled.span`
+  font-size: 12px;
+`;
+
+const SelectName = styled.select`
+  width: 120px;
+  height: 25px;
+  border-radius: 32px;
+  border: 1px solid ${COLOR.lightGray};
+  color: ${COLOR.gray};
+  padding-left: 5px;
 `;
 
 const ShoppingTable = ({ data, setShoppingItems }) => {
@@ -194,87 +233,102 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
       navigate('/signin');
     }
   };
+  // 유저별 스페이스 데이터
+  const spaceOptions = [
+    { id: 1, name: '개인 스페이스' },
+    { id: 2, name: '국민대 스페이스' },
+    { id: 3, name: '동아리 스페이스' },
+  ];
 
   return (
     <Container>
-      <Border>
-        <Table>
-          <thead>
-            <tr>
-              <Th>상품명</Th>
-              <Th>수량</Th>
-              <Th>단가</Th>
-              <Th>총금액</Th>
-              {editHandle === true ? <Th>삭제</Th> : ''}
+      <Title>Check List</Title>
+      <SelectName>
+        {spaceOptions.map((option) => (
+          <option key={option.id} value={option.name}>
+            {option.name}
+          </option>
+        ))}
+      </SelectName>
+      <Table>
+        <thead>
+          <tr>
+            <Th>상품명</Th>
+            <Thamount>수량</Thamount>
+            <Th>단가</Th>
+            <Th>총금액</Th>
+            {editHandle === true ? <Th>삭제</Th> : ''}
+          </tr>
+        </thead>
+        <Tbody>
+          {data.map((item) => (
+            <tr key={item.item}>
+              <Td>
+                {editHandle === true ? (
+                  <EditInput
+                    name="item"
+                    value={item.item}
+                    onChange={(e) => handleInputChange(e, item)}
+                  />
+                ) : (
+                  <Item>{item.item}</Item>
+                )}
+              </Td>
+              <EditableTd>
+                {editHandle === true ? (
+                  <EditInput
+                    name="amount"
+                    value={item.amount}
+                    onChange={(e) => handleInputChange(e, item)}
+                  />
+                ) : (
+                  <Item>{item.amount}</Item>
+                )}
+              </EditableTd>
+              <EditableTd>
+                {editHandle === true ? (
+                  <EditInput
+                    name="price"
+                    value={item.price}
+                    onChange={(e) => handleInputChange(e, item)}
+                  />
+                ) : (
+                  <Item>{item.price}</Item>
+                )}
+              </EditableTd>
+              <Td>
+                <Item>{item.amount * item.price}</Item>
+              </Td>
+              <Tdcancle>
+                {editHandle === true ? (
+                  <DeleteButton onClick={(e) => handleDeleteClick(e, item)}>X</DeleteButton>
+                ) : (
+                  ''
+                )}
+              </Tdcancle>
             </tr>
-          </thead>
-          <Tbody>
-            {data.map((item) => (
-              <tr key={item.item}>
-                <Td>
-                  {editHandle === true ? (
-                    <EditInput
-                      name="item"
-                      value={item.item}
-                      onChange={(e) => handleInputChange(e, item)}
-                    />
-                  ) : (
-                    item.item
-                  )}
-                </Td>
-                <EditableTd>
-                  {editHandle === true ? (
-                    <EditInput
-                      name="amount"
-                      value={item.amount}
-                      onChange={(e) => handleInputChange(e, item)}
-                    />
-                  ) : (
-                    item.amount
-                  )}
-                </EditableTd>
-                <EditableTd>
-                  {editHandle === true ? (
-                    <EditInput
-                      name="price"
-                      value={item.price}
-                      onChange={(e) => handleInputChange(e, item)}
-                    />
-                  ) : (
-                    item.price
-                  )}
-                </EditableTd>
-                <Td>{item.amount * item.price}</Td>
-                <Td>
-                  {editHandle === true ? (
-                    <DeleteButton onClick={(e) => handleDeleteClick(e, item)}>X</DeleteButton>
-                  ) : (
-                    ''
-                  )}
-                </Td>
-              </tr>
-            ))}
-            {editHandle !== true ? (
-              <TrPlusRow>
-                <Td colSpan="5">
-                  <TrPlus onClick={() => handleCreateClick()}>+</TrPlus>
-                </Td>
-              </TrPlusRow>
-            ) : (
-              ''
-            )}
-          </Tbody>
-        </Table>
-        <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
-      </Border>
-      <CreatePopup
-        isVisible={CreatePopupVisible}
-        onClose={handleCreateClose}
-        onComplete={(item, amount, price) => {
-          handleEditComplete(item, amount, price);
-          setCreatePopupVisible(false);
-        }}
-      />
+          ))}
+          {editHandle !== true ? (
+            <TrPlusRow>
+              <Td colSpan="5">
+                <TrPlus onClick={() => handleCreateClick()}>+</TrPlus>
+              </Td>
+            </TrPlusRow>
+          ) : (
+            ''
+          )}
+          <CreatePopup
+            isVisible={CreatePopupVisible}
+            onClose={handleCreateClose}
+            onComplete={(item, amount, price) => {
+              handleEditComplete(item, amount, price);
+              setCreatePopupVisible(false);
+            }}
+          />
+        </Tbody>
+      </Table>
+      <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
+
       {CreatePopupVisible !== true ? (
         <ButtonDiv>
           {editHandle !== true ? (
