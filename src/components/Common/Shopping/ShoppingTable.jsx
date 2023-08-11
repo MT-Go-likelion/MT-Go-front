@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
@@ -11,6 +12,7 @@ import useTeam from '../../../hooks/queries/Team/useTeam';
 import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
 import useTeamShoppingCreation from '../../../hooks/queries/Team/useTeamShoppingCreation';
+import { TEAMAPI } from '../../../config/api';
 
 const Container = styled.div`
   width: 280px;
@@ -222,7 +224,13 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
 
   const hanelSelectChange = (e) => {
     setSelectedSpace(e.target.value);
-    console.log(e.target.value);
+
+    axios
+      .get(TEAMAPI.TEAMSHOPPING, {
+        params: { teamToken: e.target.value },
+        headers: { Authorization: `Token ${user.token}` },
+      })
+      .then((res) => setShoppingItems(res.data));
   };
 
   const handleDeleteClick = (e, item) => {
