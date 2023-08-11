@@ -75,13 +75,13 @@ const TeamSpaceJoinPopup = ({ handlePopupClose }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const [teamName, onChangeTeamName] = useInput();
-  const { teamMutation } = useTeam(user ? user.token : '');
+  const [teamToken, onChangeTeamToken] = useInput();
+  const { teamJoinMutation } = useTeam(user ? user.token : '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    teamMutation({ teamName });
+    teamJoinMutation({ teamToken });
     handlePopupClose();
   };
   return (
@@ -91,7 +91,7 @@ const TeamSpaceJoinPopup = ({ handlePopupClose }) => {
         <PopupContent>
           <Title>팀스페이스 참여하기</Title>
           <SubTitle>코드를 입력해주세요</SubTitle>
-          <Minibox placeholder="코드 입력" onChange={onChangeTeamName} />
+          <Minibox placeholder="코드 입력" onChange={onChangeTeamToken} />
           <FlexDiv>
             <Submitbutton onClick={handleSubmit}>완료</Submitbutton>
           </FlexDiv>

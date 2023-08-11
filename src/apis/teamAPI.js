@@ -10,6 +10,13 @@ const teamAPI = {
     return res.data;
   },
 
+  join: async (payload, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.post(TEAMAPI.JOIN, payload, headers);
+
+    return res.data;
+  },
+
   create: async (name, token) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.post(TEAMAPI.TEAM, name, headers);
