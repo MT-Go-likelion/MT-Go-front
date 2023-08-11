@@ -10,7 +10,6 @@ import '../styles/Pagination.css';
 import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
 import Price from '../components/SelectBox/Price';
-import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
@@ -97,9 +96,6 @@ const Lodging = () => {
           <Location />
           <Headcount />
           <Price />
-        </BoxFlex>
-        <BoxFlex>
-          <Date />
         </BoxFlex>
         <SearchBtn>검색하기</SearchBtn>
       </SearchBack>
