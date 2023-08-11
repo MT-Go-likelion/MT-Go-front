@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import teamAPI from '../../../apis/teamAPI';
 
-const useTeamLodgingScrap = (userToken, lodgingPk) => {
+const useTeamLodgingIsScrap = (userToken, lodgingPk) => {
   const teamLodgingScrapQuery = useQuery(['team', lodgingPk, 'lodging'], () =>
     teamAPI.lodgingScrapList(userToken, lodgingPk),
   );
@@ -9,4 +9,4 @@ const useTeamLodgingScrap = (userToken, lodgingPk) => {
   return { teamLodgingScrapQuery };
 };
 
-export default useTeamLodgingScrap;
+export default useTeamLodgingIsScrap;

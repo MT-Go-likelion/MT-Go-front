@@ -53,6 +53,15 @@ const teamAPI = {
     return res.data;
   },
 
+  recreationScrapList: async (userToken, recreationPk) => {
+    const res = await axios.get(TEAMAPI.RECREATION_IS_SCRAP, {
+      params: { recreationPk },
+      headers: { Authorization: `Token ${userToken}` },
+    });
+
+    return res.data;
+  },
+
   recreaitonCreate: async (payload, token) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.post(TEAMAPI.TEAMRECREATION, payload, headers);

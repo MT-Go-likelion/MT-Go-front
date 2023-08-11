@@ -8,7 +8,7 @@ import close from '../../../assets/images/close.png';
 import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
 import useTeamLodgingCreate from '../../../hooks/queries/Team/useTeamLodgingCreate';
-import useTeamLodgingScrap from '../../../hooks/queries/Team/useTeamLodgingScrap';
+import useTeamLodgingIsScrap from '../../../hooks/queries/Team/useTeamLodgingIsScrap';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -104,7 +104,7 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
 
   const {
     teamLodgingScrapQuery: { isLoading, error, data: teams },
-  } = useTeamLodgingScrap(user ? user.token : '', pk);
+  } = useTeamLodgingIsScrap(user ? user.token : '', pk);
 
   const { teamLodgingMutation } = useTeamLodgingCreate(user ? user.token : '', pk);
 

@@ -32,5 +32,6 @@ export const TEAMAPI = {
   TEAMLODGING: `${BASE_URL}/team/teamSpaceLodging/`,
   LODGING_IS_SCRAP: `${BASE_URL}/team/teamSpaceLodging/scrapList/`,
   TEAMRECREATION: `${BASE_URL}/team/teamSpaceRecreation/`,
+  RECREATION_IS_SCRAP: `${BASE_URL}/team/teamSpaceRecreation/scrapList/`,
   TEAMSHOPPING: `${BASE_URL}/team/teamSpaceShopping/`,
 };

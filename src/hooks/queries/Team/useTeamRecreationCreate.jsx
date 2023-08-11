@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import teamAPI from '../../../apis/teamAPI';
 
-const useTeamRecreationCreate = (userToken) => {
+const useTeamRecreationCreate = (userToken, recreationPk) => {
   const queryClient = useQueryClient();
 
   const { mutate: teamRecreationMutation } = useMutation(
@@ -9,7 +9,7 @@ const useTeamRecreationCreate = (userToken) => {
     {
       onSuccess: (data) => {
         console.log(data);
-        queryClient.invalidateQueries(['team', 'recreation']);
+        queryClient.invalidateQueries(['team', recreationPk, 'recreation']);
       },
       onError: (error) => {
         console.log(error);
