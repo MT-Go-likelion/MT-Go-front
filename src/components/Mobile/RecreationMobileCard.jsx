@@ -16,6 +16,7 @@ const mobileSize = 450;
 const BestLoContainer = styled.div`
   width: 317px;
   height: 100px;
+
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -23,8 +24,8 @@ const BestLoContainer = styled.div`
 `;
 
 const BackContainer = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 20px;
   position: relative;
   display: flex;
@@ -35,16 +36,11 @@ const BackContainer = styled.div`
 `;
 
 const BackImg = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
   background-color: ${COLOR.blue};
-  border-radius: 20px;
+  border-radius: 6px;
   background-image: ${(props) => `url(${props.dataSrc})`};
-  @media (max-width: ${mobileSize}px) {
-    width: 120px;
-    height: 120px;
-    border-radius: 6px;
-  }
 `;
 
 const BtnCotainer = styled.div`
@@ -54,7 +50,7 @@ const BtnCotainer = styled.div`
   top: 10px;
   right: 10px;
   @media (max-width: ${mobileSize}px) {
-    top: 95px;
+    top: 75px;
     right: 5px;
   }
 `;
@@ -187,19 +183,11 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
               추천인원 : {headCountMin} ~ {headCountMax} 명
             </PeopleCount>
           </div>
-          {save ? (
-            <TeamBtn onClick={handleTeamBtnClick}>
-              <BtnDiv>
-                담기 성공! <TeamImg src={Folder} />
-              </BtnDiv>
-            </TeamBtn>
-          ) : (
-            <TeamBtn onClick={handleTeamBtnClick}>
-              <BtnDiv>
-                팀스페이스에 담기 <TeamImg src={Folder} />
-              </BtnDiv>
-            </TeamBtn>
-          )}
+          <TeamBtn onClick={handleTeamBtnClick}>
+            <BtnDiv>
+              팀스페이스에 담기 <TeamImg src={Folder} />
+            </BtnDiv>
+          </TeamBtn>
         </Flex>
         <BackContainer onClick={handleCardClick}>
           <BackImg src={BASE_URL + photo} />

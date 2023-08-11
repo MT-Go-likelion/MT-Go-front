@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import RecreationCard from '../components/Card/RecreationCard';
@@ -44,6 +44,9 @@ const RecreationList = styled.ul`
   @media (max-width: 640px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+  @media (max-width: ${mobileSize}px) {
+    margin-bottom: 7rem;
+  }
 `;
 
 const RecreationItem = styled.li`
@@ -54,11 +57,24 @@ const RecreationItem = styled.li`
 const Recreation = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
-  const isMobile = window.innerWidth <= mobileSize;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize); // 초기 값 설정
+
   const {
     recreationsQuery: { isLoading, error, data: recreations },
   } = useRecreation(user ? user.token : '');
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
 
+  useEffect(() => {
+    // 이벤트 핸들러 등록
+    window.addEventListener('resize', handleResize);
+
+    // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <RecreationLayout>
       {error && <Error />}
