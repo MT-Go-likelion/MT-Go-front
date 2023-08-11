@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import RecreationCard from '../components/Card/RecreationCard';
+import CustomRecreationCard from '../components/Mobile/RecreationMobileCard';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import Error from './Error';
 import Loading from './Loading';
 
+const mobileSize = 450;
 const RecreationLayout = styled.div`
   max-width: 1280px;
   margin: auto;
@@ -15,6 +17,13 @@ const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 4rem 0;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 1rem;
+    margin: 4rem 2rem 1rem 2rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 180%;
+  }
 `;
 
 const RecreationList = styled.ul`
@@ -45,7 +54,7 @@ const RecreationItem = styled.li`
 const Recreation = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
-
+  const isMobile = window.innerWidth <= mobileSize;
   const {
     recreationsQuery: { isLoading, error, data: recreations },
   } = useRecreation(user ? user.token : '');
@@ -59,14 +68,25 @@ const Recreation = () => {
         {recreations &&
           recreations.map((recreation) => (
             <RecreationItem key={recreation.pk}>
-              <RecreationCard
-                pk={recreation.pk}
-                name={recreation.name}
-                photo={recreation.photo}
-                headCountMin={recreation.headCountMin}
-                headCountMax={recreation.headCountMax}
-                isScrap={recreation.isScrap}
-              />
+              {isMobile ? (
+                <CustomRecreationCard
+                  pk={recreation.pk}
+                  name={recreation.name}
+                  photo={recreation.photo}
+                  headCountMin={recreation.headCountMin}
+                  headCountMax={recreation.headCountMax}
+                  isScrap={recreation.isScrap}
+                />
+              ) : (
+                <RecreationCard
+                  pk={recreation.pk}
+                  name={recreation.name}
+                  photo={recreation.photo}
+                  headCountMin={recreation.headCountMin}
+                  headCountMax={recreation.headCountMax}
+                  isScrap={recreation.isScrap}
+                />
+              )}
             </RecreationItem>
           ))}
       </RecreationList>
