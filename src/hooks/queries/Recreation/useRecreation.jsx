@@ -19,7 +19,16 @@ const useRecreation = (token, page = 1) => {
     },
   );
 
-  return { recreationsQuery, recreaetionMutation };
+  const { mutate: recreationDeleteMutation } = useMutation((pk) => recreationAPI.delete(pk), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  return { recreationsQuery, recreaetionMutation, recreationDeleteMutation };
 };
 
 export default useRecreation;

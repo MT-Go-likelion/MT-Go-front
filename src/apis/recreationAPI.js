@@ -24,6 +24,12 @@ const recreationAPI = {
     return res.data;
   },
 
+  delete: async (id) => {
+    const res = await axios.delete(RECREATIONAPI.DETAIL + id);
+
+    return res.data;
+  },
+
   detail: async (id) => {
     const res = await axios.get(RECREATIONAPI.DETAIL + id);
 

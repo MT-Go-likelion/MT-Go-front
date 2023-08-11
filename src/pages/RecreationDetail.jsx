@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import COLOR from '../constants/color';
 import useRecreationDetail from '../hooks/queries/Recreation/useRecreationDetail';
 import Loading from './Loading';
 import Error from './Error';
 import { BASE_URL } from '../config/api';
+import useRecreation from '../hooks/queries/Recreation/useRecreation';
 
 const RecreationDetailLayout = styled.div`
   max-width: 1280px;
@@ -42,7 +43,6 @@ const TeamspaceBtn = styled.button`
   color: ${COLOR.gray};
   width: 9.25rem;
   height: 2rem;
-  margin-bottom: 3rem;
 
   &:hover {
     border: 2px solid ${COLOR.primary.blue};
@@ -60,6 +60,7 @@ const RightContainerHeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-bottom: 3rem;
 `;
 
 const RecommendedNum = styled.div`
@@ -76,6 +77,14 @@ const RecreationDetail = () => {
   const {
     lodgingDetailQuery: { isLoading, error, data: recreationDetail },
   } = useRecreationDetail(recreationId);
+
+  const { recreationDeleteMutation } = useRecreation();
+  const navigate = useNavigate();
+
+  const onClickDeleteBtn = () => {
+    recreationDeleteMutation(recreationDetail.pk);
+    navigate('/');
+  };
   return (
     <RecreationDetailLayout>
       {isLoading && <Loading />}
@@ -94,6 +103,7 @@ const RecreationDetail = () => {
                   추천인원: {recreationDetail.headCountMin} ~ {recreationDetail.headCountMax}명
                 </RecommendedNum>
                 <TeamspaceBtn>팀스페이스 담기</TeamspaceBtn>
+                <TeamspaceBtn onClick={onClickDeleteBtn}>삭제하기</TeamspaceBtn>
               </RightContainerHeader>
               <RecreationDetailContent
                 dangerouslySetInnerHTML={{ __html: recreationDetail.content }}
