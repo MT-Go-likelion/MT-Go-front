@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 
+import Pagination from 'react-js-pagination';
 import COLOR from '../constants/color';
+
+import '../styles/Pagination.css';
 
 import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
 import Price from '../components/SelectBox/Price';
-import Date from '../components/SelectBox/Date';
 
 import BestlocationCard from '../components/Card/BestlocationCard';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
@@ -74,9 +76,15 @@ const Lodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
+  const [page, setPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
-  } = useLodging(user ? user.token : '');
+  } = useLodging(user ? user.token : '', page);
 
   return (
     <div>
@@ -89,14 +97,11 @@ const Lodging = () => {
           <Headcount />
           <Price />
         </BoxFlex>
-        <BoxFlex>
-          <Date />
-        </BoxFlex>
         <SearchBtn>검색하기</SearchBtn>
       </SearchBack>
       <ContentsDiv>
         {lodgings &&
-          lodgings.map((obj) => (
+          lodgings.results.map((obj) => (
             <BestlocationCard
               key={obj.pk}
               pk={obj.pk}
@@ -108,6 +113,17 @@ const Lodging = () => {
             />
           ))}
       </ContentsDiv>
+      {lodgings && (
+        <Pagination
+          activePage={page} // 현재 페이지
+          itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+          totalItemsCount={lodgings.count} // 총 아이템 개수
+          pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };
