@@ -136,7 +136,7 @@ const Shopping = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const [selectedSpace, setSelectedSpace] = useState('개인 스페이스');
+  const [selectedSpace, setSelectedSpace] = useState('private');
 
   const {
     shoppingQuery: { data: shoppingList },

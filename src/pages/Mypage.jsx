@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -124,6 +124,7 @@ const MyPage = () => {
   const {
     lodgingScrapQuery: { isLoading: lodgingIsLoading, error: lodgingError, data: lodgingScrapList },
   } = useLodgingScrapList(user ? user.token : '');
+
   const {
     recreationScrapQuery: {
       isLoading: recreationIsLoading,
@@ -160,6 +161,10 @@ const MyPage = () => {
   const handleJoinPopupClose = () => {
     setIsJoinpopupVisivle(false);
   };
+
+  useEffect(() => {
+    setShoppingItems(shoppingList || []);
+  }, [shoppingList]);
 
   return (
     <>
