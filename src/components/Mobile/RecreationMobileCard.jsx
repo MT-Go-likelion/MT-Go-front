@@ -16,7 +16,7 @@ const mobileSize = 450;
 const BestLoContainer = styled.div`
   width: 317px;
   height: 100px;
-
+  margin-bottom: 0.3rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -47,22 +47,14 @@ const BtnCotainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 10px;
-  right: 10px;
-  @media (max-width: ${mobileSize}px) {
-    top: 75px;
-    right: 5px;
-  }
+  top: 75px;
+  right: 5px;
 `;
 
 const RecreatButton = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
-  @media (max-width: ${mobileSize}px) {
-    width: 18px;
-    height: 18px;
-  }
 `;
 
 const Title = styled.div`
