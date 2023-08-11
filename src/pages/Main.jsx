@@ -44,7 +44,7 @@ const ContentLayout = styled.div`
     margin: 0;
     padding: 1rem 2rem;
     background-color: ${COLOR.white};
-    margin-bottom: 10rem;
+    margin-bottom: 4.5rem;
   }
 `;
 

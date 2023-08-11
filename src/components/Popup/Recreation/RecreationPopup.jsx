@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import Submitbutton from '../../Button/SubmitButton';
 
@@ -10,6 +10,23 @@ import Error from '../../../pages/Error';
 import useTeamRecreationIsScrap from '../../../hooks/queries/Team/useTeamRecreationIsScrap';
 import useTeamRecreationScrap from '../../../hooks/queries/Team/useTeamRecreationScrap';
 
+const mobileSize = 450;
+const slideIn = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+const slideOut = keyframes`
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+`;
 const PopupBackground = styled.div`
   position: fixed;
   top: 0;
@@ -21,6 +38,12 @@ const PopupBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 999;
+  @media (max-width: ${mobileSize}px) {
+    background: none;
+    align-items: flex-end;
+    transform: translateY(100%);
+    animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s ease-in-out forwards;
+  }
 `;
 
 const PopupContainer = styled.div`
@@ -29,11 +52,21 @@ const PopupContainer = styled.div`
   background-color: ${COLOR.white};
   padding: 1rem;
   border-radius: 48px;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    height: 240px;
+    border-radius: 32px;
+    box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+  }
 `;
 
 const PopupContent = styled.div`
   padding: 1.3rem 3.6rem;
   height: 100%;
+  @media (max-width: ${mobileSize}px) {
+    padding: 0.1rem 1rem;
+  }
 `;
 
 const CloseBtn = styled.img`
@@ -52,19 +85,35 @@ const Title = styled.h2`
   display: flex;
   justify-content: center;
   margin-bottom: 2.6rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
 `;
 
 const SubTitle = styled.div`
   font-size: 20px;
   margin: 1.5rem 0;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    margin: 0.5rem 0 1.4rem 0;
+  }
 `;
 
 const TeamList = styled.ul`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 3rem;
+  @media (max-width: ${mobileSize}px) {
+    margin-bottom: 1.6rem;
+  }
 `;
 
 const TeamBtn = styled.div`
@@ -82,6 +131,11 @@ const TeamBtn = styled.div`
   &:hover {
     border: 2px solid ${COLOR.gray};
     background: ${COLOR.lightGray};
+  }
+  @media (max-width: ${mobileSize}px) {
+    padding: 6px 5px;
+    font-size: 14px;
+    text-align: center;
   }
 
   ${(props) =>
@@ -101,6 +155,7 @@ const FlexDiv = styled.div`
 const RecreationPopup = ({ pk, handlePopupClose }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
+  const [visible, setVisible] = useState(true);
 
   const {
     teamRecreationScrapQuery: { isLoading, error, data: teams },
@@ -114,11 +169,13 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    handlePopupClose();
+    setVisible(false);
+    setTimeout(() => {
+      handlePopupClose();
+    }, 500);
   };
   return (
-    <PopupBackground>
+    <PopupBackground visible={visible}>
       <PopupContainer>
         <CloseBtn src={close} onClick={handlePopupClose} />
         <PopupContent>

@@ -11,7 +11,7 @@ import FooterRecreation from '../../assets/images/FooterRecreation.png';
 
 const FooterLayout = styled.footer`
   width: 100%;
-  height: 11.3rem;
+  height: 5.5rem;
   position: fixed;
   bottom: 0;
   border-radius: 16px 16px 0px 0px;
