@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import RecreationCard from '../components/Card/RecreationCard';
-import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
 import DeleteSharePopup from '../components/Popup/Mypage/DeleteSharePopup';
+import useTeam from '../hooks/queries/Team/useTeam';
+import Loading from './Loading';
+import Error from './Error';
+import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
+import useTeamRecreation from '../hooks/queries/Team/useTeamRecreation';
+import useTeamShopping from '../hooks/queries/Team/useTeamShopping';
+import ListTable from '../components/Common/Shopping/ListTable';
+import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
+import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
 
 const mediaSize = 1030;
 
 // 전체 여백
 const Container = styled.div`
-  margin: 0 5rem;
-  padding: 0 5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
   display: flex;
   gap: 2.5rem;
   transition: 0.3s;
@@ -35,24 +45,26 @@ const Hrbar = styled.hr`
 
 const TeamspaceDiv = styled.div`
   width: 100%;
+  flex-basis: 20%;
 `;
 
 const ScrapDiv = styled.div`
-  width: 80%;
+  width: 170px;
   padding-top: 4rem;
+  flex-basis: 80%;
 `;
 
 const Title = styled.button`
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 400;
   margin: 3rem 0 10rem 0;
-  border-bottom: 1.4px solid ${COLOR.primary.lightBlue};
   width: 140px;
+  color: ${COLOR.gray};
 `;
 
 const SubTitle = styled.div`
   font-size: 24px;
-  margin: 2rem 0;
+  margin: 5rem 0 2rem 0;
   font-weight: 700;
 `;
 
@@ -79,22 +91,25 @@ const TeamspaceButton = styled.button`
   background: transparent;
   cursor: pointer;
   transition:
-    background-color 0.2s,
-    border 0.2s;
+    background-color 0.5s,
+    border 0.5s;
 
   &:hover {
     background-color: ${COLOR.lightGray};
   }
 
-  &:active {
-    border: 3px solid ${COLOR.primary.blue};
-  }
+  ${(props) =>
+    props.active &&
+    css`
+      border: 2px solid ${COLOR.blue};
+      font-weight: bold;
+    `}
 `;
 
 // 팀스페이스 리스트
 const DivTeamlist = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 1rem;
   flex-direction: column;
 `;
 
@@ -189,25 +204,47 @@ const Notification = styled.div`
 `;
 
 const MypageTeamspace = () => {
-  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
+  const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
   const [isDeletePopupVisible, setIsDeletePopupVisible] = useState(false);
-  const [inviteCode, setInviteCode] = useState('ABCD1234');
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
+  const { state: teamName } = useLocation();
 
-  // 팀스페이스로 가도록 하는
-  const gotoTeamSpace = () => {
-    // useNavigate(`/Teamspace/${pk}`);
-    navigate(`/MypageTeamspace`);
+  const { teamToken } = useParams();
+  const inviteCode = teamToken;
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const {
+    teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
+  } = useTeam(user ? user.token : '');
+
+  const {
+    teamLodgingQuery: { isLoading: lodgingLoading, error: lodgingError, data: lodgings },
+  } = useTeamLodging(user ? user.token : '', { teamToken });
+
+  const {
+    teamRecreationQuery: {
+      isLoading: recreationLoading,
+      error: recreationError,
+      data: recreations,
+    },
+  } = useTeamRecreation(user ? user.token : '', { teamToken });
+
+  const {
+    teamShoppingQuery: { isLoading: shoppingLoading, error: shoppingError, data: teamShoppingList },
+  } = useTeamShopping(user ? user.token : '', teamToken);
+
+  const [shoppingItems, setShoppingItems] = useState(teamShoppingList || []);
+
+  const gotoTeamSpace = (teamToken, teamName) => {
+    navigate(`/mypage/${teamToken}`, { state: teamName });
   };
 
   const gotoMypage = () => {
-    navigate(`/Mypage`);
-  };
-
-  const handleTeamspacePlusClick = () => {
-    setIspopupVisivle(true);
-    console.log('잘 됨');
+    navigate(`/mypage`);
   };
 
   const handleDeleteClick = () => {
@@ -215,17 +252,29 @@ const MypageTeamspace = () => {
     console.log('잘 됨');
   };
 
-  const handlePopupClose = () => {
-    setIspopupVisivle(false);
+  const handleCancelClose = () => {
+    setIsDeletePopupVisible(false);
+  };
+
+  const handleTeamspaceCreateClick = () => {
+    setIsCreatepopupVisivle(true);
+  };
+
+  const handleCreatePopupClose = () => {
+    setIsCreatepopupVisivle(false);
+  };
+
+  const handleTeamspaceJoinClick = () => {
+    setIsJoinpopupVisivle(true);
+  };
+
+  const handleJoinPopupClose = () => {
+    setIsJoinpopupVisivle(false);
   };
 
   const handleDeleteClose = () => {
     setIsDeletePopupVisible(false);
     // 팀스페이스 삭제하는 api 구현
-  };
-
-  const handleCancelClose = () => {
-    setIsDeletePopupVisible(false);
   };
 
   // 복사가 성공적으로 이루어질 때
@@ -236,24 +285,9 @@ const MypageTeamspace = () => {
     }, 3000);
   };
 
-  // api 연결 예정
-  const fetchInviteCode = async () => {
-    try {
-      const response = await fetch('');
-      if (response.ok) {
-        const data = await response.json();
-        setInviteCode(data.inviteCode);
-      } else {
-        console.error('실패');
-      }
-    } catch (error) {
-      console.error('에러:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchInviteCode();
-  }, []);
+    setShoppingItems(teamShoppingList || []);
+  }, [teamShoppingList]);
 
   return (
     <>
@@ -264,18 +298,28 @@ const MypageTeamspace = () => {
           <Title onClick={gotoMypage}>개인 스페이스</Title>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
-            <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
-            {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
-            <TeamspaceButton onClick={gotoTeamSpace}>국민대스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
+            <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
+            <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>{' '}
+            {IsCreatepopupVisivle && (
+              <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
+            )}
+            {IsJoinpopupVisivle && <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />}
+            {teamIsLoading && <Loading />}
+            {teamError && <Error />}
+            {teams &&
+              teams.map((team) => (
+                <TeamspaceButton
+                  active={teamToken === team.teamToken}
+                  onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}
+                >
+                  {team.teamName}
+                </TeamspaceButton>
+              ))}
           </DivTeamlist>
         </TeamspaceDiv>
         <ScrapDiv>
           <TNameDiv>
-            <SubTitle>Teamspace name</SubTitle>
+            <SubTitle>{teamName}</SubTitle>
             <ButtonDiv>
               <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
               {isDeletePopupVisible && (
@@ -309,22 +353,45 @@ const MypageTeamspace = () => {
           </Flex>
           <SubTitle>담은 숙소</SubTitle>
           <Flex>
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
-            <BestlocationCard />
+            {lodgingLoading && <Loading />}
+            {lodgingError && <Error />}
+            {lodgings &&
+              lodgings.map((lodging) => (
+                <BestlocationCard
+                  key={lodging.pk}
+                  pk={lodging.pk}
+                  name={lodging.name}
+                  price={lodging.price}
+                  mainPhoto={lodging.mainPhoto}
+                  avgScore={lodging.avgScore}
+                  isScrap={lodging.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>공유한 레크레이션</SubTitle>
           <Flex>
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
-            <RecreationCard />
+            {recreationLoading && <Loading />}
+            {recreationError && <Error />}
+            {recreations &&
+              recreations.map((recreation) => (
+                <RecreationCard
+                  pk={recreation.pk}
+                  name={recreation.name}
+                  photo={recreation.photo}
+                  headCountMin={recreation.headCountMin}
+                  headCountMax={recreation.headCountMax}
+                  isScrap={recreation.isScrap}
+                />
+              ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
-          <Flex>장바구니 컴포넌트</Flex>
+          <Flex>
+            {shoppingLoading && <Loading />}
+            {shoppingError && <Error />}
+            {teamShoppingList && (
+              <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+            )}
+          </Flex>
         </ScrapDiv>
       </Container>
     </>

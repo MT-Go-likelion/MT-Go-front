@@ -120,6 +120,7 @@ const Flex = styled.div`
 
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -142,7 +143,6 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
     }
   };
 
-  // 상세페이지 링크 걸면 됨. (카드누르면 링크 바뀌게만 해둔 상태)
   const handleCardClick = () => {
     navigate(`/lodging/${pk}`, { state: pk });
   };

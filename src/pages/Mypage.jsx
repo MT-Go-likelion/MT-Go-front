@@ -7,18 +7,23 @@ import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 // import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
-import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
 import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
 import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
 import Loading from './Loading';
 import Error from './Error';
+import useTeam from '../hooks/queries/Team/useTeam';
+import useShopping from '../hooks/queries/Shopping/useShopping';
+import ListTable from '../components/Common/Shopping/ListTable';
+import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
+import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
 
 const mediaSize = 1030;
 
 // 전체 여백
 const Container = styled.div`
-  margin: 0 5rem;
-  padding: 0 5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
   display: flex;
   gap: 2.5rem;
   transition: 0.3s;
@@ -39,11 +44,13 @@ const Hrbar = styled.hr`
 
 const TeamspaceDiv = styled.div`
   width: 100%;
+  flex-basis: 20%;
 `;
 
 const ScrapDiv = styled.div`
-  width: 80%;
+  width: 170px;
   padding-top: 4rem;
+  flex-basis: 80%;
 `;
 
 const Title = styled.button`
@@ -56,7 +63,7 @@ const Title = styled.button`
 
 const SubTitle = styled.div`
   font-size: 24px;
-  margin: 2rem 0;
+  margin: 5rem 0 2rem 0;
 `;
 
 const Flex = styled.div`
@@ -82,8 +89,8 @@ const TeamspaceButton = styled.button`
   background: transparent;
   cursor: pointer;
   transition:
-    background-color 0.2s,
-    border 0.2s;
+    background-color 0.5s,
+    border 0.5s;
 
   &:hover {
     background-color: ${COLOR.lightGray};
@@ -97,7 +104,7 @@ const TeamspaceButton = styled.button`
 // 팀스페이스 리스트
 const DivTeamlist = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   flex-direction: column;
 `;
 
@@ -105,8 +112,14 @@ const MyPage = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
+  const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
+
   const navigate = useNavigate();
+
+  const {
+    teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
+  } = useTeam(user ? user.token : '');
 
   const {
     lodgingScrapQuery: { isLoading: lodgingIsLoading, error: lodgingError, data: lodgingScrapList },
@@ -119,20 +132,33 @@ const MyPage = () => {
     },
   } = useRecreationScrapList(user ? user.token : '');
 
-  const gotoTeamSpace = () => {
-    // useNavigate(`/Teamspace/${pk}`);
-    navigate(`/MypageTeamspace`);
+  const {
+    shoppingQuery: { data: shoppingList },
+  } = useShopping(user ? user.token : '');
+  const [shoppingItems, setShoppingItems] = useState(shoppingList || []);
+
+  const gotoTeamSpace = (teamToken, teamName) => {
+    navigate(`/mypage/${teamToken}`, { state: teamName });
   };
+
   const gotoMypage = () => {
     navigate(`/Mypage`);
   };
 
-  const handleTeamspacePlusClick = () => {
-    setIspopupVisivle(true);
+  const handleTeamspaceCreateClick = () => {
+    setIsCreatepopupVisivle(true);
   };
 
-  const handlePopupClose = () => {
-    setIspopupVisivle(false);
+  const handleCreatePopupClose = () => {
+    setIsCreatepopupVisivle(false);
+  };
+
+  const handleTeamspaceJoinClick = () => {
+    setIsJoinpopupVisivle(true);
+  };
+
+  const handleJoinPopupClose = () => {
+    setIsJoinpopupVisivle(false);
   };
 
   return (
@@ -143,13 +169,21 @@ const MyPage = () => {
           <Title onClick={gotoMypage}>개인 스페이스</Title>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
-            <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
-            {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
-            <TeamspaceButton onClick={gotoTeamSpace}>국민대스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
-            <TeamspaceButton>동아리스페이스</TeamspaceButton>
+            <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
+            <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>
+
+            {IsCreatepopupVisivle && (
+              <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
+            )}
+            {IsJoinpopupVisivle && <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />}
+            {teamIsLoading && <Loading />}
+            {teamError && <Error />}
+            {teams &&
+              teams.map((team) => (
+                <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}>
+                  {team.teamName}
+                </TeamspaceButton>
+              ))}
           </DivTeamlist>
         </TeamspaceDiv>
         <ScrapDiv>
@@ -187,7 +221,9 @@ const MyPage = () => {
               ))}
           </Flex>
           <SubTitle>장바구니</SubTitle>
-          <Flex>장바구니 컴포넌트</Flex>
+          <Flex>
+            <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+          </Flex>
         </ScrapDiv>
       </Container>
     </>

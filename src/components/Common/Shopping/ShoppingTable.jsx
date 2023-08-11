@@ -7,6 +7,10 @@ import COLOR from '../../../constants/color';
 import Submitbutton from '../../Button/SubmitButton';
 import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import CreatePopup from '../../Popup/Shopping/CreatePopup';
+import useTeam from '../../../hooks/queries/Team/useTeam';
+import Loading from '../../../pages/Loading';
+import Error from '../../../pages/Error';
+import useTeamShoppingCreation from '../../../hooks/queries/Team/useTeamShoppingCreation';
 
 const Container = styled.div`
   width: 280px;
@@ -151,7 +155,9 @@ const SelectName = styled.select`
   padding-left: 5px;
 `;
 
-const ShoppingTable = ({ data, setShoppingItems }) => {
+const SelectOption = styled.option``;
+
+const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace }) => {
   const [editHandle, setEditHandle] = useState(false);
   const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
   const navigate = useNavigate();
@@ -159,7 +165,12 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
+  const {
+    teamQuery: { isLoading, error, data: teams },
+  } = useTeam(user ? user.token : '');
+
   const { shoppingMutation } = useShopping(user ? user.token : '');
+  const { teamShoppingMutation } = useTeamShoppingCreation(user ? user.token : '');
 
   const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
 
@@ -209,6 +220,11 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
     setShoppingItems(updatedData);
   };
 
+  const hanelSelectChange = (e) => {
+    setSelectedSpace(e.target.value);
+    console.log(e.target.value);
+  };
+
   const handleDeleteClick = (e, item) => {
     e.stopPropagation();
 
@@ -228,27 +244,33 @@ const ShoppingTable = ({ data, setShoppingItems }) => {
     e.preventDefault();
 
     if (user) {
-      shoppingMutation(data);
+      if (selectedSpace === 'private') {
+        shoppingMutation(data);
+      } else {
+        teamShoppingMutation(
+          data.map((dataItem) => {
+            return { ...dataItem, teamToken: selectedSpace };
+          }),
+        );
+      }
     } else {
       navigate('/signin');
     }
   };
-  // 유저별 스페이스 데이터
-  const spaceOptions = [
-    { id: 1, name: '개인 스페이스' },
-    { id: 2, name: '국민대 스페이스' },
-    { id: 3, name: '동아리 스페이스' },
-  ];
 
   return (
     <Container>
       <Title>Check List</Title>
-      <SelectName>
-        {spaceOptions.map((option) => (
-          <option key={option.id} value={option.name}>
-            {option.name}
-          </option>
-        ))}
+      <SelectName onChange={hanelSelectChange}>
+        {isLoading && <Loading />}
+        {error && <Error />}
+        <SelectOption value="private">개인 스페이스</SelectOption>
+        {teams &&
+          teams.map((team) => (
+            <SelectOption key={team.teamToken} value={team.teamToken}>
+              {team.teamName}
+            </SelectOption>
+          ))}
       </SelectName>
       <Table>
         <thead>

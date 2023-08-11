@@ -29,6 +29,7 @@ const LodgingDetail = () => {
       {lodgingDetail && (
         <>
           <LodgingDetailHeader
+            pk={lodgingDetail.pk}
             name={lodgingDetail.name}
             mainPhoto={lodgingDetail.mainPhoto}
             photos={lodgingDetail.photos}
