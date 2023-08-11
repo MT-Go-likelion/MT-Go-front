@@ -7,8 +7,8 @@ import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
 import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
-import useTeamRecreationCreate from '../../../hooks/queries/Team/useTeamRecreationCreate';
 import useTeamRecreationIsScrap from '../../../hooks/queries/Team/useTeamRecreationIsScrap';
+import useTeamRecreationScrap from '../../../hooks/queries/Team/useTeamRecreationScrap';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -106,7 +106,7 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
     teamRecreationScrapQuery: { isLoading, error, data: teams },
   } = useTeamRecreationIsScrap(user ? user.token : '', pk);
 
-  const { teamRecreationMutation } = useTeamRecreationCreate(user ? user.token : '', pk);
+  const { teamRecreationMutation } = useTeamRecreationScrap(user ? user.token : '', pk);
 
   const handleTeamClick = (teamToken) => {
     teamRecreationMutation({ teamToken, recreationPk: pk });

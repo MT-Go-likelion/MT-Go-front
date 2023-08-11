@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import teamAPI from '../../../apis/teamAPI';
 
-const useTeamLodgingCreate = (userToken, lodgingPk) => {
+const useTeamLodgingScrap = (userToken, lodgingPk) => {
   const queryClient = useQueryClient();
 
   const { mutate: teamLodgingMutation } = useMutation(
@@ -20,4 +20,4 @@ const useTeamLodgingCreate = (userToken, lodgingPk) => {
   return { teamLodgingMutation };
 };
 
-export default useTeamLodgingCreate;
+export default useTeamLodgingScrap;
