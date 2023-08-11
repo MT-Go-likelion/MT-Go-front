@@ -10,10 +10,16 @@ import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 
+const mobileSize = 450;
+
 const BestLoContainer = styled.div`
   width: 240px;
   height: 400px;
   cursor: pointer;
+  @media (max-width: ${mobileSize}px) {
+    width: 120px;
+    height: 159px;
+  }
 `;
 
 const BackDiv = styled.div`
@@ -26,6 +32,11 @@ const BackDiv = styled.div`
 
   background-size: cover;
   background-position: center;
+  @media (max-width: ${mobileSize}px) {
+    width: 120px;
+    height: 120px;
+    border-radius: 6px;
+  }
 `;
 
 const LikeButton = styled.img`
@@ -35,6 +46,12 @@ const LikeButton = styled.img`
   position: absolute;
   top: 10px;
   right: 10px;
+  @media (max-width: ${mobileSize}px) {
+    width: 18px;
+    height: 18px;
+    top: 95px;
+    right: 5px;
+  }
 `;
 
 const Title = styled.div`
@@ -42,27 +59,47 @@ const Title = styled.div`
   font-size: 24px;
   font-weight: bold;
   margin: 10px 0 8px 0;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+  }
 `;
 
 const Flexdirection = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: ${mobileSize}px) {
+  }
 `;
 
 const Price = styled.div`
   font-size: 20px;
   color: ${COLOR.lightGray};
+  @media (max-width: ${mobileSize}px) {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+  }
 `;
 
 const Score = styled.div`
   font-size: 16px;
+  @media (max-width: ${mobileSize}px) {
+  }
 `;
 
 const BlueStar = styled.img`
   width: 24px;
   height: 24px;
   margin-right: 2px;
+  @media (max-width: ${mobileSize}px) {
+    width: 19px;
+    height: 19px;
+  }
 `;
 
 const Flex = styled.div`
