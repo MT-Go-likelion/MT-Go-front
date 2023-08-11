@@ -6,8 +6,8 @@ import CustomRecreationCard from '../components/Mobile/RecreationMobileCard';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import Error from './Error';
 import Loading from './Loading';
+import { mobileSize } from '../utils/MediaSize';
 
-const mobileSize = 450;
 const RecreationLayout = styled.div`
   max-width: 1280px;
   margin: auto;

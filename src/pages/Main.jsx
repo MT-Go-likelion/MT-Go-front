@@ -9,10 +9,12 @@ import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
 
 import MobileBanner from '../assets/images/MobileBanner.png';
+import { mobileSize } from '../utils/MediaSize';
+
 // import COLOR from '../constants/color';
 
 const mediaSize = 1030;
-const mobileSize = 450;
+
 const MainLayout = styled.div`
   width: 100%;
   height: 80%;

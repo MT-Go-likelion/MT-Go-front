@@ -8,9 +8,10 @@ import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import MainBanner from '../assets/images/ShoppingMain.png';
 import useShopping from '../hooks/queries/Shopping/useShopping';
 import ShoppingCard from '../components/Card/ShoppingCard';
+import { mobileSize } from '../utils/MediaSize';
 
 const mediaSize = 1070;
-const mobileSize = 450;
+
 const ShoppingLayout = styled.div`
   max-width: 1280px;
   margin: auto;

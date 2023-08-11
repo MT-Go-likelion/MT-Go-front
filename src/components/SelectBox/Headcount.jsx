@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import useSelect from '../../hooks/useSelect';
+import { mobileSize } from '../../utils/MediaSize';
 
 const OPTION = [
   { value: '', name: '인원' },
@@ -20,6 +21,10 @@ const StyledSelect = styled.select`
   height: 33px;
   padding-left: 10px;
   color: ${(props) => (props.$count === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
+  @media (max-width: ${mobileSize}px) {
+    width: 78px;
+    height: 26px;
+  }
 `;
 
 const SelectBox = ({ options }) => {

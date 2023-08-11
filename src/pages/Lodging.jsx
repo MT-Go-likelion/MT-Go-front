@@ -10,17 +10,19 @@ import '../styles/Pagination.css';
 import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
 import Price from '../components/SelectBox/Price';
-
 import BestlocationCard from '../components/Card/BestlocationCard';
+
+import LodgingMobileB from '../assets/images/LoadgingBackM.png';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
 import Error from './Error';
 import useLodging from '../hooks/queries/Lodging/useLodging';
 import Loading from './Loading';
+import { mobileSize } from '../utils/MediaSize';
 
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
   width: 100%;
-  height: 330px;
+  height: 200px;
   flex-shrink: 0;
   background-image: url(${SearchBackgroundIMG});
   background-size: cover;
@@ -32,6 +34,12 @@ const SearchBack = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 1.5rem;
+  @media (max-width: ${mobileSize}px) {
+    background-image: url(${LodgingMobileB});
+    gap: 0.3rem;
+    align-items: flex-start;
+    padding-left: 1.7rem;
+  }
 `;
 
 const ContentsDiv = styled.div`
@@ -43,23 +51,32 @@ const ContentsDiv = styled.div`
   justify-content: center;
   max-width: 1280px;
   margin: auto;
+  @media (max-width: ${mobileSize}px) {
+    padding: 1rem 0;
+  }
 `;
 
 // 검색바 타이틀
 const Title = styled.div`
   color: ${COLOR.white};
-  text-align: center;
+
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+  }
 `;
 
 // 위치 인원 가격 flex
 const BoxFlex = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 3rem;
+  gap: 1rem;
 `;
 
 // 검색하기 버튼
@@ -70,6 +87,8 @@ const SearchBtn = styled.button`
   width: 130px;
   height: 45px;
   color: ${COLOR.white};
+  @media (max-width: ${mobileSize}px) {
+  }
 `;
 
 const Lodging = () => {

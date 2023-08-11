@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import useSelect from '../../hooks/useSelect';
+import { mobileSize } from '../../utils/MediaSize';
 
 const OPTION = [
   { value: '', name: '위치' },
@@ -19,6 +20,10 @@ const StyledSelect = styled.select`
   color: ${(props) => (props.$place === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
   ::selection {
     color: ${COLOR.black};
+  }
+  @media (max-width: ${mobileSize}px) {
+    width: 78px;
+    height: 26px;
   }
 `;
 

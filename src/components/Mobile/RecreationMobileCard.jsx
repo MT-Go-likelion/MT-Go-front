@@ -10,8 +10,7 @@ import { BASE_URL } from '../../config/api';
 import useRecreationScrap from '../../hooks/queries/Recreation/useRecreationScrap';
 import RecreationPopup from '../Popup/Recreation/RecreationPopup';
 import Folder from '../../assets/images/folder.png';
-
-const mobileSize = 450;
+import { mobileSize } from '../../utils/MediaSize';
 
 const BestLoContainer = styled.div`
   width: 317px;
