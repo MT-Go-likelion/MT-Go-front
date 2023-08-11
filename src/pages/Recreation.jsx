@@ -57,7 +57,7 @@ const RecreationItem = styled.li`
 const Recreation = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize); // 초기 값 설정
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
   const {
     recreationsQuery: { isLoading, error, data: recreations },

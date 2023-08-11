@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -12,6 +12,7 @@ import Headcount from '../components/SelectBox/Headcount';
 import Price from '../components/SelectBox/Price';
 import BestlocationCard from '../components/Card/BestlocationCard';
 
+import SearchImg from '../assets/images/search.png';
 import LodgingMobileB from '../assets/images/LoadgingBackM.png';
 import SearchBackgroundIMG from '../assets/images/1_background.png';
 import Error from './Error';
@@ -36,7 +37,7 @@ const SearchBack = styled.div`
   gap: 1.5rem;
   @media (max-width: ${mobileSize}px) {
     background-image: url(${LodgingMobileB});
-    gap: 0.3rem;
+    gap: 0.1rem;
     align-items: flex-start;
     padding-left: 1.7rem;
   }
@@ -52,7 +53,11 @@ const ContentsDiv = styled.div`
   max-width: 1280px;
   margin: auto;
   @media (max-width: ${mobileSize}px) {
-    padding: 1rem 0;
+    padding: 2rem 0;
+    background-color: ${COLOR.white};
+    border-radius: 32px 0px 0px 0px;
+    top: 10.9rem;
+    position: absolute;
   }
 `;
 
@@ -77,6 +82,8 @@ const BoxFlex = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
 `;
 
 // 검색하기 버튼
@@ -87,13 +94,23 @@ const SearchBtn = styled.button`
   width: 130px;
   height: 45px;
   color: ${COLOR.white};
-  @media (max-width: ${mobileSize}px) {
-  }
+`;
+
+const SearchBtnMobile = styled.button`
+  background-image: url(${SearchImg});
+  background-size: cover;
+  background-position: center;
+  width: 35px;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+  outline: none;
 `;
 
 const Lodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
   const [page, setPage] = useState(1);
 
@@ -101,9 +118,20 @@ const Lodging = () => {
     setPage(page);
   };
 
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
   } = useLodging(user ? user.token : '', page);
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div>
@@ -111,12 +139,24 @@ const Lodging = () => {
       {isLoading && <Loading />}
       <SearchBack>
         <Title>원하는 단체숙소를 검색하세요!</Title>
-        <BoxFlex>
-          <Location />
-          <Headcount />
-          <Price />
-        </BoxFlex>
-        <SearchBtn>검색하기</SearchBtn>
+        {!isMobile ? (
+          <>
+            {' '}
+            <BoxFlex>
+              <Location />
+              <Headcount />
+              <Price />
+            </BoxFlex>
+            <SearchBtn>검색하기</SearchBtn>
+          </>
+        ) : (
+          <BoxFlex>
+            <Location />
+            <Headcount />
+            <Price />
+            <SearchBtnMobile> </SearchBtnMobile>
+          </BoxFlex>
+        )}
       </SearchBack>
       <ContentsDiv>
         {lodgings &&
