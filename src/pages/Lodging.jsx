@@ -115,10 +115,10 @@ const Lodging = () => {
       </ContentsDiv>
       {lodgings && (
         <Pagination
-          activePage={page}
-          itemsCountPerPage={4}
-          totalItemsCount={lodgings.count}
-          pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1}
+          activePage={page} // 현재 페이지
+          itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+          totalItemsCount={lodgings.count} // 총 아이템 개수
+          pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
           prevPageText="‹"
           nextPageText="›"
           onChange={handlePageChange}

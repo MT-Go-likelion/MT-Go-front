@@ -17,6 +17,15 @@ const teamAPI = {
     return res.data;
   },
 
+  userList: async (userToken, teamToken) => {
+    const res = await axios.get(TEAMAPI.USERLIST, {
+      headers: { Authorization: `Token ${userToken}` },
+      params: { teamToken },
+    });
+
+    return res.data;
+  },
+
   create: async (name, token) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.post(TEAMAPI.TEAM, name, headers);
