@@ -22,8 +22,16 @@ const teamAPI = {
       ? { headers: { Authorization: `Token ${userToken}` } }
       : { headers: {} };
     const params = { params: teamToken };
-
     const res = await axios.get(TEAMAPI.TEAMLODGING, params, headers);
+
+    return res.data;
+  },
+
+  lodgingScrapList: async (userToken, lodgingPk) => {
+    const res = await axios.get(TEAMAPI.LODGING_IS_SCRAP, {
+      params: { lodgingPk },
+      headers: { Authorization: `Token ${userToken}` },
+    });
 
     return res.data;
   },
@@ -53,12 +61,10 @@ const teamAPI = {
   },
 
   shoppingList: async (userToken, teamToken) => {
-    const headers = userToken
-      ? { headers: { Authorization: `Token ${userToken}` } }
-      : { headers: {} };
-    const params = { params: teamToken };
-    console.log(headers);
-    const res = await axios.get(TEAMAPI.TEAMSHOPPING, params, headers);
+    const res = await axios.get(TEAMAPI.TEAMSHOPPING, {
+      params: { teamToken },
+      headers: { Authorization: `Token ${userToken}` },
+    });
 
     return res.data;
   },

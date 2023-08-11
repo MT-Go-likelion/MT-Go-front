@@ -1,14 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import Submitbutton from '../../Button/SubmitButton';
 
 import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
-import useTeam from '../../../hooks/queries/Team/useTeam';
 import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
 import useTeamLodgingCreate from '../../../hooks/queries/Team/useTeamLodgingCreate';
+import useTeamLodgingScrap from '../../../hooks/queries/Team/useTeamLodgingScrap';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -71,7 +71,9 @@ const TeamBtn = styled.div`
   padding: 4px 10px;
   border: 2px solid ${COLOR.lightGray};
   border-radius: 16px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 148px;
   cursor: pointer;
   transition:
@@ -81,6 +83,14 @@ const TeamBtn = styled.div`
     border: 2px solid ${COLOR.gray};
     background: ${COLOR.lightGray};
   }
+
+  ${(props) =>
+    props.isScrap &&
+    css`
+      background-color: ${COLOR.primary.blue};
+      color: ${COLOR.white};
+      border: none;
+    `}
 `;
 
 const FlexDiv = styled.div`
@@ -93,10 +103,10 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
   const user = queryClient.getQueryData(['user']);
 
   const {
-    teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
-  } = useTeam(user ? user.token : '');
+    teamLodgingScrapQuery: { isLoading, error, data: teams },
+  } = useTeamLodgingScrap(user ? user.token : '', pk);
 
-  const { teamLodgingMutation } = useTeamLodgingCreate(user ? user.token : '');
+  const { teamLodgingMutation } = useTeamLodgingCreate(user ? user.token : '', pk);
 
   const handleTeamClick = (teamToken) => {
     teamLodgingMutation({ teamToken, lodgingPk: pk });
@@ -114,12 +124,16 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
         <PopupContent>
           <Title>팀스페이스 추가하기</Title>
           <SubTitle>추가할 팀스페이스를 선택해주세요</SubTitle>
-          {teamIsLoading && <Loading />}
-          {teamError && <Error />}
+          {isLoading && <Loading />}
+          {error && <Error />}
           <TeamList>
             {teams &&
               teams.map((team) => (
-                <TeamBtn key={team.teamToken} onClick={() => handleTeamClick(team.teamToken)}>
+                <TeamBtn
+                  key={team.teamToken}
+                  onClick={() => handleTeamClick(team.teamToken)}
+                  isScrap={team.isScrap}
+                >
                   {team.teamName}
                 </TeamBtn>
               ))}

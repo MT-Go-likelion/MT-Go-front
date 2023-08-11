@@ -233,7 +233,7 @@ const MypageTeamspace = () => {
 
   const {
     teamShoppingQuery: { isLoading: shoppingLoading, error: shoppingError, data: teamShoppingList },
-  } = useTeamShopping(user ? user.token : '', { teamToken });
+  } = useTeamShopping(user ? user.token : '', teamToken);
 
   const [shoppingItems, setShoppingItems] = useState(teamShoppingList || []);
 

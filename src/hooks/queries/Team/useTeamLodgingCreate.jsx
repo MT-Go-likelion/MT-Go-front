@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import teamAPI from '../../../apis/teamAPI';
 
-const useTeamLodgingCreate = (userToken) => {
+const useTeamLodgingCreate = (userToken, lodgingPk) => {
   const queryClient = useQueryClient();
 
   const { mutate: teamLodgingMutation } = useMutation(
@@ -9,7 +9,7 @@ const useTeamLodgingCreate = (userToken) => {
     {
       onSuccess: (data) => {
         console.log(data);
-        queryClient.invalidateQueries(['team', 'lodging']);
+        queryClient.invalidateQueries(['team', lodgingPk, 'lodging']);
       },
       onError: (error) => {
         console.log(error);

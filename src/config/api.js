@@ -30,6 +30,7 @@ export const SHOPPINGAPI = {
 export const TEAMAPI = {
   TEAM: `${BASE_URL}/team/teamSpace/`,
   TEAMLODGING: `${BASE_URL}/team/teamSpaceLodging/`,
+  LODGING_IS_SCRAP: `${BASE_URL}/team/teamSpaceLodging/scrapList/`,
   TEAMRECREATION: `${BASE_URL}/team/teamSpaceRecreation/`,
   TEAMSHOPPING: `${BASE_URL}/team/teamSpaceShopping/`,
 };
