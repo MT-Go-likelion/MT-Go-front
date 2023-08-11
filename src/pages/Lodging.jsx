@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 
+import Pagination from 'react-js-pagination';
 import COLOR from '../constants/color';
+
+import '../styles/Pagination.css';
 
 import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
@@ -74,9 +77,15 @@ const Lodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
+  const [page, setPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
-  } = useLodging(user ? user.token : '');
+  } = useLodging(user ? user.token : '', page);
 
   return (
     <div>
@@ -96,7 +105,7 @@ const Lodging = () => {
       </SearchBack>
       <ContentsDiv>
         {lodgings &&
-          lodgings.map((obj) => (
+          lodgings.results.map((obj) => (
             <BestlocationCard
               key={obj.pk}
               pk={obj.pk}
@@ -108,6 +117,17 @@ const Lodging = () => {
             />
           ))}
       </ContentsDiv>
+      {lodgings && (
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={4}
+          totalItemsCount={lodgings.count}
+          pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1}
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };
