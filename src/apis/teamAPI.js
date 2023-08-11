@@ -34,11 +34,10 @@ const teamAPI = {
   },
 
   lodgingList: async (userToken, teamToken) => {
-    const headers = userToken
-      ? { headers: { Authorization: `Token ${userToken}` } }
-      : { headers: {} };
-    const params = { params: teamToken };
-    const res = await axios.get(TEAMAPI.TEAMLODGING, params, headers);
+    const res = await axios.get(TEAMAPI.TEAMLODGING, {
+      headers: { Authorization: `Token ${userToken}` },
+      params: { teamToken },
+    });
 
     return res.data;
   },
@@ -60,11 +59,10 @@ const teamAPI = {
   },
 
   recreaitonList: async (userToken, teamToken) => {
-    const headers = userToken
-      ? { headers: { Authorization: `Token ${userToken}` } }
-      : { headers: {} };
-    const params = { params: teamToken };
-    const res = await axios.get(TEAMAPI.TEAMRECREATION, params, headers);
+    const res = await axios.get(TEAMAPI.TEAMRECREATION, {
+      headers: { Authorization: `Token ${userToken}` },
+      params: { teamToken },
+    });
 
     return res.data;
   },

@@ -228,7 +228,7 @@ const MypageTeamspace = () => {
 
   const {
     teamLodgingQuery: { isLoading: lodgingLoading, error: lodgingError, data: lodgings },
-  } = useTeamLodging(user ? user.token : '', { teamToken });
+  } = useTeamLodging(user ? user.token : '', teamToken);
 
   const {
     teamRecreationQuery: {
@@ -236,7 +236,7 @@ const MypageTeamspace = () => {
       error: recreationError,
       data: recreations,
     },
-  } = useTeamRecreation(user ? user.token : '', { teamToken });
+  } = useTeamRecreation(user ? user.token : '', teamToken);
 
   const {
     teamShoppingQuery: { isLoading: shoppingLoading, error: shoppingError, data: teamShoppingList },
