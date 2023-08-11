@@ -171,6 +171,10 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
     teamQuery: { isLoading, error, data: teams },
   } = useTeam(user ? user.token : '');
 
+  const {
+    shoppingQuery: { data: shoppingList },
+  } = useShopping(user ? user.token : '');
+
   const { shoppingMutation } = useShopping(user ? user.token : '');
   const { teamShoppingMutation } = useTeamShoppingCreation(user ? user.token : '');
 
@@ -223,14 +227,19 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
   };
 
   const hanelSelectChange = (e) => {
-    setSelectedSpace(e.target.value);
+    const teamToken = e.target.value;
+    setSelectedSpace(teamToken);
 
-    axios
-      .get(TEAMAPI.TEAMSHOPPING, {
-        params: { teamToken: e.target.value },
-        headers: { Authorization: `Token ${user.token}` },
-      })
-      .then((res) => setShoppingItems(res.data));
+    if (teamToken !== 'private') {
+      axios
+        .get(TEAMAPI.TEAMSHOPPING, {
+          params: { teamToken: e.target.value },
+          headers: { Authorization: `Token ${user.token}` },
+        })
+        .then((res) => setShoppingItems(res.data));
+    } else {
+      setShoppingItems(shoppingList);
+    }
   };
 
   const handleDeleteClick = (e, item) => {
