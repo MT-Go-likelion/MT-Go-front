@@ -17,7 +17,13 @@ const lodgingAPI = {
     return res.data;
   },
   create: async (payload) => {
-    const res = await axios.post(LODGINGAPI.CREATELODGING, payload);
+    const res = await axios.post(LODGINGAPI.CREATE, payload);
+
+    return res.data;
+  },
+
+  delete: async (id) => {
+    const res = await axios.delete(LODGINGAPI.DETAIL + id);
 
     return res.data;
   },
@@ -27,6 +33,7 @@ const lodgingAPI = {
 
     return res.data;
   },
+
   scrapList: async (token) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.get(LODGINGAPI.SCRAPLIST, headers);
