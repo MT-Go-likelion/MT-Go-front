@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
+import MobileFooter from './components/Footer/MobileFooter';
 import GlobalStyles from './styles/GlobalStyle';
 import Navbar from './components/Navbar/Navbar';
 import { useUser } from './hooks/queries/Auth/useUser';
@@ -24,17 +25,19 @@ const AppContent = styled.div`
 
 function App() {
   const { user } = useUser();
+  const isMobile = window.innerWidth <= 450;
+  console.log(isMobile);
   return (
     <>
       <GlobalStyles />
       <AppLayout>
         <AppContainer>
-          <Navbar auth={!!user} />
+          {!isMobile && <Navbar auth={!!user} />}
           <AppContent>
             <Outlet />
           </AppContent>
         </AppContainer>
-        <Footer />
+        {isMobile ? <MobileFooter /> : <Footer />}
       </AppLayout>
     </>
   );
