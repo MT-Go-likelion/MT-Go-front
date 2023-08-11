@@ -7,7 +7,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 import RecreationCard from '../components/Card/RecreationCard';
-import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
 import DeleteSharePopup from '../components/Popup/Mypage/DeleteSharePopup';
 import useTeam from '../hooks/queries/Team/useTeam';
 import Loading from './Loading';
@@ -16,6 +15,8 @@ import useTeamLodging from '../hooks/queries/Team/useTeamLodging';
 import useTeamRecreation from '../hooks/queries/Team/useTeamRecreation';
 import useTeamShopping from '../hooks/queries/Team/useTeamShopping';
 import ListTable from '../components/Common/Shopping/ListTable';
+import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
+import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
 
 const mediaSize = 1030;
 
@@ -203,7 +204,8 @@ const Notification = styled.div`
 `;
 
 const MypageTeamspace = () => {
-  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
+  const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
   const [isDeletePopupVisible, setIsDeletePopupVisible] = useState(false);
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
@@ -245,27 +247,34 @@ const MypageTeamspace = () => {
     navigate(`/mypage`);
   };
 
-  const handleTeamspacePlusClick = () => {
-    setIspopupVisivle(true);
-    console.log('잘 됨');
-  };
-
   const handleDeleteClick = () => {
     setIsDeletePopupVisible(true);
     console.log('잘 됨');
   };
 
-  const handlePopupClose = () => {
-    setIspopupVisivle(false);
+  const handleCancelClose = () => {
+    setIsDeletePopupVisible(false);
+  };
+
+  const handleTeamspaceCreateClick = () => {
+    setIsCreatepopupVisivle(true);
+  };
+
+  const handleCreatePopupClose = () => {
+    setIsCreatepopupVisivle(false);
+  };
+
+  const handleTeamspaceJoinClick = () => {
+    setIsJoinpopupVisivle(true);
+  };
+
+  const handleJoinPopupClose = () => {
+    setIsJoinpopupVisivle(false);
   };
 
   const handleDeleteClose = () => {
     setIsDeletePopupVisible(false);
     // 팀스페이스 삭제하는 api 구현
-  };
-
-  const handleCancelClose = () => {
-    setIsDeletePopupVisible(false);
   };
 
   // 복사가 성공적으로 이루어질 때
@@ -289,8 +298,12 @@ const MypageTeamspace = () => {
           <Title onClick={gotoMypage}>개인 스페이스</Title>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
-            <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
-            {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
+            <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
+            <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>{' '}
+            {IsCreatepopupVisivle && (
+              <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
+            )}
+            {IsJoinpopupVisivle && <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />}
             {teamIsLoading && <Loading />}
             {teamError && <Error />}
             {teams &&

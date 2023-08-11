@@ -7,7 +7,6 @@ import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
 // import BagCard from '../components/Card/BagCard';
 import RecreationCard from '../components/Card/RecreationCard';
-import TeamspacePopup from '../components/Popup/Mypage/TeamspacePopup';
 import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
 import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
 import Loading from './Loading';
@@ -15,6 +14,8 @@ import Error from './Error';
 import useTeam from '../hooks/queries/Team/useTeam';
 import useShopping from '../hooks/queries/Shopping/useShopping';
 import ListTable from '../components/Common/Shopping/ListTable';
+import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
+import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
 
 const mediaSize = 1030;
 
@@ -111,7 +112,9 @@ const MyPage = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
+  const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -142,12 +145,20 @@ const MyPage = () => {
     navigate(`/Mypage`);
   };
 
-  const handleTeamspacePlusClick = () => {
-    setIspopupVisivle(true);
+  const handleTeamspaceCreateClick = () => {
+    setIsCreatepopupVisivle(true);
   };
 
-  const handlePopupClose = () => {
-    setIspopupVisivle(false);
+  const handleCreatePopupClose = () => {
+    setIsCreatepopupVisivle(false);
+  };
+
+  const handleTeamspaceJoinClick = () => {
+    setIsJoinpopupVisivle(true);
+  };
+
+  const handleJoinPopupClose = () => {
+    setIsJoinpopupVisivle(false);
   };
 
   return (
@@ -158,8 +169,13 @@ const MyPage = () => {
           <Title onClick={gotoMypage}>개인 스페이스</Title>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
-            <TeamspacePlus onClick={handleTeamspacePlusClick}>팀 스페이스 +</TeamspacePlus>
-            {IspopupVisivle && <TeamspacePopup handlePopupClose={handlePopupClose} />}
+            <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
+            <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>
+
+            {IsCreatepopupVisivle && (
+              <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
+            )}
+            {IsJoinpopupVisivle && <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />}
             {teamIsLoading && <Loading />}
             {teamError && <Error />}
             {teams &&

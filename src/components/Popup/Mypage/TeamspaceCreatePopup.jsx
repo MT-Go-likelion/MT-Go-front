@@ -71,7 +71,7 @@ const FlexDiv = styled.div`
   justify-content: center;
 `;
 
-const TeamSpacePopup = ({ handlePopupClose }) => {
+const TeamSpaceCreatePopup = ({ handlePopupClose }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
@@ -101,4 +101,4 @@ const TeamSpacePopup = ({ handlePopupClose }) => {
   );
 };
 
-export default TeamSpacePopup;
+export default TeamSpaceCreatePopup;
