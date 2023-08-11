@@ -17,7 +17,6 @@ import useTeamShopping from '../hooks/queries/Team/useTeamShopping';
 import ListTable from '../components/Common/Shopping/ListTable';
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
-import useTeamUserList from '../hooks/queries/Team/useTeamUserList';
 
 const mediaSize = 1030;
 
@@ -223,12 +222,8 @@ const MypageTeamspace = () => {
   } = useTeam(user ? user.token : '');
 
   const {
-    teamUserQuery: { isLoading: teamUserLoading, error: teamUserError, data: users },
-  } = useTeamUserList(user ? user.token : '', teamToken);
-
-  const {
     teamLodgingQuery: { isLoading: lodgingLoading, error: lodgingError, data: lodgings },
-  } = useTeamLodging(user ? user.token : '', teamToken);
+  } = useTeamLodging(user ? user.token : '', { teamToken });
 
   const {
     teamRecreationQuery: {
@@ -236,7 +231,7 @@ const MypageTeamspace = () => {
       error: recreationError,
       data: recreations,
     },
-  } = useTeamRecreation(user ? user.token : '', teamToken);
+  } = useTeamRecreation(user ? user.token : '', { teamToken });
 
   const {
     teamShoppingQuery: { isLoading: shoppingLoading, error: shoppingError, data: teamShoppingList },
@@ -339,15 +334,22 @@ const MypageTeamspace = () => {
             </ButtonDiv>
           </TNameDiv>
           <Flex>
-            {teamUserLoading && <Loading />}
-            {teamUserError && <Error />}
-            {users &&
-              users.map((user) => (
-                <TeamspaceName>
-                  <Userimg />
-                  <UserName>{user.name}</UserName>
-                </TeamspaceName>
-              ))}
+            <TeamspaceName>
+              <Userimg />
+              <UserName>Name</UserName>
+            </TeamspaceName>
+            <TeamspaceName>
+              <Userimg />
+              <UserName>Name</UserName>
+            </TeamspaceName>
+            <TeamspaceName>
+              <Userimg />
+              <UserName>Name</UserName>
+            </TeamspaceName>
+            <TeamspaceName>
+              <Userimg />
+              <UserName>Name</UserName>
+            </TeamspaceName>
           </Flex>
           <SubTitle>담은 숙소</SubTitle>
           <Flex>

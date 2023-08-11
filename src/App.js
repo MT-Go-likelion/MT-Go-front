@@ -26,6 +26,7 @@ const AppContent = styled.div`
 function App() {
   const { user } = useUser();
   const isMobile = window.innerWidth <= 450;
+  console.log(isMobile);
   return (
     <>
       <GlobalStyles />

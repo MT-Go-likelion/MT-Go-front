@@ -2,11 +2,9 @@ import axios from 'axios';
 import { LODGINGAPI } from '../config/api';
 
 const lodgingAPI = {
-  list: async (token, page) => {
-    const res = await axios.get(LODGINGAPI.LIST, {
-      headers: token ? { Authorization: `Token ${token}` } : {},
-      params: { page },
-    });
+  list: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(LODGINGAPI.LIST, headers);
 
     return res.data;
   },
