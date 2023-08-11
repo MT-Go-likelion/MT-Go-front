@@ -78,13 +78,13 @@ const Lodging = () => {
 
   const [page, setPage] = useState(1);
 
-  const handlePageChange = (page) => {
-    setPage(page);
-  };
-
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
   } = useLodging(user ? user.token : '', page);
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
 
   return (
     <div>
