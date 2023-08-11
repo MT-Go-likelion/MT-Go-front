@@ -24,6 +24,7 @@ const StyledSelect = styled.select`
   @media (max-width: ${mobileSize}px) {
     width: 78px;
     height: 26px;
+    padding-left: 5px;
   }
 `;
 

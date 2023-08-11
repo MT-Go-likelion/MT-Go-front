@@ -11,6 +11,7 @@ import Location from '../components/SelectBox/Location';
 import Headcount from '../components/SelectBox/Headcount';
 import Price from '../components/SelectBox/Price';
 import BestlocationCard from '../components/Card/BestlocationCard';
+import LodgingMobileCard from '../components/Mobile/LodgingMobileCard';
 
 import SearchImg from '../assets/images/search.png';
 import LodgingMobileB from '../assets/images/LoadgingBackM.png';
@@ -37,7 +38,7 @@ const SearchBack = styled.div`
   gap: 1.5rem;
   @media (max-width: ${mobileSize}px) {
     background-image: url(${LodgingMobileB});
-    gap: 0.1rem;
+    gap: 0.3rem;
     align-items: flex-start;
     padding-left: 1.7rem;
   }
@@ -53,7 +54,7 @@ const ContentsDiv = styled.div`
   max-width: 1280px;
   margin: auto;
   @media (max-width: ${mobileSize}px) {
-    padding: 2rem 0;
+    padding: 2rem 0 7rem 0;
     background-color: ${COLOR.white};
     border-radius: 32px 0px 0px 0px;
     top: 10.9rem;
@@ -81,9 +82,12 @@ const Title = styled.div`
 const BoxFlex = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   align-items: center;
+  @media (max-width: ${mobileSize}px) {
+    gap: 0.8rem;
+  }
 `;
 
 // 검색하기 버튼
@@ -141,7 +145,6 @@ const Lodging = () => {
         <Title>원하는 단체숙소를 검색하세요!</Title>
         {!isMobile ? (
           <>
-            {' '}
             <BoxFlex>
               <Location />
               <Headcount />
@@ -161,15 +164,29 @@ const Lodging = () => {
       <ContentsDiv>
         {lodgings &&
           lodgings.results.map((obj) => (
-            <BestlocationCard
-              key={obj.pk}
-              pk={obj.pk}
-              name={obj.name}
-              price={obj.price}
-              mainPhoto={obj.mainPhoto}
-              avgScore={obj.avgScore}
-              isScrap={obj.isScrap}
-            />
+            <div>
+              {isMobile ? (
+                <LodgingMobileCard
+                  key={obj.pk}
+                  pk={obj.pk}
+                  name={obj.name}
+                  price={obj.price}
+                  mainPhoto={obj.mainPhoto}
+                  avgScore={obj.avgScore}
+                  isScrap={obj.isScrap}
+                />
+              ) : (
+                <BestlocationCard
+                  key={obj.pk}
+                  pk={obj.pk}
+                  name={obj.name}
+                  price={obj.price}
+                  mainPhoto={obj.mainPhoto}
+                  avgScore={obj.avgScore}
+                  isScrap={obj.isScrap}
+                />
+              )}
+            </div>
           ))}
       </ContentsDiv>
       {lodgings && (
