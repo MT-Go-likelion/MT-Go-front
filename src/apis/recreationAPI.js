@@ -2,9 +2,11 @@ import axios from 'axios';
 import { RECREATIONAPI } from '../config/api';
 
 const recreationAPI = {
-  list: async (token) => {
-    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
-    const res = await axios.get(RECREATIONAPI.LIST, headers);
+  list: async (token, page) => {
+    const res = await axios.get(RECREATIONAPI.LIST, {
+      headers: token ? { Authorization: `Token ${token}` } : {},
+      params: { page },
+    });
 
     return res.data;
   },
@@ -18,6 +20,12 @@ const recreationAPI = {
   scrap: async ({ isScrap, recreationPk, token }) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.post(RECREATIONAPI.SCRAP, { isScrap, recreationPk }, headers);
+
+    return res.data;
+  },
+
+  delete: async (id) => {
+    const res = await axios.delete(RECREATIONAPI.DETAIL + id);
 
     return res.data;
   },

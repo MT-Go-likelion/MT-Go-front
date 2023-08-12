@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
+import Pagination from 'react-js-pagination';
 import RecreationCard from '../components/Card/RecreationCard';
 import CustomRecreationCard from '../components/Mobile/RecreationMobileCard';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
@@ -59,9 +60,18 @@ const Recreation = () => {
   const user = queryClient.getQueryData(['user']);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
+  const [page, setPage] = useState(1);
+
   const {
     recreationsQuery: { isLoading, error, data: recreations },
-  } = useRecreation(user ? user.token : '');
+  } = useRecreation(user ? user.token : '', page);
+
+  console.log(recreations);
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
   };
@@ -80,10 +90,11 @@ const Recreation = () => {
       <Title>레크레이션</Title>
       <RecreationList>
         {recreations &&
-          recreations.map((recreation) => (
+          recreations.results.map((recreation) => (
             <RecreationItem key={recreation.pk}>
               {isMobile ? (
                 <CustomRecreationCard
+                  key={recreation.pk}
                   pk={recreation.pk}
                   name={recreation.name}
                   photo={recreation.photo}
@@ -93,6 +104,7 @@ const Recreation = () => {
                 />
               ) : (
                 <RecreationCard
+                  key={recreation.pk}
                   pk={recreation.pk}
                   name={recreation.name}
                   photo={recreation.photo}
@@ -104,6 +116,17 @@ const Recreation = () => {
             </RecreationItem>
           ))}
       </RecreationList>
+      {recreations && (
+        <Pagination
+          activePage={page} // 현재 페이지
+          itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+          totalItemsCount={recreations.count} // 총 아이템 개수
+          pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={handlePageChange}
+        />
+      )}
     </RecreationLayout>
   );
 };

@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import heart from '../../assets/images/heart-gradient.png';
 import booking from '../../assets/images/booking.png';
 import ImageSwiper from '../ImageSwiper/ImageSwiper';
 import COLOR from '../../constants/color';
 import RatingContainer from '../Common/Review/RatingContainer';
 import LodingPopup from '../Popup/Lodging/LodingPopup';
+import useLodging from '../../hooks/queries/Lodging/useLodging';
 
 const HeaderContainer = styled.div`
   margin-bottom: 3rem;
@@ -62,6 +64,13 @@ const ReservationBtn = styled.button`
 
 const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const navigate = useNavigate();
+  const { lodgingDeleteMutation } = useLodging();
+
+  const onClickDeleteBtn = () => {
+    lodgingDeleteMutation(pk);
+    navigate('/');
+  };
 
   const handleTeamBtnClick = (e) => {
     e.stopPropagation();
@@ -82,8 +91,8 @@ const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
             <Heart src={heart} />
             <Booking src={booking} onClick={handleTeamBtnClick} />
           </LodingDealingContainer>
-          <ReservationBtn width={11.25} height={3.75}>
-            예약하기
+          <ReservationBtn width={11.25} height={3.75} onClick={onClickDeleteBtn}>
+            삭제하기
           </ReservationBtn>
         </HeaderRight>
       </Header>

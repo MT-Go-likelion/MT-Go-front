@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import lodgingAPI from '../../../apis/lodgingAPI';
 
 const useLodgingScrap = () => {
-  const { mutate: scrapMutation } = useMutation((payload) => lodgingAPI.scrap(payload), {
+  const { mutate: lodgingScrapMutation } = useMutation((payload) => lodgingAPI.scrap(payload), {
     onSuccess: (data) => {
       console.log(data);
     },
@@ -10,7 +10,7 @@ const useLodgingScrap = () => {
       console.log(error);
     },
   });
-  return { scrapMutation };
+  return { lodgingScrapMutation };
 };
 
 export default useLodgingScrap;

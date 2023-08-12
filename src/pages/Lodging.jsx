@@ -118,10 +118,6 @@ const Lodging = () => {
 
   const [page, setPage] = useState(1);
 
-  const handlePageChange = (page) => {
-    setPage(page);
-  };
-
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
   };
@@ -136,6 +132,10 @@ const Lodging = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
 
   return (
     <div>
@@ -192,7 +192,7 @@ const Lodging = () => {
       {lodgings && (
         <Pagination
           activePage={page} // 현재 페이지
-          itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+          itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
           totalItemsCount={lodgings.count} // 총 아이템 개수
           pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
           prevPageText="‹"

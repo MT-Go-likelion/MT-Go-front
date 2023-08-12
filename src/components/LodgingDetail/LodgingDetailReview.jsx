@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import Pagination from 'react-js-pagination';
 
 import { FaStar } from 'react-icons/fa';
 import { useQueryClient } from '@tanstack/react-query';
@@ -23,6 +24,11 @@ const LodgingDetailReview = ({ pk }) => {
   const [selectedImgName, setSelectedReviewImgName] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
 
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
   const reviewImgInputRef = useRef();
 
   const navigate = useNavigate();
@@ -31,9 +37,10 @@ const LodgingDetailReview = ({ pk }) => {
   const user = queryClient.getQueryData(['user']);
 
   const {
-    lodgingReviewQuery: { isLoading, error, data: reviews },
+    lodgingReviewQuery: { isLoading, error, data: reviews, refetch },
     lodgingReviewMutation,
-  } = useLodgingReview(user ? user.token : '', pk);
+    lodgingReviewDeleteMutation,
+  } = useLodgingReview(user ? user.token : '', pk, page);
 
   const onClickReviewInput = (e) => {
     e.preventDefault();
@@ -78,6 +85,11 @@ const LodgingDetailReview = ({ pk }) => {
     setSelectedImg('');
     setSelectedReviewImgName('');
     setClicked([false, false, false, false, false]);
+  };
+
+  const onClickDeleteBtn = (reviewPk) => {
+    lodgingReviewDeleteMutation(reviewPk);
+    refetch();
   };
 
   return (
@@ -130,11 +142,12 @@ const LodgingDetailReview = ({ pk }) => {
           </ReviewWritingContainer>
           <ReviewList>
             {reviews &&
-              reviews.map((review) => (
+              reviews.results.map((review) => (
                 <ReviewItem key={uuid()}>
                   <ReviewItemLeft>
                     <UserText>{review.userName}</UserText>
                     <DateText>{review.createdAt}</DateText>
+                    <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>삭제하기</DeleteBtn>
                   </ReviewItemLeft>
                   <ReviewText>{review.contents}</ReviewText>
                   <ReviewItemRight>
@@ -144,6 +157,17 @@ const LodgingDetailReview = ({ pk }) => {
                 </ReviewItem>
               ))}
           </ReviewList>
+          {reviews && (
+            <Pagination
+              activePage={page} // 현재 페이지
+              itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+              totalItemsCount={reviews.count} // 총 아이템 개수
+              pageRangeDisplayed={Math.floor(reviews.count / 2) + 1} // 페이지 범위
+              prevPageText="‹"
+              nextPageText="›"
+              onChange={handlePageChange}
+            />
+          )}
         </ReviewContentContainer>
       </ReviewContainer>
     </>
@@ -289,6 +313,8 @@ const DateText = styled.span`
   font-size: 0.75rem;
   color: ${COLOR.lightGray};
 `;
+
+const DeleteBtn = styled.button``;
 
 const ReviewText = styled.div`
   flex-basis: 70%;

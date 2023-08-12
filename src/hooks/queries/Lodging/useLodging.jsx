@@ -13,7 +13,25 @@ const useLodging = (token, page = 1) => {
     },
   });
 
-  return { lodgingsQuery, lodgingMutation };
+  const { mutate: lodgingUpdateMutation } = useMutation((pk) => lodgingAPI.update(pk), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const { mutate: lodgingDeleteMutation } = useMutation((pk) => lodgingAPI.delete(pk), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  return { lodgingsQuery, lodgingMutation, lodgingUpdateMutation, lodgingDeleteMutation };
 };
 
 export default useLodging;
