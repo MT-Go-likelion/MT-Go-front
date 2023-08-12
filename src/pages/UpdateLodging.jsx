@@ -62,7 +62,6 @@ const UpdateLodging = () => {
   const user = queryClient.getQueryData(['user']);
 
   const location = useLocation();
-  console.log(location.state.lodging);
 
   const [name, onChangeName] = useInput(location.state.lodging.name);
   const [address, onChangeAddress] = useInput(location.state.lodging.address);
@@ -127,7 +126,6 @@ const UpdateLodging = () => {
 
   const handlesubmit = (event) => {
     event.preventDefault();
-    console.log(addedMainPhoto, location.state.lodging.mainPhoto);
 
     const formData = new FormData();
     formData.append('name', name);
@@ -144,7 +142,6 @@ const UpdateLodging = () => {
     formData.append('checkOutTime', checkOutTime);
 
     if (mainPhoto !== location.state.lodging.mainPhoto) {
-      console.log('asd');
       formData.append('mainPhoto', addedMainPhoto);
     }
 
