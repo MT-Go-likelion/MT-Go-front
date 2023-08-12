@@ -126,14 +126,14 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const { scrapMutation } = useLodgingScrap();
+  const { lodgingScrapMutation } = useLodgingScrap();
 
   const handlelikeClick = (e) => {
     e.stopPropagation();
 
     if (user) {
       setLiked((prevState) => !prevState);
-      scrapMutation({
+      lodgingScrapMutation({
         isScrap: !liked,
         lodging: pk,
         token: user.token,

@@ -22,6 +22,12 @@ const lodgingAPI = {
     return res.data;
   },
 
+  update: async (id) => {
+    const res = await axios.put(LODGINGAPI.DETAIL + id);
+
+    return res.data;
+  },
+
   delete: async (id) => {
     const res = await axios.delete(LODGINGAPI.DETAIL + id);
 
