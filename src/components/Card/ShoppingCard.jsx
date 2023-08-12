@@ -169,6 +169,7 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
 
   const handlePopupClose = () => {
     setIspopupVisivle(false);
+
     console.log('닫기버튼');
   };
 
