@@ -38,11 +38,20 @@ const SuccessText = styled.div`
   font-size: bold;
 `;
 
+const ThumbImgContainer = styled.div`
+  width: 10rem;
+  height: 10rem;
+`;
+
+const ThumbImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
 const CreateLodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  // const [pk, setPK] = useState('');
   const [name, onChangeName] = useInput('');
   const [address, onChangeAddress] = useInput('');
   const [place, onChangePlace] = useInput('');
@@ -55,7 +64,9 @@ const CreateLodging = () => {
   const [precaution, onChangePrecaution] = useInput('');
   const [checkInTime, onChangeCheckInTime] = useInput('');
   const [checkOutTime, onChangeCheckOutTime] = useInput('');
-  const [mainPhoto, setMainPhoto] = useState('');
+  const [myImage, setMyImage] = useState([]);
+  const [mainPhoto, setMainPhoto] = useState([]);
+  const [photos, setPhotos] = useState([]);
   const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
@@ -65,6 +76,24 @@ const CreateLodging = () => {
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
     setMainPhoto(selectedFile);
+  };
+
+  const addImage = (e) => {
+    const nowSelectImageList = e.target.files;
+
+    const nowImgURLList = [...myImage];
+    const nowFormImgList = [...photos];
+
+    console.log(nowImgURLList, '미리보기 파일 배열');
+
+    const nowImageUrl = URL.createObjectURL(nowSelectImageList[0]);
+    const newFormImg = nowSelectImageList[0];
+
+    nowImgURLList.push(nowImageUrl);
+    nowFormImgList.push(newFormImg);
+
+    setMyImage(nowImgURLList);
+    setPhotos(nowFormImgList);
   };
 
   const handlesubmit = (event) => {
@@ -83,7 +112,9 @@ const CreateLodging = () => {
     formData.append('checkInTime', checkInTime);
     formData.append('checkOutTime', checkOutTime);
     formData.append('mainPhoto', mainPhoto);
-    formData.append('photos', []);
+    photos.forEach((photo) => {
+      return formData.append('photos', photo);
+    });
 
     if (user) {
       lodgingMutation(formData, {
@@ -148,6 +179,24 @@ const CreateLodging = () => {
           onChange={onChangeCheckOutTime}
         />
         <input type="file" onChange={handleImageChange} />
+        <label onChange={addImage} htmlFor="input-file" className="input-file">
+          <input
+            type="file"
+            multiple="multiple"
+            accept=".jpg,.jpeg,.png"
+            /* style={{ display: "none" }} */
+          />
+        </label>
+        <div>
+          {myImage &&
+            myImage.map((x) => {
+              return (
+                <ThumbImgContainer>
+                  <ThumbImg src={x} alt="lodging" />
+                </ThumbImgContainer>
+              );
+            })}
+        </div>
 
         <SubmitButton type="submit">제출하기</SubmitButton>
       </form>
