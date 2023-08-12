@@ -16,6 +16,13 @@ const lodgingReviewAPI = {
 
     return res.data;
   },
+
+  delete: async (id, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.delete(LODGINGAPI.DELETEREVIEW + id, headers);
+
+    return res.data;
+  },
 };
 
 export default lodgingReviewAPI;

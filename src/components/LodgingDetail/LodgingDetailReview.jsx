@@ -37,8 +37,9 @@ const LodgingDetailReview = ({ pk }) => {
   const user = queryClient.getQueryData(['user']);
 
   const {
-    lodgingReviewQuery: { isLoading, error, data: reviews },
+    lodgingReviewQuery: { isLoading, error, data: reviews, refetch },
     lodgingReviewMutation,
+    lodgingReviewDeleteMutation,
   } = useLodgingReview(user ? user.token : '', pk, page);
 
   const onClickReviewInput = (e) => {
@@ -84,6 +85,11 @@ const LodgingDetailReview = ({ pk }) => {
     setSelectedImg('');
     setSelectedReviewImgName('');
     setClicked([false, false, false, false, false]);
+  };
+
+  const onClickDeleteBtn = (reviewPk) => {
+    lodgingReviewDeleteMutation(reviewPk);
+    refetch();
   };
 
   return (
@@ -141,6 +147,7 @@ const LodgingDetailReview = ({ pk }) => {
                   <ReviewItemLeft>
                     <UserText>{review.userName}</UserText>
                     <DateText>{review.createdAt}</DateText>
+                    <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>삭제하기</DeleteBtn>
                   </ReviewItemLeft>
                   <ReviewText>{review.contents}</ReviewText>
                   <ReviewItemRight>
@@ -306,6 +313,8 @@ const DateText = styled.span`
   font-size: 0.75rem;
   color: ${COLOR.lightGray};
 `;
+
+const DeleteBtn = styled.button``;
 
 const ReviewText = styled.div`
   flex-basis: 70%;

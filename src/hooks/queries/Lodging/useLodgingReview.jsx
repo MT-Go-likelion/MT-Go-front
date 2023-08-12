@@ -16,7 +16,7 @@ const useLodgingReview = (token, id, page = 1) => {
     (payload) => lodgingReviewAPI.create(payload, token),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['lodging', id, 'reviews']);
+        queryClient.invalidateQueries(['lodging', page, 'reviews']);
       },
       onError: (error) => {
         console.log(error);
@@ -24,7 +24,19 @@ const useLodgingReview = (token, id, page = 1) => {
     },
   );
 
-  return { lodgingReviewMutation, lodgingReviewQuery };
+  const { mutate: lodgingReviewDeleteMutation } = useMutation(
+    (pk) => lodgingReviewAPI.delete(pk, token),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['lodging', page, 'reviews']);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
+
+  return { lodgingReviewMutation, lodgingReviewQuery, lodgingReviewDeleteMutation };
 };
 
 export default useLodgingReview;
