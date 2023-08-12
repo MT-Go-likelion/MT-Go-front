@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import COLOR from '../../../constants/color';
 
+const slideIn = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+const slideOut = keyframes`
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+`;
 const PopupOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s ease-in-out;
+`;
+const FlexDiv = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 `;
 
 const PopupContent = styled.div`
@@ -22,13 +44,15 @@ const PopupContent = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  border-radius: 32px 32px 0px 0px;
+  box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const InputContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 100%;
+  width: 245px;
   gap: 1rem;
 `;
 
@@ -85,53 +109,71 @@ const SumContent = styled.div`
 
 const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
   const [item, setName] = useState('');
+  const [visible, setVisible] = useState(isVisible);
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');
+  console.log(visible);
 
-  const handleComplete = () => {
+  const handleComplete = (e) => {
     if (amount !== '' && price !== '') {
-      console.log(item, amount, price);
       onComplete(item, amount, price);
-      onClose();
+      e.preventDefault();
+      setVisible(false);
+      setTimeout(() => {
+        onClose();
+      }, 400);
     }
   };
+  const handleClose = (e) => {
+    e.preventDefault();
+    setVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 400);
+  };
+
+  useEffect(() => {
+    setVisible(isVisible);
+  }, [isVisible]);
 
   return isVisible ? (
-    <PopupOverlay>
-      <PopupContent>
-        상품이름, 갯수, 가격을 입력해주세요
-        <InputContent>
-          <Input
-            type="string"
-            value={item}
-            placeholder="상품이름"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            type="number"
-            value={amount}
-            placeholder="수량"
-            onChange={(e) => setAmount(e.target.value)}
-          />
-          <Input
-            type="number"
-            value={price}
-            placeholder="단가"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </InputContent>
-        <SumDiv>
-          총 금액 : <SumContent>{amount * price || 0} 원</SumContent>
-        </SumDiv>
-        <ButtonDiv>
-          <BlueButton type="button" onClick={onClose}>
-            취소
-          </BlueButton>
-          <BlueButton type="button" onClick={handleComplete}>
-            완료
-          </BlueButton>
-        </ButtonDiv>
-      </PopupContent>
+    <PopupOverlay visible={visible}>
+      <FlexDiv>
+        <PopupContent>
+          상품이름, 갯수, 가격을 입력해주세요
+          <InputContent>
+            <Input
+              type="string"
+              value={item}
+              placeholder="상품이름"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              type="number"
+              value={amount}
+              placeholder="수량"
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <Input
+              type="number"
+              value={price}
+              placeholder="단가"
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </InputContent>
+          <SumDiv>
+            총 금액 : <SumContent>{amount * price || 0} 원</SumContent>
+          </SumDiv>
+          <ButtonDiv>
+            <BlueButton type="button" onClick={handleClose}>
+              취소
+            </BlueButton>
+            <BlueButton type="button" onClick={handleComplete}>
+              완료
+            </BlueButton>
+          </ButtonDiv>
+        </PopupContent>
+      </FlexDiv>
     </PopupOverlay>
   ) : null;
 };

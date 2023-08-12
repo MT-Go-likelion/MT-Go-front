@@ -24,20 +24,21 @@ const PopupOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  width: 390px;
   z-index: 1000;
   align-items: flex-end;
   animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s ease-in-out;
 `;
-// border-radius: 32px 32px 0px 0px;
-// background: #fff;
-// box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
-// background: none;
+
+const FlexDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
 const PopupContent = styled.div`
   background-color: white;
   padding: 2rem;
-  width: 390px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -51,7 +52,7 @@ const InputContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 100%;
+  width: 245px;
   gap: 1rem;
 `;
 
@@ -113,7 +114,7 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete, name }) => {
 
   const handleComplete = (e) => {
     if (amount !== '' && price !== '') {
-      onComplete(name, amount, price);
+      onComplete(name, price, amount);
       e.preventDefault();
       setVisible(false);
       setTimeout(() => {
@@ -131,34 +132,36 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete, name }) => {
 
   return isVisible ? (
     <PopupOverlay visible={visible}>
-      <PopupContent>
-        갯수와 가격을 입력해주세요
-        <InputContent>
-          <Input
-            type="number"
-            value={amount}
-            placeholder="수량"
-            onChange={(e) => setAmount(e.target.value)}
-          />
-          <Input
-            type="number"
-            value={price}
-            placeholder="단가"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </InputContent>
-        <SumDiv>
-          총 금액 : <SumContent>{amount * price || 0} 원</SumContent>
-        </SumDiv>
-        <ButtonDiv>
-          <BlueButton type="button" onClick={handleClose}>
-            취소
-          </BlueButton>
-          <BlueButton type="button" onClick={handleComplete}>
-            완료
-          </BlueButton>
-        </ButtonDiv>
-      </PopupContent>
+      <FlexDiv>
+        <PopupContent>
+          갯수와 가격을 입력해주세요
+          <InputContent>
+            <Input
+              type="number"
+              value={amount}
+              placeholder="수량"
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <Input
+              type="number"
+              value={price}
+              placeholder="단가"
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </InputContent>
+          <SumDiv>
+            총 금액 : <SumContent>{amount * price || 0} 원</SumContent>
+          </SumDiv>
+          <ButtonDiv>
+            <BlueButton type="button" onClick={handleClose}>
+              취소
+            </BlueButton>
+            <BlueButton type="button" onClick={handleComplete}>
+              완료
+            </BlueButton>
+          </ButtonDiv>
+        </PopupContent>
+      </FlexDiv>
     </PopupOverlay>
   ) : null;
 };
