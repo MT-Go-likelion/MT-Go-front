@@ -12,6 +12,7 @@ const PopupOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 `;
 
 const PopupContent = styled.div`
@@ -83,13 +84,13 @@ const SumContent = styled.div`
   border: 1px solid ${COLOR.lightGray};
 `;
 
-const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
+const ShoppingPopup = ({ isVisible, onClose, onComplete, name }) => {
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');
 
   const handleComplete = () => {
     if (amount !== '' && price !== '') {
-      onComplete(amount, price);
+      onComplete(name, amount, price);
       onClose();
     }
   };

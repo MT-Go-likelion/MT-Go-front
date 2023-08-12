@@ -75,6 +75,9 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
   gap: 3rem;
   justify-content: center;
+  @media (max-width: ${mobileSize}px) {
+    gap: 2rem;
+  }
 `;
 
 const CalDiv = styled.div`
@@ -271,12 +274,23 @@ const Shopping = () => {
           <Container>
             <Flex>
               {TagOptions.map((options) => (
-                <ShoppingCard
-                  key={options.TagId}
-                  name={options.name}
-                  price={options.price}
-                  onCardClick={handleComplete}
-                />
+                <div>
+                  {isMobile ? (
+                    <ShoppingCard
+                      key={options.TagId}
+                      name={options.name}
+                      price={options.price}
+                      onCardClick={handleComplete}
+                    />
+                  ) : (
+                    <ShoppingCard
+                      key={options.TagId}
+                      name={options.name}
+                      price={options.price}
+                      onCardClick={handleComplete}
+                    />
+                  )}
+                </div>
               ))}
             </Flex>
           </Container>

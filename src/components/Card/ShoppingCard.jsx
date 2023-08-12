@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import COLOR from '../../constants/color';
 import { mobileSize } from '../../utils/MediaSize';
+import TagPopup from '../Popup/Shopping/TagPopup';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -141,6 +142,7 @@ const Shopping = styled.button`
 const ShoppingCard = ({ name, price, onCardClick }) => {
   const [amount, setAmount] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+  const [IspopupVisivle, setIspopupVisivle] = useState(false);
 
   const handleIncrement = () => {
     setAmount(amount + 1);
@@ -161,6 +163,15 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
     setIsMobile(window.innerWidth <= mobileSize);
   };
 
+  const HandlePopup = () => {
+    setIspopupVisivle(true);
+  };
+
+  const handlePopupClose = () => {
+    setIspopupVisivle(false);
+    console.log('닫기버튼');
+  };
+
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -170,25 +181,44 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
   }, []);
 
   return (
-    <BestLoContainer>
-      <BackImg> </BackImg>
-      <FlexDiv>
-        <Name>{name}</Name>
-        <Price>{price}원</Price>
-        {isMobile ? (
-          ''
-        ) : (
-          <Div>
-            <Slide>
-              <IncrementleftButton onClick={handleDecrement}>-</IncrementleftButton>
-              <Amount>{amount}</Amount>
-              <IncrementrightButton onClick={handleIncrement}>+</IncrementrightButton>
-            </Slide>
-            <Shopping onClick={setCartState}>담기</Shopping>
-          </Div>
-        )}
-      </FlexDiv>
-    </BestLoContainer>
+    <div>
+      {!isMobile ? (
+        <BestLoContainer>
+          <BackImg> </BackImg>
+          <FlexDiv>
+            <Name>{name}</Name>
+            <Price>{price}원</Price>
+            <Div>
+              <Slide>
+                <IncrementleftButton onClick={handleDecrement}>-</IncrementleftButton>
+                <Amount>{amount}</Amount>
+                <IncrementrightButton onClick={handleIncrement}>+</IncrementrightButton>
+              </Slide>
+              <Shopping onClick={setCartState}>담기</Shopping>
+            </Div>
+          </FlexDiv>
+        </BestLoContainer>
+      ) : (
+        <BestLoContainer onClick={HandlePopup}>
+          <BackImg> </BackImg>
+          <FlexDiv>
+            <Name>{name}</Name>
+            <Price>{price}원</Price>
+          </FlexDiv>
+        </BestLoContainer>
+      )}
+      {IspopupVisivle && (
+        <TagPopup
+          isVisible={IspopupVisivle}
+          onClose={handlePopupClose}
+          onComplete={(item, amount, price) => {
+            onCardClick(item, amount, price);
+            setIspopupVisivle(false);
+          }}
+          name={name}
+        />
+      )}
+    </div>
   );
 };
 export default ShoppingCard;
