@@ -9,8 +9,10 @@ const lodgingReviewAPI = {
     return res.data;
   },
 
-  list: async (id) => {
-    const res = await axios.get(`${LODGINGAPI.DETAIL}${id}/review/`);
+  list: async (id, page) => {
+    const res = await axios.get(`${LODGINGAPI.DETAIL}${id}/review/`, {
+      params: { page },
+    });
 
     return res.data;
   },
