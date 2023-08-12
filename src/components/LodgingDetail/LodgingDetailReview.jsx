@@ -161,7 +161,7 @@ const LodgingDetailReview = ({ lodging }) => {
           {reviews && (
             <Pagination
               activePage={page} // 현재 페이지
-              itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+              itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
               totalItemsCount={reviews.count} // 총 아이템 개수
               pageRangeDisplayed={Math.floor(reviews.count / 2) + 1} // 페이지 범위
               prevPageText="‹"
