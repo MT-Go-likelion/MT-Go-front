@@ -5,6 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
 import useLodgingUpdate from '../hooks/queries/Lodging/useLodgingUpdate';
+import HorizonLine from '../components/Common/Line/HorizonLine';
 
 const FormContainer = styled.div`
   display: flex;
@@ -38,11 +39,29 @@ const SuccessText = styled.div`
   font-size: bold;
 `;
 
+const ThumbImgContainer = styled.div`
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+`;
+
+const ThumbImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const ImgText = styled.div`
+  margin: 2rem 0;
+`;
+
+const ThumbDelteBtn = styled.div``;
+
 const UpdateLodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
   const location = useLocation();
+  console.log(location.state.lodging);
 
   const [name, onChangeName] = useInput(location.state.lodging.name);
   const [address, onChangeAddress] = useInput(location.state.lodging.address);
@@ -56,8 +75,13 @@ const UpdateLodging = () => {
   const [precaution, onChangePrecaution] = useInput(location.state.lodging.precaution);
   const [checkInTime, onChangeCheckInTime] = useInput(location.state.lodging.checkInTime);
   const [checkOutTime, onChangeCheckOutTime] = useInput(location.state.lodging.checkOutTime);
-  const [mainPhoto, setMainPhoto] = useState('');
+  const [myImage, setMyImage] = useState([]);
+  const [mainPhoto, setMainPhoto] = useState(location.state.lodging.mainPhoto);
+  console.log(mainPhoto);
+  const [photos, setPhotos] = useState(location.state.lodging.photos);
+  const [addedPhotos, setAddedPhotos] = useState([]);
   const [success, setSuccess] = useState(location.state.lodging.success);
+  const [deleteImage, setDeleteImage] = useState([]);
 
   const navigate = useNavigate();
 
@@ -65,27 +89,44 @@ const UpdateLodging = () => {
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
-    console.log(selectedFile);
     setMainPhoto(selectedFile);
+  };
+
+  const addImage = (e) => {
+    const nowSelectImageList = e.target.files;
+
+    const nowImgURLList = [...myImage];
+    const nowFormImgList = [...addedPhotos];
+
+    const nowImageUrl = URL.createObjectURL(nowSelectImageList[0]);
+    const newFormImg = nowSelectImageList[0];
+
+    nowImgURLList.push(nowImageUrl);
+    nowFormImgList.push(newFormImg);
+
+    setMyImage(nowImgURLList);
+    setAddedPhotos(nowFormImgList);
+  };
+
+  const deleteImg = (pk) => {
+    if (typeof pk === 'number') {
+      setPhotos(photos.filter((photo) => photo.pk !== pk));
+      setDeleteImage((prev) => [...prev, `${pk}`]);
+    }
+    if (typeof pk === 'string') {
+      setMyImage(myImage.filter((image) => image !== pk));
+      setAddedPhotos(
+        addedPhotos.filter((image) => {
+          return image !== pk;
+        }),
+      );
+    }
   };
 
   const handlesubmit = (event) => {
     event.preventDefault();
-    console.log(
-      name,
-      address,
-      place,
-      price,
-      phoneNumber,
-      amenities,
-      homePageURL,
-      headCount,
-      content,
-      precaution,
-      checkInTime,
-      checkOutTime,
-      mainPhoto,
-    );
+    console.log(deleteImage);
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('address', address);
@@ -99,10 +140,13 @@ const UpdateLodging = () => {
     formData.append('precaution', precaution);
     formData.append('checkInTime', checkInTime);
     formData.append('checkOutTime', checkOutTime);
-    // formData.append('mainPhoto', mainPhoto);
-    // formData.append('deleteImage', []);
-    // formData.append('photos', []);
-
+    // formData.append('deleteImage', deleteImage);
+    deleteImage.forEach((image) => {
+      return formData.append('deleteImage', image);
+    });
+    addedPhotos.forEach((photo) => {
+      return formData.append('photos', photo);
+    });
     if (user) {
       lodgingUpdateMutation(formData, {
         onSuccess: (data) => {
@@ -167,6 +211,33 @@ const UpdateLodging = () => {
           onChange={onChangeCheckOutTime}
         />
         <input type="file" onChange={handleImageChange} />
+        <label onChange={addImage} htmlFor="input-file" className="input-file">
+          <input
+            type="file"
+            multiple="multiple"
+            accept=".jpg,.jpeg,.png"
+            /* style={{ display: "none" }} */
+          />
+        </label>
+        <ImgText>기존 사진들</ImgText>
+        {photos &&
+          photos.map((photo) => (
+            <ThumbImgContainer>
+              <ThumbImg src={photo.image} alt="lodging" />
+              <ThumbDelteBtn onClick={() => deleteImg(photo.pk)}>삭제하기</ThumbDelteBtn>
+            </ThumbImgContainer>
+          ))}
+        <HorizonLine />
+        <ImgText>추가될 사진들</ImgText>
+        {myImage &&
+          myImage.map((x) => {
+            return (
+              <ThumbImgContainer>
+                <ThumbImg src={x} alt="lodging" />
+                <ThumbDelteBtn onClick={() => deleteImg(x)}>삭제하기</ThumbDelteBtn>
+              </ThumbImgContainer>
+            );
+          })}
 
         <SubmitButton type="submit">제출하기</SubmitButton>
       </form>
