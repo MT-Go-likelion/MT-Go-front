@@ -155,7 +155,7 @@ const UpdateLodging = () => {
       lodgingUpdateMutation(formData, {
         onSuccess: (data) => {
           console.log(data);
-          setSuccess('✅ 제품이 성공적으로 업데이트 되었습니다!');
+          setSuccess('✅ 숙소가 성공적으로 업데이트 되었습니다!');
           setTimeout(() => setSuccess(null), 3000);
         },
       });
@@ -232,6 +232,8 @@ const UpdateLodging = () => {
         <label onChange={addImage} htmlFor="input-file" className="input-file">
           <input type="file" multiple="multiple" accept=".jpg,.jpeg,.png" />
         </label>
+        <HorizonLine />
+
         <ImgText>기존 서브사진들</ImgText>
         {photos &&
           photos.map((photo) => (
@@ -240,7 +242,6 @@ const UpdateLodging = () => {
               <ThumbDelteBtn onClick={() => deleteImg(photo.pk)}>삭제하기</ThumbDelteBtn>
             </ThumbImgContainer>
           ))}
-        <HorizonLine />
         <ImgText>추가될 서브 사진들</ImgText>
         {myImage &&
           myImage.map((x) => {

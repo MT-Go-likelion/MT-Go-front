@@ -10,6 +10,7 @@ export { default as UpdateLodging } from './UpdateLodging';
 export { default as Recreation } from './Recreation';
 export { default as RecreationDetail } from './RecreationDetail';
 export { default as RecreationRegistration } from './RecreationRegistration';
+export { default as UpdateRecreation } from './UpdateRecreation';
 export { default as Shopping } from './Shopping';
 export { default as Mypage } from './Mypage';
 export { default as MypageTeamspace } from './MypageTeamspace';

@@ -21,6 +21,7 @@ import {
   RecreationRegistration,
   CreateLodging,
   UpdateLodging,
+  UpdateRecreation,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: '/recreation', element: <Recreation /> },
       { path: '/recreation/:recreationId', element: <RecreationDetail /> },
       { path: '/recreation/register', element: <RecreationRegistration /> },
+      { path: '/recreation/update', element: <UpdateRecreation /> },
       { path: '/shopping', element: <Shopping /> },
       { path: '/mypage', element: <Mypage /> },
       { path: '/mypage/:teamToken', element: <MypageTeamspace /> },

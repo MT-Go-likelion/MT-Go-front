@@ -81,6 +81,10 @@ const RecreationDetail = () => {
   const { recreationDeleteMutation } = useRecreation();
   const navigate = useNavigate();
 
+  const onClickUpdateBtn = () => {
+    navigate('/recreation/update', { state: { recreationDetail } });
+  };
+
   const onClickDeleteBtn = () => {
     recreationDeleteMutation(recreationDetail.pk);
     navigate('/');
@@ -104,6 +108,7 @@ const RecreationDetail = () => {
                 </RecommendedNum>
                 <TeamspaceBtn>팀스페이스 담기</TeamspaceBtn>
                 <TeamspaceBtn onClick={onClickDeleteBtn}>삭제하기</TeamspaceBtn>
+                <TeamspaceBtn onClick={onClickUpdateBtn}>수정하기</TeamspaceBtn>
               </RightContainerHeader>
               <RecreationDetailContent
                 dangerouslySetInnerHTML={{ __html: recreationDetail.content }}

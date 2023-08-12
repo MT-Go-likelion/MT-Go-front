@@ -24,6 +24,16 @@ const recreationAPI = {
     return res.data;
   },
 
+  update: async (payload, id) => {
+    const res = await axios.put(`${RECREATIONAPI.DETAIL + id}/`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res.data;
+  },
+
   delete: async (id) => {
     const res = await axios.delete(RECREATIONAPI.DETAIL + id);
 

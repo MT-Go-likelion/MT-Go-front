@@ -119,7 +119,7 @@ const CreateLodging = () => {
     if (user) {
       lodgingMutation(formData, {
         onSuccess: () => {
-          setSuccess('✅ 제품이 성공적으로 추가되었습니다!');
+          setSuccess('✅ 숙소가 성공적으로 추가되었습니다!');
           setTimeout(() => setSuccess(null), 3000);
         },
       });

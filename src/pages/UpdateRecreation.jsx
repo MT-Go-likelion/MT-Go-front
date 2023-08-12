@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ import useInput from '../hooks/useInput';
 import RecreationEditor from '../components/Editor/RecreationEditor';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import COLOR from '../constants/color';
+import { BASE_URL } from '../config/api';
 
 const RegisterForm = styled.form``;
 
@@ -55,8 +56,6 @@ const RecommenedNumInput = styled.input`
   color: ${COLOR.gray};
 `;
 
-const SelectedImg = styled.div``;
-
 const ImgInput = styled.input``;
 
 const SubmitBtn = styled.button``;
@@ -66,14 +65,23 @@ const SuccessText = styled.div`
   font-size: bold;
 `;
 
-const RecreationRegistration = () => {
+const UpdateRecreation = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const [name, onChangeName] = useInput('');
-  const [headCountMin, onChangeHeadCountMin] = useInput(0);
-  const [headCountMax, onChangeHeadCountMax] = useInput(0);
-  const [img, setImg] = useState('');
+  const location = useLocation();
+
+  console.log(location.state.recreationDetail);
+
+  const [name, onChangeName] = useInput(location.state.recreationDetail.name);
+  const [headCountMin, onChangeHeadCountMin] = useInput(
+    location.state.recreationDetail.headCountMin,
+  );
+  const [headCountMax, onChangeHeadCountMax] = useInput(
+    location.state.recreationDetail.headCountMax,
+  );
+  const [img, setImg] = useState(location.state.recreationDetail.photo);
+  const [addedImage, setAddedImage] = useState('');
   const imgInputRef = useRef();
   const editorRef = useRef();
   const [success, setSuccess] = useState('');
@@ -84,7 +92,8 @@ const RecreationRegistration = () => {
 
   const onChangeImg = (e) => {
     const file = e.target.files[0];
-    setImg(file);
+    setAddedImage(file);
+    setImg(URL.createObjectURL(file));
   };
 
   // 에디터 등록 시 에디터 내용 HTML or Markdown 형식으로 변환
@@ -101,14 +110,17 @@ const RecreationRegistration = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('content', editorRef.current?.getInstance().getHTML());
-    formData.append('photo', img);
     formData.append('headCountMin', headCountMin);
     formData.append('headCountMax', headCountMax);
+
+    if (img !== location.state.recreationDetail.photo) {
+      formData.append('photo', addedImage);
+    }
 
     if (user) {
       recreaetionMutation(formData, {
         onSuccess: () => {
-          setSuccess('✅레크레이션이 성공적으로 추가되었습니다!');
+          setSuccess('✅ 해당 레크레이션이 성공적으로 업데이트 되었습니다!');
           setTimeout(() => setSuccess(null), 3000);
         },
       });
@@ -123,20 +135,32 @@ const RecreationRegistration = () => {
 
       <TitleContainer>
         <TitleLabel>제목</TitleLabel>
-        <TitleInput onChange={onChangeName} />
+        <TitleInput onChange={onChangeName} value={name} />
       </TitleContainer>
       <RecommenedNumContainer>
         <RecommenedNumLabel>최소 인원</RecommenedNumLabel>
-        <RecommenedNumInput onChange={onChangeHeadCountMin} />
+        <RecommenedNumInput onChange={onChangeHeadCountMin} value={headCountMin} />
       </RecommenedNumContainer>
       <RecommenedNumContainer>
         <RecommenedNumLabel>최대 인원</RecommenedNumLabel>
-        <RecommenedNumInput onChange={onChangeHeadCountMax} />
+        <RecommenedNumInput onChange={onChangeHeadCountMax} value={headCountMax} />
       </RecommenedNumContainer>
       <ImgInput type="file" accept="image/*" ref={imgInputRef} onChange={onChangeImg} />
-      <SelectedImg>{img.name}</SelectedImg>
+
+      {img === location.state.recreationDetail.photo && (
+        <ThumbImgContainer>
+          <ThumbImg src={BASE_URL + location.state.recreationDetail.photo} alt="recreation" />
+        </ThumbImgContainer>
+      )}
+
+      {img !== location.state.recreationDetail.photo && (
+        <ThumbImgContainer>
+          <ThumbImg src={img} alt="recreation" />
+        </ThumbImgContainer>
+      )}
+
       <RecreationEditor
-        content=""
+        content={location.state.recreationDetail.content}
         editorRef={editorRef}
         onhandleRegisterButton={onhandleRegisterButton}
       />
@@ -147,4 +171,15 @@ const RecreationRegistration = () => {
   );
 };
 
-export default RecreationRegistration;
+export default UpdateRecreation;
+
+const ThumbImgContainer = styled.div`
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+`;
+
+const ThumbImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
