@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Outlet } from 'react-router-dom';
@@ -7,6 +7,7 @@ import MobileFooter from './components/Footer/MobileFooter';
 import GlobalStyles from './styles/GlobalStyle';
 import Navbar from './components/Navbar/Navbar';
 import { useUser } from './hooks/queries/Auth/useUser';
+import { mobileSize } from './utils/MediaSize';
 
 const AppLayout = styled.div`
   display: flex;
@@ -25,7 +26,17 @@ const AppContent = styled.div`
 
 function App() {
   const { user } = useUser();
-  const isMobile = window.innerWidth <= 450;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <>
       <GlobalStyles />

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import useSelect from '../../hooks/useSelect';
 
+import { mobileSize } from '../../utils/MediaSize';
+
 const OPTION = [
   { value: '', name: '가격' },
   { value: '10', name: '10만원 이하' },
@@ -20,6 +22,10 @@ const StyledSelect = styled.select`
   color: ${(props) => (props.$price === '' ? `${COLOR.lightGray}` : `${COLOR.black}`)};
   ::selection {
     color: ${COLOR.black};
+  }
+  @media (max-width: ${mobileSize}px) {
+    width: 110px;
+    height: 26px;
   }
 `;
 

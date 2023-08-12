@@ -9,8 +9,8 @@ import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
 import useTeamRecreationIsScrap from '../../../hooks/queries/Team/useTeamRecreationIsScrap';
 import useTeamRecreationScrap from '../../../hooks/queries/Team/useTeamRecreationScrap';
+import { mobileSize } from '../../../utils/MediaSize';
 
-const mobileSize = 450;
 const slideIn = keyframes`
   from {
     transform: translateY(100%);
