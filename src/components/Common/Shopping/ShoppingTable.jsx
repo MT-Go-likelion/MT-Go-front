@@ -49,11 +49,12 @@ const Th = styled.th`
   padding: 6px;
   font-size: 12px;
   font-weight: 400;
+  min-width: 45px;
 `;
 
 const Thamount = styled.th`
   color: ${COLOR.gray};
-  min-width: 20px;
+  min-width: 40px;
   padding: 6px;
   font-size: 12px;
   font-weight: 400;
@@ -64,6 +65,7 @@ const Thamount = styled.th`
 const Td = styled.td`
   padding: 1px 1px;
   text-align: center;
+  max-width: 40px;
   min-width: 40px;
 `;
 const Tdcancle = styled.td`
