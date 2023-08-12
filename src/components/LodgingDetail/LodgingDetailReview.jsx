@@ -54,7 +54,7 @@ const LodgingDetailReview = ({ lodging }) => {
 
   const onChangeReviewImg = (e) => {
     const file = e.target.files[0];
-    setSelectedReviewImgName(file.name);
+    setSelectedReviewImgName(URL.createObjectURL(file));
     setSelectedImg(file);
   };
 
@@ -119,7 +119,7 @@ const LodgingDetailReview = ({ lodging }) => {
                   ref={reviewImgInputRef}
                   onChange={onChangeReviewImg}
                 />
-                <ReviewImgText>{selectedImgName}</ReviewImgText>
+                {selectedImg && <ReviewThumb src={selectedImgName} />}
                 <ReviewImgBtn src={camera} onClick={onClickReviewInput} />
               </ReviewImgBox>
             </ReviewTextareBox>
@@ -222,7 +222,10 @@ const ReviewImgBox = styled.div`
   bottom: 1rem;
 `;
 
-const ReviewImgText = styled.div``;
+const ReviewThumb = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
 
 const ReviewImgInput = styled.input`
   display: none;
