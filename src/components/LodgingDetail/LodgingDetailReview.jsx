@@ -18,7 +18,8 @@ import Error from '../../pages/Error';
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-const LodgingDetailReview = ({ pk }) => {
+const LodgingDetailReview = ({ lodging }) => {
+  const { pk } = lodging;
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [content, setContent] = useState('');
   const [selectedImgName, setSelectedReviewImgName] = useState('');

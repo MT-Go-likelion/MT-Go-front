@@ -22,8 +22,13 @@ const lodgingAPI = {
     return res.data;
   },
 
-  update: async (id) => {
-    const res = await axios.put(LODGINGAPI.DETAIL + id);
+  update: async (payload, id) => {
+    console.log(payload);
+    const res = await axios.put(`${LODGINGAPI.DETAIL + id}/`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return res.data;
   },

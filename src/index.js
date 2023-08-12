@@ -20,6 +20,7 @@ import {
   RecreationDetail,
   RecreationRegistration,
   CreateLodging,
+  UpdateLodging,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -33,6 +34,8 @@ const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
       { path: '/lodging', element: <Lodging /> },
       { path: '/lodging/:lodgingId', element: <LodgingDetail /> },
+      { path: '/createLodging', element: <CreateLodging /> },
+      { path: '/updateLodging', element: <UpdateLodging /> },
       { path: '/recreation', element: <Recreation /> },
       { path: '/recreation/:recreationId', element: <RecreationDetail /> },
       { path: '/recreation/register', element: <RecreationRegistration /> },
@@ -40,7 +43,6 @@ const router = createBrowserRouter([
       { path: '/mypage', element: <Mypage /> },
       { path: '/mypage/:teamToken', element: <MypageTeamspace /> },
       { path: '/mypage', element: <Mypage /> },
-      { path: '/createLodging', element: <CreateLodging /> },
     ],
   },
 ]);
