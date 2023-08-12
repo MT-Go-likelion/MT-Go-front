@@ -6,6 +6,7 @@ import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
 import useLodgingUpdate from '../hooks/queries/Lodging/useLodgingUpdate';
 import HorizonLine from '../components/Common/Line/HorizonLine';
+import { BASE_URL } from '../config/api';
 
 const FormContainer = styled.div`
   display: flex;
@@ -77,7 +78,7 @@ const UpdateLodging = () => {
   const [checkOutTime, onChangeCheckOutTime] = useInput(location.state.lodging.checkOutTime);
   const [myImage, setMyImage] = useState([]);
   const [mainPhoto, setMainPhoto] = useState(location.state.lodging.mainPhoto);
-  console.log(mainPhoto);
+  const [addedMainPhoto, setAddedMainPhoto] = useState('');
   const [photos, setPhotos] = useState(location.state.lodging.photos);
   const [addedPhotos, setAddedPhotos] = useState([]);
   const [success, setSuccess] = useState(location.state.lodging.success);
@@ -89,7 +90,8 @@ const UpdateLodging = () => {
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
-    setMainPhoto(selectedFile);
+    setAddedMainPhoto(selectedFile);
+    setMainPhoto(URL.createObjectURL(selectedFile));
   };
 
   const addImage = (e) => {
@@ -125,7 +127,7 @@ const UpdateLodging = () => {
 
   const handlesubmit = (event) => {
     event.preventDefault();
-    console.log(deleteImage);
+    console.log(addedMainPhoto, location.state.lodging.mainPhoto);
 
     const formData = new FormData();
     formData.append('name', name);
@@ -140,7 +142,12 @@ const UpdateLodging = () => {
     formData.append('precaution', precaution);
     formData.append('checkInTime', checkInTime);
     formData.append('checkOutTime', checkOutTime);
-    // formData.append('deleteImage', deleteImage);
+
+    if (mainPhoto !== location.state.lodging.mainPhoto) {
+      console.log('asd');
+      formData.append('mainPhoto', addedMainPhoto);
+    }
+
     deleteImage.forEach((image) => {
       return formData.append('deleteImage', image);
     });
@@ -211,15 +218,24 @@ const UpdateLodging = () => {
           onChange={onChangeCheckOutTime}
         />
         <input type="file" onChange={handleImageChange} />
+        <ImgText>메인사진</ImgText>
+
+        {mainPhoto === location.state.lodging.mainPhoto && (
+          <ThumbImgContainer>
+            <ThumbImg src={BASE_URL + location.state.lodging.mainPhoto} alt="lodging" />
+          </ThumbImgContainer>
+        )}
+
+        {mainPhoto !== location.state.lodging.mainPhoto && (
+          <ThumbImgContainer>
+            <ThumbImg src={mainPhoto} alt="lodging" />
+          </ThumbImgContainer>
+        )}
+
         <label onChange={addImage} htmlFor="input-file" className="input-file">
-          <input
-            type="file"
-            multiple="multiple"
-            accept=".jpg,.jpeg,.png"
-            /* style={{ display: "none" }} */
-          />
+          <input type="file" multiple="multiple" accept=".jpg,.jpeg,.png" />
         </label>
-        <ImgText>기존 사진들</ImgText>
+        <ImgText>기존 서브사진들</ImgText>
         {photos &&
           photos.map((photo) => (
             <ThumbImgContainer>
@@ -228,7 +244,7 @@ const UpdateLodging = () => {
             </ThumbImgContainer>
           ))}
         <HorizonLine />
-        <ImgText>추가될 사진들</ImgText>
+        <ImgText>추가될 서브 사진들</ImgText>
         {myImage &&
           myImage.map((x) => {
             return (
