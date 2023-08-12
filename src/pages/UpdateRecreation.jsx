@@ -6,9 +6,9 @@ import styled from 'styled-components';
 
 import useInput from '../hooks/useInput';
 import RecreationEditor from '../components/Editor/RecreationEditor';
-import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import COLOR from '../constants/color';
 import { BASE_URL } from '../config/api';
+import useRecreationUpdate from '../hooks/queries/Recreation/useRecreationUpdate';
 
 const RegisterForm = styled.form``;
 
@@ -71,8 +71,6 @@ const UpdateRecreation = () => {
 
   const location = useLocation();
 
-  console.log(location.state.recreationDetail);
-
   const [name, onChangeName] = useInput(location.state.recreationDetail.name);
   const [headCountMin, onChangeHeadCountMin] = useInput(
     location.state.recreationDetail.headCountMin,
@@ -88,7 +86,7 @@ const UpdateRecreation = () => {
 
   const navigate = useNavigate();
 
-  const { recreaetionMutation } = useRecreation();
+  const { lodgingUpdateMutation } = useRecreationUpdate(location.state.recreationDetail.pk);
 
   const onChangeImg = (e) => {
     const file = e.target.files[0];
@@ -118,7 +116,7 @@ const UpdateRecreation = () => {
     }
 
     if (user) {
-      recreaetionMutation(formData, {
+      lodgingUpdateMutation(formData, {
         onSuccess: () => {
           setSuccess('✅ 해당 레크레이션이 성공적으로 업데이트 되었습니다!');
           setTimeout(() => setSuccess(null), 3000);
