@@ -79,13 +79,12 @@ const FlexDiv = styled.div`
 
 const CalDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 8rem;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 3rem;
   width: 100%;
   @media (max-width: ${mobileSize}px) {
     margin: 0;
-    flex-direction: column;
     gap: 0;
     width: 342px;
   }
