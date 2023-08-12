@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import COLOR from '../constants/color';
+
 import ShoppingTable from '../components/Common/Shopping/ShoppingTable';
 import MainBanner from '../assets/images/ShoppingMain.png';
+import ShoppingMobileBack from '../assets/images/ShoppingMobileBack.png';
 import useShopping from '../hooks/queries/Shopping/useShopping';
 import ShoppingCard from '../components/Card/ShoppingCard';
 import { mobileSize } from '../utils/MediaSize';
@@ -33,8 +35,9 @@ const BannerImg = styled.div`
     background-position: 32% center;
   }
   @media (max-width: ${mobileSize}px) {
-    background-size: cover;
     width: 100%;
+    height: 261.524px;
+    background-image: url(${ShoppingMobileBack});
   }
 `;
 
@@ -46,6 +49,9 @@ const Container = styled.div`
   @media (max-width: ${mediaSize - 220}px) {
     margin: 2rem 4rem;
   }
+  @media (max-width: ${mobileSize}px) {
+    margin: 0;
+  }
 `;
 
 const Flex = styled.div`
@@ -53,28 +59,62 @@ const Flex = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  @media (max-width: ${mobileSize}px) {
+    margin-top: 1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 342px;
+    height: 150px;
+    justify-content: left;
+  }
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+  @media (max-width: ${mobileSize}px) {
+    gap: 2rem;
+  }
 `;
 
 const CalDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 8rem;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 3rem;
   width: 100%;
+  @media (max-width: ${mobileSize}px) {
+    margin: 0;
+    gap: 0;
+    width: 342px;
+  }
 `;
 
 const TitleDiv = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.1rem;
   margin-left: 4rem;
   margin-top: 3rem;
   width: 100%;
+  @media (max-width: ${mobileSize}px) {
+    margin-left: 0;
+    margin-top: 0;
+  }
 `;
 
 const Title = styled.span`
   font-size: 25px;
   font-weight: 900;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 180%;
+  }
 `;
 
 const Subtitle = styled.span`
@@ -85,6 +125,12 @@ const Subtitle = styled.span`
   font-weight: 600;
   line-height: 180%; /* 43.2px */
   letter-spacing: 0.24px;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 180%;
+  }
 `;
 
 const Notification = styled.div`
@@ -120,6 +166,18 @@ const Checklist = styled.div`
   }
 `;
 
+const DivMobileBack = styled.div`
+  width: 100%;
+  background: #f7f9fa;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1) inset;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding-top: 1.4rem;
+`;
+
 const Shopping = () => {
   // 태그 데이터
 
@@ -137,6 +195,7 @@ const Shopping = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize); // 모마일여부
   const [selectedSpace, setSelectedSpace] = useState('private');
 
   const {
@@ -185,49 +244,83 @@ const Shopping = () => {
       }
     }
   };
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
 
   useEffect(() => {
     setShoppingItems(shoppingList || []);
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, [shoppingList]);
 
   return (
     <>
-      <Notification visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>;
+      <Notification visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>
       <BannerImg> </BannerImg>
-      <Flex>
+      <FlexDiv>
         <ShoppingLayout>
           <TitleDiv>
             <CalDiv>
-              <Title>장바구니 계산</Title>
+              <Title>장바구니</Title>
+              <Subtitle> 무엇을 사야할지 고민된다면? </Subtitle>
             </CalDiv>
-            <Subtitle> 무엇을 사야할지 고민된다면? </Subtitle>
           </TitleDiv>
           <Container>
             <Flex>
               {TagOptions.map((options) => (
-                <ShoppingCard
-                  key={options.TagId}
-                  name={options.name}
-                  price={options.price}
-                  onCardClick={handleComplete}
-                />
+                <div>
+                  {isMobile ? (
+                    <ShoppingCard
+                      key={options.TagId}
+                      name={options.name}
+                      price={options.price}
+                      onCardClick={handleComplete}
+                    />
+                  ) : (
+                    <ShoppingCard
+                      key={options.TagId}
+                      name={options.name}
+                      price={options.price}
+                      onCardClick={handleComplete}
+                    />
+                  )}
+                </div>
               ))}
             </Flex>
           </Container>
         </ShoppingLayout>
-        <Checklist id="checklist">
-          <ShoppingTable
-            data={shoppingItems}
-            setShoppingItems={setShoppingItems}
-            selectedSpace={selectedSpace}
-            setSelectedSpace={setSelectedSpace}
-          />
-        </Checklist>
-      </Flex>
+        {!isMobile ? (
+          <Checklist id="checklist">
+            <ShoppingTable
+              data={shoppingItems}
+              setShoppingItems={setShoppingItems}
+              selectedSpace={selectedSpace}
+              setSelectedSpace={setSelectedSpace}
+            />
+          </Checklist>
+        ) : (
+          <DivMobileBack>
+            <CalDiv>
+              <Title>Check List</Title>
+              <Subtitle> 필요한 물품들을 손쉽게 체크해보세요. </Subtitle>
+            </CalDiv>
+            <Checklist id="checklist">
+              <ShoppingTable
+                data={shoppingItems}
+                setShoppingItems={setShoppingItems}
+                selectedSpace={selectedSpace}
+                setSelectedSpace={setSelectedSpace}
+              />
+            </Checklist>{' '}
+          </DivMobileBack>
+        )}
+      </FlexDiv>
     </>
   );
 };

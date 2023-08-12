@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
 import useTeamShoppingCreation from '../../../hooks/queries/Team/useTeamShoppingCreation';
 import { TEAMAPI } from '../../../config/api';
+import { mobileSize } from '../../../utils/MediaSize';
 
 const Container = styled.div`
   width: 280px;
@@ -23,6 +24,11 @@ const Container = styled.div`
   padding: 1rem 0;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+
+  @media (max-width: ${mobileSize}px) {
+    width: 342px;
+    background-color: ${COLOR.white};
+  }
 `;
 
 const Title = styled.div`
@@ -34,6 +40,8 @@ const Title = styled.div`
 
   padding-bottom: 0.5rem;
   border-bottom: 2.5px solid ${COLOR.gray};
+  @media (max-width: ${mobileSize}px) {
+  }
 `;
 
 const Table = styled.table`
@@ -49,11 +57,12 @@ const Th = styled.th`
   padding: 6px;
   font-size: 12px;
   font-weight: 400;
+  min-width: 45px;
 `;
 
 const Thamount = styled.th`
   color: ${COLOR.gray};
-  min-width: 20px;
+  min-width: 40px;
   padding: 6px;
   font-size: 12px;
   font-weight: 400;
@@ -64,6 +73,7 @@ const Thamount = styled.th`
 const Td = styled.td`
   padding: 1px 1px;
   text-align: center;
+  max-width: 40px;
   min-width: 40px;
 `;
 const Tdcancle = styled.td`
@@ -155,6 +165,12 @@ const SelectName = styled.select`
   border: 1px solid ${COLOR.lightGray};
   color: ${COLOR.gray};
   padding-left: 5px;
+  @media (max-width: ${mobileSize}px) {
+    width: 160px;
+    height: 32px;
+    background: #f7f9fa;
+    border: none;
+  }
 `;
 
 const SelectOption = styled.option``;
@@ -163,7 +179,7 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
   const [editHandle, setEditHandle] = useState(false);
   const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
   const navigate = useNavigate();
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize); // 모바일 여부
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
@@ -274,10 +290,22 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
       navigate('/signin');
     }
   };
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Container>
-      <Title>Check List</Title>
+      {isMobile ? '' : <Title>Check List</Title>}
+
       <SelectName onChange={hanelSelectChange}>
         {isLoading && <Loading />}
         {error && <Error />}
