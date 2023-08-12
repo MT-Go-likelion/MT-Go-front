@@ -27,7 +27,7 @@ const BackDiv = styled.div`
   height: 320px;
   background-color: ${COLOR.blue};
   border-radius: 20px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
 
   background-size: cover;
   background-position: center;
@@ -148,7 +148,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
   return (
     <BestLoContainer onClick={handleCardClick}>
-      <BackDiv $$datasrc={BASE_URL + mainPhoto}>
+      <BackDiv $datasrc={BASE_URL + mainPhoto}>
         <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
       </BackDiv>
       <Title>{name}</Title>

@@ -62,7 +62,8 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
+const LodgingDetailHeader = ({ lodging }) => {
+  const { pk, name, mainPhoto, photos } = lodging;
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const navigate = useNavigate();
   const { lodgingDeleteMutation } = useLodging();

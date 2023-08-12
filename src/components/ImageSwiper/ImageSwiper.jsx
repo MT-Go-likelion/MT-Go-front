@@ -19,7 +19,6 @@ const SwiperImg = styled.img`
 `;
 
 export default function ImageSwiper({ mainPhoto, photos }) {
-  console.log(photos);
   return (
     <Swiper
       effect="coverflow"
@@ -41,33 +40,13 @@ export default function ImageSwiper({ mainPhoto, photos }) {
       <SwiperSlide>
         <SwiperImg src={BASE_URL + mainPhoto} alt="slider" />
       </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-2.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-3.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-4.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-5.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-6.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-7.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-8.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-9.jpg" alt="slider" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SwiperImg src="https://swiperjs.com/demos/images/nature-10.jpg" alt="slider" />
-      </SwiperSlide>
+
+      {photos &&
+        photos.map((photo) => (
+          <SwiperSlide>
+            <SwiperImg src={photo.image} alt="slider" />
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 }
