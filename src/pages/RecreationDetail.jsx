@@ -208,11 +208,9 @@ const RecreationDetail = () => {
                   onClick={() => {
                     setActiveButton('rule');
                     setIsLifted(true);
-
-                    // After a short delay, reset the lifted state
                     setTimeout(() => {
                       setIsLifted(false);
-                    }, 300); // Adjust the delay as needed
+                    }, 300);
                   }}
                   isActive={activeButton === 'rule'}
                 >
@@ -222,11 +220,9 @@ const RecreationDetail = () => {
                   onClick={() => {
                     setActiveButton('keyWord');
                     setIsLifted(true);
-
-                    // After a short delay, reset the lifted state
                     setTimeout(() => {
                       setIsLifted(false);
-                    }, 300); // Adjust the delay as needed
+                    }, 300);
                   }}
                   isActive={activeButton === 'keyWord'}
                 >
