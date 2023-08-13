@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Pagination from 'react-js-pagination';
 
@@ -15,6 +15,7 @@ import useLodgingReview from '../../hooks/queries/Lodging/useLodgingReview';
 import { BASE_URL } from '../../config/api';
 import Loading from '../../pages/Loading';
 import Error from '../../pages/Error';
+import { mobileSize } from '../../utils/MediaSize';
 
 const ARRAY = [0, 1, 2, 3, 4];
 
@@ -91,10 +92,22 @@ const LodgingDetailReview = ({ pk }) => {
     lodgingReviewDeleteMutation(reviewPk);
     refetch();
   };
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
-      <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />
+      {isMobile && <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />}
       <ReviewContainer>
         {isLoading && <Loading />}
         {error && <Error />}
@@ -183,10 +196,16 @@ const ReviewHeader = styled.header`
   align-items: center;
   gap: 2.3rem;
   margin-bottom: 2rem;
+  @media (max-width: ${mobileSize}px) {
+    gap: 1.2rem;
+  }
 `;
 
 const ReviewCntText = styled.span`
   font-size: 1.5rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 1rem;
+  }
 `;
 
 const ReviewContentContainer = styled.div`
@@ -194,18 +213,27 @@ const ReviewContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+  }
 `;
 
 const ReviewWritingContainer = styled.div`
   display: flex;
   gap: 2rem;
   margin-bottom: 2rem;
+  @media (max-width: ${mobileSize}px) {
+    flex-direction: column;
+  }
 `;
 
 const ReviewTextareBox = styled.div`
   width: 36.5rem;
   height: 15rem;
   position: relative;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+  }
 `;
 
 const ReviewTextarea = styled.textarea`

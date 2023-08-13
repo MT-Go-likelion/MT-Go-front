@@ -2,6 +2,10 @@
   display: flex;
   justify-content: center;
   margin-top: 15px;
+  @media (max-width: 450px) {
+    position: relative;
+    z-index: 1000;
+  }
 }
 
 ul {

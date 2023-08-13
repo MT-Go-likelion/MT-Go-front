@@ -31,7 +31,7 @@ const LodgingMap = () => {
     <Map
       center={state.center}
       isPanto={state.isPanto}
-      style={{ width: '43rem', height: '20rem' }}
+      style={{ width: '100%', height: '20rem' }}
       level={4}
     >
       <MapMarker position={state.center} />
