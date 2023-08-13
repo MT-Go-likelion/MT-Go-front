@@ -55,11 +55,26 @@ const ScrapDiv = styled.div`
   flex-basis: 80%;
 `;
 
+const SidebarTopContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+`;
+
+const SettingTitle = styled.button`
+  font-size: 25px;
+  font-weight: 400;
+  margin-top: 2rem;
+  width: 50px;
+  color: ${COLOR.gray};
+`;
+
 const Title = styled.button`
   font-size: 1.5rem;
   font-weight: 400;
-  margin: 3rem 0 10rem 0;
   width: 140px;
+  margin-bottom: 10rem;
   color: ${COLOR.gray};
 `;
 
@@ -252,6 +267,10 @@ const MypageTeamspace = () => {
     navigate(`/mypage`);
   };
 
+  const gotoSetting = () => {
+    navigate('/setting');
+  };
+
   const handleDeleteClick = () => {
     setIsDeletePopupVisible(true);
     console.log('잘 됨');
@@ -300,7 +319,10 @@ const MypageTeamspace = () => {
       <Hrbar />
       <Container>
         <TeamspaceDiv>
-          <Title onClick={gotoMypage}>개인 스페이스</Title>
+          <SidebarTopContainer>
+            <SettingTitle onClick={gotoSetting}>설정</SettingTitle>
+            <Title onClick={gotoMypage}>개인 스페이스</Title>
+          </SidebarTopContainer>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
             <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>

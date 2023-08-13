@@ -22,6 +22,7 @@ import {
   CreateLodging,
   UpdateLodging,
   UpdateRecreation,
+  Setting,
 } from './pages/index';
 
 const router = createBrowserRouter([
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: '/mypage', element: <Mypage /> },
       { path: '/mypage/:teamToken', element: <MypageTeamspace /> },
       { path: '/mypage', element: <Mypage /> },
+      { path: '/setting', element: <Setting /> },
     ],
   },
 ]);

@@ -14,3 +14,4 @@ export { default as UpdateRecreation } from './UpdateRecreation';
 export { default as Shopping } from './Shopping';
 export { default as Mypage } from './Mypage';
 export { default as MypageTeamspace } from './MypageTeamspace';
+export { default as Setting } from './Setting';
