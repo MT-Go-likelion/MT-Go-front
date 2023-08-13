@@ -159,12 +159,21 @@ const LodgingDetailReview = ({ pk }) => {
                 <ReviewItem key={uuid()}>
                   <ReviewItemLeft>
                     <UserText>{review.userName}</UserText>
-                    <DateText>{review.createdAt}</DateText>
-                    <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>삭제하기</DeleteBtn>
+                    {isMobile ? (
+                      <div>
+                        <DateText>{review.createdAt}</DateText>
+                        <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>삭제하기</DeleteBtn>
+                      </div>
+                    ) : (
+                      <FlexDiv>
+                        <DateText>{review.createdAt}</DateText>
+                        <RatingContainer score={review.score} />
+                      </FlexDiv>
+                    )}
                   </ReviewItemLeft>
                   <ReviewText>{review.contents}</ReviewText>
                   <ReviewItemRight>
-                    <RatingContainer score={review.score} />
+                    {isMobile && <RatingContainer score={review.score} />}
                     {review.image ? <ReviewImg src={BASE_URL + review.image} /> : <TmpImg />}
                   </ReviewItemRight>
                 </ReviewItem>
@@ -188,6 +197,13 @@ const LodgingDetailReview = ({ pk }) => {
 };
 
 export default LodgingDetailReview;
+
+const FlexDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const ReviewContainer = styled.div``;
 
@@ -322,17 +338,27 @@ const ReviewList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  @media (max-width: ${mobileSize}px) {
+    flex-direction: column;
+  }
 `;
 
 const ReviewItem = styled.li`
   display: flex;
   gap: 2rem;
+  @media (max-width: ${mobileSize}px) {
+    flex-direction: column;
+    padding: 0 1.5rem;
+    gap: 1rem;
+  }
 `;
 
 const ReviewItemLeft = styled.div`
   flex-basis: 10%;
   display: flex;
   flex-direction: column;
+  @media (max-width: ${mobileSize}px) {
+  }
 `;
 
 const UserText = styled.span``;
@@ -340,6 +366,10 @@ const UserText = styled.span``;
 const DateText = styled.span`
   font-size: 0.75rem;
   color: ${COLOR.lightGray};
+  @media (max-width: ${mobileSize}px) {
+    font-size: 11px;
+    margin-top: 4px;
+  }
 `;
 
 const DeleteBtn = styled.button``;
@@ -347,6 +377,9 @@ const DeleteBtn = styled.button``;
 const ReviewText = styled.div`
   flex-basis: 70%;
   line-height: 1.7;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 14px;
+  }
 `;
 
 const ReviewItemRight = styled.div`

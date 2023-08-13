@@ -10,8 +10,6 @@ const ReviewContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
-  @media (max-width: ${mobileSize}px) {
-  }
 `;
 
 const Star = styled.img`
