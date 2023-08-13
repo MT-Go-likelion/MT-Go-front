@@ -25,7 +25,6 @@ const BackDiv = styled.div`
   position: relative;
   width: 240px;
   height: 320px;
-  background-color: ${COLOR.blue};
   border-radius: 20px;
   background-image: ${(props) => `url(${props.$datasrc})`};
 

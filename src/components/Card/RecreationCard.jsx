@@ -41,7 +41,6 @@ const BackContainer = styled.div`
 const BackImg = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${COLOR.blue};
   border-radius: 20px;
   background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
