@@ -1,24 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
 
-const LodgingDetailContent = ({
-  address,
-  price,
-  homePageURL,
-  amenities,
-  phoneNumber,
-  headCount,
-  content,
-  precaution,
-  checkInTime,
-  checkOutTime,
-  pricesByDate,
-  place,
-}) => {
-  console.log(pricesByDate, place, amenities);
+const LodgingDetailContent = ({ lodging }) => {
+  const {
+    address,
+    homePageURL,
+    amenities,
+    phoneNumber,
+    headCount,
+    content,
+    precaution,
+    checkInTime,
+    checkOutTime,
+    place,
+  } = lodging;
+
+  const navigate = useNavigate();
+
+  const onClickUpdateBtn = () => {
+    navigate('/updateLodging', { state: { lodging } });
+  };
 
   return (
     <>
@@ -27,7 +32,7 @@ const LodgingDetailContent = ({
           <Header>
             <ContentHeaderLeft>
               <AddressText>{address}</AddressText>
-              <PriceText>{price}</PriceText>
+              <PriceText>{place}</PriceText>
               <UrlText>{homePageURL}</UrlText>
             </ContentHeaderLeft>
             <ContentHeaderRight>
@@ -62,8 +67,8 @@ const LodgingDetailContent = ({
       </ContentContainer>
       <ContentBottomContainer>
         <LodgingMap />
-        <ReservationBtn width={15} height={5.6}>
-          예약하기
+        <ReservationBtn width={15} height={5.6} onClick={onClickUpdateBtn}>
+          수정하기
         </ReservationBtn>
       </ContentBottomContainer>
     </>

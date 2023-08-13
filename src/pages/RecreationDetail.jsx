@@ -169,6 +169,10 @@ const RecreationDetail = () => {
   const { recreationDeleteMutation } = useRecreation();
   const navigate = useNavigate();
 
+  const onClickUpdateBtn = () => {
+    navigate('/recreation/update', { state: { recreationDetail } });
+  };
+
   const onClickDeleteBtn = () => {
     recreationDeleteMutation(recreationDetail.pk);
     navigate('/');
@@ -203,6 +207,7 @@ const RecreationDetail = () => {
                 </FlexDiv>
               </Header>
               <RecreationImg src={BASE_URL + recreationDetail.photo} />
+
               <ButtonDiv isLifted={isLifted}>
                 <SubButton
                   onClick={() => {
@@ -271,6 +276,7 @@ const RecreationDetail = () => {
             </>
           )}
         </div>
+
       )}
     </RecreationDetailLayout>
   );

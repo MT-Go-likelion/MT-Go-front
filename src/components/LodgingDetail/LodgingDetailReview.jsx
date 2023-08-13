@@ -18,7 +18,8 @@ import Error from '../../pages/Error';
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-const LodgingDetailReview = ({ pk }) => {
+const LodgingDetailReview = ({ lodging }) => {
+  const { pk } = lodging;
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [content, setContent] = useState('');
   const [selectedImgName, setSelectedReviewImgName] = useState('');
@@ -53,7 +54,7 @@ const LodgingDetailReview = ({ pk }) => {
 
   const onChangeReviewImg = (e) => {
     const file = e.target.files[0];
-    setSelectedReviewImgName(file.name);
+    setSelectedReviewImgName(URL.createObjectURL(file));
     setSelectedImg(file);
   };
 
@@ -118,7 +119,7 @@ const LodgingDetailReview = ({ pk }) => {
                   ref={reviewImgInputRef}
                   onChange={onChangeReviewImg}
                 />
-                <ReviewImgText>{selectedImgName}</ReviewImgText>
+                {selectedImg && <ReviewThumb src={selectedImgName} />}
                 <ReviewImgBtn src={camera} onClick={onClickReviewInput} />
               </ReviewImgBox>
             </ReviewTextareBox>
@@ -160,7 +161,7 @@ const LodgingDetailReview = ({ pk }) => {
           {reviews && (
             <Pagination
               activePage={page} // 현재 페이지
-              itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
+              itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
               totalItemsCount={reviews.count} // 총 아이템 개수
               pageRangeDisplayed={Math.floor(reviews.count / 2) + 1} // 페이지 범위
               prevPageText="‹"
@@ -221,7 +222,10 @@ const ReviewImgBox = styled.div`
   bottom: 1rem;
 `;
 
-const ReviewImgText = styled.div``;
+const ReviewThumb = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
 
 const ReviewImgInput = styled.input`
   display: none;

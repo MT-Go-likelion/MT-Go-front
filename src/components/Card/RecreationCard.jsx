@@ -43,7 +43,10 @@ const BackImg = styled.div`
   height: 100%;
   background-color: ${COLOR.blue};
   border-radius: 20px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
+  background-size: cover;
+  background-position: center;
+
   @media (max-width: ${mobileSize}px) {
     width: 120px;
     height: 120px;
@@ -143,6 +146,7 @@ const Flex = styled.div`
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
 const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
+  console.log(photo);
   const [save, setSave] = useState(isScrap);
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
 
@@ -186,7 +190,7 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
     <>
       <BestLoContainer>
         <BackContainer onClick={handleCardClick}>
-          <BackImg src={BASE_URL + photo} />
+          <BackImg $datasrc={BASE_URL + photo} />
           <BtnCotainer>
             <RecreatButton
               src={save ? SelectRecreat : Recreatbtn}
