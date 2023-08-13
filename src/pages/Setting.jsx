@@ -117,14 +117,6 @@ const Setting = () => {
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
 
-  const showTermsModal = () => {
-    setTermsModalOpen(true);
-  };
-
-  const showSuggestionModal = () => {
-    setSuggestionModalOpen(true);
-  };
-
   const [userName, onChangeUserName] = useInput(user && user.name);
 
   const navigate = useNavigate();
@@ -158,6 +150,14 @@ const Setting = () => {
 
   const handleJoinPopupClose = () => {
     setIsJoinpopupVisivle(false);
+  };
+
+  const showTermsModal = () => {
+    setTermsModalOpen(true);
+  };
+
+  const showSuggestionModal = () => {
+    setSuggestionModalOpen(true);
   };
 
   return (
