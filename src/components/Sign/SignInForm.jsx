@@ -63,8 +63,10 @@ const EyeImg = styled.img`
   height: 0.8rem;
   right: 1rem;
   top: 2.7rem;
-
   color: ${(props) => (props.showPassWord ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
+  @media (max-width: ${mobileSize}px) {
+    top: 2.1rem;
+  }
 `;
 
 const SignInForm = () => {

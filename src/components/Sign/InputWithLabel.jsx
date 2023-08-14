@@ -9,6 +9,9 @@ const Wrapper = styled.div`
 
 const LabelContainer = styled.div`
   display: flex;
+  @media (max-width: ${mobileSize}px) {
+    height: 20px;
+  }
 `;
 
 const Label = styled.div`
@@ -20,6 +23,9 @@ const Label = styled.div`
     color: ${COLOR.primary.blue};
     font-weight: 700;
     line-height: 140%;
+    font-size: 14px;
+
+    margin-bottom: 0;
   }
 `;
 
@@ -43,6 +49,7 @@ const Input = styled.input`
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     border: none;
     margin: initial;
+    height: 40px;
   }
 `;
 
