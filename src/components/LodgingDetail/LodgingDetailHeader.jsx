@@ -79,6 +79,7 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
+
 // mobile 관련
 
 const Back = styled.img`
@@ -99,7 +100,10 @@ const TeamButton = styled.img`
   border-radius: 50px;
 `;
 
-const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
+
+const LodgingDetailHeader = ({ lodging }) => {
+  const { pk, name, mainPhoto, photos } = lodging;
+
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();

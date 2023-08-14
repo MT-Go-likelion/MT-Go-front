@@ -196,6 +196,7 @@ const LodgingDetail = () => {
       {isLoading && <Loading />}
       {error && <ErrorPage />}
       {lodgingDetail && (
+
         <div>
           {isMobile ? (
             <>
@@ -306,30 +307,14 @@ const LodgingDetail = () => {
               </ContentDiv>
             </>
           ) : (
-            <>
-              <LodgingDetailHeader
-                pk={lodgingDetail.pk}
-                name={lodgingDetail.name}
-                mainPhoto={lodgingDetail.mainPhoto}
-                photos={lodgingDetail.photos}
-              />
-              <LodgingDetailContent
-                address={lodgingDetail.address}
-                price={lodgingDetail.price}
-                homePageURL={lodgingDetail.homePageURL}
-                amenities={lodgingDetail.amenities}
-                phoneNumber={lodgingDetail.phoneNumber}
-                headCount={lodgingDetail.headCount}
-                content={lodgingDetail.content}
-                precaution={lodgingDetail.precaution}
-                checkInTime={lodgingDetail.checkInTime}
-                checkOutTime={lodgingDetail.checkOutTime}
-                place={lodgingDetail.place}
-              />
-              <LodgingDetailReview pk={lodgingDetail.pk} />
-            </>
+        <>
+          <LodgingDetailHeader lodging={lodgingDetail} />
+          <LodgingDetailContent lodging={lodgingDetail} />
+          <LodgingDetailReview lodging={lodgingDetail} />
+        </>
           )}
         </div>
+
       )}
     </LodgingLayout>
   );

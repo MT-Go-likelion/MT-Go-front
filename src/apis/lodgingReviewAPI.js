@@ -17,9 +17,19 @@ const lodgingReviewAPI = {
     return res.data;
   },
 
+  update: async (payload, id) => {
+    const res = await axios.put(`${LODGINGAPI.UPDATEREVIEW + id}/`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res.data;
+  },
+
   delete: async (id, token) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
-    const res = await axios.delete(LODGINGAPI.DELETEREVIEW + id, headers);
+    const res = await axios.delete(LODGINGAPI.UPDATEREVIEW + id, headers);
 
     return res.data;
   },
