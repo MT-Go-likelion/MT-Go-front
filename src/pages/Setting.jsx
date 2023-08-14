@@ -15,6 +15,8 @@ import useInput from '../hooks/useInput';
 import TermsModal from '../components/Common/Modal/TermsModal';
 import SuggestionModal from '../components/Common/Modal/SuggestionModal';
 import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
+import { useSignOut } from '../hooks/queries/Auth/useSignOut';
+import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
 
 const mediaSize = 1030;
 
@@ -112,16 +114,18 @@ const DivTeamlist = styled.div`
 const Setting = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
+  const signOut = useSignOut();
 
   const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
   const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
+  const [isDeleteUserPopupVisible, setIsDeleteUserPopupVisible] = useState(false);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
 
   const [userName, onChangeUserName] = useInput(user && user.name);
 
   const navigate = useNavigate();
-  const { userUpdateMutation } = useUserUpdate(user.pk);
+  const { userUpdateMutation, userDeleteMutation } = useUserUpdate(user.pk);
 
   const {
     teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
@@ -138,6 +142,7 @@ const Setting = () => {
   const gotoSetting = () => {
     navigate('/setting');
   };
+
   const handleTeamspaceCreateClick = () => {
     setIsCreatepopupVisivle(true);
   };
@@ -164,6 +169,26 @@ const Setting = () => {
 
   const showSuggestionModal = () => {
     setSuggestionModalOpen(true);
+  };
+
+  const handleUserDeleteClick = () => {
+    setIsDeleteUserPopupVisible(true);
+  };
+
+  const handleUserDeleteClose = () => {
+    setIsDeleteUserPopupVisible(false);
+  };
+
+  const handleUserDelete = () => {
+    setIsDeleteUserPopupVisible(false);
+    userDeleteMutation();
+    signOut();
+    navigate('/');
+  };
+
+  const clickLogout = () => {
+    signOut();
+    navigate('/');
   };
 
   return (
@@ -213,8 +238,14 @@ const Setting = () => {
           <HorizonLine />
 
           <BottomContainer>
-            <LogoutButton>로그아웃</LogoutButton>
-            <UserDeleteButton>회원탈퇴</UserDeleteButton>
+            <LogoutButton onClick={clickLogout}>로그아웃</LogoutButton>
+            <UserDeleteButton onClick={handleUserDeleteClick}>회원탈퇴</UserDeleteButton>
+            {isDeleteUserPopupVisible && (
+              <UserDeletePopup
+                handleUserDelete={handleUserDelete}
+                handleUserDeleteClose={handleUserDeleteClose}
+              />
+            )}
           </BottomContainer>
         </SettingLayout>
       </Container>

@@ -23,6 +23,12 @@ const authAPI = {
 
     return res.data;
   },
+
+  delete: async (id) => {
+    const res = await axios.delete(`${AUTHAPI.USER + id}/`);
+
+    return res.data;
+  },
 };
 
 export default authAPI;

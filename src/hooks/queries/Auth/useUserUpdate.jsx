@@ -14,7 +14,20 @@ const useUserUpdate = (id) => {
     },
   });
 
-  return { userUpdateMutation };
+  const { mutate: userDeleteMutation } = useMutation(
+    () => {
+      return authAPI.delete(id);
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
+  return { userUpdateMutation, userDeleteMutation };
 };
 
 export default useUserUpdate;
