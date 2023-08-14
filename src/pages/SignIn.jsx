@@ -22,6 +22,7 @@ const SignInLayout = styled.div`
     height: 844px;
     z-index: 99;
     position: relative;
+    margin: initial;
   }
 `;
 
@@ -33,6 +34,10 @@ const MobileBackWave = styled.img`
 
 const SignupContainer = styled.span`
   margin-top: 1rem;
+  @media (max-width: ${mobileSize}px) {
+    z-index: 1;
+    font-size: 14px;
+  }
 `;
 
 const SignupText = styled.span`

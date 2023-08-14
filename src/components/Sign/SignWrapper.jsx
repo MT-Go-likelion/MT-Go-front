@@ -17,8 +17,10 @@ const LoginLayout = styled.div`
   @media (max-width: ${mobileSize}px) {
     box-shadow: none;
     width: 100%;
-    z-index: 99999;
-    padding-top: 14.5rem;
+    z-index: 10;
+    padding-top: 8rem;
+    padding-bottom: 0;
+    margin: initial;
   }
 `;
 
