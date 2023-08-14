@@ -145,7 +145,6 @@ const Flex = styled.div`
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
 const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
-  console.log(photo);
   const [save, setSave] = useState(isScrap);
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
 

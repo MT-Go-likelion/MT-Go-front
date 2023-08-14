@@ -235,6 +235,7 @@ const MypageTeamspace = () => {
 
   const {
     teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
+    teamDeleteMutation,
   } = useTeam(user ? user.token : '');
 
   const {
@@ -273,7 +274,6 @@ const MypageTeamspace = () => {
 
   const handleDeleteClick = () => {
     setIsDeletePopupVisible(true);
-    console.log('잘 됨');
   };
 
   const handleCancelClose = () => {
@@ -299,6 +299,8 @@ const MypageTeamspace = () => {
   const handleDeleteClose = () => {
     setIsDeletePopupVisible(false);
     // 팀스페이스 삭제하는 api 구현
+    teamDeleteMutation({ userToken: user.token, teamToken });
+    navigate('/');
   };
 
   // 복사가 성공적으로 이루어질 때

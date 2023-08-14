@@ -17,6 +17,16 @@ const teamAPI = {
     return res.data;
   },
 
+  delete: async (userToken, teamToken) => {
+    const res = await axios.delete(
+      TEAMAPI.TEAM,
+
+      { data: { teamToken }, headers: { Authorization: `Token ${userToken}` } },
+    );
+
+    return res.data;
+  },
+
   userList: async (userToken, teamToken) => {
     const res = await axios.get(TEAMAPI.USERLIST, {
       headers: { Authorization: `Token ${userToken}` },
