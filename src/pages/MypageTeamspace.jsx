@@ -179,6 +179,19 @@ const Button = styled.button`
 `;
 
 const DeleteButton = styled(Button)`
+  color: ${COLOR.red};
+  border: 4px solid ${COLOR.red};
+
+  &:hover {
+    background-color: ${COLOR.lightGray};
+  }
+
+  &:active {
+    border: 3px solid ${COLOR.primary.blue};
+  }
+`;
+
+const LeaveButton = styled(Button)`
   color: ${COLOR.gray};
   border: 4px solid ${COLOR.gray};
 
@@ -367,7 +380,7 @@ const MypageTeamspace = () => {
             <SubTitle>{teamName}</SubTitle>
             <ButtonDiv>
               <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
-              <DeleteButton onClick={handleLeaveClick}>Leave</DeleteButton>
+              <LeaveButton onClick={handleLeaveClick}>Leave</LeaveButton>
               {isDeletePopupVisible && (
                 <DeleteSharePopup
                   handleDeleteClose={handleDeleteClose}
