@@ -3,6 +3,7 @@ export const BASE_URL = 'http://54.180.98.209:8000';
 export const AUTHAPI = {
   SIGNUP: `${BASE_URL}/accounts/user/signup/`,
   SIGNIN: `${BASE_URL}/accounts/user/signin/`,
+  USER: `${BASE_URL}/accounts/user/`,
 };
 
 export const LODGINGAPI = {

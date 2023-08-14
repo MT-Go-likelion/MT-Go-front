@@ -14,6 +14,7 @@ import HorizonLine from '../components/Common/Line/HorizonLine';
 import useInput from '../hooks/useInput';
 import TermsModal from '../components/Common/Modal/TermsModal';
 import SuggestionModal from '../components/Common/Modal/SuggestionModal';
+import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
 
 const mediaSize = 1030;
 
@@ -120,6 +121,7 @@ const Setting = () => {
   const [userName, onChangeUserName] = useInput(user && user.name);
 
   const navigate = useNavigate();
+  const { userUpdateMutation } = useUserUpdate(user.pk);
 
   const {
     teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
@@ -150,6 +152,10 @@ const Setting = () => {
 
   const handleJoinPopupClose = () => {
     setIsJoinpopupVisivle(false);
+  };
+
+  const clickUpdateBtn = () => {
+    userUpdateMutation(userName);
   };
 
   const showTermsModal = () => {
@@ -192,7 +198,7 @@ const Setting = () => {
           <UserLabel>닉네임</UserLabel>
           <UserInputContainer>
             <UserInput type="text" value={userName} onChange={onChangeUserName} />
-            <UserSubmitButton>변경</UserSubmitButton>
+            <UserSubmitButton onClick={clickUpdateBtn}>변경</UserSubmitButton>
           </UserInputContainer>
           <HorizonLine />
           <TermsButton onClick={showTermsModal}>이용약관</TermsButton>
