@@ -48,7 +48,7 @@ const LoginBottomContainer = styled.div`
   margin: 2rem 0;
   @media (max-width: ${mobileSize}px) {
     margin: 1rem 0;
-    font-size: 14px;
+    font-size: 8px;
   }
 `;
 

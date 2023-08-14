@@ -16,7 +16,7 @@ const SignInLayout = styled.div`
   align-items: center;
   max-width: 1280px;
   margin: auto;
-
+  overflow: hidden;
   @media (max-width: ${mobileSize}px) {
     background-image: ${(props) => `url(${props.dataSrc})`};
     background-size: cover;
@@ -41,7 +41,7 @@ const SignupContainer = styled.span`
   margin-top: 1rem;
   @media (max-width: ${mobileSize}px) {
     z-index: 1;
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
