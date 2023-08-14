@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import * as userLocalStorage from '../../../utils/userLocalstore';
-import authAPI from '../../../apis/authAPI';
 
 // 백한테 user 정보 달라고 요청해야함 추후에 회의 후 수정
 function getUser(user) {
@@ -11,8 +10,9 @@ function getUser(user) {
   return {};
 }
 
+//  authAPI.user 로 정보 얻기
 export function useUser() {
-  const { data: user } = useQuery(['user'], () => authAPI.user(user.id), {
+  const { data: user } = useQuery(['user'], () => getUser(user), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
