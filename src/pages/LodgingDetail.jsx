@@ -9,6 +9,8 @@ import {
   LodgingDetailPricetable,
 } from '../components/LodgingDetail/index';
 import useLodgingDetail from '../hooks/queries/Lodging/useLodgingDetail';
+import RatingContainer from '../components/Common/Review/RatingContainer';
+
 import ErrorPage from './Error';
 import Loading from './Loading';
 import LodgingMap from '../components/Map/LodgingMap';
@@ -44,8 +46,8 @@ const Address = styled.div`
 `;
 
 const LodgingDetailImg = styled.img`
-  width: 342px;
-  height: 140px;
+  width: 100%;
+  height: 9.6rem;
   border-radius: 8px;
   color: ${COLOR.lightGray};
   background-color: ${COLOR.primary.blue};
@@ -207,7 +209,6 @@ const LodgingDetail = () => {
                 <Title>{lodgingDetail.name}</Title>
                 <Address>{lodgingDetail.address}</Address>
                 <LodgingDetailImg src={lodgingDetail.mainPhoto} />
-
                 <RowFlexDiv>
                   <div>
                     <ETC>{lodgingDetail.phoneNumber}</ETC>
@@ -215,6 +216,7 @@ const LodgingDetail = () => {
                   </div>
                   <div>
                     <Peoplecount>수용인원 : {lodgingDetail.headCount}명</Peoplecount>
+                    <RatingContainer score="5.0" />
                   </div>
                 </RowFlexDiv>
               </LodgingContent>

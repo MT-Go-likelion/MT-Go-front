@@ -11,6 +11,7 @@ import useLodging from '../../hooks/queries/Lodging/useLodging';
 import Backimg from '../../assets/images/chevron-left.png';
 import LodgingDetailMobileLike from '../../assets/images/LodgingDetailMobileLike.png';
 import LodgingDetailMobileScrap from '../../assets/images/LodgingDetailMobileScrap.png';
+import LodgingDetailMobileLiked from '../../assets/images/LodgingDetailMobileLiked.png';
 
 import { mobileSize } from '../../utils/MediaSize';
 
@@ -100,6 +101,7 @@ const TeamButton = styled.img`
 
 const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
   const { lodgingDeleteMutation } = useLodging();
 
@@ -111,6 +113,10 @@ const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
   const handleTeamBtnClick = (e) => {
     e.stopPropagation();
     setIspopupVisivle(true);
+  };
+  const handlelikebtnClick = (e) => {
+    e.stopPropagation();
+    setIsLiked((prevState) => !prevState);
   };
 
   const handlePopupClose = () => {
@@ -139,8 +145,12 @@ const LodgingDetailHeader = ({ pk, name, mainPhoto, photos }) => {
           <Back src={Backimg} onClick={() => navigate('/Lodging')} />
           <FlexDiv>
             <TeamButton src={LodgingDetailMobileScrap} onClick={handleTeamBtnClick} />
-            <TeamButton src={LodgingDetailMobileLike} />
+            <TeamButton
+              src={isLiked ? LodgingDetailMobileLiked : LodgingDetailMobileLike}
+              onClick={handlelikebtnClick}
+            />
           </FlexDiv>
+          {IspopupVisivle && <LodingPopup pk={pk} handlePopupClose={handlePopupClose} />}
         </Header>
       ) : (
         <HeaderContainer>

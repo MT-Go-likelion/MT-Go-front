@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { BASE_URL } from '../../config/api';
 
-import COLOR from '../../constants/color';
+// import COLOR from '../../constants/color';
 import Heart from '../../assets/images/heart-gray.png';
 import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
@@ -25,7 +25,6 @@ const BackDiv = styled.div`
   position: relative;
   width: 100px;
   height: 100px;
-  background-color: ${COLOR.blue};
   border-radius: 6px;
   background-image: ${(props) => `url(${props.dataSrc})`};
   background-size: cover;
@@ -42,12 +41,7 @@ const LikeButton = styled.img`
 `;
 
 const Title = styled.div`
-  width: 200px;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 160%;
-  color: ${COLOR.lightGray};
+≈
 `;
 
 const Flexdirection = styled.div`
@@ -97,18 +91,19 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   const [liked, setLiked] = useState(isScrap);
 
   const navigate = useNavigate();
+  console.log(mainPhoto);
 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const { scrapMutation } = useLodgingScrap();
+  const { lodgingScrapMutation } = useLodgingScrap();
 
   const handlelikeClick = (e) => {
     e.stopPropagation();
 
     if (user) {
       setLiked((prevState) => !prevState);
-      scrapMutation({
+      lodgingScrapMutation({
         isScrap: !liked,
         lodging: pk,
         token: user.token,
@@ -132,7 +127,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
         </Flex>
         <Price>1박 {price} 원</Price>
       </Flexdirection>
-      <BackDiv $$datasrc={BASE_URL + mainPhoto}>
+      <BackDiv dataSrc={BASE_URL + mainPhoto}>
         <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
       </BackDiv>
     </BestLoContainer>

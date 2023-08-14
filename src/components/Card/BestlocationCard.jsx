@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
@@ -25,10 +25,8 @@ const BackDiv = styled.div`
   position: relative;
   width: 240px;
   height: 320px;
-  background-color: ${COLOR.blue};
-  border-radius: 20px;
   background-image: ${(props) => `url(${props.dataSrc})`};
-
+  border-radius: 20px;
   background-size: cover;
   background-position: center;
   @media (max-width: ${mobileSize}px) {
@@ -37,6 +35,10 @@ const BackDiv = styled.div`
     border-radius: 6px;
   }
 `;
+// background-image: ${(props) => `url(${props.dataSrc})`};
+// background-color: ${COLOR.blue};
+//
+// background-position: center;
 
 const LikeButton = styled.img`
   width: 36px;
@@ -117,9 +119,11 @@ const Flex = styled.div`
  * @param {boolean} isScrap 스크랩 여부
  */
 
+// 모바일
+
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
-
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -146,20 +150,49 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
     navigate(`/lodging/${pk}`, { state: pk });
   };
 
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
-    <BestLoContainer onClick={handleCardClick}>
-      <BackDiv $$datasrc={BASE_URL + mainPhoto}>
-        <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
-      </BackDiv>
-      <Title>{name}</Title>
-      <Flexdirection>
-        <Price>{price} 원</Price>
-        <Flex>
-          <BlueStar src={Star} />
-          <Score>{avgScore}</Score>
-        </Flex>
-      </Flexdirection>
-    </BestLoContainer>
+    <div>
+      {isMobile ? (
+        <BestLoContainer onClick={handleCardClick}>
+          <Flexdirection>
+            <Title>{name}</Title>
+            <Flex>
+              <BlueStar src={Star} />
+              <Score>{avgScore}</Score>
+            </Flex>
+            <Price>1박 {price} 원</Price>
+          </Flexdirection>
+          <BackDiv dataSrc={BASE_URL + mainPhoto}>
+            <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
+          </BackDiv>
+        </BestLoContainer>
+      ) : (
+        <BestLoContainer onClick={handleCardClick}>
+          <BackDiv dataSrc={BASE_URL + mainPhoto}>
+            <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
+          </BackDiv>
+
+          <Title>{name}</Title>
+          <Flexdirection>
+            <Price>{price} 원</Price>
+            <Flex>
+              <BlueStar src={Star} />
+              <Score>{avgScore}</Score>
+            </Flex>
+          </Flexdirection>
+        </BestLoContainer>
+      )}
+    </div>
   );
 };
 export default BestlocationCard;

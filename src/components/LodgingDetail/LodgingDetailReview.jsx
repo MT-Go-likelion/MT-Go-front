@@ -107,7 +107,7 @@ const LodgingDetailReview = ({ pk }) => {
 
   return (
     <>
-      {isMobile && <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />}
+      {!isMobile && <HorizonLine mt={5} mb={2} color={COLOR.primary.blue} />}
       <ReviewContainer>
         {isLoading && <Loading />}
         {error && <Error />}
@@ -159,7 +159,7 @@ const LodgingDetailReview = ({ pk }) => {
                 <ReviewItem key={uuid()}>
                   <ReviewItemLeft>
                     <UserText>{review.userName}</UserText>
-                    {isMobile ? (
+                    {!isMobile ? (
                       <div>
                         <DateText>{review.createdAt}</DateText>
                         <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>삭제하기</DeleteBtn>
@@ -173,7 +173,7 @@ const LodgingDetailReview = ({ pk }) => {
                   </ReviewItemLeft>
                   <ReviewText>{review.contents}</ReviewText>
                   <ReviewItemRight>
-                    {isMobile && <RatingContainer score={review.score} />}
+                    {!isMobile && <RatingContainer score={review.score} />}
                     {review.image ? <ReviewImg src={BASE_URL + review.image} /> : <TmpImg />}
                   </ReviewItemRight>
                 </ReviewItem>
@@ -249,12 +249,17 @@ const ReviewTextareBox = styled.div`
   position: relative;
   @media (max-width: ${mobileSize}px) {
     width: 100%;
+    height: 10rem;
   }
 `;
 
 const ReviewTextarea = styled.textarea`
   width: 100%;
   height: 100%;
+  @media (max-width: ${mobileSize}px) {
+    min-width: 20rem;
+    height: 10rem;
+  }
 `;
 
 const ReviewImgBox = styled.div`
@@ -263,6 +268,10 @@ const ReviewImgBox = styled.div`
   position: absolute;
   right: 1rem;
   bottom: 1rem;
+  @media (max-width: ${mobileSize}px) {
+    right: 1rem;
+    bottom: 1rem;
+  }
 `;
 
 const ReviewImgText = styled.div``;
@@ -274,6 +283,10 @@ const ReviewImgInput = styled.input`
 const ReviewImgBtn = styled.img`
   cursor: pointer;
   margin-left: 1rem;
+  @media (max-width: ${mobileSize}px) {
+    width: 2rem;
+    height: 2rem;
+  }
 `;
 
 const ReviewWritingRight = styled.div`
@@ -281,6 +294,9 @@ const ReviewWritingRight = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 1.5rem;
+  @media (max-width: ${mobileSize}px) {
+    flex-direction: row;
+  }
 `;
 
 const ReviewStarContainer = styled.div``;
@@ -312,6 +328,9 @@ const ReviewStarItem = styled.div``;
 
 const ReviewStarTitle = styled.span`
   font-weight: bold;
+  @media (max-width: ${mobileSize}px) {
+    font-weight: 400;
+  }
 `;
 
 const ReviewWritingBtn = styled.button`
@@ -320,6 +339,11 @@ const ReviewWritingBtn = styled.button`
   background-color: ${COLOR.primary.blue};
   color: ${COLOR.white};
   border-radius: 1.5rem;
+  @media (max-width: ${mobileSize}px) {
+    width: 5rem;
+    height: 4rem;
+    border-radius: 1rem;
+  }
 `;
 
 const ReviewImg = styled.img`
@@ -348,7 +372,7 @@ const ReviewItem = styled.li`
   gap: 2rem;
   @media (max-width: ${mobileSize}px) {
     flex-direction: column;
-    padding: 0 1.5rem;
+    padding: 0;
     gap: 1rem;
   }
 `;
