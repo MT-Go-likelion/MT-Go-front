@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import COLOR from '../../constants/color';
@@ -8,6 +8,12 @@ import FooterShopping from '../../assets/images/FooterShopping.png';
 import FooterMypage from '../../assets/images/FooterMypage.png';
 import FooterHome from '../../assets/images/FooterHome.png';
 import FooterRecreation from '../../assets/images/FooterRecreation.png';
+
+import homeFooter from '../../assets/images/homeFooter.png';
+import lodgingFooter from '../../assets/images/lodgingFooter.png';
+import MypageFooter from '../../assets/images/MypageFooter.png';
+import recreationFooter from '../../assets/images/recreationFooter.png';
+import ShoppingFooter from '../../assets/images/ShoppingFooter.png';
 
 const FooterLayout = styled.footer`
   width: 100%;
@@ -61,44 +67,50 @@ const Footertitle = styled.div`
   text-align: center;
   font-size: 12px;
   font-style: normal;
+  line-height: 160%;
   font-weight: 700;
-`;
-
-const HomeTitle = styled.span`
-  color: var(--unnamed, linear-gradient(135deg, #4987ff 0%, #5dffe2 100%));
-  text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
+  color: ${(props) => (props.active ? COLOR.primary.blue : 'var(--unnamed, black)')};
 `;
 
 const MobileFooter = () => {
   const navigate = useNavigate();
+  const [activeMenu, setActiveMenu] = useState('');
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu(menu);
+    if (menu === 'home') {
+      navigate(`/`);
+    } else {
+      navigate(`/${menu}`);
+    }
+  };
 
   return (
     <FooterLayout>
       <FooterMenuList>
-        <FooterMenu onClick={() => navigate(`/`)}>
-          <FooterImg src={FooterHome} />
-          <HomeTitle>홈</HomeTitle>
+        <FooterMenu onClick={() => handleMenuClick('home')}>
+          <FooterImg src={activeMenu === 'home' ? FooterHome : homeFooter} />
+          <Footertitle active={activeMenu === 'home'}>홈</Footertitle>
         </FooterMenu>
-        <FooterMenu onClick={() => navigate(`/Lodging`)}>
-          <FooterImg src={FooterLodging} />
-          <Footertitle>숙소</Footertitle>
+        <FooterMenu onClick={() => handleMenuClick('Lodging')}>
+          <FooterImg src={activeMenu === 'Lodging' ? lodgingFooter : FooterLodging} />
+          <Footertitle active={activeMenu === 'Lodging'}>숙소</Footertitle>
         </FooterMenu>
-        <FooterMenu onClick={() => navigate(`/Shopping`)}>
-          <FooterImg src={FooterShopping} />
-          <Footertitle>장보기</Footertitle>
+        <FooterMenu onClick={() => handleMenuClick('Shopping')}>
+          <FooterImg src={activeMenu === 'Shopping' ? ShoppingFooter : FooterShopping} />
+          <Footertitle active={activeMenu === 'Shopping'}>장보기</Footertitle>
         </FooterMenu>
-        <FooterMenu onClick={() => navigate(`/Recreation`)}>
+        <FooterMenu onClick={() => handleMenuClick('Recreation')}>
           <FooterImgDiv>
-            <RecreationImg src={FooterRecreation} />
+            <RecreationImg
+              src={activeMenu === 'Recreation' ? recreationFooter : FooterRecreation}
+            />
           </FooterImgDiv>
-          <Footertitle>레크레이션</Footertitle>
+          <Footertitle active={activeMenu === 'Recreation'}>레크레이션</Footertitle>
         </FooterMenu>
-        <FooterMenu onClick={() => navigate(`/Mypage`)}>
-          <FooterImg src={FooterMypage} />
-          <Footertitle>Page</Footertitle>
+        <FooterMenu onClick={() => handleMenuClick('Mypage')}>
+          <FooterImg src={activeMenu === 'Mypage' ? MypageFooter : FooterMypage} />
+          <Footertitle active={activeMenu === 'Mypage'}>Page</Footertitle>
         </FooterMenu>
       </FooterMenuList>
     </FooterLayout>
