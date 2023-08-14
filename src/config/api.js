@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://54.180.98.209';
+export const BASE_URL = 'http://mtgo.site';
 
 export const AUTHAPI = {
   SIGNUP: `${BASE_URL}/accounts/user/signup/`,

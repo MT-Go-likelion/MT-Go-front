@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import SignWrapper from './SignWrapper';
@@ -9,6 +9,7 @@ import COLOR from '../../constants/color';
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
 import Checkbox from '../Common/CheckBox/CheckBox';
+import { mobileSize } from '../../utils/MediaSize';
 
 import useSignIn from '../../hooks/queries/Auth/useSignIn';
 
@@ -20,6 +21,9 @@ const PassWordContainer = styled.div`
   position: relative;
   width: 100%;
   margin-top: 2rem;
+  @media (max-width: ${mobileSize}px) {
+    margin-top: 1rem;
+  }
 `;
 
 const LoginSubmitBtn = styled.button`
@@ -31,6 +35,9 @@ const LoginSubmitBtn = styled.button`
   color: ${COLOR.white};
   font-weight: 900;
   cursor: pointer;
+  @media (max-width: ${mobileSize}px) {
+    border-radius: 8px;
+  }
 `;
 
 const LoginBottomContainer = styled.div`
@@ -39,6 +46,10 @@ const LoginBottomContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 2rem 0;
+  @media (max-width: ${mobileSize}px) {
+    margin: 1rem 0;
+    font-size: 14px;
+  }
 `;
 
 const PasswordSearchText = styled.span`
@@ -74,8 +85,21 @@ const SignInForm = () => {
     signInMutation({ email, password });
   };
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <SignWrapper title="로그인">
+    <SignWrapper title={isMobile ? 'MTGO' : '로그인'}>
       <LoginForm onSubmit={handleSubmitLogin}>
         <InputWithLabel label="E-mail" value={email} name="id" onChange={onChangeEmail} />
         <PassWordContainer>

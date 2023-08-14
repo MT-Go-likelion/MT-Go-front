@@ -129,11 +129,11 @@ const Lodging = () => {
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
   } = useLodging(user ? user.token : '', page);
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const handlePageChange = (page) => {
     setPage(page);
   };
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
