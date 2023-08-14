@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import SignWrapper from './SignWrapper';
@@ -12,6 +12,7 @@ import TermsModal from '../Common/Modal/TermsModal';
 import Checkbox from '../Common/CheckBox/CheckBox';
 import HorizonLine from '../Common/Line/HorizonLine';
 import useSignUpMutation from '../../hooks/queries/Auth/useSignUp';
+import { mobileSize } from '../../utils/MediaSize';
 
 const SignForm = styled.form`
   width: 80%;
@@ -30,6 +31,9 @@ const EyeImg = styled.img`
   top: 3.2rem;
 
   color: ${(props) => (props.showPassWord ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
+  @media (max-width: ${mobileSize}px) {
+    top: 2.1rem;
+  }
 `;
 
 const TermsContainer = styled.div`
@@ -37,6 +41,10 @@ const TermsContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
+  @media (max-width: ${mobileSize}px) {
+    padding: 2.5rem 1rem 0 0;
+    font-size: 10px;
+  }
 `;
 
 const TermsText = styled.span`
@@ -55,6 +63,11 @@ const SignSubmitBtn = styled.button`
   font-weight: 900;
   cursor: pointer;
   margin: 2rem 0;
+  @media (max-width: ${mobileSize}px) {
+    border-radius: 8px;
+    height: 40px;
+    margin: 1rem 0 0 0;
+  }
 `;
 
 const ErrorText = styled.div`
@@ -151,10 +164,24 @@ const SignUpForm = () => {
     return formValid && signUpMutation({ email, password, name });
   };
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <SignWrapper title="회원가입">
       <SignForm onSubmit={onSubmitLogin}>
-        <HorizonLine mb="2" />
+        {isMobile ? '' : <HorizonLine mb="2" />}
+
         <InputWithLabel label="Name" required value={name} name="name" onChange={onChangeName} />
         <ErrorText>{nameError}</ErrorText>
         <InputWithLabel
@@ -204,7 +231,7 @@ const SignUpForm = () => {
             />
           )}
         </PassWordContainer>
-        <HorizonLine mb="2" mt="4" />
+        {isMobile ? '' : <HorizonLine mb="2" mt="4" />}
         <TermsContainer>
           <Checkbox text="이용약관 동의" />
           <TermsText onClick={showModal}>더보기</TermsText>

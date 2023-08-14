@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../../../constants/color';
+import { mobileSize } from '../../../utils/MediaSize';
 
 const StyledInput = styled.input`
   appearance: none;
@@ -17,6 +18,10 @@ const StyledInput = styled.input`
     background-position: 50%;
     background-repeat: no-repeat;
     background-color: ${COLOR.primary.blue};
+  }
+  @media (max-width: ${mobileSize}px) {
+    width: 0.9rem;
+    height: 0.9rem;
   }
 `;
 

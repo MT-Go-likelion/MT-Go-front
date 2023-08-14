@@ -48,7 +48,7 @@ const LoginBottomContainer = styled.div`
   margin: 2rem 0;
   @media (max-width: ${mobileSize}px) {
     margin: 1rem 0;
-    font-size: 14px;
+    font-size: 8px;
   }
 `;
 
@@ -63,8 +63,10 @@ const EyeImg = styled.img`
   height: 0.8rem;
   right: 1rem;
   top: 2.7rem;
-
   color: ${(props) => (props.showPassWord ? `${COLOR.primary.blue}` : `${COLOR.lightGray}`)};
+  @media (max-width: ${mobileSize}px) {
+    top: 2.1rem;
+  }
 `;
 
 const SignInForm = () => {

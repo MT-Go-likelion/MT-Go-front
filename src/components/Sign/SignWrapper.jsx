@@ -14,11 +14,12 @@ const LoginLayout = styled.div`
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 4rem;
+  transition: 0.4s;
   @media (max-width: ${mobileSize}px) {
     box-shadow: none;
     width: 100%;
     z-index: 10;
-    padding-top: 8rem;
+    padding-top: ${(props) => (props.title === '회원가입' ? '1rem' : '8rem')};
     padding-bottom: 0;
     margin: initial;
   }
@@ -33,11 +34,15 @@ const Title = styled.div`
     margin-bottom: 0;
     color: ${COLOR.primary.blue};
     height: 100%;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
   }
 `;
 
 const SignWrapper = ({ title, children }) => (
-  <LoginLayout>
+  <LoginLayout title={title}>
     <Title>{title}</Title>
     {children}
   </LoginLayout>
