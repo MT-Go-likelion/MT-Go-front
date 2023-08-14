@@ -10,6 +10,7 @@ import { mobileSize } from '../utils/MediaSize';
 
 const SignInLayout = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +21,7 @@ const SignInLayout = styled.div`
   @media (max-width: ${mobileSize}px) {
     background-image: ${(props) => `url(${props.dataSrc})`};
     background-size: cover;
-    height: 844px;
+    min-height: 844px;
     z-index: 99;
     position: relative;
     margin: initial;
@@ -29,6 +30,7 @@ const SignInLayout = styled.div`
 
 const MobileBackWave = styled.img`
   width: 100%;
+  height: 100%;
   bottom: 0;
   position: absolute;
   transition: bottom 1s ease;
