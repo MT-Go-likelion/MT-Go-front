@@ -74,7 +74,7 @@ const Footertitle = styled.div`
 
 const MobileFooter = () => {
   const navigate = useNavigate();
-  const [activeMenu, setActiveMenu] = useState('');
+  const [activeMenu, setActiveMenu] = useState('home');
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
