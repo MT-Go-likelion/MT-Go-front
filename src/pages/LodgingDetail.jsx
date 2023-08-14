@@ -204,6 +204,7 @@ const LodgingDetail = () => {
                 name={lodgingDetail.name}
                 mainPhoto={lodgingDetail.mainPhoto}
                 photos={lodgingDetail.photos}
+                avgScore={lodgingDetail.avgScore}
               />
               <LodgingContent>
                 <Title>{lodgingDetail.name}</Title>

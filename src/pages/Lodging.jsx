@@ -133,7 +133,6 @@ const Lodging = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const {
     lodgingsQuery: { isLoading, error, data: lodgings, refetch },
@@ -142,6 +141,7 @@ const Lodging = () => {
   const handleSearch = () => {
     const splitCount = count.split('~');
     const splitPrice = price.split('~');
+    setPage(1);
     navigate('/lodging', {
       state: {
         place,
@@ -231,7 +231,7 @@ const Lodging = () => {
         {lodgings && (
           <Pagination
             activePage={page} // 현재 페이지
-            itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
+            itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
             totalItemsCount={lodgings.count} // 총 아이템 개수
             pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
             prevPageText="‹"
