@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
+import TermsModal from '../Common/Modal/TermsModal';
 
 const FooterLayout = styled.footer`
   height: 8.75rem;
@@ -20,6 +21,7 @@ const FooterMenuList = styled.ul`
 
 const FooterMenu = styled.li`
   color: ${COLOR.gray};
+  cursor: pointer;
 `;
 
 const Footerinquiry = styled.div`
@@ -33,10 +35,17 @@ const Copyright = styled.div`
 `;
 
 const Footer = () => {
+  const [termsModalOpen, setTermsModalOpen] = useState(false);
+
+  const showTermsModal = () => {
+    setTermsModalOpen(true);
+  };
   return (
     <FooterLayout>
       <FooterMenuList>
-        <FooterMenu>이용약관</FooterMenu>
+        <FooterMenu onClick={showTermsModal}>이용약관</FooterMenu>
+        {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
+
         <FooterMenu>개인정보처리방침</FooterMenu>
         <FooterMenu>회사정보</FooterMenu>
       </FooterMenuList>

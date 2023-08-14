@@ -3,6 +3,7 @@ export const BASE_URL = 'http://54.180.98.209';
 export const AUTHAPI = {
   SIGNUP: `${BASE_URL}/accounts/user/signup/`,
   SIGNIN: `${BASE_URL}/accounts/user/signin/`,
+  USER: `${BASE_URL}/accounts/user/`,
 };
 
 export const LODGINGAPI = {
@@ -31,7 +32,7 @@ export const SHOPPINGAPI = {
 export const TEAMAPI = {
   TEAM: `${BASE_URL}/team/teamSpace/`,
   JOIN: `${BASE_URL}/team/teamSpace/join/`,
-  USERLIST: `${BASE_URL}/team/teamSpace/users/`,
+  USER: `${BASE_URL}/team/teamSpace/users/`,
   TEAMLODGING: `${BASE_URL}/team/teamSpaceLodging/`,
   LODGING_IS_SCRAP: `${BASE_URL}/team/teamSpaceLodging/scrapList/`,
   TEAMRECREATION: `${BASE_URL}/team/teamSpaceRecreation/`,

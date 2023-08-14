@@ -25,10 +25,8 @@ const BackDiv = styled.div`
   position: relative;
   width: 240px;
   height: 320px;
-
   background-image: ${(props) => `url(${props.dataSrc})`};
   border-radius: 20px;
-
   background-size: cover;
   background-position: center;
   @media (max-width: ${mobileSize}px) {
@@ -163,7 +161,6 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
     };
   }, []);
   return (
-
     <div>
       {isMobile ? (
         <BestLoContainer onClick={handleCardClick}>
@@ -196,7 +193,6 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
         </BestLoContainer>
       )}
     </div>
-
   );
 };
 export default BestlocationCard;

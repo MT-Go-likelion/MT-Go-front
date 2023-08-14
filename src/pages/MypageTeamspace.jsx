@@ -18,6 +18,7 @@ import ListTable from '../components/Common/Shopping/ListTable';
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
 import useTeamUserList from '../hooks/queries/Team/useTeamUserList';
+import LeaveTeamPopup from '../components/Popup/Mypage/LeaveTeamPopup';
 
 const mediaSize = 1030;
 
@@ -55,11 +56,26 @@ const ScrapDiv = styled.div`
   flex-basis: 80%;
 `;
 
+const SidebarTopContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+`;
+
+const SettingTitle = styled.button`
+  font-size: 25px;
+  font-weight: 400;
+  margin-top: 2rem;
+  width: 50px;
+  color: ${COLOR.gray};
+`;
+
 const Title = styled.button`
   font-size: 1.5rem;
   font-weight: 400;
-  margin: 3rem 0 10rem 0;
   width: 140px;
+  margin-bottom: 10rem;
   color: ${COLOR.gray};
 `;
 
@@ -163,6 +179,19 @@ const Button = styled.button`
 `;
 
 const DeleteButton = styled(Button)`
+  color: ${COLOR.red};
+  border: 4px solid ${COLOR.red};
+
+  &:hover {
+    background-color: ${COLOR.lightGray};
+  }
+
+  &:active {
+    border: 3px solid ${COLOR.primary.blue};
+  }
+`;
+
+const LeaveButton = styled(Button)`
   color: ${COLOR.gray};
   border: 4px solid ${COLOR.gray};
 
@@ -208,6 +237,7 @@ const MypageTeamspace = () => {
   const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
   const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
   const [isDeletePopupVisible, setIsDeletePopupVisible] = useState(false);
+  const [isLeavePopupVisible, setIsLeavePopupVisible] = useState(false);
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
   const { state: teamName } = useLocation();
@@ -220,10 +250,12 @@ const MypageTeamspace = () => {
 
   const {
     teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
+    teamDeleteMutation,
   } = useTeam(user ? user.token : '');
 
   const {
     teamUserQuery: { isLoading: teamUserLoading, error: teamUserError, data: users },
+    teamUserDeleteMutation,
   } = useTeamUserList(user ? user.token : '', teamToken);
 
   const {
@@ -252,13 +284,24 @@ const MypageTeamspace = () => {
     navigate(`/mypage`);
   };
 
+  const gotoSetting = () => {
+    navigate('/setting');
+  };
+
   const handleDeleteClick = () => {
     setIsDeletePopupVisible(true);
-    console.log('잘 됨');
   };
 
   const handleCancelClose = () => {
     setIsDeletePopupVisible(false);
+  };
+
+  const handleLeaveClick = () => {
+    setIsLeavePopupVisible(true);
+  };
+
+  const handleLeaveClose = () => {
+    setIsLeavePopupVisible(false);
   };
 
   const handleTeamspaceCreateClick = () => {
@@ -279,7 +322,14 @@ const MypageTeamspace = () => {
 
   const handleDeleteClose = () => {
     setIsDeletePopupVisible(false);
-    // 팀스페이스 삭제하는 api 구현
+    teamDeleteMutation({ userToken: user.token, teamToken });
+    navigate('/');
+  };
+
+  const handleLeave = () => {
+    setIsLeavePopupVisible(false);
+    teamUserDeleteMutation({ userToken: user.token, teamToken });
+    navigate('/');
   };
 
   // 복사가 성공적으로 이루어질 때
@@ -300,7 +350,10 @@ const MypageTeamspace = () => {
       <Hrbar />
       <Container>
         <TeamspaceDiv>
-          <Title onClick={gotoMypage}>개인 스페이스</Title>
+          <SidebarTopContainer>
+            <SettingTitle onClick={gotoSetting}>설정</SettingTitle>
+            <Title onClick={gotoMypage}>개인 스페이스</Title>
+          </SidebarTopContainer>
           <SubTitle>팀 스페이스</SubTitle>
           <DivTeamlist>
             <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
@@ -327,11 +380,15 @@ const MypageTeamspace = () => {
             <SubTitle>{teamName}</SubTitle>
             <ButtonDiv>
               <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
+              <LeaveButton onClick={handleLeaveClick}>Leave</LeaveButton>
               {isDeletePopupVisible && (
                 <DeleteSharePopup
                   handleDeleteClose={handleDeleteClose}
                   handleCancelClose={handleCancelClose}
                 />
+              )}
+              {isLeavePopupVisible && (
+                <LeaveTeamPopup handleLeave={handleLeave} handleLeaveClose={handleLeaveClose} />
               )}
               <CopyToClipboard text={inviteCode} onCopy={handleCopyInviteCode}>
                 <ShareButton type="share">Share Link</ShareButton>

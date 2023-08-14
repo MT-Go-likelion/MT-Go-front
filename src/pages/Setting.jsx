@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
-import BestlocationCard from '../components/Card/BestlocationCard';
-// import BagCard from '../components/Card/BagCard';
-import RecreationCard from '../components/Card/RecreationCard';
-import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
-import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
 import Loading from './Loading';
 import Error from './Error';
 import useTeam from '../hooks/queries/Team/useTeam';
-import useShopping from '../hooks/queries/Shopping/useShopping';
-import ListTable from '../components/Common/Shopping/ListTable';
+
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
+import HorizonLine from '../components/Common/Line/HorizonLine';
+import useInput from '../hooks/useInput';
+import TermsModal from '../components/Common/Modal/TermsModal';
+import SuggestionModal from '../components/Common/Modal/SuggestionModal';
+import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
+import { useSignOut } from '../hooks/queries/Auth/useSignOut';
+import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
 
 const mediaSize = 1030;
 
@@ -47,12 +48,6 @@ const TeamspaceDiv = styled.div`
   flex-basis: 20%;
 `;
 
-const ScrapDiv = styled.div`
-  width: 170px;
-  padding-top: 4rem;
-  flex-basis: 80%;
-`;
-
 const SidebarTopContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -62,30 +57,23 @@ const SidebarTopContainer = styled.div`
 
 const SettingTitle = styled.button`
   font-size: 25px;
-  font-weight: 400;
+  font-weight: 700;
   margin-top: 2rem;
   width: 50px;
-  color: ${COLOR.gray};
+  border-bottom: 1.4px solid ${COLOR.primary.lightBlue};
 `;
 
 const Title = styled.button`
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 10rem;
-  border-bottom: 1.4px solid ${COLOR.primary.lightBlue};
   width: 140px;
+  color: ${COLOR.gray};
 `;
 
 const SubTitle = styled.div`
   font-size: 24px;
   margin: 5rem 0 2rem 0;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  overflow-x: auto;
-  gap: 2rem;
-  padding-bottom: 1rem;
 `;
 
 // 팀스페이스 버튼
@@ -123,35 +111,25 @@ const DivTeamlist = styled.div`
   flex-direction: column;
 `;
 
-const MyPage = () => {
+const Setting = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
+  const signOut = useSignOut();
 
   const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
   const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
+  const [isDeleteUserPopupVisible, setIsDeleteUserPopupVisible] = useState(false);
+  const [termsModalOpen, setTermsModalOpen] = useState(false);
+  const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
+
+  const [userName, onChangeUserName] = useInput(user && user.name);
 
   const navigate = useNavigate();
+  const { userUpdateMutation, userDeleteMutation } = useUserUpdate(user.pk);
 
   const {
     teamQuery: { isLoading: teamIsLoading, error: teamError, data: teams },
   } = useTeam(user ? user.token : '');
-
-  const {
-    lodgingScrapQuery: { isLoading: lodgingIsLoading, error: lodgingError, data: lodgingScrapList },
-  } = useLodgingScrapList(user ? user.token : '');
-
-  const {
-    recreationScrapQuery: {
-      isLoading: recreationIsLoading,
-      error: recreationError,
-      data: recreationScrapList,
-    },
-  } = useRecreationScrapList(user ? user.token : '');
-
-  const {
-    shoppingQuery: { data: shoppingList },
-  } = useShopping(user ? user.token : '');
-  const [shoppingItems, setShoppingItems] = useState(shoppingList || []);
 
   const gotoTeamSpace = (teamToken, teamName) => {
     navigate(`/mypage/${teamToken}`, { state: teamName });
@@ -181,9 +159,37 @@ const MyPage = () => {
     setIsJoinpopupVisivle(false);
   };
 
-  useEffect(() => {
-    setShoppingItems(shoppingList || []);
-  }, [shoppingList]);
+  const clickUpdateBtn = () => {
+    userUpdateMutation(userName);
+  };
+
+  const showTermsModal = () => {
+    setTermsModalOpen(true);
+  };
+
+  const showSuggestionModal = () => {
+    setSuggestionModalOpen(true);
+  };
+
+  const handleUserDeleteClick = () => {
+    setIsDeleteUserPopupVisible(true);
+  };
+
+  const handleUserDeleteClose = () => {
+    setIsDeleteUserPopupVisible(false);
+  };
+
+  const handleUserDelete = () => {
+    setIsDeleteUserPopupVisible(false);
+    userDeleteMutation();
+    signOut();
+    navigate('/');
+  };
+
+  const clickLogout = () => {
+    signOut();
+    navigate('/');
+  };
 
   return (
     <>
@@ -213,48 +219,82 @@ const MyPage = () => {
               ))}
           </DivTeamlist>
         </TeamspaceDiv>
-        <ScrapDiv>
-          <SubTitle>숙소</SubTitle>
-          {lodgingIsLoading && <Loading />}
-          {lodgingError && <Error />}
-          <Flex>
-            {lodgingScrapList &&
-              lodgingScrapList.map((scrapItem) => (
-                <BestlocationCard
-                  key={scrapItem.pk}
-                  pk={scrapItem.pk}
-                  name={scrapItem.name}
-                  price={scrapItem.price}
-                  mainPhoto={scrapItem.mainPhoto}
-                  isScrap={scrapItem.isScrap}
-                />
-              ))}
-          </Flex>
-          <SubTitle>레크레이션</SubTitle>
-          {recreationIsLoading && <Loading />}
-          {recreationError && <Error />}
-          <Flex>
-            {recreationScrapList &&
-              recreationScrapList.map((scrapItem) => (
-                <RecreationCard
-                  key={scrapItem.pk}
-                  pk={scrapItem.pk}
-                  name={scrapItem.name}
-                  photo={scrapItem.photo}
-                  headCountMin={scrapItem.headCountMin}
-                  headCountMax={scrapItem.headCountMax}
-                  isScrap={scrapItem.isScrap}
-                />
-              ))}
-          </Flex>
-          <SubTitle>장바구니</SubTitle>
-          <Flex>
-            <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
-          </Flex>
-        </ScrapDiv>
+        <SettingLayout>
+          <UserLabel>닉네임</UserLabel>
+          <UserInputContainer>
+            <UserInput type="text" value={userName} onChange={onChangeUserName} />
+            <UserSubmitButton onClick={clickUpdateBtn}>변경</UserSubmitButton>
+          </UserInputContainer>
+          <HorizonLine />
+          <TermsButton onClick={showTermsModal}>이용약관</TermsButton>
+          {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
+
+          <HorizonLine />
+          <SuggestionsButton onClick={showSuggestionModal}>건의사항</SuggestionsButton>
+          {suggestionModalOpen && (
+            <SuggestionModal setSuggestionModalOpen={setSuggestionModalOpen} />
+          )}
+
+          <HorizonLine />
+
+          <BottomContainer>
+            <LogoutButton onClick={clickLogout}>로그아웃</LogoutButton>
+            <UserDeleteButton onClick={handleUserDeleteClick}>회원탈퇴</UserDeleteButton>
+            {isDeleteUserPopupVisible && (
+              <UserDeletePopup
+                handleUserDelete={handleUserDelete}
+                handleUserDeleteClose={handleUserDeleteClose}
+              />
+            )}
+          </BottomContainer>
+        </SettingLayout>
       </Container>
     </>
   );
 };
 
-export default MyPage;
+export default Setting;
+
+const SettingLayout = styled.div`
+  width: 35rem;
+  height: 23.75rem;
+  background-color: ${COLOR.primary.lightBlue};
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 3rem;
+  margin-top: 5rem;
+  /* flex-basis: 80%; */
+`;
+
+const UserLabel = styled.label``;
+
+const UserInputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const UserInput = styled.input`
+  width: 19.5rem;
+`;
+
+const UserSubmitButton = styled.button`
+  width: 3rem;
+  height: 2rem;
+  background-color: ${COLOR.white};
+  border-radius: 1rem;
+`;
+
+const TermsButton = styled.button``;
+
+const SuggestionsButton = styled.button``;
+
+const BottomContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 4rem;
+`;
+
+const LogoutButton = styled.button``;
+
+const UserDeleteButton = styled.button``;
