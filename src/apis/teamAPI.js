@@ -28,10 +28,20 @@ const teamAPI = {
   },
 
   userList: async (userToken, teamToken) => {
-    const res = await axios.get(TEAMAPI.USERLIST, {
+    const res = await axios.get(TEAMAPI.USER, {
       headers: { Authorization: `Token ${userToken}` },
       params: { teamToken },
     });
+
+    return res.data;
+  },
+
+  userDelete: async (userToken, teamToken) => {
+    const res = await axios.delete(
+      TEAMAPI.USER,
+
+      { data: { teamToken }, headers: { Authorization: `Token ${userToken}` } },
+    );
 
     return res.data;
   },

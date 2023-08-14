@@ -18,6 +18,7 @@ import ListTable from '../components/Common/Shopping/ListTable';
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
 import useTeamUserList from '../hooks/queries/Team/useTeamUserList';
+import LeaveTeamPopup from '../components/Popup/Mypage/LeaveTeamPopup';
 
 const mediaSize = 1030;
 
@@ -223,6 +224,7 @@ const MypageTeamspace = () => {
   const [IsCreatepopupVisivle, setIsCreatepopupVisivle] = useState(false);
   const [IsJoinpopupVisivle, setIsJoinpopupVisivle] = useState(false);
   const [isDeletePopupVisible, setIsDeletePopupVisible] = useState(false);
+  const [isLeavePopupVisible, setIsLeavePopupVisible] = useState(false);
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const navigate = useNavigate();
   const { state: teamName } = useLocation();
@@ -240,6 +242,7 @@ const MypageTeamspace = () => {
 
   const {
     teamUserQuery: { isLoading: teamUserLoading, error: teamUserError, data: users },
+    teamUserDeleteMutation,
   } = useTeamUserList(user ? user.token : '', teamToken);
 
   const {
@@ -280,6 +283,14 @@ const MypageTeamspace = () => {
     setIsDeletePopupVisible(false);
   };
 
+  const handleLeaveClick = () => {
+    setIsLeavePopupVisible(true);
+  };
+
+  const handleLeaveClose = () => {
+    setIsLeavePopupVisible(false);
+  };
+
   const handleTeamspaceCreateClick = () => {
     setIsCreatepopupVisivle(true);
   };
@@ -298,8 +309,13 @@ const MypageTeamspace = () => {
 
   const handleDeleteClose = () => {
     setIsDeletePopupVisible(false);
-    // 팀스페이스 삭제하는 api 구현
     teamDeleteMutation({ userToken: user.token, teamToken });
+    navigate('/');
+  };
+
+  const handleLeave = () => {
+    setIsLeavePopupVisible(false);
+    teamUserDeleteMutation({ userToken: user.token, teamToken });
     navigate('/');
   };
 
@@ -351,11 +367,15 @@ const MypageTeamspace = () => {
             <SubTitle>{teamName}</SubTitle>
             <ButtonDiv>
               <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
+              <DeleteButton onClick={handleLeaveClick}>Leave</DeleteButton>
               {isDeletePopupVisible && (
                 <DeleteSharePopup
                   handleDeleteClose={handleDeleteClose}
                   handleCancelClose={handleCancelClose}
                 />
+              )}
+              {isLeavePopupVisible && (
+                <LeaveTeamPopup handleLeave={handleLeave} handleLeaveClose={handleLeaveClose} />
               )}
               <CopyToClipboard text={inviteCode} onCopy={handleCopyInviteCode}>
                 <ShareButton type="share">Share Link</ShareButton>
