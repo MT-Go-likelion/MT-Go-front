@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
+import { mobileSize } from '../../utils/MediaSize';
 
 const LoginLayout = styled.div`
   width: 40rem;
@@ -13,6 +14,12 @@ const LoginLayout = styled.div`
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 4rem;
+  @media (max-width: ${mobileSize}px) {
+    box-shadow: none;
+    width: 100%;
+    z-index: 99999;
+    padding-top: 14.5rem;
+  }
 `;
 
 const Title = styled.div`
@@ -20,6 +27,11 @@ const Title = styled.div`
   font-weight: 900;
   color: ${COLOR.black};
   margin-bottom: 3rem;
+  @media (max-width: ${mobileSize}px) {
+    margin-bottom: 0;
+    color: ${COLOR.primary.blue};
+    height: 100%;
+  }
 `;
 
 const SignWrapper = ({ title, children }) => (
