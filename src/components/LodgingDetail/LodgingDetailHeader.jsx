@@ -79,7 +79,6 @@ const ReservationBtn = styled.button`
   color: ${COLOR.white};
 `;
 
-
 // mobile 관련
 
 const Back = styled.img`
@@ -99,7 +98,6 @@ const TeamButton = styled.img`
   height: 32px;
   border-radius: 50px;
 `;
-
 
 const LodgingDetailHeader = ({ lodging }) => {
   const { pk, name, mainPhoto, photos } = lodging;
