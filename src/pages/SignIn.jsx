@@ -20,6 +20,8 @@ const SignInLayout = styled.div`
     background-image: ${(props) => `url(${props.dataSrc})`};
     background-size: cover;
     height: 844px;
+    z-index: 99;
+    position: relative;
   }
 `;
 

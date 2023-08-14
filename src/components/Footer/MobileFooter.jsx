@@ -22,6 +22,7 @@ const FooterLayout = styled.footer`
   display: flex;
   gap: 0.5em;
   flex-direction: column;
+  z-index: 10;
 `;
 
 const FooterMenuList = styled.ul`
