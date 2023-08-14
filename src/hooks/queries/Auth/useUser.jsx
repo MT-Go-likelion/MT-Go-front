@@ -2,17 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import * as userLocalStorage from '../../../utils/userLocalstore';
 
-// 백한테 user 정보 달라고 요청해야함 추후에 회의 후 수정
-function getUser(user) {
-  if (!user) return null;
-  //   const { data } = await axiosInstance.get(`/user/${user.id}`);
-  //   return data.user;
-  return {};
-}
+import authAPI from '../../../apis/authAPI';
 
-//  authAPI.user 로 정보 얻기
 export function useUser() {
-  const { data: user } = useQuery(['user'], () => getUser(user), {
+  const { data: user } = useQuery(['user'], () => authAPI.user(user.id), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,

@@ -12,9 +12,8 @@ const authAPI = {
     return res.data;
   },
 
-  user: async (id, token) => {
-    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
-    const res = await axios.get(`${AUTHAPI.USER + id}/`, headers);
+  user: async (id) => {
+    const res = await axios.get(`${AUTHAPI.USER + id}/`);
 
     return res.data;
   },
