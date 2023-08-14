@@ -25,7 +25,6 @@ const PopupOverlay = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1000;
-
   animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s ease-in-out;
 `;
 const FlexDiv = styled.div`
@@ -121,7 +120,7 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
       setVisible(false);
       setTimeout(() => {
         onClose();
-      }, 400);
+      }, 500);
     }
   };
   const handleClose = (e) => {
@@ -129,7 +128,7 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
     setVisible(false);
     setTimeout(() => {
       onClose();
-    }, 400);
+    }, 500);
   };
 
   useEffect(() => {

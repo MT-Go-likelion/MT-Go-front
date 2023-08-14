@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import Submitbutton from '../../Button/SubmitButton';
 
@@ -9,6 +9,25 @@ import Loading from '../../../pages/Loading';
 import Error from '../../../pages/Error';
 import useTeamLodgingIsScrap from '../../../hooks/queries/Team/useTeamLodgingIsScrap';
 import useTeamLodgingScrap from '../../../hooks/queries/Team/useTeamLodgingScrap';
+import { mobileSize } from '../../../utils/MediaSize';
+
+const slideIn = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+`;
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -21,6 +40,10 @@ const PopupBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 999;
+  @media (max-width: ${mobileSize}px) {
+    align-items: end;
+    background: none;
+  }
 `;
 
 const PopupContainer = styled.div`
@@ -29,11 +52,20 @@ const PopupContainer = styled.div`
   background-color: ${COLOR.white};
   padding: 1rem;
   border-radius: 48px;
+  @media (max-width: ${mobileSize}px) {
+    border-radius: 36px 36px 0 0;
+    height: 255px;
+    box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
+    animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s ease-in-out;
+  }
 `;
 
 const PopupContent = styled.div`
   padding: 1.3rem 3.6rem;
   height: 100%;
+  @media (max-width: ${mobileSize}px) {
+    padding: 0.5rem 1rem;
+  }
 `;
 
 const CloseBtn = styled.img`
@@ -52,11 +84,20 @@ const Title = styled.h2`
   display: flex;
   justify-content: center;
   margin-bottom: 2.6rem;
+  @media (max-width: ${mobileSize}px) {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+  }
 `;
 
 const SubTitle = styled.div`
   font-size: 20px;
   margin: 1.5rem 0;
+  @media (max-width: ${mobileSize}px) {
+    margin: 1rem 0;
+    font-size: 1rem;
+    text-align: center;
+  }
 `;
 
 const TeamList = styled.ul`
@@ -65,6 +106,10 @@ const TeamList = styled.ul`
   justify-content: space-between;
   gap: 2rem;
   margin-bottom: 3rem;
+  @media (max-width: ${mobileSize}px) {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const TeamBtn = styled.div`
@@ -91,6 +136,10 @@ const TeamBtn = styled.div`
       color: ${COLOR.white};
       border: none;
     `}
+
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+  }
 `;
 
 const FlexDiv = styled.div`
@@ -101,6 +150,7 @@ const FlexDiv = styled.div`
 const LodingPopup = ({ pk, handlePopupClose }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
+  const [isVisible, setIsVisible] = useState(true);
 
   const {
     teamLodgingScrapQuery: { isLoading, error, data: teams },
@@ -114,12 +164,15 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    handlePopupClose();
+    setIsVisible(false);
+    setTimeout(() => {
+      handlePopupClose();
+    }, 500);
   };
+
   return (
     <PopupBackground>
-      <PopupContainer>
+      <PopupContainer visible={isVisible}>
         <CloseBtn src={close} onClick={handlePopupClose} />
         <PopupContent>
           <Title>팀스페이스 추가하기</Title>

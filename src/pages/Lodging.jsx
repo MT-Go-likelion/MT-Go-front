@@ -111,20 +111,33 @@ const SearchBtnMobile = styled.button`
   outline: none;
 `;
 
+const PaginationDiv = styled.div`
+  @media (max-width: ${mobileSize}px) {
+    padding-top: 31.5rem;
+  }
+`;
+// const IMGG = styled.img`
+//   width: 40px;
+//   height: 40px;
+// `;
+
 const Lodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
-
   const [page, setPage] = useState(1);
-
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= mobileSize);
-  };
 
   const {
     lodgingsQuery: { isLoading, error, data: lodgings },
   } = useLodging(user ? user.token : '', page);
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -133,12 +146,8 @@ const Lodging = () => {
     };
   }, []);
 
-  const handlePageChange = (page) => {
-    setPage(page);
-  };
-
   return (
-    <div>
+    <>
       {error && <Error />}
       {isLoading && <Loading />}
       <SearchBack>
@@ -161,6 +170,7 @@ const Lodging = () => {
           </BoxFlex>
         )}
       </SearchBack>
+
       <ContentsDiv>
         {lodgings &&
           lodgings.results.map((obj) => (
@@ -189,18 +199,20 @@ const Lodging = () => {
             </div>
           ))}
       </ContentsDiv>
-      {lodgings && (
-        <Pagination
-          activePage={page} // 현재 페이지
-          itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
-          totalItemsCount={lodgings.count} // 총 아이템 개수
-          pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
-          prevPageText="‹"
-          nextPageText="›"
-          onChange={handlePageChange}
-        />
-      )}
-    </div>
+      <PaginationDiv>
+        {lodgings && (
+          <Pagination
+            activePage={page} // 현재 페이지
+            itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
+            totalItemsCount={lodgings.count} // 총 아이템 개수
+            pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
+            prevPageText="‹"
+            nextPageText="›"
+            onChange={handlePageChange}
+          />
+        )}
+      </PaginationDiv>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import COLOR from '../../../constants/color';
 import star from '../../../assets/images/star.png';
+import { mobileSize } from '../../../utils/MediaSize';
 
 const ReviewContainer = styled.div`
   display: flex;
@@ -14,12 +15,20 @@ const ReviewContainer = styled.div`
 const Star = styled.img`
   width: 2.3rem;
   height: 2.3rem;
+  @media (max-width: ${mobileSize}px) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `;
 
 const ReviewText = styled.span`
   font-size: 1.5rem;
   color: ${COLOR.gray};
   padding-top: 1rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 1rem;
+    padding-top: 5px;
+  }
 `;
 
 const RatingContainer = ({ score }) => {
