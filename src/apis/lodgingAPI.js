@@ -39,8 +39,9 @@ const lodgingAPI = {
     return res.data;
   },
 
-  detail: async (id) => {
-    const res = await axios.get(LODGINGAPI.DETAIL + id);
+  detail: async (id, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(LODGINGAPI.DETAIL + id, headers);
 
     return res.data;
   },

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { useParams } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   LodgingDetailHeader,
   LodgingDetailContent,
@@ -171,9 +172,13 @@ const FacilitiesText = styled.span``;
 
 const LodgingDetail = () => {
   const { lodgingId } = useParams();
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const {
     lodgingDetailQuery: { isLoading, error, data: lodgingDetail },
-  } = useLodgingDetail(lodgingId);
+  } = useLodgingDetail(lodgingId, user.token);
 
   // 모바일 관련
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
