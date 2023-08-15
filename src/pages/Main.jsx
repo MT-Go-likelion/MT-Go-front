@@ -143,7 +143,7 @@ const Main = () => {
 
   const {
     mainLodgingsQuery: { isLoading: lodgingsLoading, lodgingsError, data: lodgings },
-  } = useLodgingMain(user.token);
+  } = useLodgingMain(user ? user.token : '');
 
   const {
     mainRecreationsQuery: {
@@ -151,7 +151,7 @@ const Main = () => {
       error: recreationsError,
       data: recreations,
     },
-  } = useRecreationMain(user.token);
+  } = useRecreationMain(user ? user.token : '');
 
   const handleLodgingClick = () => {
     navigate(`/Lodging`);
