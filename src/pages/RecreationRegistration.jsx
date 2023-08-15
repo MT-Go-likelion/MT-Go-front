@@ -40,6 +40,7 @@ const FormLabel = styled.div`
   color: ${COLOR.black};
   margin-bottom: 0.25rem;
   margin-right: 0.2rem;
+  flex-basis: 7%;
 `;
 
 const FormInput = styled.input`
@@ -47,6 +48,7 @@ const FormInput = styled.input`
   padding: 0.5rem;
   border: 1px solid ${COLOR.gray};
   border-radius: 4px;
+  flex-basis: 93%;
 
   height: ${(props) => props.height && `${props.height}rem`};
 `;

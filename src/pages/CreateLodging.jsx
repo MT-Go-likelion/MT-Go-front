@@ -40,19 +40,22 @@ const InputContainer = styled.div`
 `;
 
 const InputSubContainer = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   gap: 2rem;
   margin-bottom: 5rem;
 `;
 
-const FormLabel = styled.label``;
+const FormLabel = styled.label`
+  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '5%')};
+`;
 
 const FormInput = styled.input`
-  width: 80%;
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid ${COLOR.gray};
   border-radius: 4px;
+  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '95%')};
 
   height: ${(props) => props.height && `${props.height}rem`};
 `;
@@ -280,12 +283,12 @@ const CreateLodging = () => {
         </InputContainer>
         <InputSubContainer>
           <InputContainer>
-            <FormLabel>연락처:</FormLabel>
-            <FormInput type="text" value={phoneNumber} onChange={onChangePhoneNumber} />
+            <FormLabel fb={10}>연락처:</FormLabel>
+            <FormInput fb={90} type="text" value={phoneNumber} onChange={onChangePhoneNumber} />
           </InputContainer>
           <InputContainer>
-            <FormLabel>수용인원:</FormLabel>
-            <FormInput type="text" value={headCount} onChange={onChangeHeadCount} />
+            <FormLabel fb={13}>수용인원:</FormLabel>
+            <FormInput fb={87} type="text" value={headCount} onChange={onChangeHeadCount} />
           </InputContainer>
         </InputSubContainer>
 
@@ -316,20 +319,40 @@ const CreateLodging = () => {
         </InputContainer>
         <SubTitle>가격 등록</SubTitle>
         <InputContainer>
-          <FormLabel>가격(성수기 주말 및 공휴일)</FormLabel>
-          <FormInput type="text" value={peakWeekendPrice} onChange={onChangePeakWeekendPrice} />
+          <FormLabel fb={20}>가격(성수기 주말 및 공휴일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={peakWeekendPrice}
+            onChange={onChangePeakWeekendPrice}
+          />
         </InputContainer>
         <InputContainer>
-          <FormLabel>가격(성수기 평일)</FormLabel>
-          <FormInput type="text" value={peakWeekdayPrice} onChange={onChangePeakWeekdayPrice} />
+          <FormLabel fb={20}>가격(성수기 평일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={peakWeekdayPrice}
+            onChange={onChangePeakWeekdayPrice}
+          />
         </InputContainer>
         <InputContainer>
-          <FormLabel>가격(비성수기 주말 및 공휴일)</FormLabel>
-          <FormInput type="text" value={lowWeekendPrice} onChange={onChangeLowWeekendPrice} />
+          <FormLabel fb={20}>가격(비성수기 주말 및 공휴일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={lowWeekendPrice}
+            onChange={onChangeLowWeekendPrice}
+          />
         </InputContainer>
         <InputContainer>
-          <FormLabel>가격(비성수기 평일)</FormLabel>
-          <FormInput type="text" value={lowWeekdayPrice} onChange={onChangeLowWeekdayPrice} />
+          <FormLabel fb={20}>가격(비성수기 평일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={lowWeekdayPrice}
+            onChange={onChangeLowWeekdayPrice}
+          />
         </InputContainer>
 
         <SubmitButton type="submit">완료</SubmitButton>
