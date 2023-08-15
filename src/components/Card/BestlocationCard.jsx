@@ -10,6 +10,7 @@ import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 import { mobileSize } from '../../utils/MediaSize';
+import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -124,6 +125,8 @@ const Flex = styled.div`
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
   const [liked, setLiked] = useState(isScrap);
   const [isMobile, setIsMobile] = useState(false);
+  const [success, setSuccess] = useState('');
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -136,11 +139,20 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
     if (user) {
       setLiked((prevState) => !prevState);
-      lodgingScrapMutation({
-        isScrap: !liked,
-        lodging: pk,
-        token: user.token,
-      });
+      lodgingScrapMutation(
+        {
+          isScrap: !liked,
+          lodging: pk,
+          token: user.token,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.isScrap) setSuccess('스크랩에 추가되었습니다');
+            if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
+            setTimeout(() => setSuccess(null), 1000);
+          },
+        },
+      );
     } else {
       navigate('/signin');
     }
@@ -162,6 +174,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   }, []);
   return (
     <div>
+      <ApiCallSuccessPopup success={success} />
       {isMobile ? (
         <BestLoContainer onClick={handleCardClick}>
           <Flexdirection>
