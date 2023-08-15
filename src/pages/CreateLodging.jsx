@@ -7,6 +7,7 @@ import useInput from '../hooks/useInput';
 import useLoding from '../hooks/queries/Lodging/useLodging';
 
 import camera from '../assets/images/camera.png';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
 
 const FormContainer = styled.div`
   display: flex;
@@ -107,11 +108,6 @@ const SubmitButton = styled.button`
   border-radius: 1.5rem;
   margin-top: 2rem;
   float: right;
-`;
-
-const SuccessText = styled.div`
-  font-size: 1.75rem;
-  font-size: bold;
 `;
 
 const ThumbImgContainer = styled.div`
@@ -230,7 +226,7 @@ const CreateLodging = () => {
   return (
     <FormContainer>
       <FormTitle>숙박업체 관리</FormTitle>
-      {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
+      <ApiCallSuccessPopup success={success} />
       <InputContainer>
         <FormLabel>제목:</FormLabel>
         <FormInput type="text" value={name} onChange={onChangeName} />

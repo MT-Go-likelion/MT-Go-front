@@ -9,6 +9,7 @@ import SelectRecreat from '../../assets/images/Select_recreat.png';
 import { BASE_URL } from '../../config/api';
 import useRecreationScrap from '../../hooks/queries/Recreation/useRecreationScrap';
 import RecreationPopup from '../Popup/Recreation/RecreationPopup';
+import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
 
 const mobileSize = 450;
 
@@ -144,9 +145,18 @@ const Flex = styled.div`
 
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
-const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
+const RecreationCard = ({
+  pk,
+  name,
+  photo,
+  headCountMin,
+  headCountMax,
+  isScrap,
+  hideTeamspace,
+}) => {
   const [save, setSave] = useState(isScrap);
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
+  const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
 
@@ -160,11 +170,20 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
 
     if (user) {
       setSave((prevState) => !prevState);
-      recreationScrapMutation({
-        isScrap: !save,
-        recreationPk: pk,
-        token: user.token,
-      });
+      recreationScrapMutation(
+        {
+          isScrap: !save,
+          recreationPk: pk,
+          token: user.token,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.isScrap) setSuccess('✅ 개인스페이스 스크랩 목록에 추가되었습니다');
+            if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
+            setTimeout(() => setSuccess(null), 1500);
+          },
+        },
+      );
     } else {
       navigate('/signin');
     }
@@ -186,6 +205,7 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
   const isMobile = window.innerWidth <= mobileSize;
   return (
     <>
+      <ApiCallSuccessPopup success={success} />
       <BestLoContainer>
         <BackContainer onClick={handleCardClick}>
           <BackImg $datasrc={BASE_URL + photo} />
@@ -203,7 +223,9 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
           <PeopleCount>
             추천인원 : {headCountMin} ~ {headCountMax} 명
           </PeopleCount>
-          {isMobile ? ' ' : <TeamBtn onClick={handleTeamBtnClick}>팀스페이스에 담기</TeamBtn>}
+          {isMobile
+            ? ' '
+            : !hideTeamspace && <TeamBtn onClick={handleTeamBtnClick}>팀스페이스에 담기</TeamBtn>}
         </Flex>
       </BestLoContainer>
       {IspopupVisivle && <RecreationPopup pk={pk} handlePopupClose={handlePopupClose} />}

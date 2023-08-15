@@ -53,8 +53,8 @@ const EditInput = styled.input`
   background-color: transparent;
 `;
 const EditButton = styled.button`
-  width: 100px;
-  height: 36px;
+  width: 6.3rem;
+  height: 2.2rem;
   border-radius: 16px;
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.05));
   background-color: ${COLOR.lightGray};
@@ -184,7 +184,9 @@ const ListTable = ({ data, setShoppingItems }) => {
         ) : (
           <EditButton onClick={handleEditComplete}>완료</EditButton>
         )}
-        <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
+        <Submitbutton onClick={handleSubmit} width={6.3} height={2.2}>
+          제출
+        </Submitbutton>
       </ButtonDiv>
     </Container>
   );

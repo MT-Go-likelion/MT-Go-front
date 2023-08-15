@@ -66,8 +66,6 @@ const Recreation = () => {
     recreationsQuery: { isLoading, error, data: recreations },
   } = useRecreation(user ? user.token : '', page);
 
-  console.log(recreations);
-
   const handlePageChange = (page) => {
     setPage(page);
   };

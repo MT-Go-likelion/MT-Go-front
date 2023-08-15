@@ -10,6 +10,7 @@ import { BASE_URL } from '../config/api';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import Backimg from '../assets/images/chevron-left.png';
 import { mobileSize } from '../utils/MediaSize';
+import RecreationPopup from '../components/Popup/Recreation/RecreationPopup';
 
 const RecreationDetailLayout = styled.div`
   max-width: 1280px;
@@ -158,6 +159,8 @@ const liftAnimation = keyframes`
 `;
 
 const RecreationDetail = () => {
+  const [IspopupVisivle, setIspopupVisivle] = useState(false);
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [activeButton, setActiveButton] = useState('rule');
   const [isLifted, setIsLifted] = useState(false);
@@ -168,6 +171,15 @@ const RecreationDetail = () => {
 
   const { recreationDeleteMutation } = useRecreation();
   const navigate = useNavigate();
+
+  const handleTeamBtnClick = (e) => {
+    e.stopPropagation();
+    setIspopupVisivle(true);
+  };
+
+  const handlePopupClose = () => {
+    setIspopupVisivle(false);
+  };
 
   const onClickUpdateBtn = () => {
     navigate('/recreation/update', { state: { recreationDetail } });
@@ -264,7 +276,8 @@ const RecreationDetail = () => {
                     <RecommendedNum>
                       추천인원: {recreationDetail.headCountMin} ~ {recreationDetail.headCountMax}명
                     </RecommendedNum>
-                    <TeamspaceBtn>팀스페이스 담기</TeamspaceBtn>
+                    <TeamspaceBtn onClick={handleTeamBtnClick}>팀스페이스 담기</TeamspaceBtn>
+                    <TeamspaceBtn onClick={onClickUpdateBtn}>수정하기</TeamspaceBtn>
                     <TeamspaceBtn onClick={onClickDeleteBtn}>삭제하기</TeamspaceBtn>
                   </RightContainerHeader>
                   <RecreationDetailContent
@@ -274,6 +287,9 @@ const RecreationDetail = () => {
                   </RecreationDetailContent>
                 </RecreationDetailRightContainer>
               </RecreationContentContainer>
+              {IspopupVisivle && (
+                <RecreationPopup pk={recreationDetail.pk} handlePopupClose={handlePopupClose} />
+              )}
             </>
           )}
         </div>

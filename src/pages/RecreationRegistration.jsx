@@ -9,6 +9,7 @@ import RecreationEditor from '../components/Editor/RecreationEditor';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import COLOR from '../constants/color';
 import camera from '../assets/images/camera.png';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
 
 const FormContainer = styled.div`
   display: flex;
@@ -151,7 +152,7 @@ const RecreationRegistration = () => {
     if (user) {
       recreaetionMutation(formData, {
         onSuccess: () => {
-          setSuccess('✅레크레이션이 성공적으로 추가되었습니다!');
+          setSuccess('✅ 레크레이션이 성공적으로 추가되었습니다!');
           setTimeout(() => setSuccess(null), 3000);
         },
       });
@@ -162,6 +163,7 @@ const RecreationRegistration = () => {
 
   return (
     <FormContainer>
+      <ApiCallSuccessPopup success={success} />
       <FormTitle>레크레이션 등록</FormTitle>
       <RegisterForm onSubmit={onSubmitRecreation}>
         {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}

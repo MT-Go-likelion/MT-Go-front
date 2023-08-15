@@ -11,6 +11,7 @@ import Star from '../../assets/images/star.png';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 import { mobileSize } from '../../utils/MediaSize';
 import { formatPrice } from '../../utils/formatPrice';
+import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -126,6 +127,8 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
   console.log(pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice);
   const [liked, setLiked] = useState(isScrap);
   const [isMobile, setIsMobile] = useState(false);
+  const [success, setSuccess] = useState('');
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -138,11 +141,20 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
 
     if (user) {
       setLiked((prevState) => !prevState);
-      lodgingScrapMutation({
-        isScrap: !liked,
-        lodging: pk,
-        token: user.token,
-      });
+      lodgingScrapMutation(
+        {
+          isScrap: !liked,
+          lodging: pk,
+          token: user.token,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.isScrap) setSuccess('✅ 개인스페이스 스크랩 목록에 추가되었습니다');
+            if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
+            setTimeout(() => setSuccess(null), 1500);
+          },
+        },
+      );
     } else {
       navigate('/signin');
     }
@@ -164,6 +176,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
   }, []);
   return (
     <div>
+      <ApiCallSuccessPopup success={success} />
       {isMobile ? (
         <BestLoContainer onClick={handleCardClick}>
           <Flexdirection>
