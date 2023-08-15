@@ -97,11 +97,6 @@ const SubmitBtn = styled.button`
   float: right;
 `;
 
-const SuccessText = styled.div`
-  font-size: 1.75rem;
-  font-size: bold;
-`;
-
 const RecreationRegistration = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
@@ -166,8 +161,6 @@ const RecreationRegistration = () => {
       <ApiCallSuccessPopup success={success} />
       <FormTitle>레크레이션 등록</FormTitle>
       <RegisterForm onSubmit={onSubmitRecreation}>
-        {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
-
         <InputContainer>
           <FormLabel>제목:</FormLabel>
           <FormInput onChange={onChangeName} />
