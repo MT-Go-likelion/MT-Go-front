@@ -11,6 +11,12 @@ const lodgingAPI = {
     return res.data;
   },
 
+  mainList: async () => {
+    const res = await axios.get(LODGINGAPI.MAINLIST);
+
+    return res.data;
+  },
+
   scrap: async ({ isScrap, lodging, token }) => {
     const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
     const res = await axios.post(LODGINGAPI.SCRAP, { isScrap, lodging }, headers);

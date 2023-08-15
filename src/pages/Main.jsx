@@ -10,8 +10,9 @@ import RecreationCard from '../components/Card/RecreationCard';
 
 import MobileBanner from '../assets/images/MobileBanner.png';
 import { mobileSize } from '../utils/MediaSize';
-
-// import COLOR from '../constants/color';
+import useLodgingMain from '../hooks/queries/Lodging/useLodgingMain';
+import Lodging from './Lodging';
+import Error from './Error';
 
 const mediaSize = 1030;
 
@@ -20,7 +21,6 @@ const MainLayout = styled.div`
   height: 80%;
 `;
 
-// 배너 - 메인 img
 const Banner = styled.div`
   width: 100%;
   position: relative;
@@ -32,8 +32,6 @@ const BannerImg = styled.img`
     content: url(${MobileBanner});
   }
 `;
-
-// 전체 적용 마진
 const ContentLayout = styled.div`
   margin: 4rem 7rem;
   padding: 0 3rem;
@@ -133,6 +131,10 @@ const Divstyled = styled.div`
 const Main = () => {
   const navigate = useNavigate();
 
+  const {
+    mainLodgingsQuery: { isLoading: lodgingsLoading, lodgingsError, data: lodgings },
+  } = useLodgingMain();
+
   const handleLodgingClick = () => {
     navigate(`/Lodging`);
   };
@@ -160,11 +162,20 @@ const Main = () => {
           <More onClick={handleLodgingClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
-          <BestlocationCard />
-          <BestlocationCard />
-          <BestlocationCard />
-          <BestlocationCard />
-          <BestlocationCard />
+          {lodgingsLoading && <Lodging />}
+          {lodgingsError && <Error />}
+          {lodgings &&
+            lodgings.map((lodging) => (
+              <BestlocationCard
+                key={lodging.pk}
+                pk={lodging.pk}
+                name={lodging.name}
+                price={lodging.price}
+                mainPhoto={lodging.mainPhoto}
+                avgScore={lodging.avgScore}
+                isScrap={lodging.isScrap}
+              />
+            ))}
         </Flexdiv>
         <Title>장보기</Title>
         <Divstyled>
