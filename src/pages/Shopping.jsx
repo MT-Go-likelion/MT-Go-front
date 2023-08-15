@@ -152,13 +152,13 @@ const Checklist = styled.div`
   height: 660px;
   position: fixed;
   right: 15%;
-  top: 180px;
+  top: 500px;
 
   transition: opacity 0.2s ease-in-out;
-  @media (max-width: 1348px) {
+  @media (max-width: 1380px) {
     right: 10%;
   }
-  @media (max-width: 1150px) {
+  @media (max-width: 1210px) {
     right: 4%;
   }
   @media (max-width: 855px) {

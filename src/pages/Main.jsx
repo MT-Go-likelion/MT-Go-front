@@ -13,7 +13,7 @@ import { mobileSize } from '../utils/MediaSize';
 
 // import COLOR from '../constants/color';
 
-const mediaSize = 1030;
+const mediaSize = 1100;
 
 const MainLayout = styled.div`
   width: 100%;
@@ -23,11 +23,16 @@ const MainLayout = styled.div`
 // 배너 - 메인 img
 const Banner = styled.div`
   width: 100%;
+  max-height: 320px;
+  min-height: 200px;
   position: relative;
 `;
 
 const BannerImg = styled.img`
   width: 100%;
+  max-height: 330px;
+  min-height: 250px;
+  object-fit: cover;
   @media (max-width: ${mobileSize}px) {
     content: url(${MobileBanner});
   }
@@ -35,12 +40,12 @@ const BannerImg = styled.img`
 
 // 전체 적용 마진
 const ContentLayout = styled.div`
-  margin: 4rem 7rem;
+  margin: 5rem 11vh;
   padding: 0 3rem;
   position: relative;
   transition: 0.3s;
   @media (max-width: ${mediaSize}px) {
-    margin: 4rem 2rem;
+    margin: 4rem 6vh;
   }
   @media (max-width: ${mobileSize}px) {
     margin: 0;
@@ -54,12 +59,12 @@ const Flexdiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
   gap: 3rem;
-  margin: 4rem;
+  margin: 2rem 2rem 5rem 2rem;
   padding-bottom: 0.5rem;
   height: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+
   transition: 0.3s;
   @media (max-width: ${mediaSize}px) {
     margin: 4rem 2rem;
@@ -72,12 +77,12 @@ const Flexdiv = styled.div`
 
 // 추천 단체숙소
 const Title = styled.div`
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 700;
   margin: 1rem 0;
   transition: 0.3s;
   @media (max-width: ${mediaSize}px) {
-    font-size: 24px;
+    font-size: 22px;
   }
   @media (max-width: ${mobileSize}px) {
     font-size: 16px;
@@ -89,7 +94,7 @@ const Title = styled.div`
 `;
 
 const SubTitle = styled.span`
-  font-size: 20px;
+  font-size: 17px;
   color: ${COLOR.gray};
   transition: 0.3s;
   @media (max-width: ${mediaSize}px) {
