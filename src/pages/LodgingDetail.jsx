@@ -196,7 +196,6 @@ const LodgingDetail = () => {
       {isLoading && <Loading />}
       {error && <ErrorPage />}
       {lodgingDetail && (
-
         <div>
           {isMobile ? (
             <>
@@ -307,14 +306,13 @@ const LodgingDetail = () => {
               </ContentDiv>
             </>
           ) : (
-        <>
-          <LodgingDetailHeader lodging={lodgingDetail} />
-          <LodgingDetailContent lodging={lodgingDetail} />
-          <LodgingDetailReview lodging={lodgingDetail} />
-        </>
+            <>
+              <LodgingDetailHeader lodging={lodgingDetail} />
+              <LodgingDetailContent lodging={lodgingDetail} />
+              <LodgingDetailReview lodging={lodgingDetail} />
+            </>
           )}
         </div>
-
       )}
     </LodgingLayout>
   );
