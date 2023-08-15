@@ -35,6 +35,8 @@ const InputContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin: 1rem 0;
+
+  margin-bottom: ${(props) => props.mb && `${props.mb}rem`};
 `;
 
 const InputSubContainer = styled.div`
@@ -51,6 +53,8 @@ const FormInput = styled.input`
   padding: 0.5rem;
   border: 1px solid ${COLOR.gray};
   border-radius: 4px;
+
+  height: ${(props) => props.height && `${props.height}rem`};
 `;
 
 const ImgInput = styled.input`
@@ -84,6 +88,12 @@ const PreviewImg = styled.img`
 const PreviewImgList = styled.div`
   display: flex;
   gap: 1rem;
+`;
+
+const SubTitle = styled.div`
+  font-size: 2rem;
+  color: ${COLOR.gray};
+  font-weight: bold;
 `;
 
 const SubmitButton = styled.button`
@@ -282,26 +292,28 @@ const CreateLodging = () => {
           <FormLabel>장소:</FormLabel>
           <FormInput type="text" value={place} onChange={onChangePlace} />
         </InputContainer>
-        <InputContainer>
+        <InputContainer mb={6}>
           <FormLabel>부대시설:</FormLabel>
           <FormInput type="text" value={amenities} onChange={onChangeAmenities} />
         </InputContainer>
         <InputContainer>
           <FormLabel>설명:</FormLabel>
-          <FormInput type="text" value={content} onChange={onChangeContent} />
+          <FormInput type="text" value={content} onChange={onChangeContent} height={15} />
         </InputContainer>
-        <InputContainer>
+        <InputContainer mb={6}>
           <FormLabel>주의사항:</FormLabel>
-          <FormInput type="text" value={precaution} onChange={onChangePrecaution} />
+          <FormInput type="text" value={precaution} onChange={onChangePrecaution} height={15} />
         </InputContainer>
+        <SubTitle>체크인 / 체크아웃</SubTitle>
         <InputContainer>
           <FormLabel>체크인:</FormLabel>
           <FormInput type="text" value={checkInTime} onChange={onChangeCheckInTime} />
         </InputContainer>
-        <InputContainer>
+        <InputContainer mb={6}>
           <FormLabel>체크아웃:</FormLabel>
           <FormInput type="text" value={checkOutTime} onChange={onChangeCheckOutTime} />
         </InputContainer>
+        <SubTitle>가격 등록</SubTitle>
         <InputContainer>
           <FormLabel>가격(성수기 주말 및 공휴일)</FormLabel>
           <FormInput type="text" value={peakWeekendPrice} onChange={onChangePeakWeekendPrice} />
