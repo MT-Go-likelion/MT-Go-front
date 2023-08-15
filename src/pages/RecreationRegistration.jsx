@@ -8,6 +8,7 @@ import useInput from '../hooks/useInput';
 import RecreationEditor from '../components/Editor/RecreationEditor';
 import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import COLOR from '../constants/color';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
 
 const RegisterForm = styled.form``;
 
@@ -108,7 +109,7 @@ const RecreationRegistration = () => {
     if (user) {
       recreaetionMutation(formData, {
         onSuccess: () => {
-          setSuccess('✅레크레이션이 성공적으로 추가되었습니다!');
+          setSuccess('✅ 레크레이션이 성공적으로 추가되었습니다!');
           setTimeout(() => setSuccess(null), 3000);
         },
       });
@@ -119,6 +120,7 @@ const RecreationRegistration = () => {
 
   return (
     <RegisterForm onSubmit={onSubmitRecreation}>
+      <ApiCallSuccessPopup success={success} />
       {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
 
       <TitleContainer>

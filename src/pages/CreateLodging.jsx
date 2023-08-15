@@ -5,6 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import useInput from '../hooks/useInput';
 import useLoding from '../hooks/queries/Lodging/useLodging';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
 
 const FormContainer = styled.div`
   display: flex;
@@ -31,11 +32,6 @@ const SubmitButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-`;
-
-const SuccessText = styled.div`
-  font-size: 1.75rem;
-  font-size: bold;
 `;
 
 const ThumbImgContainer = styled.div`
@@ -129,7 +125,7 @@ const CreateLodging = () => {
   };
   return (
     <FormContainer>
-      {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
+      <ApiCallSuccessPopup success={success} />
       <form onSubmit={handlesubmit} method="POST">
         <FormInput type="text" placeholder="숙소이름" value={name} onChange={onChangeName} />
         <FormInput type="text" placeholder="address" value={address} onChange={onChangeAddress} />
