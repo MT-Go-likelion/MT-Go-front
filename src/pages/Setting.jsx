@@ -17,6 +17,7 @@ import SuggestionModal from '../components/Common/Modal/SuggestionModal';
 import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
 import { useSignOut } from '../hooks/queries/Auth/useSignOut';
 import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
 
 const mediaSize = 1030;
 
@@ -123,6 +124,7 @@ const Setting = () => {
   const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
 
   const [userName, onChangeUserName] = useInput(user && user.name);
+  const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
   const { userUpdateMutation, userDeleteMutation } = useUserUpdate(user.pk);
@@ -160,7 +162,12 @@ const Setting = () => {
   };
 
   const clickUpdateBtn = () => {
-    userUpdateMutation(userName);
+    userUpdateMutation(userName, {
+      onSuccess: () => {
+        setSuccess('✅ 닉네임이 변경사항이 적용됐습니다!');
+        setTimeout(() => setSuccess(null), 3000);
+      },
+    });
   };
 
   const showTermsModal = () => {
@@ -193,6 +200,8 @@ const Setting = () => {
 
   return (
     <>
+      <ApiCallSuccessPopup success={success} />
+
       <Hrbar />
       <Container>
         <TeamspaceDiv>

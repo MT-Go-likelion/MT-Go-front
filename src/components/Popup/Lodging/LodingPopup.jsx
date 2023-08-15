@@ -166,7 +166,7 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
       {
         onSuccess: (data) => {
           if (data.message) setSuccess(`${teamName} 팀스페이스에서 삭제되었습니다`);
-          if (!data.message) setSuccess(`${teamName} 팀스페이스에 추가되었습니다`);
+          if (!data.message) setSuccess(`✅ ${teamName} 팀스페이스에 추가되었습니다`);
           setTimeout(() => setSuccess(null), 1500);
         },
       },

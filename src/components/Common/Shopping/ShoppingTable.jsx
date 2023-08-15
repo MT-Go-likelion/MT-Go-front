@@ -283,7 +283,7 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
       if (selectedSpace === 'private') {
         shoppingMutation(data, {
           onSuccess: () => {
-            setSuccess('개인스페이스에 장보기 목록이 추가되었습니다');
+            setSuccess('✅ 개인스페이스에 장보기 목록이 추가되었습니다');
             setTimeout(() => setSuccess(null), 1500);
           },
         });
@@ -294,7 +294,7 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
           }),
           {
             onSuccess: () => {
-              setSuccess('해당 팀스페이스에 장보기 목록이 추가되었습니다');
+              setSuccess('✅ 해당 팀스페이스에 장보기 목록이 추가되었습니다');
               setTimeout(() => setSuccess(null), 1500);
             },
           },
