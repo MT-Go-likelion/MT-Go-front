@@ -178,7 +178,7 @@ const LodgingDetail = () => {
 
   const {
     lodgingDetailQuery: { isLoading, error, data: lodgingDetail },
-  } = useLodgingDetail(lodgingId, user.token);
+  } = useLodgingDetail(lodgingId, user ? user.token : '');
 
   // 모바일 관련
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
