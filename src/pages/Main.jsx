@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import MainBanner from '../assets/images/banner.png';
 import BestlocationCard from '../components/Card/BestlocationCard';
@@ -11,8 +12,9 @@ import RecreationCard from '../components/Card/RecreationCard';
 import MobileBanner from '../assets/images/MobileBanner.png';
 import { mobileSize } from '../utils/MediaSize';
 import useLodgingMain from '../hooks/queries/Lodging/useLodgingMain';
-import Lodging from './Lodging';
 import Error from './Error';
+import useRecreationMain from '../hooks/queries/Recreation/useRecreationMain';
+import Loading from './Loading';
 
 const mediaSize = 1030;
 
@@ -131,9 +133,20 @@ const Divstyled = styled.div`
 const Main = () => {
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const {
     mainLodgingsQuery: { isLoading: lodgingsLoading, lodgingsError, data: lodgings },
-  } = useLodgingMain();
+  } = useLodgingMain(user.token);
+
+  const {
+    mainRecreationsQuery: {
+      isLoading: recreationsLoading,
+      error: recreationsError,
+      data: recreations,
+    },
+  } = useRecreationMain(user.token);
 
   const handleLodgingClick = () => {
     navigate(`/Lodging`);
@@ -162,7 +175,7 @@ const Main = () => {
           <More onClick={handleLodgingClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
-          {lodgingsLoading && <Lodging />}
+          {lodgingsLoading && <Loading />}
           {lodgingsError && <Error />}
           {lodgings &&
             lodgings.map((lodging) => (
@@ -200,6 +213,20 @@ const Main = () => {
           <More onClick={handleRecreationClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
+          {recreationsLoading && <Loading />}
+          {recreationsError && <Error />}
+          {recreations &&
+            recreations.map((recreation) => (
+              <RecreationCard
+                key={recreation.key}
+                name={recreation.name}
+                photo={recreation.photo}
+                headCountMin={recreation.headCountMin}
+                headCountMax={recreation.headCountMax}
+                isScrap={recreation.isScrap}
+              />
+            ))}
+
           <RecreationCard />
           <RecreationCard />
           <RecreationCard />

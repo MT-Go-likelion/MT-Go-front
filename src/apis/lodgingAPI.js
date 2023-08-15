@@ -11,8 +11,9 @@ const lodgingAPI = {
     return res.data;
   },
 
-  mainList: async () => {
-    const res = await axios.get(LODGINGAPI.MAINLIST);
+  mainList: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(LODGINGAPI.MAINLIST, headers);
 
     return res.data;
   },
