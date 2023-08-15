@@ -7,8 +7,7 @@ const useTeamLodgingScrap = (userToken, lodgingPk) => {
   const { mutate: teamLodgingMutation } = useMutation(
     (paylod) => teamAPI.lodgingCreate(paylod, userToken),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries(['team', lodgingPk, 'lodging']);
       },
       onError: (error) => {

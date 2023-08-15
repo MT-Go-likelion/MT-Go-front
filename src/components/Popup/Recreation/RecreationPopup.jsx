@@ -10,6 +10,7 @@ import Error from '../../../pages/Error';
 import useTeamRecreationIsScrap from '../../../hooks/queries/Team/useTeamRecreationIsScrap';
 import useTeamRecreationScrap from '../../../hooks/queries/Team/useTeamRecreationScrap';
 import { mobileSize } from '../../../utils/MediaSize';
+import ApiCallSuccessPopup from '../../Common/Popup/ApiCallSuccessPopup';
 
 const slideIn = keyframes`
   from {
@@ -156,6 +157,7 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
   const [visible, setVisible] = useState(true);
+  const [success, setSuccess] = useState('');
 
   const {
     teamRecreationScrapQuery: { isLoading, error, data: teams },
@@ -163,8 +165,17 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
 
   const { teamRecreationMutation } = useTeamRecreationScrap(user ? user.token : '', pk);
 
-  const handleTeamClick = (teamToken) => {
-    teamRecreationMutation({ teamToken, recreationPk: pk });
+  const handleTeamClick = (teamToken, teamName) => {
+    teamRecreationMutation(
+      { teamToken, recreationPk: pk },
+      {
+        onSuccess: (data) => {
+          if (data.message) setSuccess(`${teamName} 팀스페이스에서 삭제되었습니다`);
+          if (!data.message) setSuccess(`${teamName} 팀스페이스에 추가되었습니다`);
+          setTimeout(() => setSuccess(null), 1500);
+        },
+      },
+    );
   };
 
   const handleSubmit = (e) => {
@@ -176,6 +187,7 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
   };
   return (
     <PopupBackground visible={visible}>
+      <ApiCallSuccessPopup success={success} />
       <PopupContainer>
         <CloseBtn src={close} onClick={handlePopupClose} />
         <PopupContent>
@@ -188,7 +200,7 @@ const RecreationPopup = ({ pk, handlePopupClose }) => {
               teams.map((team) => (
                 <TeamBtn
                   key={team.teamToken}
-                  onClick={() => handleTeamClick(team.teamToken)}
+                  onClick={() => handleTeamClick(team.teamToken, team.teamName)}
                   isScrap={team.isScrap}
                 >
                   {team.teamName}

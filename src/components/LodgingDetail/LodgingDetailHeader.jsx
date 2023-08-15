@@ -18,6 +18,7 @@ import LodgingDetailMobileLiked from '../../assets/images/LodgingDetailMobileLik
 
 import { mobileSize } from '../../utils/MediaSize';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
+import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
 
 const HeaderContainer = styled.div`
   margin-bottom: 3rem;
@@ -108,6 +109,8 @@ const LodgingDetailHeader = ({ lodging }) => {
 
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const [isLiked, setIsLiked] = useState(isScrap);
+  const [success, setSuccess] = useState('');
+
   const navigate = useNavigate();
   const { lodgingDeleteMutation } = useLodging();
 
@@ -121,11 +124,20 @@ const LodgingDetailHeader = ({ lodging }) => {
 
     if (user) {
       setIsLiked((prevState) => !prevState);
-      lodgingScrapMutation({
-        isScrap: !isLiked,
-        lodging: pk,
-        token: user.token,
-      });
+      lodgingScrapMutation(
+        {
+          isScrap: !isLiked,
+          lodging: pk,
+          token: user.token,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.isScrap) setSuccess('개인스페이스 스크랩 목록에 추가되었습니다');
+            if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
+            setTimeout(() => setSuccess(null), 1500);
+          },
+        },
+      );
     } else {
       navigate('/signin');
     }
@@ -162,6 +174,8 @@ const LodgingDetailHeader = ({ lodging }) => {
 
   return (
     <div>
+      <ApiCallSuccessPopup success={success} />
+
       {isMobile ? (
         <Header>
           <Back src={Backimg} onClick={() => navigate('/Lodging')} />

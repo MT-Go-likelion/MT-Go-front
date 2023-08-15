@@ -111,7 +111,6 @@ const ShoppingPopup = ({ isVisible, onClose, onComplete }) => {
   const [visible, setVisible] = useState(isVisible);
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');
-  console.log(visible);
 
   const handleComplete = (e) => {
     if (amount !== '' && price !== '') {

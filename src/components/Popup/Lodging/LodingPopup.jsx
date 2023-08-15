@@ -10,6 +10,7 @@ import Error from '../../../pages/Error';
 import useTeamLodgingIsScrap from '../../../hooks/queries/Team/useTeamLodgingIsScrap';
 import useTeamLodgingScrap from '../../../hooks/queries/Team/useTeamLodgingScrap';
 import { mobileSize } from '../../../utils/MediaSize';
+import ApiCallSuccessPopup from '../../Common/Popup/ApiCallSuccessPopup';
 
 const slideIn = keyframes`
   from {
@@ -151,6 +152,7 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
   const [isVisible, setIsVisible] = useState(true);
+  const [success, setSuccess] = useState('');
 
   const {
     teamLodgingScrapQuery: { isLoading, error, data: teams },
@@ -158,8 +160,17 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
 
   const { teamLodgingMutation } = useTeamLodgingScrap(user ? user.token : '', pk);
 
-  const handleTeamClick = (teamToken) => {
-    teamLodgingMutation({ teamToken, lodgingPk: pk });
+  const handleTeamClick = (teamToken, teamName) => {
+    teamLodgingMutation(
+      { teamToken, lodgingPk: pk },
+      {
+        onSuccess: (data) => {
+          if (data.message) setSuccess(`${teamName} 팀스페이스에서 삭제되었습니다`);
+          if (!data.message) setSuccess(`${teamName} 팀스페이스에 추가되었습니다`);
+          setTimeout(() => setSuccess(null), 1500);
+        },
+      },
+    );
   };
 
   const handleSubmit = (e) => {
@@ -172,6 +183,7 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
 
   return (
     <PopupBackground>
+      <ApiCallSuccessPopup success={success} />
       <PopupContainer visible={isVisible}>
         <CloseBtn src={close} onClick={handlePopupClose} />
         <PopupContent>
@@ -184,7 +196,7 @@ const LodingPopup = ({ pk, handlePopupClose }) => {
               teams.map((team) => (
                 <TeamBtn
                   key={team.teamToken}
-                  onClick={() => handleTeamClick(team.teamToken)}
+                  onClick={() => handleTeamClick(team.teamToken, team.teamName)}
                   isScrap={team.isScrap}
                 >
                   {team.teamName}

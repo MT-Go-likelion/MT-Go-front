@@ -147,9 +147,9 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
         },
         {
           onSuccess: (data) => {
-            if (data.isScrap) setSuccess('스크랩에 추가되었습니다');
+            if (data.isScrap) setSuccess('개인스페이스 스크랩 목록에 추가되었습니다');
             if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
-            setTimeout(() => setSuccess(null), 1000);
+            setTimeout(() => setSuccess(null), 1500);
           },
         },
       );
