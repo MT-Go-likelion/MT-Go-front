@@ -164,6 +164,7 @@ const Main = () => {
   const handleRecreationClick = () => {
     navigate(`/Recreation`);
   };
+
   const isMobile = window.innerWidth <= mobileSize;
 
   return (
@@ -224,7 +225,8 @@ const Main = () => {
           {recreations &&
             recreations.map((recreation) => (
               <RecreationCard
-                key={recreation.key}
+                key={recreation.pk}
+                pk={recreation.pk}
                 name={recreation.name}
                 photo={recreation.photo}
                 headCountMin={recreation.headCountMin}

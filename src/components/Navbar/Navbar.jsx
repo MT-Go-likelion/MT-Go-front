@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import menu from '../../assets/images/bag-outline.png';
 import { useSignOut } from '../../hooks/queries/Auth/useSignOut';
 
@@ -76,6 +77,17 @@ const Navbar = ({ auth }) => {
   const signOut = useSignOut();
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const handleShopping = () => {
+    if (user) {
+      navigate('/shopping');
+    } else {
+      navigate('/signin');
+    }
+  };
+
   const handleLogout = () => {
     signOut();
     navigate('/');
@@ -90,7 +102,7 @@ const Navbar = ({ auth }) => {
             <NavMenuIcon src={menu} />
             <NavMenuText>숙소예약</NavMenuText>
           </NavMenu>
-          <NavMenu onClick={() => navigate('/shopping')}>
+          <NavMenu onClick={handleShopping}>
             <NavMenuIcon src={menu} />
             <NavMenuText>장보기</NavMenuText>
           </NavMenu>

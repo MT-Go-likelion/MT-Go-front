@@ -245,7 +245,6 @@ const MyPage = () => {
                   headCountMin={scrapItem.headCountMin}
                   headCountMax={scrapItem.headCountMax}
                   isScrap={scrapItem.isScrap}
-                  hideTeamspace
                 />
               ))}
           </Flex>

@@ -124,7 +124,6 @@ const Flex = styled.div`
 // 모바일
 
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice }) => {
-  console.log(pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice);
   const [liked, setLiked] = useState(isScrap);
   const [isMobile, setIsMobile] = useState(false);
   const [success, setSuccess] = useState('');

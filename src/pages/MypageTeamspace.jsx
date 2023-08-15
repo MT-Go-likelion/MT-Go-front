@@ -420,6 +420,7 @@ const MypageTeamspace = () => {
                   mainPhoto={lodging.mainPhoto}
                   avgScore={lodging.avgScore}
                   isScrap={lodging.isScrap}
+                  lowWeekdayPrice={lodging.lowWeekdayPrice}
                 />
               ))}
           </Flex>
@@ -436,7 +437,6 @@ const MypageTeamspace = () => {
                   headCountMin={recreation.headCountMin}
                   headCountMax={recreation.headCountMax}
                   isScrap={recreation.isScrap}
-                  hideTeamspace
                 />
               ))}
           </Flex>

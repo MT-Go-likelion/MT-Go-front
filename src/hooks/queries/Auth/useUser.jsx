@@ -5,7 +5,7 @@ import * as userLocalStorage from '../../../utils/userLocalstore';
 import authAPI from '../../../apis/authAPI';
 
 export function useUser() {
-  const { data: user } = useQuery(['user'], () => authAPI.user(user.id), {
+  const { data: user } = useQuery(['user'], () => user && authAPI.user(user.id), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
