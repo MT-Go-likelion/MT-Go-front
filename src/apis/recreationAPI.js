@@ -11,6 +11,13 @@ const recreationAPI = {
     return res.data;
   },
 
+  mainList: async (token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.get(RECREATIONAPI.MAINLIST, headers);
+
+    return res.data;
+  },
+
   create: async (payload) => {
     const res = await axios.post(RECREATIONAPI.CREATE, payload);
 

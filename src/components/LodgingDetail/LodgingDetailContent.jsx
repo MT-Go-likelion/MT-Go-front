@@ -4,6 +4,8 @@ import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
+import HorizonLine from '../Common/Line/HorizonLine';
+import { formatPrice } from '../../utils/formatPrice';
 
 const LodgingDetailContent = ({ lodging }) => {
   const {
@@ -17,6 +19,10 @@ const LodgingDetailContent = ({ lodging }) => {
     checkInTime,
     checkOutTime,
     place,
+    peakWeekendPrice,
+    peakWeekdayPrice,
+    lowWeekendPrice,
+    lowWeekdayPrice,
   } = lodging;
 
   const navigate = useNavigate();
@@ -32,7 +38,7 @@ const LodgingDetailContent = ({ lodging }) => {
           <Header>
             <ContentHeaderLeft>
               <AddressText>{address}</AddressText>
-              <PriceText>{place}</PriceText>
+              <PlaceText>{place}</PlaceText>
               <UrlText>{homePageURL}</UrlText>
             </ContentHeaderLeft>
             <ContentHeaderRight>
@@ -63,7 +69,30 @@ const LodgingDetailContent = ({ lodging }) => {
             </CheckBox>
           </>
         </ContentLeftContainer>
-        <CalenderBox />
+        <PriceBox>
+          <PriceHeader>
+            <PriceTitle>숙소 요금</PriceTitle>
+            <PriceSubTitle>1박당</PriceSubTitle>
+          </PriceHeader>
+          <PriceRowContainer>
+            <PriceRowText />
+            <PriceRowText>비성수기</PriceRowText>
+            <PriceRowText>성수기</PriceRowText>
+          </PriceRowContainer>
+          <HorizonLine mb={1.7} mt={1.7} color={COLOR.primary.blue} />
+          <PriceRowContainer>
+            <PriceRowText>평일</PriceRowText>
+            <PriceRowText>{formatPrice(lowWeekdayPrice)}원</PriceRowText>
+            <PriceRowText>{formatPrice(peakWeekdayPrice)}원</PriceRowText>
+          </PriceRowContainer>
+          <HorizonLine mb={1.7} mt={1.7} color={COLOR.primary.blue} />
+          <PriceRowContainer>
+            <PriceRowWeekend>주말</PriceRowWeekend>
+            <PriceRowText>{formatPrice(lowWeekendPrice)}원</PriceRowText>
+            <PriceRowText>{formatPrice(peakWeekendPrice)}원</PriceRowText>
+          </PriceRowContainer>
+          <HorizonLine mb={1.7} mt={1.7} color={COLOR.primary.blue} />
+        </PriceBox>
       </ContentContainer>
       <ContentBottomContainer>
         <LodgingMap />
@@ -87,7 +116,7 @@ const Header = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 4rem;
+  gap: 6rem;
 `;
 
 const ContentLeftContainer = styled.div`
@@ -105,7 +134,7 @@ const AddressText = styled.span`
   font-weight: bold;
 `;
 
-const PriceText = styled.span`
+const PlaceText = styled.span`
   font-size: 1.15rem;
   font-weight: bold;
   color: ${COLOR.gray};
@@ -131,12 +160,58 @@ const CapacityText = styled.span`
   color: ${COLOR.gray};
 `;
 
-const CalenderBox = styled.div`
+const PriceBox = styled.div`
   width: 26.25rem;
   max-width: 100%;
   height: 25rem;
   flex-basis: 30%;
-  background-color: ${COLOR.primary.lightBlue};
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+`;
+
+const PriceHeader = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+`;
+
+const PriceTitle = styled.div`
+  font-size: 1.5rem;
+  color: ${COLOR.gray};
+`;
+
+const PriceSubTitle = styled.div`
+  font-size: 1.1rem;
+  color: ${COLOR.gray};
+`;
+
+const PriceRowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+`;
+
+const PriceRowText = styled.div`
+  font-size: 1.1rem;
+`;
+
+const PriceRowWeekend = styled.div`
+  font-size: 1.1rem;
+  position: relative;
+
+  &::after {
+    font-size: 0.8rem;
+    content: '(공휴일 포함)';
+    position: absolute;
+    top: 1.2rem;
+    left: -3.3rem;
+    width: 10rem;
+    text-align: center;
+    color: ${COLOR.gray};
+    padding: 5px;
+  }
 `;
 
 const FacilitiesContainer = styled.div`

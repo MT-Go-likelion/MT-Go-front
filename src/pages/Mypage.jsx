@@ -227,6 +227,7 @@ const MyPage = () => {
                   price={scrapItem.price}
                   mainPhoto={scrapItem.mainPhoto}
                   isScrap={scrapItem.isScrap}
+                  lowWeekdayPrice={scrapItem.lowWeekdayPrice}
                 />
               ))}
           </Flex>

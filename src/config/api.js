@@ -8,6 +8,7 @@ export const AUTHAPI = {
 
 export const LODGINGAPI = {
   LIST: `${BASE_URL}/lodging/main/`,
+  MAINLIST: `${BASE_URL}/lodging/mainPage/`,
   SCRAP: `${BASE_URL}/lodging/scrap/`,
   CREATE: `${BASE_URL}/lodging/create/`,
   DETAIL: `${BASE_URL}/lodging/detail/`,
@@ -19,6 +20,7 @@ export const LODGINGAPI = {
 export const RECREATIONAPI = {
   CREATE: `${BASE_URL}/recreation/create/`,
   LIST: `${BASE_URL}/recreation/main/`,
+  MAINLIST: `${BASE_URL}/recreation/mainPage/`,
   SCRAP: `${BASE_URL}/recreation/scrap/`,
   DETAIL: `${BASE_URL}/recreation/detail/`,
   SCRAPLIST: `${BASE_URL}/recreation/scrapList`,

@@ -11,7 +11,6 @@ import camera from '../assets/images/camera.png';
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   max-width: 1280px;
   margin: auto;
   padding: 2rem;
@@ -36,22 +35,29 @@ const InputContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin: 1rem 0;
+
+  margin-bottom: ${(props) => props.mb && `${props.mb}rem`};
 `;
 
 const InputSubContainer = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   gap: 2rem;
   margin-bottom: 5rem;
 `;
 
-const FormLabel = styled.label``;
+const FormLabel = styled.label`
+  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '5%')};
+`;
 
 const FormInput = styled.input`
-  width: 80%;
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid ${COLOR.gray};
   border-radius: 4px;
+  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '95%')};
+
+  height: ${(props) => props.height && `${props.height}rem`};
 `;
 
 const ImgInput = styled.input`
@@ -87,13 +93,20 @@ const PreviewImgList = styled.div`
   gap: 1rem;
 `;
 
+const SubTitle = styled.div`
+  font-size: 2rem;
+  color: ${COLOR.gray};
+  font-weight: bold;
+`;
+
 const SubmitButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: ${COLOR.blue};
+  width: 7.5rem;
+  height: 2.2rem;
+  background-color: ${COLOR.primary.blue};
   color: ${COLOR.white};
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+  float: right;
 `;
 
 const SuccessText = styled.div`
@@ -119,7 +132,6 @@ const CreateLodging = () => {
   const [name, onChangeName] = useInput('');
   const [address, onChangeAddress] = useInput('');
   const [place, onChangePlace] = useInput('');
-  const [price, onChangePrice] = useInput('');
   const [phoneNumber, onChangePhoneNumber] = useInput('');
   const [amenities, onChangeAmenities] = useInput('');
   const [homePageURL, onChangeHomePageURL] = useInput('');
@@ -128,10 +140,15 @@ const CreateLodging = () => {
   const [precaution, onChangePrecaution] = useInput('');
   const [checkInTime, onChangeCheckInTime] = useInput('');
   const [checkOutTime, onChangeCheckOutTime] = useInput('');
+  const [peakWeekendPrice, onChangePeakWeekendPrice] = useInput('');
+  const [peakWeekdayPrice, onChangePeakWeekdayPrice] = useInput('');
+  const [lowWeekendPrice, onChangeLowWeekendPrice] = useInput('');
+  const [lowWeekdayPrice, onChangeLowWeekdayPrice] = useInput('');
   const [myImage, setMyImage] = useState([]);
   const [mainPhoto, setMainPhoto] = useState();
   const [previewMainImg, setPreviewMainImg] = useState('');
   const [photos, setPhotos] = useState([]);
+
   const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
@@ -171,7 +188,6 @@ const CreateLodging = () => {
     formData.append('name', name);
     formData.append('address', address);
     formData.append('place', place);
-    formData.append('price', price);
     formData.append('phoneNumber', phoneNumber);
     formData.append('amenities', amenities);
     formData.append('homePageURL', homePageURL);
@@ -181,6 +197,10 @@ const CreateLodging = () => {
     formData.append('checkInTime', checkInTime);
     formData.append('checkOutTime', checkOutTime);
     formData.append('mainPhoto', mainPhoto);
+    formData.append('peakWeekendPrice', peakWeekendPrice);
+    formData.append('peakWeekdayPrice', peakWeekdayPrice);
+    formData.append('lowWeekendPrice', lowWeekendPrice);
+    formData.append('lowWeekdayPrice', lowWeekdayPrice);
     photos.forEach((photo) => {
       return formData.append('photos', photo);
     });
@@ -263,12 +283,12 @@ const CreateLodging = () => {
         </InputContainer>
         <InputSubContainer>
           <InputContainer>
-            <FormLabel>연락처:</FormLabel>
-            <FormInput type="text" value={phoneNumber} onChange={onChangePhoneNumber} />
+            <FormLabel fb={10}>연락처:</FormLabel>
+            <FormInput fb={90} type="text" value={phoneNumber} onChange={onChangePhoneNumber} />
           </InputContainer>
           <InputContainer>
-            <FormLabel>수용인원:</FormLabel>
-            <FormInput type="text" value={headCount} onChange={onChangeHeadCount} />
+            <FormLabel fb={13}>수용인원:</FormLabel>
+            <FormInput fb={87} type="text" value={headCount} onChange={onChangeHeadCount} />
           </InputContainer>
         </InputSubContainer>
 
@@ -276,32 +296,66 @@ const CreateLodging = () => {
           <FormLabel>장소:</FormLabel>
           <FormInput type="text" value={place} onChange={onChangePlace} />
         </InputContainer>
-        <InputContainer>
+        <InputContainer mb={6}>
           <FormLabel>부대시설:</FormLabel>
           <FormInput type="text" value={amenities} onChange={onChangeAmenities} />
         </InputContainer>
         <InputContainer>
           <FormLabel>설명:</FormLabel>
-          <FormInput type="text" value={content} onChange={onChangeContent} />
+          <FormInput type="text" value={content} onChange={onChangeContent} height={15} />
         </InputContainer>
-        <InputContainer>
+        <InputContainer mb={6}>
           <FormLabel>주의사항:</FormLabel>
-          <FormInput type="text" value={precaution} onChange={onChangePrecaution} />
+          <FormInput type="text" value={precaution} onChange={onChangePrecaution} height={15} />
         </InputContainer>
+        <SubTitle>체크인 / 체크아웃</SubTitle>
         <InputContainer>
           <FormLabel>체크인:</FormLabel>
           <FormInput type="text" value={checkInTime} onChange={onChangeCheckInTime} />
         </InputContainer>
-        <InputContainer>
+        <InputContainer mb={6}>
           <FormLabel>체크아웃:</FormLabel>
           <FormInput type="text" value={checkOutTime} onChange={onChangeCheckOutTime} />
         </InputContainer>
+        <SubTitle>가격 등록</SubTitle>
         <InputContainer>
-          <FormLabel>가격</FormLabel>
-          <FormInput type="text" value={price} onChange={onChangePrice} />
+          <FormLabel fb={20}>가격(성수기 주말 및 공휴일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={peakWeekendPrice}
+            onChange={onChangePeakWeekendPrice}
+          />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel fb={20}>가격(성수기 평일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={peakWeekdayPrice}
+            onChange={onChangePeakWeekdayPrice}
+          />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel fb={20}>가격(비성수기 주말 및 공휴일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={lowWeekendPrice}
+            onChange={onChangeLowWeekendPrice}
+          />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel fb={20}>가격(비성수기 평일):</FormLabel>
+          <FormInput
+            fb={80}
+            type="text"
+            value={lowWeekdayPrice}
+            onChange={onChangeLowWeekdayPrice}
+          />
         </InputContainer>
 
-        <SubmitButton type="submit">제출하기</SubmitButton>
+        <SubmitButton type="submit">완료</SubmitButton>
       </Form>
     </FormContainer>
   );

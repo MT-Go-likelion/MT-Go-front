@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import { mobileSize } from '../../utils/MediaSize';
 import TagPopup from '../Popup/Shopping/TagPopup';
+import { formatPrice } from '../../utils/formatPrice';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -188,7 +189,7 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
           <BackImg> </BackImg>
           <FlexDiv>
             <Name>{name}</Name>
-            <Price>{price}원</Price>
+            <Price>{formatPrice(price)}원</Price>
             <Div>
               <Slide>
                 <IncrementleftButton onClick={handleDecrement}>-</IncrementleftButton>
@@ -204,7 +205,7 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
           <BackImg> </BackImg>
           <FlexDiv>
             <Name>{name}</Name>
-            <Price>{price}원</Price>
+            <Price>{formatPrice(price)}원</Price>
           </FlexDiv>
         </BestLoContainer>
       )}

@@ -119,7 +119,7 @@ const Recreation = () => {
       {recreations && (
         <Pagination
           activePage={page} // 현재 페이지
-          itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
+          itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
           totalItemsCount={recreations.count} // 총 아이템 개수
           pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
           prevPageText="‹"

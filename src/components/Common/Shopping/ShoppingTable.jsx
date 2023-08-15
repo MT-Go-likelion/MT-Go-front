@@ -14,6 +14,7 @@ import Error from '../../../pages/Error';
 import useTeamShoppingCreation from '../../../hooks/queries/Team/useTeamShoppingCreation';
 import { TEAMAPI } from '../../../config/api';
 import { mobileSize } from '../../../utils/MediaSize';
+import { formatPrice } from '../../../utils/formatPrice';
 
 const Container = styled.div`
   width: 280px;
@@ -360,11 +361,11 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
                     onChange={(e) => handleInputChange(e, item)}
                   />
                 ) : (
-                  <Item>{item.price}</Item>
+                  <Item>{formatPrice(item.price)}</Item>
                 )}
               </EditableTd>
               <Td>
-                <Item>{item.amount * item.price}</Item>
+                <Item>{formatPrice(item.amount * item.price)}</Item>
               </Td>
               <Tdcancle>
                 {editHandle === true ? (
@@ -394,7 +395,7 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
           />
         </Tbody>
       </Table>
-      <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
+      <SumPrice>총 금액 : {formatPrice(totalSum)} 원 </SumPrice>
 
       {CreatePopupVisible !== true ? (
         <ButtonDiv>
