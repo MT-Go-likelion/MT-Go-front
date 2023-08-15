@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://mtgo.site';
+export const BASE_URL = 'https://mtgo.site';
 
 export const AUTHAPI = {
   SIGNUP: `${BASE_URL}/accounts/user/signup/`,
