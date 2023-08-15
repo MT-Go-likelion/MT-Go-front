@@ -204,6 +204,7 @@ const RecreationDetail = () => {
                 <FlexDiv>
                   <TeamButton>담기</TeamButton>
                   <TeamButton onClick={onClickDeleteBtn}>삭제</TeamButton>
+                  <TeamButton onClick={onClickUpdateBtn}>삭제</TeamButton>
                 </FlexDiv>
               </Header>
               <RecreationImg src={BASE_URL + recreationDetail.photo} />
@@ -276,7 +277,6 @@ const RecreationDetail = () => {
             </>
           )}
         </div>
-
       )}
     </RecreationDetailLayout>
   );

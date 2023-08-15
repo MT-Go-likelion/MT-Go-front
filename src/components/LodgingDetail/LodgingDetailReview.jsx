@@ -20,7 +20,7 @@ import { mobileSize } from '../../utils/MediaSize';
 const ARRAY = [0, 1, 2, 3, 4];
 
 const LodgingDetailReview = ({ lodging }) => {
-  const { pk } = lodging;
+  const { pk, reviewCount } = lodging;
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [content, setContent] = useState('');
   const [selectedImgName, setSelectedReviewImgName] = useState('');
@@ -114,7 +114,7 @@ const LodgingDetailReview = ({ lodging }) => {
         {error && <Error />}
         <ReviewHeader>
           <RatingContainer score="5.0" />
-          <ReviewCntText>후기 3433개</ReviewCntText>
+          <ReviewCntText>후기 {reviewCount}개</ReviewCntText>
         </ReviewHeader>
         <ReviewContentContainer>
           <ReviewWritingContainer>

@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
-import useSelect from '../../hooks/useSelect';
 import { mobileSize } from '../../utils/MediaSize';
 
 const OPTION = [
   { value: '', name: '위치' },
-  { value: 'Daeseongri', name: '대성리' },
-  { value: 'uidong', name: '우이동' },
-  { value: 'Gapyeong', name: '가평' },
+  { value: '대성리', name: '대성리' },
+  { value: '우이동', name: '우이동' },
+  { value: '가평', name: '가평' },
 ];
 
 const StyledSelect = styled.select`
@@ -27,9 +26,7 @@ const StyledSelect = styled.select`
   }
 `;
 
-const SelectBox = ({ options }) => {
-  const [place, onChangePlace] = useSelect('');
-
+const SelectBox = ({ options, place, onChangePlace }) => {
   return (
     <StyledSelect onChange={onChangePlace} $place={place}>
       {options.map((option) => (
@@ -41,8 +38,12 @@ const SelectBox = ({ options }) => {
   );
 };
 
-function Location() {
-  return <SelectBox options={OPTION}> </SelectBox>;
+function Location({ place, onChangePlace }) {
+  return (
+    <SelectBox options={OPTION} place={place} onChangePlace={onChangePlace}>
+      {' '}
+    </SelectBox>
+  );
 }
 
 export default Location;

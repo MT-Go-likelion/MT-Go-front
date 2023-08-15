@@ -1,15 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
-import useSelect from '../../hooks/useSelect';
 
 import { mobileSize } from '../../utils/MediaSize';
 
 const OPTION = [
   { value: '', name: '가격' },
-  { value: '10', name: '10만원 이하' },
-  { value: '20', name: '20만원 이하' },
-  { value: '30', name: '30만원 이하' },
+  { value: '10~20', name: '10~20만원' },
+  { value: '20~30', name: '20-30만원' },
+  { value: '30~40', name: '30~40만원' },
 ];
 
 const StyledSelect = styled.select`
@@ -29,9 +28,7 @@ const StyledSelect = styled.select`
   }
 `;
 
-const SelectBox = ({ options }) => {
-  const [price, onChangePrice] = useSelect('');
-
+const SelectBox = ({ options, price, onChangePrice }) => {
   return (
     <StyledSelect onChange={onChangePrice} $price={price}>
       {options.map((option) => (
@@ -43,8 +40,12 @@ const SelectBox = ({ options }) => {
   );
 };
 
-function Price() {
-  return <SelectBox options={OPTION}> </SelectBox>;
+function Price({ price, onChangePrice }) {
+  return (
+    <SelectBox options={OPTION} price={price} onChangePrice={onChangePrice}>
+      {' '}
+    </SelectBox>
+  );
 }
 
 export default Price;

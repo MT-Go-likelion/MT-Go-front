@@ -22,7 +22,7 @@ const LodgingDetailContent = ({ lodging }) => {
   const navigate = useNavigate();
 
   const onClickUpdateBtn = () => {
-    navigate('/updateLodging', { state: { lodging } });
+    navigate('/lodging/update', { state: { lodging } });
   };
 
   return (

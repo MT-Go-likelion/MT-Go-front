@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 
 import Pagination from 'react-js-pagination';
+import { useLocation, useNavigate } from 'react-router-dom';
 import COLOR from '../constants/color';
 
 import '../styles/Pagination.css';
@@ -20,6 +21,7 @@ import Error from './Error';
 import useLodging from '../hooks/queries/Lodging/useLodging';
 import Loading from './Loading';
 import { mobileSize } from '../utils/MediaSize';
+import useSelect from '../hooks/useSelect';
 
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
@@ -125,10 +127,32 @@ const Lodging = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
   const [page, setPage] = useState(1);
+  const [place, onChangePlace] = useSelect('');
+  const [count, onChangeCount] = useSelect('');
+  const [price, onChangePrice] = useSelect('');
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const {
-    lodgingsQuery: { isLoading, error, data: lodgings },
-  } = useLodging(user ? user.token : '', page);
+    lodgingsQuery: { isLoading, error, data: lodgings, refetch },
+  } = useLodging(user ? user.token : '', page, location.state);
+
+  const handleSearch = () => {
+    const splitCount = count.split('~');
+    const splitPrice = price.split('~');
+    setPage(1);
+    navigate('/lodging', {
+      state: {
+        place,
+        minheadCount: splitCount[0],
+        maxheadCount: splitCount[1],
+        minlowWeekdayPrice: splitPrice[0],
+        maxlowWeekdayPrice: splitPrice[1],
+      },
+    });
+  };
+
   const handlePageChange = (page) => {
     setPage(page);
   };
@@ -138,6 +162,7 @@ const Lodging = () => {
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
   };
+
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -145,6 +170,10 @@ const Lodging = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [location]);
 
   return (
     <>
@@ -155,11 +184,11 @@ const Lodging = () => {
         {!isMobile ? (
           <>
             <BoxFlex>
-              <Location />
-              <Headcount />
-              <Price />
+              <Location place={place} onChangePlace={onChangePlace} />
+              <Headcount count={count} onChangeCount={onChangeCount} />
+              <Price price={price} onChangePrice={onChangePrice} />
             </BoxFlex>
-            <SearchBtn>검색하기</SearchBtn>
+            <SearchBtn onClick={handleSearch}>검색하기</SearchBtn>
           </>
         ) : (
           <BoxFlex>
@@ -203,7 +232,7 @@ const Lodging = () => {
         {lodgings && (
           <Pagination
             activePage={page} // 현재 페이지
-            itemsCountPerPage={4} // 한 페이지에 보여줄 아이템 개수
+            itemsCountPerPage={1} // 한 페이지에 보여줄 아이템 개수
             totalItemsCount={lodgings.count} // 총 아이템 개수
             pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
             prevPageText="‹"

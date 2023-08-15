@@ -1,18 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
-import useSelect from '../../hooks/useSelect';
 import { mobileSize } from '../../utils/MediaSize';
 
 const OPTION = [
   { value: '', name: '인원' },
-  { value: '10Head', name: '10명 이하' },
-  { value: '20Head', name: '20명 이하' },
-  { value: '30Head', name: '30명 이하' },
+  { value: '10~20', name: '10~20명' },
+  { value: '20~30', name: '20~30명' },
+  { value: '30~40', name: '30~40명' },
 ];
-
-// 사용자가
-// 데이터 다 보내주고 필터링해서 띄워주는 거
 
 const StyledSelect = styled.select`
   border-radius: 30px;
@@ -28,9 +24,7 @@ const StyledSelect = styled.select`
   }
 `;
 
-const SelectBox = ({ options }) => {
-  const [count, onChangeCount] = useSelect('');
-
+const SelectBox = ({ options, count, onChangeCount }) => {
   return (
     <StyledSelect onChange={onChangeCount} $count={count}>
       {options.map((option) => (
@@ -42,8 +36,12 @@ const SelectBox = ({ options }) => {
   );
 };
 
-function Headcount() {
-  return <SelectBox options={OPTION}> </SelectBox>;
+function Headcount({ count, onChangeCount }) {
+  return (
+    <SelectBox options={OPTION} count={count} onChangeCount={onChangeCount}>
+      {' '}
+    </SelectBox>
+  );
 }
 
 export default Headcount;

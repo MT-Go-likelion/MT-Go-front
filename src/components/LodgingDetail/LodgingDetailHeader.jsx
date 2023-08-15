@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import heart from '../../assets/images/heart-gradient.png';
+import selectHeart from '../../assets/images/Select_Heart.png';
+
 import booking from '../../assets/images/booking.png';
 import ImageSwiper from '../ImageSwiper/ImageSwiper';
 import COLOR from '../../constants/color';
@@ -14,6 +17,7 @@ import LodgingDetailMobileScrap from '../../assets/images/LodgingDetailMobileScr
 import LodgingDetailMobileLiked from '../../assets/images/LodgingDetailMobileLiked.png';
 
 import { mobileSize } from '../../utils/MediaSize';
+import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 
 const HeaderContainer = styled.div`
   margin-bottom: 3rem;
@@ -100,12 +104,32 @@ const TeamButton = styled.img`
 `;
 
 const LodgingDetailHeader = ({ lodging }) => {
-  const { pk, name, mainPhoto, photos } = lodging;
+  const { pk, name, mainPhoto, photos, avgScore, isScrap } = lodging;
 
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(isScrap);
   const navigate = useNavigate();
   const { lodgingDeleteMutation } = useLodging();
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const { lodgingScrapMutation } = useLodgingScrap();
+
+  const handlelikeClick = (e) => {
+    e.stopPropagation();
+
+    if (user) {
+      setIsLiked((prevState) => !prevState);
+      lodgingScrapMutation({
+        isScrap: !isLiked,
+        lodging: pk,
+        token: user.token,
+      });
+    } else {
+      navigate('/signin');
+    }
+  };
 
   const onClickDeleteBtn = () => {
     lodgingDeleteMutation(pk);
@@ -115,10 +139,6 @@ const LodgingDetailHeader = ({ lodging }) => {
   const handleTeamBtnClick = (e) => {
     e.stopPropagation();
     setIspopupVisivle(true);
-  };
-  const handlelikebtnClick = (e) => {
-    e.stopPropagation();
-    setIsLiked((prevState) => !prevState);
   };
 
   const handlePopupClose = () => {
@@ -149,7 +169,7 @@ const LodgingDetailHeader = ({ lodging }) => {
             <TeamButton src={LodgingDetailMobileScrap} onClick={handleTeamBtnClick} />
             <TeamButton
               src={isLiked ? LodgingDetailMobileLiked : LodgingDetailMobileLike}
-              onClick={handlelikebtnClick}
+              onClick={handlelikeClick}
             />
           </FlexDiv>
           {IspopupVisivle && <LodingPopup pk={pk} handlePopupClose={handlePopupClose} />}
@@ -160,8 +180,8 @@ const LodgingDetailHeader = ({ lodging }) => {
             <TitleText>{name}</TitleText>
             <HeaderRight>
               <LodingDealingContainer>
-                <RatingContainer score="4.9" />
-                <Heart src={heart} />
+                <RatingContainer score={avgScore} />
+                <Heart src={isLiked ? selectHeart : heart} onClick={handlelikeClick} />
                 <Booking src={booking} onClick={handleTeamBtnClick} />
               </LodingDealingContainer>
               <ReservationBtn width={11.25} height={3.75} onClick={onClickDeleteBtn}>

@@ -1,8 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import lodgingAPI from '../../../apis/lodgingAPI';
 
-const useLodging = (token, page = 1) => {
-  const lodgingsQuery = useQuery(['lodgings', page], () => lodgingAPI.list(token, page));
+const useLodging = (token, page, searchQuery) => {
+  const lodgingsQuery = useQuery(['lodgings', page], () =>
+    lodgingAPI.list(token, page, searchQuery),
+  );
 
   const { mutate: lodgingMutation } = useMutation((payload) => lodgingAPI.create(payload), {
     onSuccess: (data) => {
