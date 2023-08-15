@@ -90,7 +90,7 @@ const Navbar = ({ auth }) => {
 
   const handleLogout = () => {
     signOut();
-    navigate('/');
+    navigate('/signin');
   };
 
   return (

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import lodgingAPI from '../../../apis/lodgingAPI';
 
 const useLodging = (token, page, searchQuery) => {
-  const lodgingsQuery = useQuery(['lodgings', page], () =>
+  const lodgingsQuery = useQuery(['lodgings', page, token], () =>
     lodgingAPI.list(token, page, searchQuery),
   );
 

@@ -2,7 +2,9 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import recreationAPI from '../../../apis/recreationAPI';
 
 const useRecreation = (token, page = 1) => {
-  const recreationsQuery = useQuery(['recreations', page], () => recreationAPI.list(token, page));
+  const recreationsQuery = useQuery(['recreations', page, token], () =>
+    recreationAPI.list(token, page),
+  );
 
   const { mutate: recreaetionMutation } = useMutation(
     (payload) => {
