@@ -8,7 +8,7 @@ const Popup = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20rem;
+  width: 23rem;
   height: 3rem;
   background-color: ${COLOR.primary.blue};
   color: ${COLOR.white};

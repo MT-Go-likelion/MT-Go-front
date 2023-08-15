@@ -145,7 +145,15 @@ const Flex = styled.div`
 
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
-const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
+const RecreationCard = ({
+  pk,
+  name,
+  photo,
+  headCountMin,
+  headCountMax,
+  isScrap,
+  hideTeamspace,
+}) => {
   const [save, setSave] = useState(isScrap);
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const [success, setSuccess] = useState('');
@@ -215,7 +223,9 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
           <PeopleCount>
             추천인원 : {headCountMin} ~ {headCountMax} 명
           </PeopleCount>
-          {isMobile ? ' ' : <TeamBtn onClick={handleTeamBtnClick}>팀스페이스에 담기</TeamBtn>}
+          {isMobile
+            ? ' '
+            : !hideTeamspace && <TeamBtn onClick={handleTeamBtnClick}>팀스페이스에 담기</TeamBtn>}
         </Flex>
       </BestLoContainer>
       {IspopupVisivle && <RecreationPopup pk={pk} handlePopupClose={handlePopupClose} />}

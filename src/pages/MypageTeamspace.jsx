@@ -436,6 +436,7 @@ const MypageTeamspace = () => {
                   headCountMin={recreation.headCountMin}
                   headCountMax={recreation.headCountMax}
                   isScrap={recreation.isScrap}
+                  hideTeamspace
                 />
               ))}
           </Flex>

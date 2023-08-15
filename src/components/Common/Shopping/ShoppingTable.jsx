@@ -14,6 +14,7 @@ import Error from '../../../pages/Error';
 import useTeamShoppingCreation from '../../../hooks/queries/Team/useTeamShoppingCreation';
 import { TEAMAPI } from '../../../config/api';
 import { mobileSize } from '../../../utils/MediaSize';
+import ApiCallSuccessPopup from '../Popup/ApiCallSuccessPopup';
 
 const Container = styled.div`
   width: 280px;
@@ -178,6 +179,8 @@ const SelectOption = styled.option``;
 const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace }) => {
   const [editHandle, setEditHandle] = useState(false);
   const [CreatePopupVisible, setCreatePopupVisible] = useState(false);
+  const [success, setSuccess] = useState('');
+
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize); // 모바일 여부
   const queryClient = useQueryClient();
@@ -278,12 +281,23 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
 
     if (user) {
       if (selectedSpace === 'private') {
-        shoppingMutation(data);
+        shoppingMutation(data, {
+          onSuccess: () => {
+            setSuccess('개인스페이스에 장보기 목록이 추가되었습니다');
+            setTimeout(() => setSuccess(null), 1500);
+          },
+        });
       } else {
         teamShoppingMutation(
           data.map((dataItem) => {
             return { ...dataItem, teamToken: selectedSpace };
           }),
+          {
+            onSuccess: () => {
+              setSuccess('해당 팀스페이스에 장보기 목록이 추가되었습니다');
+              setTimeout(() => setSuccess(null), 1500);
+            },
+          },
         );
       }
     } else {
@@ -304,6 +318,8 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
 
   return (
     <Container>
+      <ApiCallSuccessPopup success={success} />
+
       {isMobile ? '' : <Title>Check List</Title>}
 
       <SelectName onChange={hanelSelectChange}>
