@@ -97,12 +97,13 @@ const SubTitle = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: ${COLOR.blue};
+  width: 7.5rem;
+  height: 2.2rem;
+  background-color: ${COLOR.primary.blue};
   color: ${COLOR.white};
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+  float: right;
 `;
 
 const SuccessText = styled.div`
@@ -331,7 +332,7 @@ const CreateLodging = () => {
           <FormInput type="text" value={lowWeekdayPrice} onChange={onChangeLowWeekdayPrice} />
         </InputContainer>
 
-        <SubmitButton type="submit">제출하기</SubmitButton>
+        <SubmitButton type="submit">완료</SubmitButton>
       </Form>
     </FormContainer>
   );
