@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
 import HorizonLine from '../Common/Line/HorizonLine';
+import { formatPrice } from '../../utils/formatPrice';
 
 const LodgingDetailContent = ({ lodging }) => {
   const {
@@ -81,14 +82,14 @@ const LodgingDetailContent = ({ lodging }) => {
           <HorizonLine mb={1.7} mt={1.7} color={COLOR.primary.blue} />
           <PriceRowContainer>
             <PriceRowText>평일</PriceRowText>
-            <PriceRowText>{lowWeekdayPrice}</PriceRowText>
-            <PriceRowText>{peakWeekdayPrice}</PriceRowText>
+            <PriceRowText>{formatPrice(lowWeekdayPrice)}원</PriceRowText>
+            <PriceRowText>{formatPrice(peakWeekdayPrice)}원</PriceRowText>
           </PriceRowContainer>
           <HorizonLine mb={1.7} mt={1.7} color={COLOR.primary.blue} />
           <PriceRowContainer>
             <PriceRowWeekend>주말</PriceRowWeekend>
-            <PriceRowText>{lowWeekendPrice}</PriceRowText>
-            <PriceRowText>{peakWeekendPrice}</PriceRowText>
+            <PriceRowText>{formatPrice(lowWeekendPrice)}원</PriceRowText>
+            <PriceRowText>{formatPrice(peakWeekendPrice)}원</PriceRowText>
           </PriceRowContainer>
           <HorizonLine mb={1.7} mt={1.7} color={COLOR.primary.blue} />
         </PriceBox>

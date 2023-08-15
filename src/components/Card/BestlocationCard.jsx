@@ -10,6 +10,7 @@ import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 import { mobileSize } from '../../utils/MediaSize';
+import { formatPrice } from '../../utils/formatPrice';
 
 const BestLoContainer = styled.div`
   width: 240px;
@@ -121,7 +122,8 @@ const Flex = styled.div`
 
 // 모바일
 
-const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
+const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice }) => {
+  console.log(pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice);
   const [liked, setLiked] = useState(isScrap);
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
@@ -170,7 +172,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
               <BlueStar src={Star} />
               <Score>{avgScore}</Score>
             </Flex>
-            <Price>1박 {price} 원</Price>
+            <Price>1박 {price}원</Price>
           </Flexdirection>
           <BackDiv dataSrc={BASE_URL + mainPhoto}>
             <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
@@ -184,7 +186,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
           <Title>{name}</Title>
           <Flexdirection>
-            <Price>{price} 원</Price>
+            <Price>{formatPrice(lowWeekdayPrice)}원~</Price>
             <Flex>
               <BlueStar src={Star} />
               <Score>{avgScore}</Score>

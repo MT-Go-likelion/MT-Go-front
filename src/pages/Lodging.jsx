@@ -223,6 +223,7 @@ const Lodging = () => {
                   mainPhoto={obj.mainPhoto}
                   avgScore={obj.avgScore}
                   isScrap={obj.isScrap}
+                  lowWeekdayPrice={obj.lowWeekdayPrice}
                 />
               )}
             </div>

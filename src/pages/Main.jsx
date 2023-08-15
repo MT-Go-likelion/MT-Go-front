@@ -187,6 +187,7 @@ const Main = () => {
                 mainPhoto={lodging.mainPhoto}
                 avgScore={lodging.avgScore}
                 isScrap={lodging.isScrap}
+                lowWeekdayPrice={lodging.lowWeekdayPrice}
               />
             ))}
         </Flexdiv>

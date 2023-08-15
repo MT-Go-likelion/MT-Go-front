@@ -6,6 +6,7 @@ import COLOR from '../../../constants/color';
 
 import Submitbutton from '../../Button/SubmitButton';
 import useShopping from '../../../hooks/queries/Shopping/useShopping';
+import { formatPrice } from '../../../utils/formatPrice';
 
 const Container = styled.div`
   display: flex;
@@ -167,15 +168,15 @@ const ListTable = ({ data, setShoppingItems }) => {
                       onChange={(e) => handleInputChange(e, item)}
                     />
                   ) : (
-                    item.price
+                    formatPrice(item.price)
                   )}
                 </EditableTd>
-                <Td>{item.amount * item.price}</Td>
+                <Td>{formatPrice(item.amount * item.price)}</Td>
               </tr>
             ))}
           </Tbody>
         </Table>
-        <SumPrice>총 금액 : {totalSum} 원 </SumPrice>
+        <SumPrice>총 금액 : {formatPrice(totalSum)} 원 </SumPrice>
       </Border>
       <ButtonDiv>
         {editHandle !== true ? (
