@@ -11,7 +11,6 @@ import camera from '../assets/images/camera.png';
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   max-width: 1280px;
   margin: auto;
   padding: 2rem;
@@ -119,7 +118,6 @@ const CreateLodging = () => {
   const [name, onChangeName] = useInput('');
   const [address, onChangeAddress] = useInput('');
   const [place, onChangePlace] = useInput('');
-  const [price, onChangePrice] = useInput('');
   const [phoneNumber, onChangePhoneNumber] = useInput('');
   const [amenities, onChangeAmenities] = useInput('');
   const [homePageURL, onChangeHomePageURL] = useInput('');
@@ -128,10 +126,15 @@ const CreateLodging = () => {
   const [precaution, onChangePrecaution] = useInput('');
   const [checkInTime, onChangeCheckInTime] = useInput('');
   const [checkOutTime, onChangeCheckOutTime] = useInput('');
+  const [peakWeekendPrice, onChangePeakWeekendPrice] = useInput('');
+  const [peakWeekdayPrice, onChangePeakWeekdayPrice] = useInput('');
+  const [lowWeekendPrice, onChangeLowWeekendPrice] = useInput('');
+  const [lowWeekdayPrice, onChangeLowWeekdayPrice] = useInput('');
   const [myImage, setMyImage] = useState([]);
   const [mainPhoto, setMainPhoto] = useState();
   const [previewMainImg, setPreviewMainImg] = useState('');
   const [photos, setPhotos] = useState([]);
+
   const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
@@ -171,7 +174,6 @@ const CreateLodging = () => {
     formData.append('name', name);
     formData.append('address', address);
     formData.append('place', place);
-    formData.append('price', price);
     formData.append('phoneNumber', phoneNumber);
     formData.append('amenities', amenities);
     formData.append('homePageURL', homePageURL);
@@ -181,6 +183,10 @@ const CreateLodging = () => {
     formData.append('checkInTime', checkInTime);
     formData.append('checkOutTime', checkOutTime);
     formData.append('mainPhoto', mainPhoto);
+    formData.append('peakWeekendPrice', peakWeekendPrice);
+    formData.append('peakWeekdayPrice', peakWeekdayPrice);
+    formData.append('lowWeekendPrice', lowWeekendPrice);
+    formData.append('lowWeekdayPrice', lowWeekdayPrice);
     photos.forEach((photo) => {
       return formData.append('photos', photo);
     });
@@ -297,8 +303,20 @@ const CreateLodging = () => {
           <FormInput type="text" value={checkOutTime} onChange={onChangeCheckOutTime} />
         </InputContainer>
         <InputContainer>
-          <FormLabel>가격</FormLabel>
-          <FormInput type="text" value={price} onChange={onChangePrice} />
+          <FormLabel>가격(성수기 주말 및 공휴일)</FormLabel>
+          <FormInput type="text" value={peakWeekendPrice} onChange={onChangePeakWeekendPrice} />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel>가격(성수기 평일)</FormLabel>
+          <FormInput type="text" value={peakWeekdayPrice} onChange={onChangePeakWeekdayPrice} />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel>가격(비성수기 주말 및 공휴일)</FormLabel>
+          <FormInput type="text" value={lowWeekendPrice} onChange={onChangeLowWeekendPrice} />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel>가격(비성수기 평일)</FormLabel>
+          <FormInput type="text" value={lowWeekdayPrice} onChange={onChangeLowWeekdayPrice} />
         </InputContainer>
 
         <SubmitButton type="submit">제출하기</SubmitButton>
