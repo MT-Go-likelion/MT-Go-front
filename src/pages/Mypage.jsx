@@ -150,7 +150,10 @@ const TeamspaceButton = styled.button`
     border-radius: 30px;
     margin-bottom: 0.3rem;
     margin-top: 0.6rem;
-    border: 2px solid ${COLOR.primary.blue};
+    border: 1px solid ${COLOR.lightGray};
+    &:active {
+      border: 3px solid ${COLOR.blue};
+    }
   }
 `;
 
