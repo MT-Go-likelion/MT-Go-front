@@ -8,7 +8,6 @@ import COLOR from '../../constants/color';
 
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
-import Checkbox from '../Common/CheckBox/CheckBox';
 import { mobileSize } from '../../utils/MediaSize';
 
 import useSignIn from '../../hooks/queries/Auth/useSignIn';
@@ -35,23 +34,24 @@ const LoginSubmitBtn = styled.button`
   font-size: 1rem;
   color: ${COLOR.white};
   font-weight: 900;
+  margin-top: 3rem;
   cursor: pointer;
   @media (max-width: ${mobileSize}px) {
     border-radius: 8px;
   }
 `;
 
-const LoginBottomContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2rem 0;
-  @media (max-width: ${mobileSize}px) {
-    margin: 1rem 0;
-    font-size: 8px;
-  }
-`;
+// const LoginBottomContainer = styled.div`
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin: 2rem 0;
+//   @media (max-width: ${mobileSize}px) {
+//     margin: 1rem 0;
+//     font-size: 8px;
+//   }
+// `;
 
 const EyeImg = styled.img`
   position: absolute;
@@ -124,9 +124,9 @@ const SignInForm = () => {
             <EyeImg src={eye} onClick={toggleShowPassword} showPassWord={showPassWord} />
           )}
         </PassWordContainer>
-        <LoginBottomContainer>
+        {/* <LoginBottomContainer>
           <Checkbox text="로그인 기억하기" />
-        </LoginBottomContainer>
+        </LoginBottomContainer> */}
 
         <LoginSubmitBtn type="submit">로그인</LoginSubmitBtn>
       </LoginForm>
