@@ -67,6 +67,7 @@ const Title = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 160%;
+    margin: 2px 0;
   }
 `;
 

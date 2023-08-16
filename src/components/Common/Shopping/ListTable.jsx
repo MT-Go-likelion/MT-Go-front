@@ -7,12 +7,17 @@ import COLOR from '../../../constants/color';
 import Submitbutton from '../../Button/SubmitButton';
 import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import { formatPrice } from '../../../utils/formatPrice';
+import { mobileSize } from '../../../utils/MediaSize';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-end;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    align-items: center;
+  }
 `;
 const Border = styled.div`
   border-top: 2px solid ${COLOR.primary.blue};
@@ -20,7 +25,14 @@ const Border = styled.div`
   margin: 0 auto;
   width: 50rem;
   height: 100%;
+
   padding: 0.5rem 3rem 0.7rem 3rem;
+  @media (max-width: ${mobileSize}px) {
+    padding: 0;
+    border-top: 1px solid ${COLOR.black};
+    border-bottom: 1px solid ${COLOR.black};
+    width: 100%;
+  }
 `;
 const Table = styled.table`
   width: 100%;
@@ -30,17 +42,34 @@ const Th = styled.th`
   color: ${COLOR.lightGray};
   border-bottom: 1px solid ${COLOR.lightGray};
   padding: 1rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 14px;
+    padding: 0.4rem 0.5rem;
+    border-bottom: none;
+    width: 100%;
+  }
 `;
 const Td = styled.td`
   padding: 1rem;
   text-align: center;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 12px;
+    padding: 0 0.5rem;
+    min-width: 3rem;
+    width: 100%;
+  }
 `;
+
 const Tbody = styled.tbody`
   border-bottom: 1px solid ${COLOR.lightGray};
 `;
 const SumPrice = styled.div`
   float: right;
   margin: 10px 5rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 14px;
+    margin: 0.3rem 0;
+  }
 `;
 const EditableTd = styled(Td)`
   position: relative;
@@ -138,7 +167,7 @@ const ListTable = ({ data, setShoppingItems }) => {
           <Tbody>
             {data.map((item) => (
               <tr key={item.item}>
-                <Td>
+                <EditableTd>
                   {editHandle === true ? (
                     <EditInput
                       name="item"
@@ -148,7 +177,7 @@ const ListTable = ({ data, setShoppingItems }) => {
                   ) : (
                     item.item
                   )}
-                </Td>
+                </EditableTd>
                 <EditableTd>
                   {editHandle === true ? (
                     <EditInput

@@ -22,7 +22,6 @@ const LodgingLayout = styled.div`
   max-width: 1280px;
   margin: auto;
   height: 100%;
-  background-color: #f7f9fa;
 `;
 
 const LodgingContent = styled.div`

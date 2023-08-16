@@ -118,10 +118,6 @@ const PaginationDiv = styled.div`
     padding-top: 31.5rem;
   }
 `;
-// const IMGG = styled.img`
-//   width: 40px;
-//   height: 40px;
-// `;
 
 const Lodging = () => {
   const queryClient = useQueryClient();

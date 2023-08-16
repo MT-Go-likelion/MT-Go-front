@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import BestlocationCard from '../components/Card/BestlocationCard';
+import MypageMe from '../assets/images/MypageMe.png';
 // import BagCard from '../components/Card/BagCard';
+import { useSignOut } from '../hooks/queries/Auth/useSignOut';
 import RecreationCard from '../components/Card/RecreationCard';
 import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
 import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
@@ -16,6 +18,7 @@ import useShopping from '../hooks/queries/Shopping/useShopping';
 import ListTable from '../components/Common/Shopping/ListTable';
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
+import { mobileSize } from '../utils/MediaSize';
 
 const mediaSize = 1030;
 
@@ -30,6 +33,12 @@ const Container = styled.div`
   @media (max-width: ${mediaSize}px) {
     margin: 0 3rem;
     padding: 0 2rem;
+  }
+  @media (max-width: ${mobileSize}px) {
+    width: 80%;
+    display: block;
+    margin: 4rem 2rem;
+    padding: 0;
   }
 `;
 
@@ -51,6 +60,15 @@ const ScrapDiv = styled.div`
   width: 170px;
   padding-top: 4rem;
   flex-basis: 80%;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0 2rem 0;
+    background: #f0f6f9;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const SidebarTopContainer = styled.div`
@@ -79,6 +97,10 @@ const Title = styled.button`
 const SubTitle = styled.div`
   font-size: 24px;
   margin: 5rem 0 2rem 0;
+  @media (max-width: ${mobileSize}px) {
+    margin: 1rem 0 0.3rem 0;
+    font-size: 12px;
+  }
 `;
 
 const Flex = styled.div`
@@ -114,6 +136,16 @@ const TeamspaceButton = styled.button`
   &:active {
     border: 3px solid ${COLOR.primary.blue};
   }
+
+  @media (max-width: ${mediaSize}px) {
+    width: 100%;
+    height: 32px;
+    border-radius: 30px;
+    color: ${COLOR.white};
+    margin-bottom: 0.3rem;
+    margin-top: 0.6rem;
+    background: var(--linear, linear-gradient(133deg, #45bcff 0%, #3c7eff 45.77%, #8247ff 100%));
+  }
 `;
 
 // 팀스페이스 리스트
@@ -121,6 +153,50 @@ const DivTeamlist = styled.div`
   display: flex;
   gap: 1rem;
   flex-direction: column;
+`;
+
+// 모바일
+const Mypageme = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
+const MypageTitle = styled.div`
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 180%;
+`;
+
+const TitleDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+`;
+
+const ScrapTitle = styled.div`
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 180%;
+`;
+
+const Footer = styled.div`
+  border-radius: 48px 48px 0px 0px;
+  background: #f0f6f9;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1) inset;
+  width: 100%;
+  height: 410px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2.5rem;
+`;
+
+const Sub = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 180%;
 `;
 
 const MyPage = () => {
@@ -181,80 +257,183 @@ const MyPage = () => {
     setIsJoinpopupVisivle(false);
   };
 
+  const signOut = useSignOut();
+  const handleLogout = () => {
+    signOut();
+    navigate('/signin');
+  };
+
   useEffect(() => {
     setShoppingItems(shoppingList || []);
   }, [shoppingList]);
 
-  return (
-    <>
-      <Hrbar />
-      <Container>
-        <TeamspaceDiv>
-          <SidebarTopContainer>
-            <SettingTitle onClick={gotoSetting}>설정</SettingTitle>
-            <Title onClick={gotoMypage}>개인 스페이스</Title>
-          </SidebarTopContainer>
-          <SubTitle>팀 스페이스</SubTitle>
-          <DivTeamlist>
-            <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
-            <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
-            {IsCreatepopupVisivle && (
-              <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
-            )}
-            {IsJoinpopupVisivle && <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />}
-            {teamIsLoading && <Loading />}
-            {teamError && <Error />}
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <div>
+      {isMobile ? (
+        <>
+          <Container>
+            <TitleDiv>
+              <Mypageme src={MypageMe} />
+              <MypageTitle>마이페이지</MypageTitle>
+            </TitleDiv>
             {teams &&
               teams.map((team) => (
                 <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}>
                   {team.teamName}
                 </TeamspaceButton>
               ))}
-          </DivTeamlist>
-        </TeamspaceDiv>
-        <ScrapDiv>
-          <SubTitle>숙소</SubTitle>
-          {lodgingIsLoading && <Loading />}
-          {lodgingError && <Error />}
-          <Flex>
-            {lodgingScrapList &&
-              lodgingScrapList.map((scrapItem) => (
-                <BestlocationCard
-                  key={scrapItem.pk}
-                  pk={scrapItem.pk}
-                  name={scrapItem.name}
-                  price={scrapItem.price}
-                  mainPhoto={scrapItem.mainPhoto}
-                  isScrap={scrapItem.isScrap}
-                  lowWeekdayPrice={scrapItem.lowWeekdayPrice}
-                />
-              ))}
-          </Flex>
-          <SubTitle>레크레이션</SubTitle>
-          {recreationIsLoading && <Loading />}
-          {recreationError && <Error />}
-          <Flex>
-            {recreationScrapList &&
-              recreationScrapList.map((scrapItem) => (
-                <RecreationCard
-                  key={scrapItem.pk}
-                  pk={scrapItem.pk}
-                  name={scrapItem.name}
-                  photo={scrapItem.photo}
-                  headCountMin={scrapItem.headCountMin}
-                  headCountMax={scrapItem.headCountMax}
-                  isScrap={scrapItem.isScrap}
-                />
-              ))}
-          </Flex>
-          <SubTitle>장바구니</SubTitle>
-          <Flex>
-            <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
-          </Flex>
-        </ScrapDiv>
-      </Container>
-    </>
+            <ScrapDiv>
+              <ScrapTitle>스크랩</ScrapTitle>
+              <SubTitle>숙소</SubTitle>
+              {lodgingIsLoading && <Loading />}
+              {lodgingError && <Error />}
+              <Flex>
+                {lodgingScrapList &&
+                  lodgingScrapList.map((scrapItem) => (
+                    <BestlocationCard
+                      key={scrapItem.pk}
+                      pk={scrapItem.pk}
+                      name={scrapItem.name}
+                      price={scrapItem.price}
+                      mainPhoto={scrapItem.mainPhoto}
+                      isScrap={scrapItem.isScrap}
+                      lowWeekdayPrice={scrapItem.lowWeekdayPrice}
+                    />
+                  ))}
+              </Flex>
+              <SubTitle>레크레이션</SubTitle>
+              {recreationIsLoading && <Loading />}
+              {recreationError && <Error />}
+              <Flex>
+                {recreationScrapList &&
+                  recreationScrapList.map((scrapItem) => (
+                    <RecreationCard
+                      key={scrapItem.pk}
+                      pk={scrapItem.pk}
+                      name={scrapItem.name}
+                      photo={scrapItem.photo}
+                      headCountMin={scrapItem.headCountMin}
+                      headCountMax={scrapItem.headCountMax}
+                      isScrap={scrapItem.isScrap}
+                    />
+                  ))}
+              </Flex>
+            </ScrapDiv>
+            <ScrapDiv>
+              <SubTitle>장바구니</SubTitle>
+              <Flex>
+                <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+              </Flex>
+            </ScrapDiv>
+          </Container>
+          <Footer>
+            <Sub
+              onClick={() => {
+                gotoSetting();
+              }}
+            >
+              설정
+            </Sub>
+            <Sub>개인정보 변경</Sub>
+            <Sub
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              로그아웃
+            </Sub>
+            <Sub>문의하기</Sub>
+            <Sub>회원탈퇴</Sub>
+          </Footer>
+        </>
+      ) : (
+        <>
+          <Hrbar />
+          <Container>
+            <TeamspaceDiv>
+              <SidebarTopContainer>
+                <SettingTitle onClick={gotoSetting}>설정</SettingTitle>
+                <Title onClick={gotoMypage}>개인 스페이스</Title>
+              </SidebarTopContainer>
+              <SubTitle>팀 스페이스</SubTitle>
+              <DivTeamlist>
+                <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
+                <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>
+
+                {IsCreatepopupVisivle && (
+                  <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
+                )}
+                {IsJoinpopupVisivle && (
+                  <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />
+                )}
+                {teamIsLoading && <Loading />}
+                {teamError && <Error />}
+                {teams &&
+                  teams.map((team) => (
+                    <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}>
+                      {team.teamName}
+                    </TeamspaceButton>
+                  ))}
+              </DivTeamlist>
+            </TeamspaceDiv>
+            <ScrapDiv>
+              <SubTitle>숙소</SubTitle>
+              {lodgingIsLoading && <Loading />}
+              {lodgingError && <Error />}
+              <Flex>
+                {lodgingScrapList &&
+                  lodgingScrapList.map((scrapItem) => (
+                    <BestlocationCard
+                      key={scrapItem.pk}
+                      pk={scrapItem.pk}
+                      name={scrapItem.name}
+                      price={scrapItem.price}
+                      mainPhoto={scrapItem.mainPhoto}
+                      isScrap={scrapItem.isScrap}
+                      lowWeekdayPrice={scrapItem.lowWeekdayPrice}
+                    />
+                  ))}
+              </Flex>
+              <SubTitle>레크레이션</SubTitle>
+              {recreationIsLoading && <Loading />}
+              {recreationError && <Error />}
+              <Flex>
+                {recreationScrapList &&
+                  recreationScrapList.map((scrapItem) => (
+                    <RecreationCard
+                      key={scrapItem.pk}
+                      pk={scrapItem.pk}
+                      name={scrapItem.name}
+                      photo={scrapItem.photo}
+                      headCountMin={scrapItem.headCountMin}
+                      headCountMax={scrapItem.headCountMax}
+                      isScrap={scrapItem.isScrap}
+                    />
+                  ))}
+              </Flex>
+              <SubTitle>장바구니</SubTitle>
+              <Flex>
+                <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
+              </Flex>
+            </ScrapDiv>
+          </Container>
+        </>
+      )}
+    </div>
   );
 };
 
