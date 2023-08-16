@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
 import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
-import BestlocationCard from '../components/Card/BestlocationCard';
 import MypageMe from '../assets/images/MypageMe.png';
+import MTLOGO from '../assets/images/MTLOGO.png';
 // import BagCard from '../components/Card/BagCard';
-import { useSignOut } from '../hooks/queries/Auth/useSignOut';
-import RecreationCard from '../components/Card/RecreationCard';
-import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
-import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
 import Loading from './Loading';
 import Error from './Error';
+import { useSignOut } from '../hooks/queries/Auth/useSignOut';
+import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
+import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
 import useTeam from '../hooks/queries/Team/useTeam';
 import useShopping from '../hooks/queries/Shopping/useShopping';
+import TermsModal from '../components/Common/Modal/TermsModal';
+import BestlocationCard from '../components/Card/BestlocationCard';
+import RecreationCard from '../components/Card/RecreationCard';
 import ListTable from '../components/Common/Shopping/ListTable';
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
@@ -137,15 +138,33 @@ const TeamspaceButton = styled.button`
     border: 3px solid ${COLOR.primary.blue};
   }
 
-  @media (max-width: ${mediaSize}px) {
+  @media (max-width: ${mobileSize}px) {
     width: 100%;
     height: 32px;
     border-radius: 30px;
-    color: ${COLOR.white};
     margin-bottom: 0.3rem;
     margin-top: 0.6rem;
-    background: var(--linear, linear-gradient(133deg, #45bcff 0%, #3c7eff 45.77%, #8247ff 100%));
+    border: 2px solid ${COLOR.primary.blue};
   }
+`;
+
+const TeamspaceButtonTitle = styled.div`
+  width: 100%;
+  height: 32px;
+  border-radius: 30px;
+  color: ${COLOR.white};
+  margin-bottom: 0.3rem;
+  margin-top: 0.6rem;
+  text-align: center;
+  padding: 0.6rem;
+  font-size: 12px;
+  background: var(--linear, linear-gradient(133deg, #45bcff 0%, #3c7eff 45.77%, #8247ff 100%));
+`;
+
+const TeamspaceButtonDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.7rem;
 `;
 
 // 팀스페이스 리스트
@@ -187,16 +206,24 @@ const Footer = styled.div`
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1) inset;
   width: 100%;
   height: 410px;
+  padding: 2.5rem;
+`;
+const FooterSub = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  padding: 2.5rem;
 `;
 
 const Sub = styled.div`
   font-size: 16px;
   font-weight: 600;
   line-height: 180%;
+`;
+
+const LogoImg = styled.img`
+  width: 91px;
+  height: 17px;
+  float: right;
 `;
 
 const MyPage = () => {
@@ -268,9 +295,13 @@ const MyPage = () => {
   }, [shoppingList]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
+  const [termsModalOpen, setTermsModalOpen] = useState(false);
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
+  };
+  const showTermsModal = () => {
+    setTermsModalOpen(true);
   };
 
   useEffect(() => {
@@ -290,12 +321,15 @@ const MyPage = () => {
               <Mypageme src={MypageMe} />
               <MypageTitle>마이페이지</MypageTitle>
             </TitleDiv>
-            {teams &&
-              teams.map((team) => (
-                <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}>
-                  {team.teamName}
-                </TeamspaceButton>
-              ))}
+            <TeamspaceButtonTitle>팀스페이스</TeamspaceButtonTitle>
+            <TeamspaceButtonDiv>
+              {teams &&
+                teams.map((team) => (
+                  <TeamspaceButton onClick={() => gotoTeamSpace(team.teamToken, team.teamName)}>
+                    {team.teamName}
+                  </TeamspaceButton>
+                ))}
+            </TeamspaceButtonDiv>
             <ScrapDiv>
               <ScrapTitle>스크랩</ScrapTitle>
               <SubTitle>숙소</SubTitle>
@@ -341,23 +375,22 @@ const MyPage = () => {
             </ScrapDiv>
           </Container>
           <Footer>
-            <Sub
-              onClick={() => {
-                gotoSetting();
-              }}
-            >
-              설정
-            </Sub>
-            <Sub>개인정보 변경</Sub>
-            <Sub
-              onClick={() => {
-                handleLogout();
-              }}
-            >
-              로그아웃
-            </Sub>
-            <Sub>문의하기</Sub>
-            <Sub>회원탈퇴</Sub>
+            <FooterSub>
+              <Sub>설정</Sub>
+              <Sub>개인정보 변경</Sub>
+              <Sub
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                로그아웃
+              </Sub>
+              <Sub>문의하기</Sub>
+              <Sub onClick={showTermsModal}>이용약관</Sub>
+              {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
+              <Sub>회원탈퇴</Sub>
+            </FooterSub>
+            <LogoImg src={MTLOGO} />
           </Footer>
         </>
       ) : (
