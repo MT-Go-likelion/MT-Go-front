@@ -11,6 +11,8 @@ import Error from './Error';
 import { useSignOut } from '../hooks/queries/Auth/useSignOut';
 import useLodgingScrapList from '../hooks/queries/Lodging/useLodgingScrapList';
 import useRecreationScrapList from '../hooks/queries/Recreation/useRecreationScrapList';
+import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
+
 import useTeam from '../hooks/queries/Team/useTeam';
 import useShopping from '../hooks/queries/Shopping/useShopping';
 import TermsModal from '../components/Common/Modal/TermsModal';
@@ -19,6 +21,10 @@ import RecreationCard from '../components/Card/RecreationCard';
 import ListTable from '../components/Common/Shopping/ListTable';
 import TeamSpaceCreatePopup from '../components/Popup/Mypage/TeamspaceCreatePopup';
 import TeamSpaceJoinPopup from '../components/Popup/Mypage/TeamspaceJoinPopup';
+import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
+// import InquiryPopup from '../components/Popup/Mypage/inquiryPopup';
+import SuggestionModal from '../components/Common/Modal/SuggestionModal';
+
 import { mobileSize } from '../utils/MediaSize';
 
 const mediaSize = 1030;
@@ -296,6 +302,9 @@ const MyPage = () => {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
+  const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
+  const [isDeleteUserPopupVisible, setIsDeleteUserPopupVisible] = useState(false);
+  const { userUpdateMutation, userDeleteMutation } = useUserUpdate(user.pk);
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
@@ -304,6 +313,26 @@ const MyPage = () => {
     setTermsModalOpen(true);
   };
 
+  const handleUserDeleteClick = () => {
+    setIsDeleteUserPopupVisible(true);
+  };
+
+  const handleUserDeleteClose = () => {
+    setIsDeleteUserPopupVisible(false);
+  };
+
+  const handleUserDelete = () => {
+    setIsDeleteUserPopupVisible(false);
+    userDeleteMutation();
+    signOut();
+    navigate('/');
+  };
+
+  const showSuggestionModal = () => {
+    setSuggestionModalOpen(true);
+  };
+
+  console.log(userUpdateMutation);
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -385,10 +414,21 @@ const MyPage = () => {
               >
                 로그아웃
               </Sub>
-              <Sub>문의하기</Sub>
+
+              <Sub onClick={showSuggestionModal}>문의하기</Sub>
+              {suggestionModalOpen && (
+                <SuggestionModal setSuggestionModalOpen={setSuggestionModalOpen} />
+              )}
               <Sub onClick={showTermsModal}>이용약관</Sub>
               {termsModalOpen && <TermsModal setTermsModalOpen={setTermsModalOpen} />}
-              <Sub>회원탈퇴</Sub>
+
+              <Sub onClick={handleUserDeleteClick}>회원탈퇴</Sub>
+              {isDeleteUserPopupVisible && (
+                <UserDeletePopup
+                  handleUserDelete={handleUserDelete}
+                  handleUserDeleteClose={handleUserDeleteClose}
+                />
+              )}
             </FooterSub>
             <LogoImg src={MTLOGO} />
           </Footer>
