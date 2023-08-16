@@ -85,7 +85,7 @@ const SignUpForm = () => {
 
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
-  // const [passwordError, setPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [confirmedPasswordError, setConfirmedPasswordError] = useState('');
 
   const [showPassWord, setShowPassword] = useState(false);
@@ -122,7 +122,15 @@ const SignUpForm = () => {
 
   const checkPasswordValidation = () => {
     // test 끝나면 나중에 추가 (회원가입 쉽게 하기 위해)
-    return true;
+    let isChekced = false;
+
+    if (password.length < 8) setPasswordError('최소 8글자 이상 작성해주세요');
+    else {
+      setPasswordError('');
+      isChekced = true;
+    }
+
+    return isChekced;
   };
 
   const checkConfirmedPasswordValidation = () => {
@@ -207,6 +215,7 @@ const SignUpForm = () => {
             <EyeImg src={eye} onClick={toggleShowPassword} showPassWord={showPassWord} />
           )}
         </PassWordContainer>
+        <ErrorText>{passwordError}</ErrorText>
         <PassWordContainer>
           <InputWithLabel
             required

@@ -204,13 +204,7 @@ const LodgingDetail = () => {
         <div>
           {isMobile ? (
             <>
-              <LodgingDetailHeader
-                pk={lodgingDetail.pk}
-                name={lodgingDetail.name}
-                mainPhoto={lodgingDetail.mainPhoto}
-                photos={lodgingDetail.photos}
-                avgScore={lodgingDetail.avgScore}
-              />
+              <LodgingDetailHeader lodging={lodgingDetail} />
               <LodgingContent>
                 <Title>{lodgingDetail.name}</Title>
                 <Address>{lodgingDetail.address}</Address>
@@ -308,7 +302,7 @@ const LodgingDetail = () => {
                     <LodgingMap />
                   </div>
                 )}
-                {activeButton === 'review' && <LodgingDetailReview pk={lodgingDetail.pk} />}
+                {activeButton === 'review' && <LodgingDetailReview lodging={lodgingDetail} />}
               </ContentDiv>
             </>
           ) : (
