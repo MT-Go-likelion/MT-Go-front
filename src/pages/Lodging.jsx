@@ -50,7 +50,7 @@ const SearchBack = styled.div`
 const ContentsDiv = styled.div`
   padding: 5rem 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 2rem;
   width: 100%;
