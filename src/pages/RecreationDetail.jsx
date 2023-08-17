@@ -197,7 +197,7 @@ const RecreationDetail = () => {
 
   const {
     lodgingDetailQuery: { isLoading, error, data: recreationDetail },
-  } = useRecreationDetail(recreationId, user.token);
+  } = useRecreationDetail(recreationId, user ? user.token : '');
 
   const [save, setSave] = useState(recreationDetail && recreationDetail.isScrap);
 
