@@ -1,7 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import COLOR from '../../../constants/color';
+import { mobileSize } from '../../../utils/MediaSize';
 
+const slideIn = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+const slideOut = keyframes`
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+`;
 const PopupBackground = styled.div`
   position: fixed;
   top: 0;
@@ -13,6 +30,13 @@ const PopupBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  @media (max-width: ${mobileSize}px) {
+    background: none;
+    align-items: flex-end;
+    transform: translateY(100%);
+    animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.7s
+      cubic-bezier(0.18, 0.25, 0.32, 1.15) forwards;
+  }
 `;
 
 const PopupContainer = styled.div`
@@ -21,6 +45,14 @@ const PopupContainer = styled.div`
   background-color: ${COLOR.white};
   padding: 1rem;
   border-radius: 48px;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    min-height: 160px;
+    height: 160px;
+    border-radius: 32px;
+    box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+  }
 `;
 
 const PopupContent = styled.div`
@@ -37,6 +69,10 @@ const Title = styled.h2`
   display: flex;
   justify-content: center;
   margin-bottom: 2.6rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
 `;
 
 //            <Submitbutton onClick={onConfirm}>Delete</Submitbutton>
@@ -82,14 +118,31 @@ const CancelButton = styled(Button)`
 `;
 
 const LeaveTeamPopup = ({ handleLeave, handleLeaveClose }) => {
+  const [visible, setVisible] = useState(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setVisible(false);
+    setTimeout(() => {
+      handleLeave();
+    }, 500);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+    setTimeout(() => {
+      handleLeaveClose();
+    }, 500);
+  };
+
   return (
-    <PopupBackground>
+    <PopupBackground visible={visible}>
       <PopupContainer>
         <PopupContent>
           <Title>팀스페이스를 떠나시겠습니까?</Title>
           <FlexDiv>
-            <DeleteButton onClick={handleLeave}>Leave</DeleteButton>
-            <CancelButton onClick={handleLeaveClose}>Cancel</CancelButton>
+            <DeleteButton onClick={handleSubmit}>Leave</DeleteButton>
+            <CancelButton onClick={handleCancel}>Cancel</CancelButton>
           </FlexDiv>
         </PopupContent>
       </PopupContainer>
