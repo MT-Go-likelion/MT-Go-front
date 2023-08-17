@@ -49,6 +49,7 @@ const SearchBack = styled.div`
 const ContentsDiv = styled.div`
   padding: 5rem 0;
   display: flex;
+  flex-direction: column;
   gap: 2rem;
   width: 100%;
   flex-wrap: wrap;
@@ -62,6 +63,11 @@ const ContentsDiv = styled.div`
     top: 10.9rem;
     position: absolute;
   }
+`;
+
+const LodgingList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 `;
 
 // 검색바 타이틀
@@ -198,33 +204,36 @@ const Lodging = () => {
       </SearchBack>
 
       <ContentsDiv>
-        {lodgings &&
-          lodgings.results.map((obj) => (
-            <div>
-              {isMobile ? (
-                <LodgingMobileCard
-                  key={obj.pk}
-                  pk={obj.pk}
-                  name={obj.name}
-                  price={obj.price}
-                  mainPhoto={obj.mainPhoto}
-                  avgScore={obj.avgScore}
-                  isScrap={obj.isScrap}
-                />
-              ) : (
-                <BestlocationCard
-                  key={obj.pk}
-                  pk={obj.pk}
-                  name={obj.name}
-                  price={obj.price}
-                  mainPhoto={obj.mainPhoto}
-                  avgScore={obj.avgScore}
-                  isScrap={obj.isScrap}
-                  lowWeekdayPrice={obj.lowWeekdayPrice}
-                />
-              )}
-            </div>
-          ))}
+        <LodgingList>
+          {' '}
+          {lodgings &&
+            lodgings.results.map((obj) => (
+              <div>
+                {isMobile ? (
+                  <LodgingMobileCard
+                    key={obj.pk}
+                    pk={obj.pk}
+                    name={obj.name}
+                    price={obj.price}
+                    mainPhoto={obj.mainPhoto}
+                    avgScore={obj.avgScore}
+                    isScrap={obj.isScrap}
+                  />
+                ) : (
+                  <BestlocationCard
+                    key={obj.pk}
+                    pk={obj.pk}
+                    name={obj.name}
+                    price={obj.price}
+                    mainPhoto={obj.mainPhoto}
+                    avgScore={obj.avgScore}
+                    isScrap={obj.isScrap}
+                    lowWeekdayPrice={obj.lowWeekdayPrice}
+                  />
+                )}
+              </div>
+            ))}
+        </LodgingList>
         <PaginationDiv>
           {lodgings && (
             <Pagination
