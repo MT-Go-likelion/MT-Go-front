@@ -51,9 +51,9 @@ const ContentsDiv = styled.div`
   padding: 5rem 0;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 2rem;
   width: 100%;
-  flex-wrap: wrap;
   justify-content: center;
   max-width: 1280px;
   margin: auto;
@@ -242,20 +242,20 @@ const Lodging = () => {
               )}
             </div>
           ))}
-        <PaginationDiv>
-          {lodgings && (
-            <Pagination
-              activePage={page} // 현재 페이지
-              itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
-              totalItemsCount={lodgings.count} // 총 아이템 개수
-              pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
-              prevPageText="‹"
-              nextPageText="›"
-              onChange={handlePageChange}
-            />
-          )}
-        </PaginationDiv>
       </ContentsDiv>
+      <PaginationDiv>
+        {lodgings && (
+          <Pagination
+            activePage={page} // 현재 페이지
+            itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
+            totalItemsCount={lodgings.count} // 총 아이템 개수
+            pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
+            prevPageText="‹"
+            nextPageText="›"
+            onChange={handlePageChange}
+          />
+        )}
+      </PaginationDiv>
     </>
   );
 };
