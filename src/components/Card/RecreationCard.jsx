@@ -138,9 +138,6 @@ const Flex = styled.div`
     gap: 0;
     margin: 0;
   }
-  &:hover {
-    border: 2px solid ${COLOR.primary.blue};
-  }
 `;
 
 // 레크리에이션 카드

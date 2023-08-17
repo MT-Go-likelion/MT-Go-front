@@ -40,18 +40,14 @@ const PopupBackground = styled.div`
 `;
 
 const PopupContainer = styled.div`
-  width: 570px;
-  height: 230px;
   background-color: ${COLOR.white};
   padding: 1rem;
-  border-radius: 48px;
-  @media (max-width: ${mobileSize}px) {
-    width: 100%;
-    min-height: 260px;
-    border-radius: 32px;
-    box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem;
-  }
+
+  width: 100%;
+  height: 700px;
+  border-radius: 32px;
+  box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
 `;
 
 const PopupContent = styled.div`
@@ -66,10 +62,7 @@ const FlexDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  @media (max-width: ${mobileSize}px) {
-    flex-direction: column;
-    gap: 1rem;
-  }
+  gap: 3rem;
 `;
 
 const Title = styled.h2`
@@ -87,10 +80,10 @@ const Title = styled.h2`
 
 //            <Submitbutton onClick={onConfirm}>Delete</Submitbutton>
 const Button = styled.button`
-  width: 110px;
+  width: 100%;
   height: 36px;
   text-align: center;
-  font-size: 16px;
+  font-size: 12px;
   border-radius: 50px;
   font-style: normal;
   font-weight: 700;
@@ -99,9 +92,6 @@ const Button = styled.button`
   transition:
     background-color 0.2s,
     border 0.2s;
-  @media (max-width: ${mobileSize}px) {
-    width: 100%;
-  }
 `;
 
 const DeleteButton = styled(Button)`
@@ -141,32 +131,28 @@ const TextContents = styled.div`
   }
 `;
 
-const UserDeletePopup = ({ handleUserDelete, handleUserDeleteClose }) => {
+const UserDeletePopup = () => {
   const [visible, setVisible] = useState(true);
 
   const handleDeleteSubmit = (e) => {
     e.preventDefault();
     setVisible(false);
-    setTimeout(() => {
-      handleUserDelete();
-    }, 500);
+    setTimeout(() => {}, 500);
   };
   const handleDeleteCancel = (e) => {
     e.preventDefault();
     setVisible(false);
-    setTimeout(() => {
-      handleUserDeleteClose();
-    }, 500);
+    setTimeout(() => {}, 500);
   };
 
   return (
     <PopupBackground visible={visible}>
       <PopupContainer>
         <PopupContent>
-          <Title>정말 탈퇴하시겠습니까?</Title>
-          <TextContents>탈퇴하게 되면 관련된 기존 데이터가 모두 삭제됩니다.</TextContents>
+          <Title>문의하기</Title>
+          <TextContents>MTGO에 문의하고 싶은 내용을 기재해주세요.</TextContents>
           <FlexDiv>
-            <DeleteButton onClick={handleDeleteSubmit}>Delete</DeleteButton>
+            <DeleteButton onClick={handleDeleteSubmit}>전송하기</DeleteButton>
             <CancelButton onClick={handleDeleteCancel}>Cancel</CancelButton>
           </FlexDiv>
         </PopupContent>
