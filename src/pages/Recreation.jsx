@@ -65,6 +65,7 @@ const Recreation = () => {
   const {
     recreationsQuery: { isLoading, error, data: recreations },
   } = useRecreation(user ? user.token : '', page);
+  console.log(recreations);
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -99,6 +100,7 @@ const Recreation = () => {
                   headCountMin={recreation.headCountMin}
                   headCountMax={recreation.headCountMax}
                   isScrap={recreation.isScrap}
+                  scrapCount={recreation.scrapCount}
                 />
               ) : (
                 <RecreationCard
@@ -109,6 +111,7 @@ const Recreation = () => {
                   headCountMin={recreation.headCountMin}
                   headCountMax={recreation.headCountMax}
                   isScrap={recreation.isScrap}
+                  scrapCount={recreation.scrapCount}
                 />
               )}
             </RecreationItem>
