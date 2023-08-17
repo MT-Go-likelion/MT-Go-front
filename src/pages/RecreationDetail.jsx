@@ -348,9 +348,8 @@ const RecreationDetail = () => {
                       추천인원: {recreationDetail.headCountMin} ~ {recreationDetail.headCountMax}명
                     </RecommendedNum>
                     <TeamspaceBtn onClick={handleTeamBtnClick}>팀스페이스 담기</TeamspaceBtn>
-                    {process.env.REACT_APP_ADMIN_EMAIL === user && user.email && (
+                    {user.isStaff && (
                       <>
-                        {' '}
                         <TeamspaceBtn onClick={onClickUpdateBtn}>수정하기</TeamspaceBtn>
                         <TeamspaceBtn onClick={onClickDeleteBtn}>삭제하기</TeamspaceBtn>
                       </>
