@@ -35,7 +35,8 @@ const PopupBackground = styled.div`
     background: none;
     align-items: flex-end;
     transform: translateY(100%);
-    animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s ease-in-out forwards;
+    animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.5s
+      cubic-bezier(0.18, 0.25, 0.32, 1.15) forwards;
   }
 `;
 
