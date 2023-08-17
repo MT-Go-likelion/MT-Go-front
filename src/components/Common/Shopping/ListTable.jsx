@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -92,12 +92,28 @@ const EditButton = styled.button`
     background-color: ${COLOR.gray};
     color: ${COLOR.white};
   }
+  @media (max-width: ${mobileSize}px) {
+    height: 100%;
+    width: 6.5rem;
+  }
 `;
 const ButtonDiv = styled.div`
   display: flex;
   gap: 1rem;
   height: 100%;
+  @media (max-width: ${mobileSize}px) {
+  }
 `;
+
+const Submitbtn = styled.button`
+  @media (max-width: ${mobileSize}px) {
+    padding: 0 2.5rem;
+    height: 26px;
+    background-color: ${COLOR.primary.blue};
+    border-radius: 16px;
+  }
+`;
+
 const ListTable = ({ data, setShoppingItems }) => {
   const [editHandle, setEditHandle] = useState(false);
   const totalSum = data.reduce((acc, item) => acc + item.price * item.amount, 0);
@@ -108,6 +124,7 @@ const ListTable = ({ data, setShoppingItems }) => {
   const user = queryClient.getQueryData(['user']);
 
   const { shoppingMutation } = useShopping(user ? user.token : '');
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
   const handleEditClick = () => {
     if (user) {
@@ -122,6 +139,7 @@ const ListTable = ({ data, setShoppingItems }) => {
   };
   const handleInputChange = (e, item) => {
     const { name, value } = e.target;
+
     const itemIndex = data.findIndex((i) => i.item === item.item);
     const updatedData = data.map((dataItem, index) => {
       if (index === itemIndex) {
@@ -151,6 +169,17 @@ const ListTable = ({ data, setShoppingItems }) => {
       navigate('/signin');
     }
   };
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= mobileSize);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Container>
@@ -209,13 +238,17 @@ const ListTable = ({ data, setShoppingItems }) => {
       </Border>
       <ButtonDiv>
         {editHandle !== true ? (
-          <EditButton onClick={handleEditClick}>수정</EditButton>
+          <div>
+            <EditButton onClick={handleEditClick}>수정</EditButton>
+          </div>
         ) : (
           <EditButton onClick={handleEditComplete}>완료</EditButton>
         )}
-        <Submitbutton onClick={handleSubmit} width={6.3} height={2.2}>
-          제출
-        </Submitbutton>
+        {editHandle !== true && isMobile ? (
+          <Submitbtn onClick={handleSubmit}>제출</Submitbtn>
+        ) : (
+          <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
+        )}
       </ButtonDiv>
     </Container>
   );

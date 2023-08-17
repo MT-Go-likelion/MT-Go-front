@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import COLOR from '../../../constants/color';
 
-// import Submitbutton from '../../Button/SubmitButton';
+import Submitbutton from '../../Button/SubmitButton';
+// import ShoppingEditButton from '../../../assets/images/ShoppingEditButton.png';
 import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import CreatePopup from '../../Popup/Shopping/CreatePopup';
 import useTeam from '../../../hooks/queries/Team/useTeam';
@@ -425,7 +426,6 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
         </Tbody>
       </Table>
       <SumPrice>총 금액 : {formatPrice(totalSum)} 원 </SumPrice>
-
       {CreatePopupVisible !== true ? (
         <ButtonDiv>
           {editHandle !== true ? (
@@ -433,7 +433,11 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
           ) : (
             <EditButton onClick={handleEditComplete}>완료</EditButton>
           )}
-          {editHandle !== true ? <Submitbtn onClick={handleSubmit}>제출</Submitbtn> : ''}
+          {editHandle !== true && isMobile ? (
+            <Submitbtn onClick={handleSubmit}>제출</Submitbtn>
+          ) : (
+            <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
+          )}
         </ButtonDiv>
       ) : (
         ''
