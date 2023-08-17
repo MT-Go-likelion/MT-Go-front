@@ -122,8 +122,14 @@ const Navbar = ({ auth }) => {
         {!auth && <SignBtn onClick={() => navigate('/signin')}>로그인</SignBtn>}
         {auth && (
           <>
-            <CreateBtn onClick={() => navigate('/lodging/create')}>숙소 생성</CreateBtn>
-            <CreateBtn onClick={() => navigate('/recreation/register')}>레크레이션 생성</CreateBtn>
+            {process.env.REACT_APP_ADMIN_EMAIL === user && user.email && (
+              <>
+                <CreateBtn onClick={() => navigate('/lodging/create')}>숙소 생성</CreateBtn>
+                <CreateBtn onClick={() => navigate('/recreation/register')}>
+                  레크레이션 생성
+                </CreateBtn>
+              </>
+            )}
             <MypageBtn onClick={() => navigate('/mypage')}>MYPAGE</MypageBtn>
             <SignBtn onClick={handleLogout}>로그아웃</SignBtn>
           </>

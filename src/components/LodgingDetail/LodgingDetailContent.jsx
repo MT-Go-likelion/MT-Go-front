@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../../constants/color';
 import LodgingMap from '../Map/LodgingMap';
 import HorizonLine from '../Common/Line/HorizonLine';
@@ -24,6 +25,9 @@ const LodgingDetailContent = ({ lodging }) => {
     lowWeekendPrice,
     lowWeekdayPrice,
   } = lodging;
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
 
   const navigate = useNavigate();
 
@@ -96,9 +100,11 @@ const LodgingDetailContent = ({ lodging }) => {
       </ContentContainer>
       <ContentBottomContainer>
         <LodgingMap address={address} />
-        <ReservationBtn width={15} height={5.6} onClick={onClickUpdateBtn}>
-          수정하기
-        </ReservationBtn>
+        {process.env.REACT_APP_ADMIN_EMAIL === user.email && (
+          <ReservationBtn width={15} height={5.6} onClick={onClickUpdateBtn}>
+            수정하기
+          </ReservationBtn>
+        )}
       </ContentBottomContainer>
     </>
   );
@@ -270,6 +276,7 @@ const CheckText = styled.span``;
 
 const ContentBottomContainer = styled.div`
   display: flex;
+  gap: 5rem;
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 5rem;

@@ -198,9 +198,11 @@ const LodgingDetailHeader = ({ lodging }) => {
                 <Heart src={isLiked ? selectHeart : heart} onClick={handlelikeClick} />
                 <Booking src={booking} onClick={handleTeamBtnClick} />
               </LodingDealingContainer>
-              <ReservationBtn width={11.25} height={3.75} onClick={onClickDeleteBtn}>
-                삭제하기
-              </ReservationBtn>
+              {process.env.REACT_APP_ADMIN_EMAIL === user.email && (
+                <ReservationBtn width={11.25} height={3.75} onClick={onClickDeleteBtn}>
+                  삭제하기
+                </ReservationBtn>
+              )}
             </HeaderRight>
           </Header>
           <ImageSwiper mainPhoto={mainPhoto} photos={photos} />
