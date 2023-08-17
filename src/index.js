@@ -24,6 +24,7 @@ import {
   UpdateRecreation,
   Setting,
 } from './pages/index';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -36,17 +37,72 @@ const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
       { path: '/lodging', element: <Lodging /> },
       { path: '/lodging/:lodgingId', element: <LodgingDetail /> },
-      { path: '/lodging/create', element: <CreateLodging /> },
-      { path: '/lodging/update', element: <UpdateLodging /> },
+      {
+        path: '/lodging/create',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <CreateLodging />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/lodging/update',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <UpdateLodging />
+          </ProtectedRoute>
+        ),
+      },
       { path: '/recreation', element: <Recreation /> },
       { path: '/recreation/:recreationId', element: <RecreationDetail /> },
-      { path: '/recreation/register', element: <RecreationRegistration /> },
-      { path: '/recreation/update', element: <UpdateRecreation /> },
-      { path: '/shopping', element: <Shopping /> },
-      { path: '/mypage', element: <Mypage /> },
-      { path: '/mypage/:teamToken', element: <MypageTeamspace /> },
-      { path: '/mypage', element: <Mypage /> },
-      { path: '/setting', element: <Setting /> },
+      {
+        path: '/recreation/register',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <RecreationRegistration />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/recreation/update',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <UpdateRecreation />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/shopping',
+        element: (
+          <ProtectedRoute>
+            <Shopping />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/mypage',
+        element: (
+          <ProtectedRoute>
+            <Mypage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/mypage/:teamToken',
+        element: (
+          <ProtectedRoute>
+            <MypageTeamspace />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/setting',
+        element: (
+          <ProtectedRoute>
+            <Setting />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);

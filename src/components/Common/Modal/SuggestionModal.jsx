@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
 import { mobileSize } from '../../../utils/MediaSize';
+import useSuggestion from '../../../hooks/queries/Auth/useSuggestion';
 
 const slideIn = keyframes`
   from {
@@ -98,7 +100,7 @@ const TermsTitle = styled.div`
   }
 `;
 
-const TermsContent = styled.textarea`
+const TermsContent = styled.input`
   width: 100%;
   height: 80%;
   @media (max-width: ${mobileSize}px) {
@@ -156,13 +158,29 @@ const TextContents = styled.div`
 `;
 
 const SuggestionModal = ({ setSuggestionModalOpen }) => {
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
+  const [content, setContent] = useState('');
   const [visible, setVisible] = useState(true);
+
+  const { suggestionMutation } = useSuggestion(user ? user.token : '');
+
+  const onChangeContent = (e) => {
+    setContent(e.target.value);
+  };
 
   const closeModal = () => {
     setVisible(false);
     setTimeout(() => {
       setSuggestionModalOpen(false);
     }, 500);
+  };
+
+  const submitSuggestion = (e) => {
+    e.preventDefault();
+
+    suggestionMutation(content);
   };
 
   useEffect(() => {
@@ -185,10 +203,10 @@ const SuggestionModal = ({ setSuggestionModalOpen }) => {
         <ModalLayout>
           <TermsTitle>건의사항</TermsTitle>
           <TextContents>MTGO에 문의하고 싶은 내용을 기재해주세요.</TextContents>
-          <TermsContent placeholder="자유롭게 문의사항을 적어주세요." />
+          <TermsContent placeholder="자유롭게 문의사항을 적어주세요." onChange={onChangeContent} />
           <BottomContainer>
             <CancelBtn onClick={closeModal}>취소</CancelBtn>
-            <SubmitBtn>작성</SubmitBtn>
+            <SubmitBtn onClick={submitSuggestion}>작성</SubmitBtn>
           </BottomContainer>
         </ModalLayout>
       </ModalContainter>

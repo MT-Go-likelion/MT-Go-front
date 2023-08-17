@@ -61,6 +61,12 @@ const NavRight = styled.div`
   gap: 2rem;
 `;
 
+const CreateBtn = styled.div`
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 const SignBtn = styled.div`
   font-size: 19px;
   font-weight: 600;
@@ -116,6 +122,14 @@ const Navbar = ({ auth }) => {
         {!auth && <SignBtn onClick={() => navigate('/signin')}>로그인</SignBtn>}
         {auth && (
           <>
+            {process.env.REACT_APP_ADMIN_EMAIL === user && user.email && (
+              <>
+                <CreateBtn onClick={() => navigate('/lodging/create')}>숙소 생성</CreateBtn>
+                <CreateBtn onClick={() => navigate('/recreation/register')}>
+                  레크레이션 생성
+                </CreateBtn>
+              </>
+            )}
             <MypageBtn onClick={() => navigate('/mypage')}>MYPAGE</MypageBtn>
             <SignBtn onClick={handleLogout}>로그아웃</SignBtn>
           </>

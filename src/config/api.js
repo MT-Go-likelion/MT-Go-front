@@ -4,6 +4,7 @@ export const AUTHAPI = {
   SIGNUP: `${BASE_URL}/accounts/user/signup/`,
   SIGNIN: `${BASE_URL}/accounts/user/signin/`,
   USER: `${BASE_URL}/accounts/user/`,
+  SUGGESTION: `${BASE_URL}/accounts/suggestion/`,
 };
 
 export const LODGINGAPI = {
