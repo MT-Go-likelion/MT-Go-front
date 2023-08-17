@@ -7,7 +7,7 @@ const OPTION = [
   { value: '', name: '위치' },
   { value: '대성리', name: '대성리' },
   { value: '우이동', name: '우이동' },
-  { value: '가평', name: '가평' },
+  { value: '을왕리', name: '을왕리' },
 ];
 
 const StyledSelect = styled.select`
