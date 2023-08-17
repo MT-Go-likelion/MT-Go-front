@@ -55,6 +55,12 @@ const RecreationItem = styled.li`
   justify-content: center;
 `;
 
+const PaginationList = styled.div`
+  display: block;
+  position: relative;
+  z-index: 1;
+`;
+
 const Recreation = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
@@ -116,18 +122,20 @@ const Recreation = () => {
               )}
             </RecreationItem>
           ))}
+        <PaginationList>
+          {recreations && (
+            <Pagination
+              activePage={page} // 현재 페이지
+              itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
+              totalItemsCount={recreations.count} // 총 아이템 개수
+              pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
+              prevPageText="‹"
+              nextPageText="›"
+              onChange={handlePageChange}
+            />
+          )}
+        </PaginationList>
       </RecreationList>
-      {recreations && (
-        <Pagination
-          activePage={page} // 현재 페이지
-          itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
-          totalItemsCount={recreations.count} // 총 아이템 개수
-          pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
-          prevPageText="‹"
-          nextPageText="›"
-          onChange={handlePageChange}
-        />
-      )}
     </RecreationLayout>
   );
 };

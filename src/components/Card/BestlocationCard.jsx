@@ -93,6 +93,7 @@ const Price = styled.div`
 const Score = styled.div`
   font-size: 16px;
   @media (max-width: ${mobileSize}px) {
+    font-size: 12px;
   }
 `;
 

@@ -37,7 +37,7 @@ const BannerImg = styled.img`
   object-fit: cover;
   @media (max-width: ${mobileSize}px) {
     content: url(${MobileBanner});
-  }
+  }Mobile
 `;
 const ContentLayout = styled.div`
   margin: 5rem 11vh;
