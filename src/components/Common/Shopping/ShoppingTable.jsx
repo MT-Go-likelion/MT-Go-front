@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import COLOR from '../../../constants/color';
 
-import Submitbutton from '../../Button/SubmitButton';
+// import Submitbutton from '../../Button/SubmitButton';
 import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import CreatePopup from '../../Popup/Shopping/CreatePopup';
 import useTeam from '../../../hooks/queries/Team/useTeam';
@@ -117,6 +117,10 @@ const EditButton = styled.button`
     background-color: ${COLOR.gray};
     color: ${COLOR.white};
   }
+  @media (max-width: ${mobileSize}px) {
+    height: 1.8rem;
+    width: 6.45rem;
+  }
 `;
 
 const ButtonDiv = styled.div`
@@ -172,6 +176,15 @@ const SelectName = styled.select`
     height: 32px;
     background: #f7f9fa;
     border: none;
+  }
+`;
+
+const Submitbtn = styled.button`
+  @media (max-width: ${mobileSize}px) {
+    padding: 0 2.5rem;
+    height: 30px;
+    background-color: ${COLOR.primary.blue};
+    border-radius: 16px;
   }
 `;
 
@@ -420,7 +433,7 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
           ) : (
             <EditButton onClick={handleEditComplete}>완료</EditButton>
           )}
-          {editHandle !== true ? <Submitbutton onClick={handleSubmit}>제출</Submitbutton> : ''}
+          {editHandle !== true ? <Submitbtn onClick={handleSubmit}>제출</Submitbtn> : ''}
         </ButtonDiv>
       ) : (
         ''

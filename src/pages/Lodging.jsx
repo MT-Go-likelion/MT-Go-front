@@ -115,7 +115,8 @@ const SearchBtnMobile = styled.button`
 
 const PaginationDiv = styled.div`
   @media (max-width: ${mobileSize}px) {
-    padding-top: 31.5rem;
+    position: relative;
+    z-index: 1;
   }
 `;
 
@@ -224,20 +225,20 @@ const Lodging = () => {
               )}
             </div>
           ))}
+        <PaginationDiv>
+          {lodgings && (
+            <Pagination
+              activePage={page} // 현재 페이지
+              itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
+              totalItemsCount={lodgings.count} // 총 아이템 개수
+              pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
+              prevPageText="‹"
+              nextPageText="›"
+              onChange={handlePageChange}
+            />
+          )}
+        </PaginationDiv>
       </ContentsDiv>
-      <PaginationDiv>
-        {lodgings && (
-          <Pagination
-            activePage={page} // 현재 페이지
-            itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
-            totalItemsCount={lodgings.count} // 총 아이템 개수
-            pageRangeDisplayed={Math.floor(lodgings.count / 2) + 1} // 페이지 범위
-            prevPageText="‹"
-            nextPageText="›"
-            onChange={handlePageChange}
-          />
-        )}
-      </PaginationDiv>
     </>
   );
 };
