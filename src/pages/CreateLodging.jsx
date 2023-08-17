@@ -51,6 +51,16 @@ const InputSubContainer = styled.div`
   margin-bottom: 5rem;
 `;
 
+const FormTextarea = styled.textarea`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid ${COLOR.gray};
+  border-radius: 4px;
+  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '95%')};
+
+  height: ${(props) => props.height && `${props.height}rem`};
+`;
+
 const FormInput = styled.input`
   width: 100%;
   padding: 0.5rem;
@@ -298,11 +308,11 @@ const CreateLodging = () => {
         </InputContainer>
         <InputContainer>
           <FormLabel>설명:</FormLabel>
-          <FormInput type="text" value={content} onChange={onChangeContent} height={15} />
+          <FormTextarea type="text" value={content} onChange={onChangeContent} height={15} />
         </InputContainer>
         <InputContainer mb={6}>
           <FormLabel>주의사항:</FormLabel>
-          <FormInput type="text" value={precaution} onChange={onChangePrecaution} height={15} />
+          <FormTextarea type="text" value={precaution} onChange={onChangePrecaution} height={15} />
         </InputContainer>
         <SubTitle>체크인 / 체크아웃</SubTitle>
         <InputContainer>

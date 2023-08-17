@@ -26,6 +26,12 @@ const FormInput = styled.input`
   border: 1px solid ${COLOR.gray};
   border-radius: 4px;
 `;
+const FormTextarea = styled.textarea`
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid ${COLOR.gray};
+  border-radius: 4px;
+`;
 
 const SubmitButton = styled.button`
   padding: 0.75rem 1.5rem;
@@ -215,8 +221,13 @@ const UpdateLodging = () => {
           value={amenities}
           onChange={onChangeAmenities}
         />
-        <FormInput type="text" placeholder="content" value={content} onChange={onChangeContent} />
-        <FormInput
+        <FormTextarea
+          type="text"
+          placeholder="content"
+          value={content}
+          onChange={onChangeContent}
+        />
+        <FormTextarea
           type="text"
           placeholder="precaution"
           value={precaution}
