@@ -11,6 +11,7 @@ import ShoppingMobileBack from '../assets/images/ShoppingMobileBack.png';
 import useShopping from '../hooks/queries/Shopping/useShopping';
 import ShoppingCard from '../components/Card/ShoppingCard';
 import { mobileSize } from '../utils/MediaSize';
+import { shoppingOptions } from '../constants/shopping';
 
 const mediaSize = 1070;
 
@@ -179,43 +180,6 @@ const DivMobileBack = styled.div`
 `;
 
 const Shopping = () => {
-  // 태그 데이터
-
-  const TagOptions = [
-    { TagId: 1, name: '냉동 차돌박이 100g', price: '3147' },
-    { TagId: 13, name: '호주산 채끝 스테이크 100g', price: '4410' },
-    { TagId: 2, name: '삼겹살 100g', price: '2380' },
-    { TagId: 3, name: '목살 100g', price: '2280' },
-    { TagId: 4, name: '구이용 버섯 모둠', price: '4180' },
-    { TagId: 5, name: '5종 모듬 소시지', price: '8800' },
-    { TagId: 6, name: '쌈무', price: '2480' },
-    { TagId: 7, name: '상추', price: '3984' },
-    { TagId: 8, name: '깻잎', price: '1790' },
-    { TagId: 9, name: '마늘 80g', price: '990' },
-    { TagId: 10, name: '깐양파 450g', price: '3184' },
-    { TagId: 11, name: '쌈장', price: '5400' },
-    { TagId: 12, name: '고추장', price: '10980' },
-    { TagId: 14, name: '허브솔트', price: '2970' },
-    { TagId: 15, name: '햇반 12입', price: '12980' },
-    { TagId: 16, name: '김치 900g', price: '14900' },
-    { TagId: 17, name: '김치찌개 460g', price: '6980' },
-    { TagId: 18, name: '된장찌개 460g', price: '6980' },
-    { TagId: 19, name: '나무젓가락 20p', price: '2080' },
-    { TagId: 20, name: '일회용 숟가락 20p', price: '3298' },
-    { TagId: 21, name: '분식용기 520ml 20p', price: '1650' },
-    { TagId: 22, name: '위생접시 10cm 15p', price: '780' },
-    { TagId: 23, name: '일회용 종이컵 50개', price: '800' },
-    { TagId: 24, name: '일회용 소주컵 50개', price: '873' },
-    { TagId: 25, name: '소주 20병', price: '22800' },
-    { TagId: 26, name: '맥주 640ml 12병', price: '21000' },
-    { TagId: 27, name: '물 2L 12병', price: '12960' },
-    { TagId: 28, name: '콜라 1.8L 2입', price: '5980' },
-    { TagId: 29, name: '사이다 1.8L 2입', price: '4980' },
-    { TagId: 30, name: '이온음료 1.8L 2입', price: '5180' },
-    { TagId: 31, name: '라면 5봉', price: '3900' },
-    { TagId: 31, name: '컵라면 6입', price: '5040' },
-  ];
-
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
@@ -297,7 +261,7 @@ const Shopping = () => {
           </TitleDiv>
           <Container>
             <Flex>
-              {TagOptions.map((options) => (
+              {shoppingOptions.map((options) => (
                 <div>
                   {isMobile ? (
                     <ShoppingCard
@@ -312,6 +276,7 @@ const Shopping = () => {
                       name={options.name}
                       price={options.price}
                       onCardClick={handleComplete}
+                      img={options.img}
                     />
                   )}
                 </div>

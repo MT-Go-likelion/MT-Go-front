@@ -15,6 +15,7 @@ import useLodgingMain from '../hooks/queries/Lodging/useLodgingMain';
 import Error from './Error';
 import useRecreationMain from '../hooks/queries/Recreation/useRecreationMain';
 import Loading from './Loading';
+import { shoppingOptions } from '../constants/shopping';
 
 const mediaSize = 1150;
 
@@ -154,6 +155,8 @@ const Main = () => {
     },
   } = useRecreationMain(user ? user.token : '');
 
+  const limitedShoppingItems = shoppingOptions.slice(0, 5);
+
   const handleLodgingClick = () => {
     navigate(`/Lodging`);
   };
@@ -209,11 +212,9 @@ const Main = () => {
           <More onClick={handleShoppingClick}>더보기</More>
         </Divstyled>
         <Flexdiv>
-          <BagCard />
-          <BagCard />
-          <BagCard />
-          <BagCard />
-          <BagCard />
+          {limitedShoppingItems.map((options) => (
+            <BagCard options={options} />
+          ))}
         </Flexdiv>
         <Title>추천 레크레이션</Title>
         <Divstyled>

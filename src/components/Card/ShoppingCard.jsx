@@ -140,7 +140,7 @@ const Shopping = styled.button`
   font-weight: 700;
 `;
 
-const ShoppingCard = ({ name, price, onCardClick }) => {
+const ShoppingCard = ({ name, price, onCardClick, img }) => {
   const [amount, setAmount] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
@@ -186,7 +186,7 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
     <div>
       {!isMobile ? (
         <BestLoContainer>
-          <BackImg dataSrc="" />
+          <BackImg dataSrc={img} />
           <FlexDiv>
             <Name>{name}</Name>
             <Price>{formatPrice(price)}원</Price>
