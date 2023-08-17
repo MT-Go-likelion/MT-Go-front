@@ -33,7 +33,7 @@ const FooterLayout = styled.footer`
 
 const FooterMenuList = styled.ul`
   display: flex;
-  gap: 1.1rem;
+  gap: 1rem;
   justify-content: center;
   padding: 1rem 1.5rem;
 `;

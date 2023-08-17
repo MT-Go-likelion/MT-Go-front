@@ -41,6 +41,7 @@ const SearchBack = styled.div`
   @media (max-width: ${mobileSize}px) {
     background-image: url(${LodgingMobileB});
     gap: 0.3rem;
+    height: 240px;
     align-items: flex-start;
     padding-left: 1.7rem;
   }
@@ -67,7 +68,15 @@ const ContentsDiv = styled.div`
 
 const LodgingList = styled.div`
   display: grid;
+
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  @media (max-width: ${mobileSize}px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 
 // 검색바 타이틀
