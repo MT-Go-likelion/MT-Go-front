@@ -610,8 +610,17 @@ const MypageTeamspace = () => {
               <CopyToClipboard text={inviteCode} onCopy={handleCopyInviteCode}>
                 <Sub type="share">코드 복사</Sub>
               </CopyToClipboard>
-              <Sub>팀스페이스 삭제</Sub>
-              <Sub>팀스페이스 떠나기</Sub>
+              <Sub onClick={handleDeleteClick}>팀스페이스 삭제</Sub>
+              <Sub onClick={handleLeaveClick}>팀스페이스 떠나기</Sub>
+              {isDeletePopupVisible && (
+                <DeleteSharePopup
+                  handleDeleteClose={handleDeleteClose}
+                  handleCancelClose={handleCancelClose}
+                />
+              )}
+              {isLeavePopupVisible && (
+                <LeaveTeamPopup handleLeave={handleLeave} handleLeaveClose={handleLeaveClose} />
+              )}
             </FooterSub>
             <LogoImg src={MTLOGO} />
           </Footer>

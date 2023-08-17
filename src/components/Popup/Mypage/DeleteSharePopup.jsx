@@ -1,7 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import COLOR from '../../../constants/color';
+import { mobileSize } from '../../../utils/MediaSize';
 
+const slideIn = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+const slideOut = keyframes`
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+`;
 const PopupBackground = styled.div`
   position: fixed;
   top: 0;
@@ -13,6 +30,13 @@ const PopupBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  @media (max-width: ${mobileSize}px) {
+    background: none;
+    align-items: flex-end;
+    transform: translateY(100%);
+    animation: ${(props) => (props.visible ? slideIn : slideOut)} 0.7s
+      cubic-bezier(0.18, 0.25, 0.32, 1.15) forwards;
+  }
 `;
 
 const PopupContainer = styled.div`
@@ -21,10 +45,21 @@ const PopupContainer = styled.div`
   background-color: ${COLOR.white};
   padding: 1rem;
   border-radius: 48px;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    min-height: 230px;
+    height: 230px;
+    border-radius: 32px;
+    box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+  }
 `;
 
 const PopupContent = styled.div`
   padding: 1.3rem 3.6rem;
+  @media (max-width: ${mobileSize}px) {
+    padding: 1.5rem;
+  }
 `;
 
 const FlexDiv = styled.div`
@@ -37,6 +72,10 @@ const Title = styled.h2`
   display: flex;
   justify-content: center;
   margin-bottom: 2.6rem;
+  @media (max-width: ${mobileSize}px) {
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
 `;
 
 //            <Submitbutton onClick={onConfirm}>Delete</Submitbutton>
@@ -83,11 +122,32 @@ const CancelButton = styled(Button)`
 
 const TextContents = styled.div`
   margin-bottom: 2rem;
+  @media (max-width: ${mobileSize}px) {
+    text-align: center;
+    font-size: 14px;
+  }
 `;
 
 const DeleteSharePopup = ({ handleDeleteClose, handleCancelClose }) => {
+  const [visible, setVisible] = useState(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setVisible(false);
+    setTimeout(() => {
+      handleDeleteClose();
+    }, 500);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+    setTimeout(() => {
+      handleCancelClose();
+    }, 500);
+  };
+
   return (
-    <PopupBackground>
+    <PopupBackground visible={visible}>
       <PopupContainer>
         <PopupContent>
           <Title>팀스페이스를 삭제하시겠습니까?</Title>
@@ -95,8 +155,8 @@ const DeleteSharePopup = ({ handleDeleteClose, handleCancelClose }) => {
             팀스페이스를 삭제하게 되면 관련된 기존 데이터가 모두 삭제됩니다.
           </TextContents>
           <FlexDiv>
-            <DeleteButton onClick={handleDeleteClose}>Delete</DeleteButton>
-            <CancelButton onClick={handleCancelClose}>Cancel</CancelButton>
+            <DeleteButton onClick={handleSubmit}>Delete</DeleteButton>
+            <CancelButton onClick={handleCancel}>Cancel</CancelButton>
           </FlexDiv>
         </PopupContent>
       </PopupContainer>
