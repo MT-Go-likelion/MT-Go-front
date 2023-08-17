@@ -103,6 +103,8 @@ const TermsContent = styled.textarea`
   height: 80%;
   @media (max-width: ${mobileSize}px) {
     height: 70%;
+    border: 1px solid ${COLOR.primary.blue};
+    padding: 0.5rem;
   }
 `;
 
@@ -157,8 +159,10 @@ const SuggestionModal = ({ setSuggestionModalOpen }) => {
   const [visible, setVisible] = useState(true);
 
   const closeModal = () => {
-    setSuggestionModalOpen(false);
     setVisible(false);
+    setTimeout(() => {
+      setSuggestionModalOpen(false);
+    }, 500);
   };
 
   useEffect(() => {

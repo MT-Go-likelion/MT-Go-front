@@ -123,6 +123,15 @@ const TeamspacePlus = styled.button`
   height: 32px;
   border-radius: 16px;
   background: ${COLOR.primary.gradient};
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    background: var(--linear, linear-gradient(133deg, #45bcff 0%, #3c7eff 45.77%, #8247ff 100%));
+    color: ${COLOR.white};
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+  }
 `;
 
 const TeamspaceButton = styled.button`
@@ -150,27 +159,21 @@ const TeamspaceButton = styled.button`
     border-radius: 30px;
     margin-bottom: 0.3rem;
     margin-top: 0.6rem;
-    border: 2px solid ${COLOR.primary.blue};
+    border: 1px solid ${COLOR.lightGray};
+    &:active {
+      border: 3px solid ${COLOR.blue};
+    }
   }
-`;
-
-const TeamspaceButtonTitle = styled.div`
-  width: 100%;
-  height: 32px;
-  border-radius: 30px;
-  color: ${COLOR.white};
-  margin-bottom: 0.3rem;
-  margin-top: 0.6rem;
-  text-align: center;
-  padding: 0.6rem;
-  font-size: 12px;
-  background: var(--linear, linear-gradient(133deg, #45bcff 0%, #3c7eff 45.77%, #8247ff 100%));
 `;
 
 const TeamspaceButtonDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.7rem;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+    gap: 1rem;
+  }
 `;
 
 // 팀스페이스 리스트
@@ -191,6 +194,9 @@ const MypageTitle = styled.div`
   font-style: normal;
   font-weight: 900;
   line-height: 180%;
+  @media (max-width: ${mobileSize}px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const TitleDiv = styled.div`
@@ -350,7 +356,14 @@ const MyPage = () => {
               <Mypageme src={MypageMe} />
               <MypageTitle>마이페이지</MypageTitle>
             </TitleDiv>
-            <TeamspaceButtonTitle>팀스페이스</TeamspaceButtonTitle>
+            <TeamspaceButtonDiv>
+              <TeamspacePlus onClick={handleTeamspaceCreateClick}>팀 스페이스 생성</TeamspacePlus>
+              <TeamspacePlus onClick={handleTeamspaceJoinClick}>팀 스페이스 참가</TeamspacePlus>
+              {IsCreatepopupVisivle && (
+                <TeamSpaceCreatePopup handlePopupClose={handleCreatePopupClose} />
+              )}
+              {IsJoinpopupVisivle && <TeamSpaceJoinPopup handlePopupClose={handleJoinPopupClose} />}
+            </TeamspaceButtonDiv>
             <TeamspaceButtonDiv>
               {teams &&
                 teams.map((team) => (
