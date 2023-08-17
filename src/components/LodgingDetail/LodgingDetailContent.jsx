@@ -43,7 +43,7 @@ const LodgingDetailContent = ({ lodging }) => {
             </ContentHeaderLeft>
             <ContentHeaderRight>
               <PhoneNumText>{phoneNumber}</PhoneNumText>
-              <CapacityText>{headCount}</CapacityText>
+              <CapacityText>수용인원 : {headCount}명</CapacityText>
             </ContentHeaderRight>
           </Header>
           <FacilitiesContainer>
