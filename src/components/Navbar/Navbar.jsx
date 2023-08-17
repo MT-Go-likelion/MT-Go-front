@@ -122,7 +122,7 @@ const Navbar = ({ auth }) => {
         {!auth && <SignBtn onClick={() => navigate('/signin')}>로그인</SignBtn>}
         {auth && (
           <>
-            {user.isStaff && (
+            {user && user.isStaff && (
               <>
                 <CreateBtn onClick={() => navigate('/lodging/create')}>숙소 생성</CreateBtn>
                 <CreateBtn onClick={() => navigate('/recreation/register')}>
