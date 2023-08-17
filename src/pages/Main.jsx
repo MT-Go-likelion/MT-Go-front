@@ -16,7 +16,7 @@ import Error from './Error';
 import useRecreationMain from '../hooks/queries/Recreation/useRecreationMain';
 import Loading from './Loading';
 
-const mediaSize = 1100;
+const mediaSize = 1150;
 
 const MainLayout = styled.div`
   width: 100%;
@@ -35,12 +35,13 @@ const BannerImg = styled.img`
   max-height: 330px;
   min-height: 250px;
   object-fit: cover;
+
   @media (max-width: ${mobileSize}px) {
     content: url(${MobileBanner});
   }Mobile
 `;
 const ContentLayout = styled.div`
-  margin: 5rem 11vh;
+  margin: 5rem 6rem 5rem 10rem;
   padding: 0 3rem;
   position: relative;
   transition: 0.3s;

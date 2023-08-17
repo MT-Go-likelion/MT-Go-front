@@ -2,17 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import menu from '../../assets/images/bag-outline.png';
+// import menu from '../../assets/images/bag-outline.png';
 import { useSignOut } from '../../hooks/queries/Auth/useSignOut';
+import MTGOLOGO from '../../assets/images/MTLOGO.png';
+import NavLodging from '../../assets/images/NavLodging.png';
+import NavRecreation from '../../assets/images/NavRecreation.png';
+import NavShopping from '../../assets/images/NavShopping.png';
 
-const NavLayout = styled.header`
+const mediaSize = 1150;
+
+const NavLayout = styled.div`
   width: 100%;
   height: 3.8rem;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4rem 0 3rem;
+  padding: 0 12rem;
+  @media (max-width: ${mediaSize}px) {
+    padding: 0 9rem 0 6rem;
+  }
 `;
 
 const NavLeft = styled.div`
@@ -23,34 +31,30 @@ const NavLeft = styled.div`
 `;
 
 const NavLogo = styled.div`
-  font-size: 2rem;
-  font-weight: 800;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  background: linear-gradient(90deg, #4987ff 0%, #5dffe2 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 `;
 
 const NavMenuList = styled.ul`
   display: flex;
   justify-content: space-between;
-  gap: 4rem;
-  @media (max-width: 935px) {
+  gap: 3.5rem;
+  @media (max-width: ${mediaSize}px) {
     display: none;
   }
 `;
 
 const NavMenu = styled.li`
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
 `;
 
 const NavMenuIcon = styled.img`
-  width: 1.5rem;
+  width: 1.2rem;
   margin-right: 0.3rem;
 `;
 
@@ -79,6 +83,12 @@ const MypageBtn = styled.div`
   cursor: pointer;
 `;
 
+const NavLogoImg = styled.img`
+  width: 7rem;
+  height: 3rem;
+  cursor: pointer;
+`;
+
 const Navbar = ({ auth }) => {
   const signOut = useSignOut();
   const navigate = useNavigate();
@@ -102,18 +112,20 @@ const Navbar = ({ auth }) => {
   return (
     <NavLayout>
       <NavLeft>
-        <NavLogo onClick={() => navigate('/')}>MTLOGO</NavLogo>
+        <NavLogo onClick={() => navigate('/')}>
+          <NavLogoImg src={MTGOLOGO} />
+        </NavLogo>
         <NavMenuList>
           <NavMenu onClick={() => navigate('/lodging')}>
-            <NavMenuIcon src={menu} />
+            <NavMenuIcon src={NavLodging} />
             <NavMenuText>숙소예약</NavMenuText>
           </NavMenu>
           <NavMenu onClick={handleShopping}>
-            <NavMenuIcon src={menu} />
+            <NavMenuIcon src={NavShopping} />
             <NavMenuText>장보기</NavMenuText>
           </NavMenu>
           <NavMenu onClick={() => navigate('/recreation')}>
-            <NavMenuIcon src={menu} />
+            <NavMenuIcon src={NavRecreation} />
             <NavMenuText>레크레이션</NavMenuText>
           </NavMenu>
         </NavMenuList>

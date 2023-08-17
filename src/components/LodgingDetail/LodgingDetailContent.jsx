@@ -201,11 +201,13 @@ const PriceRowContainer = styled.div`
 
 const PriceRowText = styled.div`
   font-size: 1.1rem;
+  min-width: 4.5rem;
 `;
 
 const PriceRowWeekend = styled.div`
   font-size: 1.1rem;
   position: relative;
+  min-width: 4.5rem;
 
   &::after {
     font-size: 0.8rem;

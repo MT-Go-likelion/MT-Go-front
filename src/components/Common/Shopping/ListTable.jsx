@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import COLOR from '../../../constants/color';
 
-import Submitbutton from '../../Button/SubmitButton';
+// import Submitbutton from '../../Button/SubmitButton';
 import useShopping from '../../../hooks/queries/Shopping/useShopping';
 import { formatPrice } from '../../../utils/formatPrice';
 import { mobileSize } from '../../../utils/MediaSize';
@@ -106,11 +106,12 @@ const ButtonDiv = styled.div`
 `;
 
 const Submitbtn = styled.button`
+  padding: 0 2.5rem;
+  height: 2.2rem;
+  background-color: ${COLOR.primary.blue};
+  border-radius: 16px;
   @media (max-width: ${mobileSize}px) {
-    padding: 0 2.5rem;
     height: 26px;
-    background-color: ${COLOR.primary.blue};
-    border-radius: 16px;
   }
 `;
 
@@ -124,7 +125,6 @@ const ListTable = ({ data, setShoppingItems }) => {
   const user = queryClient.getQueryData(['user']);
 
   const { shoppingMutation } = useShopping(user ? user.token : '');
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
 
   const handleEditClick = () => {
     if (user) {
@@ -169,17 +169,6 @@ const ListTable = ({ data, setShoppingItems }) => {
       navigate('/signin');
     }
   };
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= mobileSize);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <Container>
@@ -238,16 +227,13 @@ const ListTable = ({ data, setShoppingItems }) => {
       </Border>
       <ButtonDiv>
         {editHandle !== true ? (
-          <div>
+          <>
             <EditButton onClick={handleEditClick}>수정</EditButton>
-          </div>
+
+            <Submitbtn onClick={handleSubmit}>제출</Submitbtn>
+          </>
         ) : (
           <EditButton onClick={handleEditComplete}>완료</EditButton>
-        )}
-        {editHandle !== true && isMobile ? (
-          <Submitbtn onClick={handleSubmit}>제출</Submitbtn>
-        ) : (
-          <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
         )}
       </ButtonDiv>
     </Container>

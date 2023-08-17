@@ -433,6 +433,7 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
           ) : (
             <EditButton onClick={handleEditComplete}>완료</EditButton>
           )}
+
           {editHandle !== true && isMobile ? (
             <Submitbtn onClick={handleSubmit}>제출</Submitbtn>
           ) : (

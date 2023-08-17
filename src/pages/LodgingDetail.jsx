@@ -18,14 +18,27 @@ import LodgingMap from '../components/Map/LodgingMap';
 import COLOR from '../constants/color';
 import { mobileSize } from '../utils/MediaSize';
 
+const mediaSize = 1150;
+
 const LodgingLayout = styled.div`
   max-width: 1280px;
   margin: auto;
   height: 100%;
+
+  padding: 0;
+`;
+const Container = styled.div`
+  margin: 0 9rem;
+  transition: all 0.5s;
+  @media (max-width: ${mediaSize}px) {
+    margin: 0 9rem 0 7rem;
+  }
+  @media (max-width: ${mobileSize}px) {
+    margin: 0;
+  }
 `;
 
 const LodgingContent = styled.div`
-  // height: 300px;
   padding: 1rem 1.5rem;
 `;
 
@@ -200,7 +213,7 @@ const LodgingDetail = () => {
       {isLoading && <Loading />}
       {error && <ErrorPage />}
       {lodgingDetail && (
-        <div>
+        <Container>
           {isMobile ? (
             <>
               <LodgingDetailHeader lodging={lodgingDetail} />
@@ -311,7 +324,7 @@ const LodgingDetail = () => {
               <LodgingDetailReview lodging={lodgingDetail} />
             </>
           )}
-        </div>
+        </Container>
       )}
     </LodgingLayout>
   );

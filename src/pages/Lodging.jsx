@@ -26,7 +26,7 @@ import useSelect from '../hooks/useSelect';
 // 검색 바 백그라운드 이미지
 const SearchBack = styled.div`
   width: 100%;
-  height: 200px;
+  height: 280px;
   flex-shrink: 0;
   background-image: url(${SearchBackgroundIMG});
   background-size: cover;
