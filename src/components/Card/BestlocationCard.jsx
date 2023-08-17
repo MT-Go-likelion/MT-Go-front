@@ -127,7 +127,7 @@ const Flex = styled.div`
 
 const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice }) => {
   const [liked, setLiked] = useState(isScrap);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
