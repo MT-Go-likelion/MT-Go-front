@@ -47,8 +47,8 @@ const PopupContainer = styled.div`
   border-radius: 48px;
   @media (max-width: ${mobileSize}px) {
     width: 100%;
-    min-height: 160px;
-    height: 160px;
+    min-height: 190px;
+    height: 190px;
     border-radius: 32px;
     box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
     padding: 0.5rem;
@@ -61,8 +61,9 @@ const PopupContent = styled.div`
 
 const FlexDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 const Title = styled.h2`
@@ -89,6 +90,9 @@ const Button = styled.button`
   transition:
     background-color 0.2s,
     border 0.2s;
+  @media (max-width: ${mobileSize}px) {
+    width: 100%;
+  }
 `;
 
 const DeleteButton = styled(Button)`
@@ -114,6 +118,10 @@ const CancelButton = styled(Button)`
 
   &:active {
     border: 3px solid ${COLOR.primary.blue};
+  }
+  @media (max-width: ${mobileSize}px) {
+    background-color: ${COLOR.gray};
+    color: ${COLOR.white};
   }
 `;
 
