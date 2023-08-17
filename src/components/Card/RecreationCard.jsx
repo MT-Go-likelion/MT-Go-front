@@ -57,6 +57,7 @@ const BackImg = styled.div`
 const BtnCotainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -142,7 +143,8 @@ const Flex = styled.div`
 
 // 레크리에이션 카드
 // state : 팀페이스 담기 버튼 / 스크랩 후 사진 / 스크랩 수
-const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }) => {
+const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap, scrapCount }) => {
+  console.log(scrapCount);
   const [save, setSave] = useState(isScrap);
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const [success, setSuccess] = useState('');
@@ -204,7 +206,7 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
               alt="save"
               onClick={handleSaveClick}
             />
-            {isMobile ? ' ' : <SaveCount>NN</SaveCount>}
+            {isMobile ? ' ' : <SaveCount>{scrapCount}</SaveCount>}
           </BtnCotainer>
         </BackContainer>
         <Flex>

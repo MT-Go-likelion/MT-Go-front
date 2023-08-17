@@ -40,15 +40,15 @@ const InputContainer = styled.div`
   margin-bottom: ${(props) => props.mb && `${props.mb}rem`};
 `;
 
+const FormLabel = styled.label`
+  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '5%')};
+`;
+
 const InputSubContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 2rem;
   margin-bottom: 5rem;
-`;
-
-const FormLabel = styled.label`
-  flex-basis: ${(props) => (props.fb ? `${props.fb}%` : '5%')};
 `;
 
 const FormInput = styled.input`

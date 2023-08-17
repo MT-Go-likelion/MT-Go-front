@@ -107,7 +107,6 @@ const RecreationRegistration = () => {
   const [img, setImg] = useState('');
   const [previewImg, setPreviewImg] = useState('');
   const imgInputRef = useRef();
-
   const editorRef = useRef();
   const [success, setSuccess] = useState('');
 

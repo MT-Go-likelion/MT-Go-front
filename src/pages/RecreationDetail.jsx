@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import { useNavigate, useParams } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../constants/color';
 import useRecreationDetail from '../hooks/queries/Recreation/useRecreationDetail';
 import Loading from './Loading';
@@ -11,6 +12,10 @@ import useRecreation from '../hooks/queries/Recreation/useRecreation';
 import Backimg from '../assets/images/chevron-left.png';
 import { mobileSize } from '../utils/MediaSize';
 import RecreationPopup from '../components/Popup/Recreation/RecreationPopup';
+import useRecreationScrap from '../hooks/queries/Recreation/useRecreationScrap';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
+import Recreatbtn from '../assets/images/Recreat.png';
+import SelectRecreat from '../assets/images/Select_recreat.png';
 
 const RecreationDetailLayout = styled.div`
   max-width: 1280px;
@@ -47,6 +52,17 @@ const RecreationImg = styled.img`
     height: 350px;
   }
 `;
+
+const RecreatButton = styled.img`
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  @media (max-width: ${mobileSize}px) {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
 const TeamspaceBtn = styled.button`
   padding: 0.2rem 0.8rem;
   border: 2px solid ${COLOR.lightGray};
@@ -73,6 +89,14 @@ const RightContainerHeader = styled.div`
   align-items: flex-end;
   margin-bottom: 3rem;
 `;
+
+const ScrapContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const ScrapCount = styled.div``;
 
 const RecommendedNum = styled.div`
   font-size: 1.5rem;
@@ -164,10 +188,44 @@ const RecreationDetail = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [activeButton, setActiveButton] = useState('rule');
   const [isLifted, setIsLifted] = useState(false);
+  const [success, setSuccess] = useState('');
+
   const { recreationId } = useParams();
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const {
     lodgingDetailQuery: { isLoading, error, data: recreationDetail },
-  } = useRecreationDetail(recreationId);
+  } = useRecreationDetail(recreationId, user ? user.token : '');
+
+  const [save, setSave] = useState(recreationDetail && recreationDetail.isScrap);
+
+  const { recreationScrapMutation } = useRecreationScrap();
+
+  const handleSaveClick = (e) => {
+    e.stopPropagation();
+
+    if (user) {
+      setSave((prevState) => !prevState);
+      recreationScrapMutation(
+        {
+          isScrap: !save,
+          recreationPk: recreationDetail.pk,
+          token: user.token,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.isScrap) setSuccess('✅ 개인스페이스 스크랩 목록에 추가되었습니다');
+            if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
+            setTimeout(() => setSuccess(null), 1500);
+          },
+        },
+      );
+    } else {
+      navigate('/signin');
+    }
+  };
 
   const { recreationDeleteMutation } = useRecreation();
   const navigate = useNavigate();
@@ -202,11 +260,16 @@ const RecreationDetail = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setSave(recreationDetail && recreationDetail.isScrap);
+  }, [recreationDetail]);
+
   return (
     <RecreationDetailLayout>
+      <ApiCallSuccessPopup success={success} />
+
       {isLoading && <Loading />}
       {error && <Error />}
-
       {recreationDetail && (
         <div>
           {isMobile ? (
@@ -273,6 +336,14 @@ const RecreationDetail = () => {
                 </RecreationDetailLeftContiner>
                 <RecreationDetailRightContainer>
                   <RightContainerHeader>
+                    <ScrapContainer>
+                      <ScrapCount>스크랩 수: {recreationDetail.scrapCount}</ScrapCount>
+                      <RecreatButton
+                        src={save ? SelectRecreat : Recreatbtn}
+                        alt="save"
+                        onClick={handleSaveClick}
+                      />
+                    </ScrapContainer>
                     <RecommendedNum>
                       추천인원: {recreationDetail.headCountMin} ~ {recreationDetail.headCountMax}명
                     </RecommendedNum>

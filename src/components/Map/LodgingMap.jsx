@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
-const LodgingMap = () => {
+const LodgingMap = ({ address }) => {
   const [state, setState] = useState({
     center: { lat: 37.49676871972202, lng: 127.02474726969814 },
     isPanto: true,
@@ -24,7 +24,7 @@ const LodgingMap = () => {
     };
 
     // 추후에 API 연결 후 주소 연결
-    geocoder.addressSearch('경기도 가평군 가평읍 북한강변로 360-89 (구)금대리 산4-8', callback);
+    geocoder.addressSearch(address, callback);
   }, []);
 
   return (

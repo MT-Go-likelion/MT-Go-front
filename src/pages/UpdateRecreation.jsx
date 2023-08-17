@@ -7,64 +7,86 @@ import styled from 'styled-components';
 import useInput from '../hooks/useInput';
 import RecreationEditor from '../components/Editor/RecreationEditor';
 import COLOR from '../constants/color';
-import { BASE_URL } from '../config/api';
 import useRecreationUpdate from '../hooks/queries/Recreation/useRecreationUpdate';
+import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
+import camera from '../assets/images/camera.png';
+import { BASE_URL } from '../config/api';
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: auto;
+  padding: 2rem;
+`;
+
+const FormTitle = styled.div`
+  font-size: 2rem;
+  font-weight: bold;
+`;
 
 const RegisterForm = styled.form``;
 
-const TitleContainer = styled.div`
+const InputContainer = styled.div`
+  width: 100%;
   display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+
+  margin-bottom: ${(props) => props.mb && `${props.mb}rem`};
 `;
 
-const TitleLabel = styled.div`
+const FormLabel = styled.div`
   font-size: 1rem;
   color: ${COLOR.black};
   margin-bottom: 0.25rem;
   margin-right: 0.2rem;
+  flex-basis: 7%;
 `;
 
-const TitleInput = styled.input`
-  width: 50%;
-  border: 2px solid ${COLOR.primary.blue};
-  outline: none;
-  border-radius: 0px;
-  line-height: 3rem;
-  font-size: 1rem;
-  padding-left: 1rem;
+const FormInput = styled.input`
+  width: 80%;
+  padding: 0.5rem;
+  border: 1px solid ${COLOR.gray};
+  border-radius: 4px;
+  flex-basis: 93%;
+
+  height: ${(props) => props.height && `${props.height}rem`};
+`;
+
+const ImgInput = styled.input`
+  display: none;
+`;
+
+const ImgBtn = styled.img`
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+`;
+
+const ImgText = styled.div`
+  font-size: 0.8rem;
   color: ${COLOR.gray};
+  margin-left: 0.7rem;
 `;
 
-const RecommenedNumContainer = styled.div`
+const ImgContainer = styled.div`
   display: flex;
+  align-items: center;
+  margin: 1rem 0;
 `;
 
-const RecommenedNumLabel = styled.div`
-  font-size: 1rem;
-  color: ${COLOR.black};
-  margin-bottom: 0.25rem;
-  margin-right: 0.2rem;
+const SubmitBtn = styled.button`
+  width: 7.5rem;
+  height: 2.2rem;
+  background-color: ${COLOR.primary.blue};
+  color: ${COLOR.white};
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+  float: right;
 `;
-
-const RecommenedNumInput = styled.input`
-  width: 50%;
-  border: 2px solid ${COLOR.primary.blue};
-  outline: none;
-  border-radius: 0px;
-  line-height: 3rem;
-  font-size: 1rem;
-  padding-left: 1rem;
-  color: ${COLOR.gray};
-`;
-
-const ImgInput = styled.input``;
-
-const SubmitBtn = styled.button``;
-
-const SuccessText = styled.div`
-  font-size: 1.75rem;
-  font-size: bold;
-`;
-
 const UpdateRecreation = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
@@ -87,6 +109,11 @@ const UpdateRecreation = () => {
   const navigate = useNavigate();
 
   const { lodgingUpdateMutation } = useRecreationUpdate(location.state.recreationDetail.pk);
+
+  const onClickImgInput = (e) => {
+    e.preventDefault();
+    imgInputRef.current.click();
+  };
 
   const onChangeImg = (e) => {
     const file = e.target.files[0];
@@ -128,44 +155,56 @@ const UpdateRecreation = () => {
   };
 
   return (
-    <RegisterForm onSubmit={onSubmitRecreation}>
-      {success && <SuccessText className="text-2xl font-semibold">{success}</SuccessText>}
+    <FormContainer>
+      <ApiCallSuccessPopup success={success} />
+      <FormTitle>레크레이션 등록</FormTitle>
+      <RegisterForm onSubmit={onSubmitRecreation}>
+        <InputContainer>
+          <FormLabel>제목:</FormLabel>
+          <FormInput onChange={onChangeName} value={name} />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel>최소 인원:</FormLabel>
+          <FormInput onChange={onChangeHeadCountMin} value={headCountMin} />
+        </InputContainer>
+        <InputContainer>
+          <FormLabel>최대 인원:</FormLabel>
+          <FormInput onChange={onChangeHeadCountMax} value={headCountMax} />
+        </InputContainer>
 
-      <TitleContainer>
-        <TitleLabel>제목</TitleLabel>
-        <TitleInput onChange={onChangeName} value={name} />
-      </TitleContainer>
-      <RecommenedNumContainer>
-        <RecommenedNumLabel>최소 인원</RecommenedNumLabel>
-        <RecommenedNumInput onChange={onChangeHeadCountMin} value={headCountMin} />
-      </RecommenedNumContainer>
-      <RecommenedNumContainer>
-        <RecommenedNumLabel>최대 인원</RecommenedNumLabel>
-        <RecommenedNumInput onChange={onChangeHeadCountMax} value={headCountMax} />
-      </RecommenedNumContainer>
-      <ImgInput type="file" accept="image/*" ref={imgInputRef} onChange={onChangeImg} />
+        <ImgContainer>
+          <ImgInput type="file" accept="image/*" ref={imgInputRef} onChange={onChangeImg} />
+          <ImgBtn src={camera} onClick={onClickImgInput} />
 
-      {img === location.state.recreationDetail.photo && (
-        <ThumbImgContainer>
-          <ThumbImg src={BASE_URL + location.state.recreationDetail.photo} alt="recreation" />
-        </ThumbImgContainer>
-      )}
+          {img === location.state.recreationDetail.photo && (
+            <ThumbImgContainer>
+              <ThumbImg src={BASE_URL + location.state.recreationDetail.photo} alt="recreation" />
+            </ThumbImgContainer>
+          )}
 
-      {img !== location.state.recreationDetail.photo && (
-        <ThumbImgContainer>
-          <ThumbImg src={img} alt="recreation" />
-        </ThumbImgContainer>
-      )}
+          {img !== location.state.recreationDetail.photo && (
+            <ThumbImgContainer>
+              <ThumbImg src={img} alt="recreation" />
+            </ThumbImgContainer>
+          )}
 
-      <RecreationEditor
-        content={location.state.recreationDetail.content}
-        editorRef={editorRef}
-        onhandleRegisterButton={onhandleRegisterButton}
-      />
-      <SubmitBtn type="submit" onClick={onhandleRegisterButton}>
-        제출
-      </SubmitBtn>
-    </RegisterForm>
+          {/* {previewImg && (
+            <PreviewImgContainer>
+              <PreviewImg src={previewImg} alt="main" />
+            </PreviewImgContainer>
+          )} */}
+          <ImgText>메인이미지(1장)</ImgText>
+        </ImgContainer>
+        <RecreationEditor
+          content={location.state.recreationDetail.content}
+          editorRef={editorRef}
+          onhandleRegisterButton={onhandleRegisterButton}
+        />
+        <SubmitBtn type="submit" onClick={onhandleRegisterButton}>
+          완료
+        </SubmitBtn>
+      </RegisterForm>
+    </FormContainer>
   );
 };
 

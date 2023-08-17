@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import recreationAPI from '../../../apis/recreationAPI';
 
-const useRecreationDetail = (id) => {
-  const lodgingDetailQuery = useQuery(['lodging', id], () => recreationAPI.detail(id));
+const useRecreationDetail = (id, token) => {
+  const lodgingDetailQuery = useQuery(['lodging', id], () => recreationAPI.detail(id, token));
   return { lodgingDetailQuery };
 };
 

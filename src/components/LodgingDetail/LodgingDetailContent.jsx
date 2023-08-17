@@ -43,7 +43,7 @@ const LodgingDetailContent = ({ lodging }) => {
             </ContentHeaderLeft>
             <ContentHeaderRight>
               <PhoneNumText>{phoneNumber}</PhoneNumText>
-              <CapacityText>{headCount}</CapacityText>
+              <CapacityText>수용인원 : {headCount}명</CapacityText>
             </ContentHeaderRight>
           </Header>
           <FacilitiesContainer>
@@ -95,7 +95,7 @@ const LodgingDetailContent = ({ lodging }) => {
         </PriceBox>
       </ContentContainer>
       <ContentBottomContainer>
-        <LodgingMap />
+        <LodgingMap address={address} />
         <ReservationBtn width={15} height={5.6} onClick={onClickUpdateBtn}>
           수정하기
         </ReservationBtn>

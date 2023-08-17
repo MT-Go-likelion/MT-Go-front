@@ -8,10 +8,10 @@ import COLOR from '../../constants/color';
 
 import eye from '../../assets/images/eye.png';
 import blueEye from '../../assets/images/eye_blue.png';
-import Checkbox from '../Common/CheckBox/CheckBox';
 import { mobileSize } from '../../utils/MediaSize';
 
 import useSignIn from '../../hooks/queries/Auth/useSignIn';
+import ApiCallErrorPopup from '../Common/Popup/ApiCallErrorPopup';
 
 const LoginForm = styled.form`
   width: 80%;
@@ -34,28 +34,24 @@ const LoginSubmitBtn = styled.button`
   font-size: 1rem;
   color: ${COLOR.white};
   font-weight: 900;
+  margin-top: 3rem;
   cursor: pointer;
   @media (max-width: ${mobileSize}px) {
     border-radius: 8px;
   }
 `;
 
-const LoginBottomContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2rem 0;
-  @media (max-width: ${mobileSize}px) {
-    margin: 1rem 0;
-    font-size: 8px;
-  }
-`;
-
-const PasswordSearchText = styled.span`
-  color: ${COLOR.primary.blue};
-  cursor: pointer;
-`;
+// const LoginBottomContainer = styled.div`
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin: 2rem 0;
+//   @media (max-width: ${mobileSize}px) {
+//     margin: 1rem 0;
+//     font-size: 8px;
+//   }
+// `;
 
 const EyeImg = styled.img`
   position: absolute;
@@ -72,8 +68,9 @@ const EyeImg = styled.img`
 const SignInForm = () => {
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
-
   const [showPassWord, setShowPassword] = useState(false);
+
+  const [error, setError] = useState('');
 
   const { signInMutation } = useSignIn();
 
@@ -84,7 +81,15 @@ const SignInForm = () => {
   const handleSubmitLogin = (e) => {
     e.preventDefault();
 
-    signInMutation({ email, password });
+    signInMutation(
+      { email, password },
+      {
+        onError: () => {
+          setError('❗ 아이디 혹은 비밀번호를 다시 확인해주세요!');
+          setTimeout(() => setError(null), 1500);
+        },
+      },
+    );
   };
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
@@ -102,6 +107,7 @@ const SignInForm = () => {
 
   return (
     <SignWrapper title={isMobile ? 'MTGO' : '로그인'}>
+      <ApiCallErrorPopup error={error} />
       <LoginForm onSubmit={handleSubmitLogin}>
         <InputWithLabel label="E-mail" value={email} name="id" onChange={onChangeEmail} />
         <PassWordContainer>
@@ -118,10 +124,9 @@ const SignInForm = () => {
             <EyeImg src={eye} onClick={toggleShowPassword} showPassWord={showPassWord} />
           )}
         </PassWordContainer>
-        <LoginBottomContainer>
+        {/* <LoginBottomContainer>
           <Checkbox text="로그인 기억하기" />
-          <PasswordSearchText>패스워드 찾기</PasswordSearchText>
-        </LoginBottomContainer>
+        </LoginBottomContainer> */}
 
         <LoginSubmitBtn type="submit">로그인</LoginSubmitBtn>
       </LoginForm>
