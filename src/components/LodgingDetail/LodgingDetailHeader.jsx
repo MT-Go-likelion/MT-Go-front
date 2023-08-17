@@ -198,7 +198,7 @@ const LodgingDetailHeader = ({ lodging }) => {
                 <Heart src={isLiked ? selectHeart : heart} onClick={handlelikeClick} />
                 <Booking src={booking} onClick={handleTeamBtnClick} />
               </LodingDealingContainer>
-              {user.isStaff && (
+              {user && user.isStaff && (
                 <ReservationBtn width={11.25} height={3.75} onClick={onClickDeleteBtn}>
                   삭제하기
                 </ReservationBtn>

@@ -100,7 +100,7 @@ const LodgingDetailContent = ({ lodging }) => {
       </ContentContainer>
       <ContentBottomContainer>
         <LodgingMap address={address} />
-        {user.isStaff && (
+        {user && user.isStaff && (
           <ReservationBtn width={15} height={5.6} onClick={onClickUpdateBtn}>
             수정하기
           </ReservationBtn>
