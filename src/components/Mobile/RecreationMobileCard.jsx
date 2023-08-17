@@ -140,7 +140,6 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
 
     if (user) {
       setSave((prevState) => !prevState);
-      console.log(isScrap);
       recreationScrapMutation({
         isScrap: !save,
         recreationPk: pk,
@@ -181,7 +180,7 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
           </TeamBtn>
         </Flex>
         <BackContainer onClick={handleCardClick}>
-          <BackImg src={BASE_URL + photo} />
+          <BackImg $datasrc={BASE_URL + photo} />
           <BtnCotainer>
             <RecreatButton
               src={save ? SelectRecreat : Recreatbtn}
