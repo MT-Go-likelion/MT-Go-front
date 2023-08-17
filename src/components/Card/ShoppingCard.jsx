@@ -186,7 +186,7 @@ const ShoppingCard = ({ name, price, onCardClick }) => {
     <div>
       {!isMobile ? (
         <BestLoContainer>
-          <BackImg> </BackImg>
+          <BackImg dataSrc="" />
           <FlexDiv>
             <Name>{name}</Name>
             <Price>{formatPrice(price)}원</Price>
