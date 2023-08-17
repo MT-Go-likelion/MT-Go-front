@@ -39,7 +39,7 @@ const BannerImg = styled.img`
 
   @media (max-width: ${mobileSize}px) {
     content: url(${MobileBanner});
-  }Mobile
+  }
 `;
 const ContentLayout = styled.div`
   margin: 5rem 6rem 5rem 10rem;

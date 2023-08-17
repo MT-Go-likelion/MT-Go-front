@@ -66,18 +66,20 @@ const ContentsDiv = styled.div`
   }
 `;
 
-const LodgingList = styled.div`
-  display: grid;
-
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  @media (max-width: ${mobileSize}px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-  }
-`;
+// const LodgingList = styled.div`
+//   display: flex;
+//   gap: 1rem;
+//   padding: 0.5rem;
+//   flex-wrap: wrap;
+//   grid-template-columns: repeat(4, minmax(0, 1fr));
+//   @media (max-width: ${mobileSize}px) {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     gap: 1rem;
+//   }
+// `;
 
 // 검색바 타이틀
 const Title = styled.div`
@@ -213,36 +215,33 @@ const Lodging = () => {
       </SearchBack>
 
       <ContentsDiv>
-        <LodgingList>
-          {' '}
-          {lodgings &&
-            lodgings.results.map((obj) => (
-              <div>
-                {isMobile ? (
-                  <LodgingMobileCard
-                    key={obj.pk}
-                    pk={obj.pk}
-                    name={obj.name}
-                    price={obj.price}
-                    mainPhoto={obj.mainPhoto}
-                    avgScore={obj.avgScore}
-                    isScrap={obj.isScrap}
-                  />
-                ) : (
-                  <BestlocationCard
-                    key={obj.pk}
-                    pk={obj.pk}
-                    name={obj.name}
-                    price={obj.price}
-                    mainPhoto={obj.mainPhoto}
-                    avgScore={obj.avgScore}
-                    isScrap={obj.isScrap}
-                    lowWeekdayPrice={obj.lowWeekdayPrice}
-                  />
-                )}
-              </div>
-            ))}
-        </LodgingList>
+        {lodgings &&
+          lodgings.results.map((obj) => (
+            <div>
+              {isMobile ? (
+                <LodgingMobileCard
+                  key={obj.pk}
+                  pk={obj.pk}
+                  name={obj.name}
+                  price={obj.price}
+                  mainPhoto={obj.mainPhoto}
+                  avgScore={obj.avgScore}
+                  isScrap={obj.isScrap}
+                />
+              ) : (
+                <BestlocationCard
+                  key={obj.pk}
+                  pk={obj.pk}
+                  name={obj.name}
+                  price={obj.price}
+                  mainPhoto={obj.mainPhoto}
+                  avgScore={obj.avgScore}
+                  isScrap={obj.isScrap}
+                  lowWeekdayPrice={obj.lowWeekdayPrice}
+                />
+              )}
+            </div>
+          ))}
         <PaginationDiv>
           {lodgings && (
             <Pagination
