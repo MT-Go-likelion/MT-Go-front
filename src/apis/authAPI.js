@@ -29,6 +29,13 @@ const authAPI = {
 
     return res.data;
   },
+
+  suggestion: async (content, token) => {
+    const headers = token ? { headers: { Authorization: `Token ${token}` } } : { headers: {} };
+    const res = await axios.post(AUTHAPI.SUGGESTION, { content }, headers);
+
+    return res.data;
+  },
 };
 
 export default authAPI;
