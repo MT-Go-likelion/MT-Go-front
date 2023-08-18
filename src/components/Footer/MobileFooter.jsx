@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../../constants/color';
 
 import FooterLodging from '../../assets/images/FooterLodging.png';
@@ -76,12 +77,21 @@ const MobileFooter = () => {
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState('home');
 
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']);
+
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
     if (menu === 'home') {
       navigate(`/`);
     } else {
       navigate(`/${menu}`);
+    }
+
+    if (!user) {
+      if (menu === 'Shopping' || menu === 'Mypage') {
+        setActiveMenu('home');
+      }
     }
   };
 
