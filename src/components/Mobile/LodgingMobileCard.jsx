@@ -10,6 +10,8 @@ import SelectHeart from '../../assets/images/Select_Heart.png';
 import Star from '../../assets/images/star.png';
 import useLodgingScrap from '../../hooks/queries/Lodging/useLodgingScrap';
 // import { mobileSize } from '../../utils/MediaSize';
+import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
+import { formatPrice } from '../../utils/formatPrice';
 
 const BestLoContainer = styled.div`
   width: 317px;
@@ -87,8 +89,9 @@ const Flex = styled.div`
  * @param {boolean} isScrap 스크랩 여부
  */
 
-const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => {
+const LodgingMobileCard = ({ pk, name, mainPhoto, avgScore, isScrap, lowWeekdayPrice }) => {
   const [liked, setLiked] = useState(isScrap);
+  const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
 
@@ -102,11 +105,20 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
 
     if (user) {
       setLiked((prevState) => !prevState);
-      lodgingScrapMutation({
-        isScrap: !liked,
-        lodging: pk,
-        token: user.token,
-      });
+      lodgingScrapMutation(
+        {
+          isScrap: !liked,
+          lodging: pk,
+          token: user.token,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.isScrap) setSuccess('✅ 개인스페이스 스크랩 목록에 추가되었습니다');
+            if (!data.isScrap) setSuccess('스크랩이 취소되었습니다');
+            setTimeout(() => setSuccess(null), 1500);
+          },
+        },
+      );
     } else {
       navigate('/signin');
     }
@@ -117,19 +129,23 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   };
 
   return (
-    <BestLoContainer onClick={handleCardClick}>
-      <Flexdirection>
-        <Title>{name}</Title>
-        <Flex>
-          <BlueStar src={Star} />
-          <Score>{avgScore}</Score>
-        </Flex>
-        <Price>1박 {price} 원</Price>
-      </Flexdirection>
-      <BackDiv $datasrc={BASE_URL + mainPhoto}>
-        <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
-      </BackDiv>
-    </BestLoContainer>
+    <>
+      <ApiCallSuccessPopup success={success} />
+
+      <BestLoContainer onClick={handleCardClick}>
+        <Flexdirection>
+          <Title>{name}</Title>
+          <Flex>
+            <BlueStar src={Star} />
+            <Score>{avgScore}</Score>
+          </Flex>
+          <Price>1박 {formatPrice(lowWeekdayPrice)} 원</Price>
+        </Flexdirection>
+        <BackDiv $datasrc={BASE_URL + mainPhoto}>
+          <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
+        </BackDiv>
+      </BestLoContainer>
+    </>
   );
 };
-export default BestlocationCard;
+export default LodgingMobileCard;

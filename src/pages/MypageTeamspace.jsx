@@ -147,7 +147,7 @@ const TeamspaceButton = styled.button`
   transition:
     background-color 0.5s,
     border 0.5s;
-
+  color: ${COLOR.black};
   &:hover {
     background-color: ${COLOR.lightGray};
   }
@@ -365,7 +365,7 @@ const Sub = styled.div`
 
 const LogoImg = styled.img`
   width: 91px;
-  height: 17px;
+  height: 38px;
   float: right;
 `;
 

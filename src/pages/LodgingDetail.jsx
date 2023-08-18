@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
+import { BASE_URL } from '../config/api';
+
 import {
   LodgingDetailHeader,
   LodgingDetailContent,
@@ -62,8 +64,6 @@ const LodgingDetailImg = styled.img`
   width: 100%;
   height: 9.6rem;
   border-radius: 8px;
-  color: ${COLOR.lightGray};
-  background-color: ${COLOR.primary.blue};
 `;
 
 const RowFlexDiv = styled.div`
@@ -220,7 +220,7 @@ const LodgingDetail = () => {
               <LodgingContent>
                 <Title>{lodgingDetail.name}</Title>
                 <Address>{lodgingDetail.address}</Address>
-                <LodgingDetailImg src={lodgingDetail.mainPhoto} />
+                <LodgingDetailImg src={BASE_URL + lodgingDetail.mainPhoto} />
                 <RowFlexDiv>
                   <div>
                     <ETC>{lodgingDetail.phoneNumber}</ETC>
