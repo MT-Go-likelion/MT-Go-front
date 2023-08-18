@@ -95,6 +95,7 @@ const EditButton = styled.button`
   @media (max-width: ${mobileSize}px) {
     height: 100%;
     width: 6.5rem;
+    color: ${COLOR.black};
   }
 `;
 const ButtonDiv = styled.div`
@@ -112,6 +113,7 @@ const Submitbtn = styled.button`
   border-radius: 16px;
   @media (max-width: ${mobileSize}px) {
     height: 26px;
+    color: ${COLOR.white};
   }
 `;
 
