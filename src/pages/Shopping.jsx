@@ -207,7 +207,6 @@ const Shopping = () => {
       if (user) {
         if (isItemInList) {
           setShowNotification(true);
-          console.log(showNotification);
           setTimeout(() => {
             setShowNotification(false);
           }, 3000);
@@ -251,7 +250,7 @@ const Shopping = () => {
 
   return (
     <>
-      <Notification visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>
+      <Notification $visible={showNotification}>이미 장바구니에 담긴 품목입니다.</Notification>
       <BannerImg> </BannerImg>
       <FlexDiv>
         <ShoppingLayout>

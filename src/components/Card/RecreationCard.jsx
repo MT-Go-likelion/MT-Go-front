@@ -59,8 +59,8 @@ const BtnCotainer = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   @media (max-width: ${mobileSize}px) {
     top: 95px;
     right: 5px;
