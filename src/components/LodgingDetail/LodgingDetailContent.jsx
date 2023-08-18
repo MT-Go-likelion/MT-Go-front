@@ -251,7 +251,7 @@ const FacilitiesItem = styled.li`
 
 const FacilitiesText = styled.span``;
 
-const InformationText = styled.span`
+const InformationText = styled.pre`
   line-height: 1.5;
 `;
 

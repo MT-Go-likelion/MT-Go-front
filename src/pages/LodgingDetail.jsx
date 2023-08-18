@@ -180,7 +180,9 @@ const FacilitiesItem = styled.li`
   align-items: center;
 `;
 
-const FacilitiesText = styled.span``;
+const FacilitiesText = styled.span`
+  font-size: 0.7rem;
+`;
 
 const LodgingDetail = () => {
   const { lodgingId } = useParams();
