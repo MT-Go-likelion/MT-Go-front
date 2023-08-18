@@ -40,6 +40,8 @@ const BackImg = styled.div`
   background-color: ${COLOR.blue};
   border-radius: 6px;
   background-image: ${(props) => `url(${props.dataSrc})`};
+  background-size: cover;
+  background-position: center;
 `;
 
 const BtnCotainer = styled.div`
