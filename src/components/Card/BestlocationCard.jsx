@@ -197,7 +197,6 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
           <BackDiv $datasrc={BASE_URL + mainPhoto}>
             <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
           </BackDiv>
-
           <Title>{name}</Title>
           <Flexdirection>
             <Price>{formatPrice(lowWeekdayPrice)}원~</Price>
