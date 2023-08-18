@@ -125,7 +125,7 @@ const Flex = styled.div`
 
 // 모바일
 
-const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWeekdayPrice }) => {
+const BestlocationCard = ({ pk, name, mainPhoto, avgScore, isScrap, lowWeekdayPrice }) => {
   const [liked, setLiked] = useState(isScrap);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [success, setSuccess] = useState('');
@@ -185,7 +185,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
           </BackDiv>
           <Title>{name}</Title>
           <Flexdirection>
-            <Price>1박 {price}원</Price>
+            <Price>1박 {formatPrice(lowWeekdayPrice)}원</Price>
             <Flex>
               <BlueStar src={Star} />
               <Score>{typeof avgScore === 'number' ? avgScore.toFixed(1) : avgScore}</Score>
