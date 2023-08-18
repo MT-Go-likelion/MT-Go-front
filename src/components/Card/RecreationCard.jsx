@@ -204,8 +204,8 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap, 
   return (
     <>
       <ApiCallSuccessPopup success={success} />
-      <BestLoContainer>
-        <BackContainer onClick={handleCardClick}>
+      <BestLoContainer onClick={handleCardClick}>
+        <BackContainer>
           <BackImg $datasrc={BASE_URL + photo} />
           <BtnCotainer>
             <RecreatButton

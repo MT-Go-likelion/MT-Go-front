@@ -443,7 +443,6 @@ const MypageTeamspace = () => {
   const checkTeamAuth = (teams) => {
     let isAuth = false;
     teams.forEach((team) => {
-      console.log(team.user, user.pk);
       if (team.user === user.pk) {
         isAuth = true;
       }
