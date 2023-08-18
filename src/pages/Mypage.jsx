@@ -77,6 +77,7 @@ const ScrapDiv = styled.div`
   @media (max-width: ${mobileSize}px) {
     width: 100%;
     height: 100%;
+    min-width: 0;
     border-radius: 12px;
     padding: 1.2rem 1.4rem;
     margin: 1.2rem 0 2rem 0;
