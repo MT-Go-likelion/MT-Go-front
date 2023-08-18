@@ -18,6 +18,7 @@ import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
 import { useSignOut } from '../hooks/queries/Auth/useSignOut';
 import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
 import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
+import { mobileSize } from '../utils/MediaSize';
 
 const mediaSize = 1030;
 
@@ -37,6 +38,9 @@ const Container = styled.div`
   @media (max-width: ${mediaSize}px) {
     margin: 0 3rem;
     padding: 0 2rem;
+  }
+  @media (max-width: ${mobileSize}px) {
+    border-top: none;
   }
 `;
 
