@@ -122,7 +122,7 @@ const Header = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 6rem;
+  gap: 5rem;
 `;
 
 const ContentLeftContainer = styled.div`
@@ -200,8 +200,8 @@ const PriceRowContainer = styled.div`
 `;
 
 const PriceRowText = styled.div`
-  font-size: 1.1rem;
-  min-width: 4.5rem;
+  font-size: 0.9rem;
+  min-width: 5rem;
 `;
 
 const PriceRowWeekend = styled.div`

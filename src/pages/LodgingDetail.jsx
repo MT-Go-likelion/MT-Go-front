@@ -28,7 +28,7 @@ const LodgingLayout = styled.div`
   padding: 0;
 `;
 const Container = styled.div`
-  margin: 0 9rem;
+  margin: 0 7rem;
   transition: all 0.5s;
   @media (max-width: ${mediaSize}px) {
     margin: 0 9rem 0 7rem;

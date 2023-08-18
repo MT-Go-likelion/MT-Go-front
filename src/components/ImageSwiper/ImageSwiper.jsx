@@ -25,7 +25,7 @@ export default function ImageSwiper({ mainPhoto, photos }) {
       grabCursor
       centeredSlides
       slidesPerView="auto"
-      initialSlide={3} // 나중에 이미지 개수 % 2를 시작 위치로 둘 것임.
+      initialSlide={2} // 나중에 이미지 개수 % 2를 시작 위치로 둘 것임.
       coverflowEffect={{
         rotate: 50,
         stretch: 0,
