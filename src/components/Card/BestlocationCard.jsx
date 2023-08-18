@@ -184,7 +184,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
             <Title>{name}</Title>
             <Flex>
               <BlueStar src={Star} />
-              <Score>{avgScore.toFixed(1)}</Score>
+              <Score>{typeof avgScore === 'number' ? avgScore.toFixed(1) : avgScore}</Score>
             </Flex>
             <Price>1박 {price}원</Price>
           </Flexdirection>
@@ -203,7 +203,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
             <Price>{formatPrice(lowWeekdayPrice)}원~</Price>
             <Flex>
               <BlueStar src={Star} />
-              <Score>{avgScore.toFixed(1)}</Score>
+              <Score>{typeof avgScore === 'number' ? avgScore.toFixed(1) : avgScore}</Score>
             </Flex>
           </Flexdirection>
         </BestLoContainer>
