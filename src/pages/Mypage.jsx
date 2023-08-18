@@ -49,6 +49,7 @@ const Container = styled.div`
   }
   @media (max-width: ${mobileSize}px) {
     width: 80%;
+    border-top: none;
     display: block;
     margin: 4rem 2rem;
     padding: 0;
