@@ -120,6 +120,7 @@ const Header = styled.div`
 `;
 
 const ContentContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 5rem;
@@ -167,8 +168,7 @@ const CapacityText = styled.span`
 `;
 
 const PriceBox = styled.div`
-  width: 26.25rem;
-  max-width: 100%;
+  width: 100%;
   height: 25rem;
   flex-basis: 30%;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
@@ -253,6 +253,8 @@ const FacilitiesText = styled.span``;
 
 const InformationText = styled.pre`
   line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
 `;
 
 const CautionContainer = styled.div`

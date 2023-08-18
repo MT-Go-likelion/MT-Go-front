@@ -23,7 +23,7 @@ import { mobileSize } from '../utils/MediaSize';
 const mediaSize = 1150;
 
 const LodgingLayout = styled.div`
-  max-width: 1280px;
+  max-width: 1440px;
   margin: auto;
   height: 100%;
 

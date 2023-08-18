@@ -62,7 +62,7 @@ const Flexdiv = styled.div`
   flex-wrap: nowrap;
   gap: 3rem;
   margin: 2rem 2rem 5rem 2rem;
-  padding-bottom: 0.5rem;
+  padding: 8px;
   height: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
