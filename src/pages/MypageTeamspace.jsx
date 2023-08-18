@@ -431,6 +431,17 @@ const MypageTeamspace = () => {
     navigate('/setting');
   };
 
+  const checkTeamAuth = (teams) => {
+    let isAuth = false;
+    teams.forEach((team) => {
+      console.log(team.user, user.pk);
+      if (team.user === user.pk) {
+        isAuth = true;
+      }
+    });
+    return isAuth;
+  };
+
   const handleDeleteClick = () => {
     setIsDeletePopupVisible(true);
   };
@@ -664,8 +675,12 @@ const MypageTeamspace = () => {
               <TNameDiv>
                 <SubTitle>{teamName}</SubTitle>
                 <ButtonDiv>
-                  <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
-                  <LeaveButton onClick={handleLeaveClick}>Leave</LeaveButton>
+                  {teams && checkTeamAuth(teams) && (
+                    <DeleteButton onClick={handleDeleteClick}>Delete</DeleteButton>
+                  )}
+                  {teams && !checkTeamAuth(teams) && (
+                    <LeaveButton onClick={handleLeaveClick}>Leave</LeaveButton>
+                  )}
                   {isDeletePopupVisible && (
                     <DeleteSharePopup
                       handleDeleteClose={handleDeleteClose}
