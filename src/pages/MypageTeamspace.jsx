@@ -365,7 +365,7 @@ const Sub = styled.div`
 
 const LogoImg = styled.img`
   width: 91px;
-  height: 17px;
+  height: 38px;
   float: right;
 `;
 
