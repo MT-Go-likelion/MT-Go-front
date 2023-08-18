@@ -5,7 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
 import { mobileSize } from '../../../utils/MediaSize';
-import useSuggestion from '../../../hooks/queries/Auth/useSuggestion';
+import useUserUpdate from '../../../hooks/queries/Auth/useUserUpdate';
+import useInput from '../../../hooks/useInput';
 import ApiCallSuccessPopup from '../Popup/ApiCallSuccessPopup';
 
 const slideIn = keyframes`
@@ -47,7 +48,7 @@ const ModalBackdrop = styled.div`
 
 const ModalContainter = styled.div`
   width: 20rem;
-  height: 90%;
+  height: 50%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -58,7 +59,7 @@ const ModalContainter = styled.div`
     padding: 1rem;
     justify-content: initial;
     width: 100%;
-    height: 530px;
+    height: 300px;
     border-radius: 32px;
     box-shadow: 2px -7px 20px 0px rgba(0, 0, 0, 0.1);
     padding: 0.5rem;
@@ -101,14 +102,22 @@ const TermsTitle = styled.div`
   }
 `;
 
-const TermsContent = styled.input`
-  width: 100%;
-  height: 80%;
-  @media (max-width: ${mobileSize}px) {
-    height: 70%;
-    border: 1px solid ${COLOR.primary.blue};
-    padding: 0.5rem;
-  }
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const UserLabel = styled.label`
+  margin-right: 1rem;
+`;
+
+const UserInput = styled.input`
+  border: 1px solid ${COLOR.primary.lightBlue};
+  width: 150px;
+  height: 30px;
+  border-radius: 0.75rem;
+  text-align: center;
 `;
 
 const BottomContainer = styled.div`
@@ -149,42 +158,29 @@ const SubmitBtn = styled(Button)`
   }
 `;
 
-const TextContents = styled.div`
-  margin-bottom: 2rem;
-  @media (max-width: ${mobileSize}px) {
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-`;
-
-const SuggestionModal = ({ setSuggestionModalOpen }) => {
+const UserUpdateModal = ({ setUserUpdateModalOpen }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  const [content, setContent] = useState('');
+  const [userName, onChangeUserName] = useInput(user && user.name);
   const [visible, setVisible] = useState(true);
   const [success, setSuccess] = useState('');
 
-  const { suggestionMutation } = useSuggestion(user ? user.token : '');
-
-  const onChangeContent = (e) => {
-    setContent(e.target.value);
-  };
+  const { userUpdateMutation } = useUserUpdate(user.pk);
 
   const closeModal = () => {
     setVisible(false);
     setTimeout(() => {
-      setSuggestionModalOpen(false);
+      setUserUpdateModalOpen(false);
     }, 500);
   };
 
-  const submitSuggestion = (e) => {
+  const updateUser = (e) => {
     e.preventDefault();
 
-    suggestionMutation(content, {
+    userUpdateMutation(userName, {
       onSuccess: () => {
-        setSuccess('✅ 문의 사항이 성공적으로 작성되었습니다!');
+        setSuccess('✅ 닉네임이 변경사항이 적용됐습니다!');
         setTimeout(() => setSuccess(null), 3000);
       },
     });
@@ -211,15 +207,14 @@ const SuggestionModal = ({ setSuggestionModalOpen }) => {
         <ModalContainter onClick={(e) => e.stopPropagation()}>
           <CloseBtn src={close} onClick={closeModal} />
           <ModalLayout>
-            <TermsTitle>건의사항</TermsTitle>
-            <TextContents>MTGO에 문의하고 싶은 내용을 기재해주세요.</TextContents>
-            <TermsContent
-              placeholder="자유롭게 문의사항을 적어주세요."
-              onChange={onChangeContent}
-            />
+            <TermsTitle>닉네임 변경</TermsTitle>
+            <InputContainer>
+              <UserLabel>닉네임</UserLabel>
+              <UserInput value={userName} onChange={onChangeUserName} />
+            </InputContainer>
             <BottomContainer>
               <CancelBtn onClick={closeModal}>취소</CancelBtn>
-              <SubmitBtn onClick={submitSuggestion}>작성</SubmitBtn>
+              <SubmitBtn onClick={updateUser}>변경</SubmitBtn>
             </BottomContainer>
           </ModalLayout>
         </ModalContainter>
@@ -228,4 +223,4 @@ const SuggestionModal = ({ setSuggestionModalOpen }) => {
   );
 };
 
-export default SuggestionModal;
+export default UserUpdateModal;

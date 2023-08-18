@@ -26,6 +26,7 @@ import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
 import SuggestionModal from '../components/Common/Modal/SuggestionModal';
 
 import { mobileSize } from '../utils/MediaSize';
+import UserUpdateModal from '../components/Common/Modal/UserUpdateModal';
 
 const mediaSize = 1030;
 
@@ -311,6 +312,7 @@ const MyPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
+  const [userUpdateModalOpen, setUserUpdateModalOpen] = useState(false);
   const [isDeleteUserPopupVisible, setIsDeleteUserPopupVisible] = useState(false);
   const { userDeleteMutation } = useUserUpdate(user.pk);
 
@@ -338,6 +340,10 @@ const MyPage = () => {
 
   const showSuggestionModal = () => {
     setSuggestionModalOpen(true);
+  };
+
+  const showUserUpdateModal = () => {
+    setUserUpdateModalOpen(true);
   };
 
   useEffect(() => {
@@ -420,7 +426,10 @@ const MyPage = () => {
           <Footer>
             <FooterSub>
               <Sub>설정</Sub>
-              <Sub>개인정보 변경</Sub>
+              <Sub onClick={showUserUpdateModal}>개인정보 변경</Sub>
+              {userUpdateModalOpen && (
+                <UserUpdateModal setUserUpdateModalOpen={setUserUpdateModalOpen} />
+              )}
               <Sub
                 onClick={() => {
                   handleLogout();
