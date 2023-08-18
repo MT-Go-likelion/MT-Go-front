@@ -163,6 +163,7 @@ const RecreationCard = ({ pk, name, photo, headCountMin, headCountMax, isScrap }
   const handlePopupClose = () => {
     setIspopupVisivle(false);
   };
+  console.log(BASE_URL + photo);
 
   return (
     <>
