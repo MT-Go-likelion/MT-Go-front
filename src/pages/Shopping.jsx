@@ -146,6 +146,7 @@ const Notification = styled.div`
   font-size: 14px;
   z-index: 9999;
   opacity: ${(props) => (props.$visible ? 1 : 0)};
+  display: ${(props) => (props.$visible ? 'block' : 'none')};
   transition: opacity 0.2s ease-in-out;
 `;
 
@@ -206,6 +207,7 @@ const Shopping = () => {
       if (user) {
         if (isItemInList) {
           setShowNotification(true);
+          console.log(showNotification);
           setTimeout(() => {
             setShowNotification(false);
           }, 3000);

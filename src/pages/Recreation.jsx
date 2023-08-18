@@ -55,10 +55,20 @@ const RecreationItem = styled.li`
   justify-content: center;
 `;
 
-const PaginationList = styled.div`
-  display: block;
-  position: relative;
-  z-index: 1;
+// const PaginationList = styled.div`
+//   display: block;
+//   position: relative;
+//   z-index: 1;
+//   @media (max-width: ${mobileSize}px) {
+//     margin-bottom: 5rem;
+//   }
+// `;
+
+const PaginationDiv = styled.div`
+  @media (max-width: ${mobileSize}px) {
+    position: relative;
+    z-index: 1;
+  }
 `;
 
 const Recreation = () => {
@@ -121,20 +131,41 @@ const Recreation = () => {
               )}
             </RecreationItem>
           ))}
-      </RecreationList>
-      <PaginationList>
-        {recreations && (
-          <Pagination
-            activePage={page} // 현재 페이지
-            itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
-            totalItemsCount={recreations.count} // 총 아이템 개수
-            pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
-            prevPageText="‹"
-            nextPageText="›"
-            onChange={handlePageChange}
-          />
+        {!isMobile ? (
+          ''
+        ) : (
+          <PaginationDiv>
+            {recreations && (
+              <Pagination
+                activePage={page} // 현재 페이지
+                itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
+                totalItemsCount={recreations.count} // 총 아이템 개수
+                pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
+                prevPageText="‹"
+                nextPageText="›"
+                onChange={handlePageChange}
+              />
+            )}
+          </PaginationDiv>
         )}
-      </PaginationList>
+      </RecreationList>
+      {!isMobile ? (
+        <PaginationDiv>
+          {recreations && (
+            <Pagination
+              activePage={page} // 현재 페이지
+              itemsCountPerPage={8} // 한 페이지에 보여줄 아이템 개수
+              totalItemsCount={recreations.count} // 총 아이템 개수
+              pageRangeDisplayed={Math.floor(recreations.count / 2) + 1} // 페이지 범위
+              prevPageText="‹"
+              nextPageText="›"
+              onChange={handlePageChange}
+            />
+          )}
+        </PaginationDiv>
+      ) : (
+        ''
+      )}
     </RecreationLayout>
   );
 };
