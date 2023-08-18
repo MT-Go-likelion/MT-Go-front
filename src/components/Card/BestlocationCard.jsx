@@ -178,19 +178,19 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
   return (
     <div>
       <ApiCallSuccessPopup success={success} />
-      {isMobile ? (
+      {!isMobile ? (
         <BestLoContainer onClick={handleCardClick}>
+          <BackDiv $datasrc={BASE_URL + mainPhoto}>
+            <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
+          </BackDiv>
+          <Title>{name}</Title>
           <Flexdirection>
-            <Title>{name}</Title>
+            <Price>1박 {price}원</Price>
             <Flex>
               <BlueStar src={Star} />
               <Score>{typeof avgScore === 'number' ? avgScore.toFixed(1) : avgScore}</Score>
             </Flex>
-            <Price>1박 {price}원</Price>
           </Flexdirection>
-          <BackDiv $datasrc={BASE_URL + mainPhoto}>
-            <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
-          </BackDiv>
         </BestLoContainer>
       ) : (
         <BestLoContainer onClick={handleCardClick}>
@@ -210,4 +210,5 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
     </div>
   );
 };
+
 export default BestlocationCard;
