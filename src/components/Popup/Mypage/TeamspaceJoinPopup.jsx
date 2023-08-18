@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
-import Submitbutton from '../../Button/SubmitButton';
 
 import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
@@ -115,6 +114,16 @@ const FlexDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
+`;
+
+const Submitbutton = styled.button`
+  height: 30px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid ${COLOR.gray};
+  border-radius: 16px;
+  color: ${COLOR.white};
+  background-color: ${COLOR.primary.blue};
 `;
 
 const Cancelbutton = styled.button`

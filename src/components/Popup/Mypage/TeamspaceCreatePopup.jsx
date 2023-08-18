@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
-import Submitbutton from '../../Button/SubmitButton';
 
 import COLOR from '../../../constants/color';
 import close from '../../../assets/images/close.png';
@@ -117,6 +116,16 @@ const FlexDiv = styled.div`
   gap: 0.5rem;
 `;
 
+const Submitbutton = styled.button`
+  height: 30px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid ${COLOR.gray};
+  border-radius: 16px;
+  color: ${COLOR.white};
+  background-color: ${COLOR.primary.blue};
+`;
+
 const Cancelbutton = styled.button`
   height: 30px;
   font-size: 16px;
@@ -160,7 +169,9 @@ const TeamSpaceCreatePopup = ({ handlePopupClose }) => {
           <SubTitle>팀스페이스 이름을 입력해주세요.</SubTitle>
           <Minibox placeholder="최대 N자까지 가능" onChange={onChangeTeamName} />
           <FlexDiv>
-            <Submitbutton onClick={handleSubmit}>완료</Submitbutton>
+            <Submitbutton onClick={handleSubmit} width={10}>
+              완료
+            </Submitbutton>
             <Cancelbutton onClick={handleCancel}>Cancel</Cancelbutton>
           </FlexDiv>
         </PopupContent>
