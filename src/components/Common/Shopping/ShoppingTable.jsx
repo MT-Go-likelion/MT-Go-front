@@ -119,8 +119,8 @@ const EditButton = styled.button`
     color: ${COLOR.white};
   }
   @media (max-width: ${mobileSize}px) {
-    height: 1.8rem;
-    width: 6.45rem;
+    height: 1.9rem;
+    width: 10rem;
   }
 `;
 
@@ -180,14 +180,14 @@ const SelectName = styled.select`
   }
 `;
 
-const Submitbtn = styled.button`
-  @media (max-width: ${mobileSize}px) {
-    padding: 0 2.5rem;
-    height: 30px;
-    background-color: ${COLOR.primary.blue};
-    border-radius: 16px;
-  }
-`;
+// const Submitbtn = styled.button`
+//   @media (max-width: ${mobileSize}px) {
+//     padding: 0 2.5rem;
+//     height: 30px;
+//     background-color: ${COLOR.primary.blue};
+//     border-radius: 16px;
+//   }
+// `;
 
 const SelectOption = styled.option``;
 
@@ -428,15 +428,12 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
       {CreatePopupVisible !== true ? (
         <ButtonDiv>
           {editHandle !== true ? (
-            <EditButton onClick={handleEditClick}>수정</EditButton>
+            <>
+              <EditButton onClick={handleEditClick}>수정</EditButton>
+              <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
+            </>
           ) : (
             <EditButton onClick={handleEditComplete}>완료</EditButton>
-          )}
-
-          {editHandle !== true && isMobile ? (
-            <Submitbtn onClick={handleSubmit}>제출</Submitbtn>
-          ) : (
-            <Submitbutton onClick={handleSubmit}>제출</Submitbutton>
           )}
         </ButtonDiv>
       ) : (

@@ -29,17 +29,23 @@ import { mobileSize } from '../utils/MediaSize';
 
 const mediaSize = 1030;
 
+const Margin = styled.div`
+  height: 3rem;
+`;
 // 전체 여백
 const Container = styled.div`
+  border-top: 2px solid ${COLOR.primary.blue};
   width: 100%;
-  max-width: 1280px;
+
+  max-width: 1000px;
   margin: auto;
   display: flex;
-  gap: 2.5rem;
+  gap: 6rem;
   transition: 0.3s;
+
   @media (max-width: ${mediaSize}px) {
     margin: 0 3rem;
-    padding: 0 2rem;
+    max-width: 800px;
   }
   @media (max-width: ${mobileSize}px) {
     width: 80%;
@@ -49,24 +55,16 @@ const Container = styled.div`
   }
 `;
 
-const Hrbar = styled.hr`
-  border: 0.5px solid ${COLOR.primary.blue};
-  margin: 4rem 10rem 0 10rem;
-  transition: 0.3s;
-  @media (max-width: ${mediaSize}px) {
-    margin: 4rem 5rem 0 5rem;
-  }
-`;
-
 const TeamspaceDiv = styled.div`
   width: 100%;
-  flex-basis: 20%;
 `;
 
 const ScrapDiv = styled.div`
-  width: 170px;
+  width: 100%;
   padding-top: 4rem;
-  flex-basis: 80%;
+  min-width: 700px;
+  padding-right: 3rem;
+
   @media (max-width: ${mobileSize}px) {
     width: 100%;
     height: 100%;
@@ -118,6 +116,12 @@ const Flex = styled.div`
   padding-bottom: 1rem;
   @media (max-width: ${mobileSize}px) {
   }
+`;
+
+const FlexlistTable = styled.div`
+  display: flex;
+  gap: 3rem;
+  padding-bottom: 2rem;
 `;
 
 // 팀스페이스 버튼
@@ -201,6 +205,7 @@ const TNameDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const TeamspaceName = styled.div`
@@ -374,6 +379,7 @@ const MemberDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 1rem;
+  width: 100%;
 `;
 
 const MypageTeamspace = () => {
@@ -643,7 +649,7 @@ const MypageTeamspace = () => {
       ) : (
         <>
           <Notification visible={showNotification}>클립보드에 복사되었습니다!</Notification>
-          <Hrbar />
+          <Margin> </Margin>
           <Container>
             <TeamspaceDiv>
               <SidebarTopContainer>
@@ -745,13 +751,13 @@ const MypageTeamspace = () => {
                   ))}
               </Flex>
               <SubTitle>장바구니</SubTitle>
-              <Flex>
+              <FlexlistTable>
                 {shoppingLoading && <Loading />}
                 {shoppingError && <Error />}
                 {teamShoppingList && (
                   <ListTable data={shoppingItems} setShoppingItems={setShoppingItems} />
                 )}
-              </Flex>
+              </FlexlistTable>
             </ScrapDiv>
           </Container>
         </>
