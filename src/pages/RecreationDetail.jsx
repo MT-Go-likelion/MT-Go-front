@@ -150,6 +150,7 @@ const ContentDiv = styled.div`
   padding: 3rem 2rem;
   box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  margin-bottom: 4.5rem;
   animation: ${(props) => (props.isLifted ? liftAnimation : 'none')} 0.4s ease;
 `;
 
