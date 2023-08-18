@@ -43,8 +43,7 @@ const BackImg = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  background-image: ${(props) => `url(${props.$datasrc})`};
-  background-size: cover;
+4  background-size: cover;
   background-position: center;
 
   @media (max-width: ${mobileSize}px) {
