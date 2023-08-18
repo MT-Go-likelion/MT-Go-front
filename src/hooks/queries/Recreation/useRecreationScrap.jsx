@@ -5,12 +5,8 @@ const useRecreationScrap = () => {
   const { mutate: recreationScrapMutation } = useMutation(
     (payload) => recreationAPI.scrap(payload),
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
+      onSuccess: () => {},
+      onError: () => {},
     },
   );
 

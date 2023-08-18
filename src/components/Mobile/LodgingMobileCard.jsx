@@ -91,7 +91,6 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
   const [liked, setLiked] = useState(isScrap);
 
   const navigate = useNavigate();
-  console.log(mainPhoto);
 
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);

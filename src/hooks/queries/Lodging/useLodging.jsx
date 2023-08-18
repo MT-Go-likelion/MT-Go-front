@@ -7,21 +7,13 @@ const useLodging = (token, page, searchQuery) => {
   );
 
   const { mutate: lodgingMutation } = useMutation((payload) => lodgingAPI.create(payload), {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+    onSuccess: () => {},
+    onError: () => {},
   });
 
   const { mutate: lodgingDeleteMutation } = useMutation((pk) => lodgingAPI.delete(pk), {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+    onSuccess: () => {},
+    onError: () => {},
   });
 
   return { lodgingsQuery, lodgingMutation, lodgingDeleteMutation };

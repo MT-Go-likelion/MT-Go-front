@@ -7,13 +7,10 @@ const useTeamRecreationScrap = (userToken, recreationPk) => {
   const { mutate: teamRecreationMutation } = useMutation(
     (paylod) => teamAPI.recreaitonCreate(paylod, userToken),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries(['team', recreationPk, 'recreation']);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => {},
     },
   );
 

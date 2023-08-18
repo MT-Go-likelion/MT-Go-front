@@ -231,7 +231,6 @@ const ShoppingTable = ({ data, setShoppingItems, selectedSpace, setSelectedSpace
         price: parseInt(price, 10),
       };
       setShoppingItems((prevItems) => [...prevItems, newItem]);
-      console.log(item, amount, price);
     }
     setCreatePopupVisible(false);
   };

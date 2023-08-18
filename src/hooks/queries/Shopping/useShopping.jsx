@@ -7,12 +7,8 @@ const useShopping = (token) => {
   const { mutate: shoppingMutation } = useMutation(
     (payload) => shoppingAPI.create(payload, token),
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
+      onSuccess: () => {},
+      onError: () => {},
     },
   );
 

@@ -1,5 +1,5 @@
 // TeamSpacePopup.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import Submitbutton from '../../Button/SubmitButton';
@@ -133,8 +133,6 @@ const TeamSpaceJoinPopup = ({ handlePopupClose }) => {
   const [teamToken, onChangeTeamToken] = useInput();
   const { teamJoinMutation } = useTeam(user ? user.token : '');
   const [visible, setVisible] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSize);
-  console.log(isMobile);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -153,17 +151,6 @@ const TeamSpaceJoinPopup = ({ handlePopupClose }) => {
     }, 500);
   };
 
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= mobileSize);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
   return (
     <PopupBackground visible={visible}>
       <PopupContainer>

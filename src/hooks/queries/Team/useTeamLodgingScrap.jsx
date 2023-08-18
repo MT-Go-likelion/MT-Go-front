@@ -10,9 +10,7 @@ const useTeamLodgingScrap = (userToken, lodgingPk) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['team', lodgingPk, 'lodging']);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => {},
     },
   );
 

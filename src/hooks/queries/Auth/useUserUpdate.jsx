@@ -9,9 +9,7 @@ const useUserUpdate = (id) => {
     onMutate: (newData) => {
       queryClient.setQueryData(['user'], { ...previousData, name: newData });
     },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: () => {},
   });
 
   const { mutate: userDeleteMutation } = useMutation(
@@ -19,12 +17,8 @@ const useUserUpdate = (id) => {
       return authAPI.delete(id);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
+      onSuccess: () => {},
+      onError: () => {},
     },
   );
   return { userUpdateMutation, userDeleteMutation };

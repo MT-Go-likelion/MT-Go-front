@@ -10,9 +10,7 @@ const useSuggestion = (token) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['suggestion']);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => {},
     },
   );
 

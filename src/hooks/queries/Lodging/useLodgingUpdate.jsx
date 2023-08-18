@@ -5,12 +5,8 @@ const useLodgingUpdate = (pk) => {
   const { mutate: lodgingUpdateMutation } = useMutation(
     (payload) => lodgingAPI.update(payload, pk),
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
+      onSuccess: () => {},
+      onError: () => {},
     },
   );
 

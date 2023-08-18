@@ -269,6 +269,7 @@ const Shopping = () => {
                       name={options.name}
                       price={options.price}
                       onCardClick={handleComplete}
+                      img={options.img}
                     />
                   ) : (
                     <ShoppingCard

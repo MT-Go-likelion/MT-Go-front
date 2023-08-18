@@ -311,7 +311,7 @@ const MyPage = () => {
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [suggestionModalOpen, setSuggestionModalOpen] = useState(false);
   const [isDeleteUserPopupVisible, setIsDeleteUserPopupVisible] = useState(false);
-  const { userUpdateMutation, userDeleteMutation } = useUserUpdate(user.pk);
+  const { userDeleteMutation } = useUserUpdate(user.pk);
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= mobileSize);
@@ -339,7 +339,6 @@ const MyPage = () => {
     setSuggestionModalOpen(true);
   };
 
-  console.log(userUpdateMutation);
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 

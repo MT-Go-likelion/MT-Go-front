@@ -7,23 +7,17 @@ const useTeam = (token = '') => {
   const teamQuery = useQuery(['teams'], () => teamAPI.list(token));
 
   const { mutate: teamJoinMutation } = useMutation((payload) => teamAPI.join(payload, token), {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       queryClient.invalidateQueries(['teams']);
     },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: () => {},
   });
 
   const { mutate: teamMutation } = useMutation((name) => teamAPI.create(name, token), {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       queryClient.invalidateQueries(['teams']);
     },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: () => {},
   });
 
   const { mutate: teamDeleteMutation } = useMutation(
@@ -31,12 +25,8 @@ const useTeam = (token = '') => {
       return teamAPI.delete(userToken, teamToken);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
+      onSuccess: () => {},
+      onError: () => {},
     },
   );
 

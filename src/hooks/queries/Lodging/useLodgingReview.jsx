@@ -18,9 +18,7 @@ const useLodgingReview = (token, id, page = 1) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['lodging', page, 'reviews']);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => {},
     },
   );
 
@@ -30,9 +28,7 @@ const useLodgingReview = (token, id, page = 1) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['lodging', page, 'reviews']);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => {},
     },
   );
 

@@ -7,13 +7,10 @@ const useTeamShoppingCreation = (userToken) => {
   const { mutate: teamShoppingMutation } = useMutation(
     (paylod) => teamAPI.shoppingCreate(paylod, userToken),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         queryClient.invalidateQueries(['team', 'shopping']);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: () => {},
     },
   );
 

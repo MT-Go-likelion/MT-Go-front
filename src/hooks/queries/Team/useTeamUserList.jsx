@@ -11,12 +11,8 @@ const useTeamUserList = (userToken, teamToken = {}) => {
       return teamAPI.userDelete(userToken, teamToken);
     },
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
+      onSuccess: () => {},
+      onError: () => {},
     },
   );
 

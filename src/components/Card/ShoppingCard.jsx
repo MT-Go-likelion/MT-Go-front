@@ -170,8 +170,6 @@ const ShoppingCard = ({ name, price, onCardClick, img }) => {
 
   const handlePopupClose = () => {
     setIspopupVisivle(false);
-
-    console.log('닫기버튼');
   };
 
   useEffect(() => {

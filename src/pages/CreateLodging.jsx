@@ -176,8 +176,6 @@ const CreateLodging = () => {
     const nowImgURLList = [...myImage];
     const nowFormImgList = [...photos];
 
-    console.log(nowImgURLList, '미리보기 파일 배열');
-
     const nowImageUrl = URL.createObjectURL(nowSelectImageList[0]);
     const newFormImg = nowSelectImageList[0];
 

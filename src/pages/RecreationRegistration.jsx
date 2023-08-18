@@ -127,10 +127,10 @@ const RecreationRegistration = () => {
 
   // 에디터 등록 시 에디터 내용 HTML or Markdown 형식으로 변환
   const onhandleRegisterButton = () => {
-    // 입력창에 입력한 내용을 HTML 태그 형태로 취득
-    console.log(editorRef.current?.getInstance().getHTML());
-    // 입력창에 입력한 내용을 MarkDown 형태로 취득
-    console.log(editorRef.current?.getInstance().getMarkdown());
+    // // 입력창에 입력한 내용을 HTML 태그 형태로 취득
+    // console.log(editorRef.current?.getInstance().getHTML());
+    // // 입력창에 입력한 내용을 MarkDown 형태로 취득
+    // console.log(editorRef.current?.getInstance().getMarkdown());
   };
 
   const onSubmitRecreation = (e) => {
