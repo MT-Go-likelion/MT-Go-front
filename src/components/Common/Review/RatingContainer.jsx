@@ -32,10 +32,11 @@ const ReviewText = styled.span`
 `;
 
 const RatingContainer = ({ score }) => {
+  console.log(score);
   return (
     <ReviewContainer>
       <Star src={star} />
-      <ReviewText>{score}</ReviewText>
+      <ReviewText>{typeof score === 'number' ? score.toFixed(1) : score}</ReviewText>
     </ReviewContainer>
   );
 };
