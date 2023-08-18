@@ -18,29 +18,29 @@ import useUserUpdate from '../hooks/queries/Auth/useUserUpdate';
 import { useSignOut } from '../hooks/queries/Auth/useSignOut';
 import UserDeletePopup from '../components/Popup/Mypage/UserDeletePopup';
 import ApiCallSuccessPopup from '../components/Common/Popup/ApiCallSuccessPopup';
+import { mobileSize } from '../utils/MediaSize';
 
 const mediaSize = 1030;
 
+const Margin = styled.div`
+  height: 3rem;
+`;
 // 전체 여백
 const Container = styled.div`
   width: 100%;
-  max-width: 1280px;
+  border-top: 2px solid ${COLOR.primary.blue};
+  max-width: 1000px;
   margin: auto;
   display: flex;
-  gap: 2.5rem;
+  gap: 6rem;
   transition: 0.3s;
+
   @media (max-width: ${mediaSize}px) {
     margin: 0 3rem;
     padding: 0 2rem;
   }
-`;
-
-const Hrbar = styled.hr`
-  border: 0.5px solid ${COLOR.primary.blue};
-  margin: 4rem 10rem 0 10rem;
-  transition: 0.3s;
-  @media (max-width: ${mediaSize}px) {
-    margin: 4rem 5rem 0 5rem;
+  @media (max-width: ${mobileSize}px) {
+    border-top: none;
   }
 `;
 
@@ -201,7 +201,8 @@ const Setting = () => {
   return (
     <>
       <ApiCallSuccessPopup success={success} />
-      <Hrbar />
+      <Margin> </Margin>
+
       <Container>
         <TeamspaceDiv>
           <SidebarTopContainer>

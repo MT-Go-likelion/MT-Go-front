@@ -12,8 +12,9 @@ import { mobileSize } from '../../../utils/MediaSize';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  width: 100%;
   align-items: flex-end;
+  gap: 1rem;
   @media (max-width: ${mobileSize}px) {
     width: 100%;
     align-items: center;
@@ -23,7 +24,7 @@ const Border = styled.div`
   border-top: 2px solid ${COLOR.primary.blue};
   border-bottom: 2px solid ${COLOR.primary.blue};
   margin: 0 auto;
-  width: 50rem;
+  width: 42rem;
   height: 100%;
 
   padding: 0.5rem 3rem 0.7rem 3rem;
@@ -93,7 +94,7 @@ const EditButton = styled.button`
     color: ${COLOR.white};
   }
   @media (max-width: ${mobileSize}px) {
-    height: 100%;
+    height: 1.7rem;
     width: 6.5rem;
     color: ${COLOR.black};
   }
