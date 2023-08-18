@@ -6,8 +6,12 @@ const ProtectedRoute = ({ children, requireAdmin }) => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']);
 
-  if (!user || (requireAdmin && user && !user.isStaff)) {
+  if (requireAdmin && user && !user.isStaff) {
     return <Navigate to="/" replace />;
+  }
+
+  if (!user) {
+    return <Navigate to="/signin" replace />;
   }
 
   return children;
