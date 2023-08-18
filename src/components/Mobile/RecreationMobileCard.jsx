@@ -38,7 +38,7 @@ const BackImg = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 6px;
-  background-image: ${(props) => `url(${props.datasrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
   background-position: center;
 `;
