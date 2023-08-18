@@ -184,8 +184,12 @@ const BestlocationCard = ({ pk, name, mainPhoto, avgScore, isScrap, lowWeekdayPr
             <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
           </BackDiv>
           <Title>{name}</Title>
+          <BackDiv $datasrc={BASE_URL + mainPhoto}>
+            <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
+          </BackDiv>
+          <Title>{name}</Title>
           <Flexdirection>
-            <Price>1박 {formatPrice(lowWeekdayPrice)}원</Price>
+            <Price>1박 {price}원</Price>
             <Flex>
               <BlueStar src={Star} />
               <Score>{typeof avgScore === 'number' ? avgScore.toFixed(1) : avgScore}</Score>
