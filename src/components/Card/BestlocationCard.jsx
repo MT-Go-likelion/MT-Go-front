@@ -27,6 +27,7 @@ const BestLoContainer = styled.div`
   @media (max-width: ${mobileSize}px) {
     width: 120px;
     height: 159px;
+    padding: 0;
   }
 `;
 
