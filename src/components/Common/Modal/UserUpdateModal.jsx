@@ -38,6 +38,8 @@ const ModalBackdrop = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 999;
+
   @media (max-width: ${mobileSize}px) {
     background: none;
     align-items: flex-end;
@@ -54,6 +56,7 @@ const ModalContainter = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   @media (max-width: ${mobileSize}px) {
     background-color: ${COLOR.white};
     padding: 1rem;
