@@ -163,7 +163,11 @@ const LodgingDetailReview = ({ lodging }) => {
                     {!isMobile ? (
                       <div>
                         <DateText>{review.createdAt}</DateText>
-                        <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>삭제하기</DeleteBtn>
+                        {review.userName === user.name && (
+                          <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>
+                            삭제하기
+                          </DeleteBtn>
+                        )}
                       </div>
                     ) : (
                       <FlexDiv>
