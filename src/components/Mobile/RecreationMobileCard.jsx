@@ -37,9 +37,8 @@ const BackContainer = styled.div`
 const BackImg = styled.div`
   width: 100px;
   height: 100px;
-  background-color: ${COLOR.blue};
   border-radius: 6px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
   background-position: center;
 `;
