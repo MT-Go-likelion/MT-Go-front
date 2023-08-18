@@ -124,7 +124,6 @@ const Flex = styled.div`
   overflow-x: auto;
   gap: 2rem;
   padding-bottom: 1rem;
-  padding: 4px;
 `;
 
 // 팀스페이스 버튼
