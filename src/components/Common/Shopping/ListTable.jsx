@@ -191,7 +191,7 @@ const ListTable = ({ data, setShoppingItems }) => {
                   {editHandle === true ? (
                     <EditInput
                       name="item"
-                      value={item.item}
+                      value={item.item || ''}
                       onChange={(e) => handleInputChange(e, item)}
                     />
                   ) : (
@@ -202,7 +202,7 @@ const ListTable = ({ data, setShoppingItems }) => {
                   {editHandle === true ? (
                     <EditInput
                       name="amount"
-                      value={item.amount}
+                      value={item.amount || ''}
                       onChange={(e) => handleInputChange(e, item)}
                     />
                   ) : (
@@ -213,7 +213,7 @@ const ListTable = ({ data, setShoppingItems }) => {
                   {editHandle === true ? (
                     <EditInput
                       name="price"
-                      value={item.price}
+                      value={item.price || ''}
                       onChange={(e) => handleInputChange(e, item)}
                     />
                   ) : (
