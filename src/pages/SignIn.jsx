@@ -19,7 +19,7 @@ const SignInLayout = styled.div`
   margin: auto;
   overflow: hidden;
   @media (max-width: ${mobileSize}px) {
-    background-image: ${(props) => `url(${props.dataSrc})`};
+    background-image: ${(props) => `url(${props.$datasrc})`};
     background-size: cover;
     min-height: 844px;
     z-index: 99;
@@ -85,7 +85,7 @@ const SignIn = () => {
     };
   }, []);
   return (
-    <SignInLayout dataSrc={SigninMobile}>
+    <SignInLayout $datasrc={SigninMobile}>
       {isMobile && (
         <MobileBackWave
           src={SigninMovileWaveMove}

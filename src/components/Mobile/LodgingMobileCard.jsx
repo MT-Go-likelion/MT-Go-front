@@ -26,7 +26,7 @@ const BackDiv = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 6px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
   background-position: center;
 `;
@@ -126,7 +126,7 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap }) => 
         </Flex>
         <Price>1박 {price} 원</Price>
       </Flexdirection>
-      <BackDiv dataSrc={BASE_URL + mainPhoto}>
+      <BackDiv $datasrc={BASE_URL + mainPhoto}>
         <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
       </BackDiv>
     </BestLoContainer>

@@ -19,7 +19,7 @@ const BackImg = styled.div`
   position: relative;
   width: 160px;
   height: 240px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
   border-radius: 20px;
   @media (max-width: ${mobileSize}px) {
@@ -69,7 +69,7 @@ const BagCard = ({ options }) => {
 
   return (
     <BestLoContainer>
-      <BackImg dataSrc={options && options.img}>
+      <BackImg $datasrc={options && options.img}>
         <Bagbtn src={bag} alt="Bag" onClick={onClickCard} />
       </BackImg>
       <Title>{options && options.name}</Title>

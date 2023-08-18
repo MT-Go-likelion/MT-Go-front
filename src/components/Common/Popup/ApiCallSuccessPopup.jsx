@@ -16,13 +16,13 @@ const Popup = styled.div`
   border-radius: 1rem;
   font-size: 1rem;
   z-index: 9999;
-  opacity: ${(props) => (props.success ? 1 : 0)};
-  transform: ${(props) => (props.success ? 'translateY(-3rem)' : 'none')};
+  opacity: ${(props) => (props.$success ? 1 : 0)};
+  transform: ${(props) => (props.$success ? 'translateY(-3rem)' : 'none')};
   transition: all 0.3s ease-in-out;
 `;
 
 const ApiCallSuccessPopup = ({ success }) => {
-  return <Popup success={success}>{success}</Popup>;
+  return <Popup $success={success}>{success}</Popup>;
 };
 
 export default ApiCallSuccessPopup;

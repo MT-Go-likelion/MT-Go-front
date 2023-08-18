@@ -32,7 +32,7 @@ const BackImg = styled.div`
   height: 180px;
   background-color: ${COLOR.blue};
   border-radius: 20px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
   margin: 0;
   @media (max-width: ${mobileSize}px) {
@@ -184,7 +184,7 @@ const ShoppingCard = ({ name, price, onCardClick, img }) => {
     <div>
       {!isMobile ? (
         <BestLoContainer>
-          <BackImg dataSrc={img} />
+          <BackImg $datasrc={img} />
           <FlexDiv>
             <Name>{name}</Name>
             <Price>{formatPrice(price)}원</Price>

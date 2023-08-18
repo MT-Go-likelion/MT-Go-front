@@ -213,7 +213,7 @@ const Main = () => {
         </Divstyled>
         <Flexdiv>
           {limitedShoppingItems.map((options) => (
-            <BagCard options={options} />
+            <BagCard key={options.TagId} options={options} />
           ))}
         </Flexdiv>
         <Title>추천 레크레이션</Title>
@@ -236,12 +236,6 @@ const Main = () => {
                 isScrap={recreation.isScrap}
               />
             ))}
-
-          <RecreationCard />
-          <RecreationCard />
-          <RecreationCard />
-          <RecreationCard />
-          <RecreationCard />
         </Flexdiv>
       </ContentLayout>
     </>

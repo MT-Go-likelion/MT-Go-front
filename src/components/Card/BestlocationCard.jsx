@@ -27,7 +27,7 @@ const BackDiv = styled.div`
   position: relative;
   width: 240px;
   height: 320px;
-  background-image: ${(props) => `url(${props.dataSrc})`};
+  background-image: ${(props) => `url(${props.$datasrc})`};
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -37,7 +37,7 @@ const BackDiv = styled.div`
     border-radius: 6px;
   }
 `;
-// background-image: ${(props) => `url(${props.dataSrc})`};
+// background-image: ${(props) => `url(${props.$datasrc})`};
 // background-color: ${COLOR.blue};
 //
 // background-position: center;
@@ -188,13 +188,13 @@ const BestlocationCard = ({ pk, name, price, mainPhoto, avgScore, isScrap, lowWe
             </Flex>
             <Price>1박 {price}원</Price>
           </Flexdirection>
-          <BackDiv dataSrc={BASE_URL + mainPhoto}>
+          <BackDiv $datasrc={BASE_URL + mainPhoto}>
             <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
           </BackDiv>
         </BestLoContainer>
       ) : (
         <BestLoContainer onClick={handleCardClick}>
-          <BackDiv dataSrc={BASE_URL + mainPhoto}>
+          <BackDiv $datasrc={BASE_URL + mainPhoto}>
             <LikeButton src={liked ? SelectHeart : Heart} alt="Like" onClick={handlelikeClick} />
           </BackDiv>
 
