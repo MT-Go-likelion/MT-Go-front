@@ -106,7 +106,6 @@ const TeamButton = styled.img`
 
 const LodgingDetailHeader = ({ lodging }) => {
   const { pk, name, mainPhoto, photos, avgScore, isScrap } = lodging;
-  console.log(avgScore);
 
   const [IspopupVisivle, setIspopupVisivle] = useState(false);
   const [isLiked, setIsLiked] = useState(isScrap);

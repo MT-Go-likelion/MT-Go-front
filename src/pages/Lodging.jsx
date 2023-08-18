@@ -206,10 +206,10 @@ const Lodging = () => {
           </>
         ) : (
           <BoxFlex>
-            <Location />
-            <Headcount />
-            <Price />
-            <SearchBtnMobile> </SearchBtnMobile>
+            <Location place={place} onChangePlace={onChangePlace} />
+            <Headcount count={count} onChangeCount={onChangeCount} />
+            <Price price={price} onChangePrice={onChangePrice} />
+            <SearchBtnMobile onClick={handleSearch}> </SearchBtnMobile>
           </BoxFlex>
         )}
       </SearchBack>
@@ -217,7 +217,7 @@ const Lodging = () => {
       <ContentsDiv>
         {lodgings &&
           lodgings.results.map((obj) => (
-            <div>
+            <div key={obj.pk}>
               {isMobile ? (
                 <LodgingMobileCard
                   key={obj.pk}

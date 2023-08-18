@@ -32,7 +32,6 @@ const ReviewText = styled.span`
 `;
 
 const RatingContainer = ({ score }) => {
-  console.log(score);
   return (
     <ReviewContainer>
       <Star src={star} />

@@ -43,7 +43,7 @@ export default function ImageSwiper({ mainPhoto, photos }) {
 
       {photos &&
         photos.map((photo) => (
-          <SwiperSlide>
+          <SwiperSlide key={photo.pk}>
             <SwiperImg src={photo.image} alt="slider" />
           </SwiperSlide>
         ))}
