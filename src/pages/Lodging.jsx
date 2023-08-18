@@ -154,7 +154,7 @@ const Lodging = () => {
 
   const handleSearch = () => {
     const splitCount = count.split('~');
-    const splitPrice = price.split('~');
+    const splitPrice = price.split('~').map((price) => `${price}0000`);
     setPage(1);
     navigate('/lodging', {
       state: {

@@ -7,8 +7,11 @@ import { mobileSize } from '../../utils/MediaSize';
 const OPTION = [
   { value: '', name: '가격' },
   { value: '10~20', name: '10~20만원' },
-  { value: '20~30', name: '20-30만원' },
+  { value: '20~30', name: '20~30만원' },
   { value: '30~40', name: '30~40만원' },
+  { value: '40~50', name: '40~50만원' },
+  { value: '50~60', name: '50~60만원' },
+  { value: '60~70', name: '60~70만원' },
 ];
 
 const StyledSelect = styled.select`

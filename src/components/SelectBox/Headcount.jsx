@@ -8,6 +8,8 @@ const OPTION = [
   { value: '10~20', name: '10~20명' },
   { value: '20~30', name: '20~30명' },
   { value: '30~40', name: '30~40명' },
+  { value: '40~50', name: '40~50명' },
+  { value: '50~60', name: '50~60명' },
 ];
 
 const StyledSelect = styled.select`
