@@ -163,7 +163,7 @@ const LodgingDetailReview = ({ lodging }) => {
                     {!isMobile ? (
                       <div>
                         <DateText>{review.createdAt}</DateText>
-                        {review.userName === user.name && (
+                        {user && review.userName === user.name && (
                           <DeleteBtn onClick={() => onClickDeleteBtn(review.pk)}>
                             삭제하기
                           </DeleteBtn>
