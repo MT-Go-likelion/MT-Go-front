@@ -14,9 +14,16 @@ import { formatPrice } from '../../utils/formatPrice';
 import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
 
 const BestLoContainer = styled.div`
-  width: 240px;
-  height: 400px;
+  width: 280px;
+  height: 440px;
   cursor: pointer;
+  padding: 19px 20px;
+  border-radius: 16px;
+  transition: 0.3s;
+
+  &:hover {
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  }
   @media (max-width: ${mobileSize}px) {
     width: 120px;
     height: 159px;

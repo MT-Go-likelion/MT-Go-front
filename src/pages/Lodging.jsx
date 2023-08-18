@@ -55,7 +55,7 @@ const ContentsDiv = styled.div`
   gap: 2rem;
   width: 100%;
   justify-content: center;
-  max-width: 1280px;
+  max-width: 1440px;
   margin: auto;
   @media (max-width: ${mobileSize}px) {
     padding: 2rem 0 7rem 0;

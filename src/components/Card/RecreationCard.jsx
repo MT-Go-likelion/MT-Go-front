@@ -14,8 +14,15 @@ import ApiCallSuccessPopup from '../Common/Popup/ApiCallSuccessPopup';
 const mobileSize = 450;
 
 const BestLoContainer = styled.div`
-  width: 240px;
-  height: 450px;
+  width: 280px;
+  height: 480px;
+  padding: 19px 20px;
+  border-radius: 16px;
+  transition: 0.3s;
+
+  &:hover {
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  }
   @media (max-width: ${mobileSize}px) {
     width: 120px;
     height: 154px;
@@ -43,7 +50,7 @@ const BackImg = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-4  background-size: cover;
+  background-size: cover;
   background-position: center;
   background-image: ${(props) => `url(${props.$datasrc})`};
 
@@ -134,7 +141,7 @@ const Flex = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin: 17px 10px 10px 10px;
+  margin: 17px 0 0 15px;
   @media (max-width: ${mobileSize}px) {
     gap: 0;
     margin: 0;
