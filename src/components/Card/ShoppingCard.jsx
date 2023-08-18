@@ -30,7 +30,6 @@ const BackImg = styled.div`
   position: relative;
   width: 200px;
   height: 180px;
-  background-color: ${COLOR.blue};
   border-radius: 20px;
   background-image: ${(props) => `url(${props.$datasrc})`};
   background-size: cover;
@@ -200,7 +199,7 @@ const ShoppingCard = ({ name, price, onCardClick, img }) => {
         </BestLoContainer>
       ) : (
         <BestLoContainer onClick={HandlePopup}>
-          <BackImg> </BackImg>
+          <BackImg $datasrc={img} />
           <FlexDiv>
             <Name>{name}</Name>
             <Price>{formatPrice(price)}원</Price>
