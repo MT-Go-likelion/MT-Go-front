@@ -33,21 +33,6 @@
 
 ## 🧑🏻‍💻 팀원 소개
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><a href="https://github.com/cychann"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/4a85bce2-f144-44ea-a14b-11d80cf72cd1"width="100px;" alt=""/><br /><sub><b>FE : 최유찬</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/minjeoong"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/c72ed3a8-c0e3-4baf-bb13-60fe9c84e156" width="100px;" alt=""/><br /><sub><b>FE : 김민정</b></sub></a><br /></td>
-     <tr/>
-      <td align="center"><a href="https://github.com/eraser502"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/85c75c89-0f87-4262-992c-bfe6b0e990a0" width="100px;" alt=""/><br /><sub><b>BE : 김도훈</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Kim-Yul"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/62316c34-6aeb-482e-b72c-124344e7b508" width="100px;" alt=""/><br /><sub><b>BE : 김유림</b></sub></a><br /></td>
-       <tr/>
-      <td align="center"><a href=""><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/465e029c-c021-468f-bcdd-d99a7b83c798" width="100px;" alt=""/><br /><sub><b>기획 : 남윤 </b></sub></a><br /></td>
-       <td align="center"><a href=""><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/d2d901f7-68f2-40df-ab8e-3453c8dba09f" width="100px;" alt=""/><br /><sub><b>디자인 : 문나라</b></sub></a><br /></td>
-    </tr>
-  </tbody>
-</table>
-
 |                                                      FE                                                       |                                                                     FE                                                                     |                                                                     BE                                                                     |                                                                     BE                                                                     |                                                                    기획                                                                    |                                                                     디자인                                                                      |
 | :-----------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: |
 | ![avatar](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/899e0a4c-dc3f-4225-a55c-2eb486c87da8) | ![KakaoTalk_Image_2023-08-19-21-08-13](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/9cbc3538-a162-4f50-904e-4ed1e133e780) | ![KakaoTalk_Image_2023-08-19-21-08-05](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/041760b1-13b0-40ef-a543-f119e5b019e3) | ![KakaoTalk_Image_2023-08-19-21-08-30](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/3d3fa56d-0b59-47a8-813b-1c3fc0b65c6c) | ![KakaoTalk_Image_2023-08-19-21-08-26](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/d2d7fd2e-7434-4777-a0b2-23f380cc157c) | ![스크린샷 2023-08-19 오후 9 10 39](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/b0c738b7-52b2-485e-8794-2befd262e105) |
