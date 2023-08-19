@@ -42,8 +42,8 @@
       <td align="center"><a href="https://github.com/eraser502"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/85c75c89-0f87-4262-992c-bfe6b0e990a0" width="100px;" alt=""/><br /><sub><b>BE : 김도훈</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/Kim-Yul"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/62316c34-6aeb-482e-b72c-124344e7b508" width="100px;" alt=""/><br /><sub><b>BE : 김유림</b></sub></a><br /></td>
        <tr/>
-      <td align="center"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/465e029c-c021-468f-bcdd-d99a7b83c798" width="100px;" alt=""/><br /><sub><b>기획 : 남윤 </b></sub></a><br /></td>
-       <td align="center"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/d2d901f7-68f2-40df-ab8e-3453c8dba09f" width="100px;" alt=""/><br /><sub><b>디자인 : 문나라</b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/465e029c-c021-468f-bcdd-d99a7b83c798" width="100px;" alt=""/><br /><sub><b>기획 : 남윤 </b></sub></a><br /></td>
+       <td align="center"><a href=""><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/d2d901f7-68f2-40df-ab8e-3453c8dba09f" width="100px;" alt=""/><br /><sub><b>디자인 : 문나라</b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>
