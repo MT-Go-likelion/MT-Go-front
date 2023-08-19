@@ -39,8 +39,50 @@
 
 ## 📚 주요 기능
 
-1. 로그인 / 회원가입
-   <p align="center" width="100%">
-      <img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/ad318587-12e1-4311-a21a-35731c2b7b94" width="50%">
-       <img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/ea7adecc-2f99-4b65-ac09-ed74e349f811" width="50%">
+1. 로그인 / 회원가입 - Token 인증 방식
+   <p align="center">
+      <img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/ad318587-12e1-4311-a21a-35731c2b7b94" align="center" width="45%">
+       <img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/ea7adecc-2f99-4b65-ac09-ed74e349f811"align="center"  width="45%">
    </p>
+
+2. 메인 페이지 - 인기순으로 숙소, 장보기 목록, 레크레이션 리스트들을 제공
+
+![ezgif com-video-to-gif](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/b65328f2-4a64-462e-b4ce-95d116794b71)
+
+3. 숙소 리스트 페이지 - 페이지네이션 적용, 지역/가격/인원 카테고리 검색 기능, 스크랩 기능
+
+![ezgif com-video-to-gif (1)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/8db53828-1077-4f04-9f5c-b66d7cc5eb7e)
+
+3. 숙소 상세 페이지 - 숙소 상세 정보들 제공, 리뷰 작성 기능
+
+![ezgif com-video-to-gif (2)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/2d54cbc6-1a50-4678-a18f-93ff6e85ab7f)
+
+4. 레크레이션 리스트 및 상세 페이지 - 페이지네이션 적용, 스크랩 기능
+
+![ezgif com-video-to-gif (3)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/2565e549-574f-4421-b946-28f6651970d7)
+
+5. 장보기 페이지 - 기본 제공 목록 + 사용자 정의 목록 -> 금액, 수량 수정 가능
+
+![ezgif com-video-to-gif (4)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/3683f48a-22f8-46bd-ba28-31cd8e4fff1c)
+
+6. 마이페이지 - 숙소, 레크레이션 스크랩 목록 및 개인 장보기 목록 확인 기능 / 회원정보 수정 및 탈퇴
+
+![ezgif com-video-to-gif (5)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/58f2525d-d75f-461e-becf-77cd1e31f70c)
+
+7. 팀스페이스 (공동 작업 공간) - 여러 사람이 함께 숙소, 레크레이션, 장보기 목록을 한 곳에서 관리하며 MT를 기획할 수 있는 기능입니다.
+
+- 팀스페이스 생성 및 참여 -> 해당 팀스페이스의 코드를 복사해 공유하여 참여하도록 할 수 있습니다.
+
+![ezgif com-video-to-gif (6)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/891bcc5a-3017-4a32-9935-d1c0b9eb9ded)
+
+- 팀스페이스에 숙소, 레크레이션 추가 -> 현재 참여하고 있는 팀스페이스 목록과, 팀스페이스 스크랩 여부를 확인할 수 있고 추가할 수 있습니다.
+
+![ezgif com-video-to-gif (7)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/e5454fa3-d352-4a2e-85c4-626ae1d847a6)
+
+- 팀스페이스에 장보기 목록 추가 -> 장보기 목록에서 팀스페이스 목록을 보여주고, 만약 팀스페이스에 물품 목록이 있으면 정보를 가져와 리스트를 보여줍니다. 해당 공간에서 작업하고 추가하면 팀스페이스 장보기 목록에 추가됩니다.
+
+![ezgif com-video-to-gif (8)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/8ff063d4-7578-441c-9aaa-f8d30199c13b)
+
+8. 반응형 구현 (모바일 화면)
+
+![ezgif com-video-to-gif (9)](https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/66346eaf-0976-4242-95aa-35eedc2e61d5)
