@@ -33,10 +33,20 @@
 
 ## 🧑🏻‍💻 팀원 소개
 
-| 이름          | 역할                                                                                                                                       |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| 최유찬 &nbsp; | 프론트엔드에서 백엔드로의 api 통신과 데이터 연결 / api 통신과 연결되는 주요 기능들 구현 / PC 버전 UI 개발 / 컴포넌트 및 디렉토리 구조 설계 |
-| 김민정        |                                                                                                                                            |
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/cychann"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/4a85bce2-f144-44ea-a14b-11d80cf72cd1"width="100px;" alt=""/><br /><sub><b>FE : 최유찬</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/minjeoong"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/c72ed3a8-c0e3-4baf-bb13-60fe9c84e156" width="100px;" alt=""/><br /><sub><b>FE : 김민정</b></sub></a><br /></td>
+     <tr/>
+      <td align="center"><a href="https://github.com/eraser502"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/85c75c89-0f87-4262-992c-bfe6b0e990a0" width="100px;" alt=""/><br /><sub><b>BE : 김도훈</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Kim-Yul"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/62316c34-6aeb-482e-b72c-124344e7b508" width="100px;" alt=""/><br /><sub><b>BE : 김유림</b></sub></a><br /></td>
+       <tr/>
+      <td align="center"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/465e029c-c021-468f-bcdd-d99a7b83c798" width="100px;" alt=""/><br /><sub><b>기획 : 남윤 </b></sub></a><br /></td>
+       <td align="center"><img src="https://github.com/MT-Go-likelion/MT-Go-front/assets/66055587/d2d901f7-68f2-40df-ab8e-3453c8dba09f" width="100px;" alt=""/><br /><sub><b>디자인 : 문나라</b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
 ## 📚 주요 기능
 
