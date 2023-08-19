@@ -19,6 +19,7 @@ import Loading from './Loading';
 import LodgingMap from '../components/Map/LodgingMap';
 import COLOR from '../constants/color';
 import { mobileSize } from '../utils/MediaSize';
+import { formatPrice } from '../utils/formatPrice';
 
 const mediaSize = 1150;
 
@@ -278,10 +279,10 @@ const LodgingDetail = () => {
                     <div>
                       <DetailTitle>숙박요금</DetailTitle>
                       <LodgingDetailPricetable
-                        peakWeekendPrice={lodgingDetail.peakWeekendPrice}
-                        peakWeekdayPrice={lodgingDetail.peakWeekdayPrice}
-                        lowWeekendPrice={lodgingDetail.lowWeekendPrice}
-                        lowWeekdayPrice={lodgingDetail.lowWeekdayPrice}
+                        peakWeekendPrice={formatPrice(lodgingDetail.peakWeekendPrice)}
+                        peakWeekdayPrice={formatPrice(lodgingDetail.peakWeekdayPrice)}
+                        lowWeekendPrice={formatPrice(lodgingDetail.lowWeekendPrice)}
+                        lowWeekdayPrice={formatPrice(lodgingDetail.lowWeekdayPrice)}
                       />
                     </div>
                     <FlexDiv>
@@ -313,7 +314,7 @@ const LodgingDetail = () => {
                 )}
                 {activeButton === 'map' && (
                   <div>
-                    <LodgingMap />
+                    <LodgingMap address={lodgingDetail.address} />
                   </div>
                 )}
                 {activeButton === 'review' && <LodgingDetailReview lodging={lodgingDetail} />}
